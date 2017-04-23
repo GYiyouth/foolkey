@@ -6,8 +6,8 @@
 
     <!--domain层的主要VO们-->
 
-    <bean id="testVO" class="pojo.vo.TestVO"/>
+    <bean id="testVO" class="foolkey.pojo.vo.TestVO"/>
 
     <!--开启自动扫描-->
-    <context:component-scan base-package="pojo.vo"/>
+    <context:component-scan base-package="foolkey.pojo.vo"/>
 </beans>

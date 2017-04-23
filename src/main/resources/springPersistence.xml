@@ -18,7 +18,7 @@
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
           p:dataSource-ref="dataSource">
         <!--自动扫描pojo文件夹下带有注解的类-->
-        <property name="packagesToScan" value="pojo"/>
+        <property name="packagesToScan" value="foolkey.pojo"/>
         <!--annotatedClass用来列出所有的持久化类-->
         <property name="annotatedClasses">
             <list>

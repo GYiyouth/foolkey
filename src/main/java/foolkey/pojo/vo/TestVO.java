@@ -1,7 +1,7 @@
-package pojo.vo;
+package foolkey.pojo.vo;
 
 import org.springframework.stereotype.Component;
-import tool.BeanFactory;
+import foolkey.tool.BeanFactory;
 
 /**
  * Created by geyao on 2017/3/9.

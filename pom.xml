@@ -10,7 +10,7 @@
 
     <properties>
         <!--工程名-->
-        <appName>SSHTemplate</appName>
+        <appName>foolkey</appName>
         <!--指定编码与JDK版本-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -57,19 +57,8 @@
           <scope>test</scope>
         </dependency>
 
-        <!-- 添加SSH依赖 -->
-        <!-- Struts2 -->
-        <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-core</artifactId>
-            <version>${struts2.version}</version>
-        </dependency>
+        <!-- 添加SSM依赖 -->
 
-        <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-spring-plugin</artifactId>
-            <version>${struts2-spring-plugin}</version>
-        </dependency>
 
         <!--hibernate5支持-->
         <dependency>
@@ -129,6 +118,33 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+
+
 
         <!--EhCache-Spring缓存机制需要下面2个依赖-->
         <dependency>

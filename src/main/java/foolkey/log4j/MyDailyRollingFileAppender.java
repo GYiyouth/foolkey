@@ -1,4 +1,4 @@
-package log4j;
+package foolkey.log4j;
 
 import org.apache.log4j.*;
 

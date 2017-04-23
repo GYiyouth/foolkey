@@ -1,4 +1,4 @@
-package tool;
+package foolkey.tool;
 
 
 import net.sf.json.JSONObject;

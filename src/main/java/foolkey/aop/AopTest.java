@@ -1,4 +1,4 @@
-package aop;
+package foolkey.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Before;
  */
 @Aspect
 public class AopTest {
-    @Before("execution(* pojo.vo.TestVO.*(..))")
+    @Before("execution(* foolkey.pojo.vo.TestVO.*(..))")
     public void foo(){
         System.out.println("before");
     }
