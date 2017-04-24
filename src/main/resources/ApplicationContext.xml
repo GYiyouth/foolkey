@@ -16,7 +16,7 @@
 
     <import resource="springAction.xml"/>
     <!--数据库配置好以后，在下面的配置文件中配置一下，然后取消注释-->
-    <!--<import resource="springPersistence.xml"/>-->
+    <import resource="springPersistence.xml"/>
     <import resource="springPojoAssist.xml"/>
     <import resource="springPojoBO.xml"/>
     <import resource="springPojoDAO.xml"/>
