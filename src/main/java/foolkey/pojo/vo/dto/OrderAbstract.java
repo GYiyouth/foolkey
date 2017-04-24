@@ -30,8 +30,8 @@ public class OrderAbstract {
     @Column(name = "exist_time")
     private Date existingTime;
 
-    @Column(name = "student_id")
-    private Long studentId;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "state")
     private OrderStateEnum orderStateEnum;
@@ -44,7 +44,7 @@ public class OrderAbstract {
                 ", createdTime=" + createdTime +
                 ", payTime=" + payTime +
                 ", existingTime=" + existingTime +
-                ", studentId=" + studentId +
+                ", userId=" + userId +
                 ", orderStateEnum=" + orderStateEnum +
                 '}';
     }
@@ -81,12 +81,12 @@ public class OrderAbstract {
         this.existingTime = existingTime;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public OrderStateEnum getOrderStateEnum() {
