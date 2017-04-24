@@ -29,6 +29,7 @@ public class CourseTeacherDTO extends CourseAbstract{
     @Column(name = "average_score")
     private double averageScore;
 
+
     @Override
     public String toString() {
         return "CourseTeacherDTO{" +
