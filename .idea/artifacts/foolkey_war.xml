@@ -2,7 +2,7 @@
   <artifact type="war" name="foolkey:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="foolkey.war">
-      <element id="artifact" artifact-name="S2S4H5Template:war exploded" />
+      <element id="artifact" artifact-name="foolkey:war exploded" />
     </root>
   </artifact>
 </component>

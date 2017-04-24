@@ -45,6 +45,7 @@
         <net.json.version>2.4</net.json.version>
         <c3p0.version>0.9.1.2</c3p0.version>
         <tomcat.classloader.version>2.1.0</tomcat.classloader.version>
+        <commons.codec.version>1.10</commons.codec.version>
     </properties>
 
 
@@ -258,6 +259,17 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec
+             安全机制
+        -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+
+
 
 
 

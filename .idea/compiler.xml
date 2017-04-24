@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="foolkey" />
         <module name="S2S4H5Template" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="foolkey" target="1.8" />
       <module name="S2S4H5Template" target="1.8" />
     </bytecodeTargetLevel>
   </component>

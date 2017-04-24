@@ -16,5 +16,6 @@ public class TestVO {
     public static void main(String[] args) {
         TestVO testVO = BeanFactory.getBean("testVO", TestVO.class);
         testVO.hello();
+
     }
 }
