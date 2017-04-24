@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by geyao on 2017/4/25.
  */
-@Component
+@Component("send_to_client_studentDTO")
 @Entity
 @Table(name = "v_student_safe")
 public class StudentDTO {

@@ -4,10 +4,9 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--domain层的主要VO们-->
-
-    <bean id="testVO" class="foolkey.pojo.root.vo.TestVO"/>
 
     <!--开启自动扫描-->
-    <context:component-scan base-package="foolkey.pojo.root.vo"/>
+    <context:component-scan base-package="foolkey.pojo"/>
+
+
 </beans>
