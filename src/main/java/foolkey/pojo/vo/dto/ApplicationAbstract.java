@@ -30,7 +30,7 @@ public class ApplicationAbstract {
     public String toString() {
         return "ApplicationAbstract{" +
                 "id=" + id +
-                "applicantId" + applicantId +
+                ", applicantId=" + applicantId +
                 ", messageId=" + messageId +
                 ", applyTime=" + applyTime +
                 '}';

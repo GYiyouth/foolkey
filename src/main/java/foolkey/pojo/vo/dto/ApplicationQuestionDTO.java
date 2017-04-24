@@ -17,11 +17,10 @@ public class ApplicationQuestionDTO extends ApplicationAbstract{
 
     @Override
     public String toString() {
-        return "ApplicationQuestionDTO{ " +
-                "questionId = " + questionId +
-                "}";
+        return "ApplicationQuestionDTO{" +
+                "questionId=" + questionId +
+                '}';
     }
-
 
     public Long getQuestionId() {
         return questionId;

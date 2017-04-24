@@ -20,8 +20,8 @@ public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
     @Override
     public String toString() {
         return "ApplicationTeacherCourseDTO{" +
-                "courseTeacherId = " + courseTeacherId +
-                "}";
+                "courseTeacherId=" + courseTeacherId +
+                '}';
     }
 
     public Long getCourseTeacherId() {
