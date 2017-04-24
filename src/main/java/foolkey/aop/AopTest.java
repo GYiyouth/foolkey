@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Before;
  */
 @Aspect
 public class AopTest {
-//    @Before("execution(* foolkey.pojo.vo.TestVO.*(..))")
+//    @Before("execution(* foolkey.pojo.root.vo.TestVO.*(..))")
 //    public void foo(){
 //        System.out.println("before");
 //    }

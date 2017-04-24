@@ -1,8 +1,8 @@
 package foolkey.pojo;
 
-import foolkey.pojo.bo.TestBO;
-import foolkey.pojo.vo.TestVO;
-import foolkey.pojo.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.TestVO;
+import foolkey.pojo.root.vo.dto.ApplicationQuestionDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.BeanFactory;
 
 /**
@@ -20,9 +20,9 @@ public class Test {
         try {
 
 
-            while (i < 1000) {
-                StudentDTO studentDTO = new StudentDTO();
-                testVO.getTestBO().get( i + 8000L);
+            while (i < 10) {
+                ApplicationQuestionDTO a = new ApplicationQuestionDTO();
+                StudentDTO studentDTO = BeanFactory.getBean("studentDTO", StudentDTO.class);
                 i ++ ;
             }
         }catch (Exception e){

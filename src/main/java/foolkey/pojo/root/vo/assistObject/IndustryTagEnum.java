@@ -1,0 +1,8 @@
+package foolkey.pojo.root.vo.assistObject;
+
+/**
+ * Created by geyao on 2017/4/24.
+ */
+public enum IndustryTagEnum {
+    Java, C, 后端, CPlusPlus, 前端
+}
