@@ -30,4 +30,68 @@ public class TransactionUserEarnedMoney {
 
     @Column(name = "create_time")
     private Date createdTime;
+
+    public TransactionUserEarnedMoney() {
+        super();
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionUserEarnedMoney{" +
+                "id=" + id +
+                ", acceptUserId=" + acceptUserId +
+                ", amount=" + amount +
+                ", transactionTypeEnum=" + transactionTypeEnum +
+                ", orderId=" + orderId +
+                ", createdTime=" + createdTime +
+                '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getAcceptUserId() {
+        return acceptUserId;
+    }
+
+    public void setAcceptUserId(Long acceptUserId) {
+        this.acceptUserId = acceptUserId;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public TransactionTypeEnum getTransactionTypeEnum() {
+        return transactionTypeEnum;
+    }
+
+    public void setTransactionTypeEnum(TransactionTypeEnum transactionTypeEnum) {
+        this.transactionTypeEnum = transactionTypeEnum;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
 }
