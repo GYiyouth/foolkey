@@ -167,10 +167,24 @@ public class RSACoder {
         //公钥
         byte[] publicKey=RSACoder.getPublicKey(keyMap);
 
+//        publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIhc9tCPkT9PlOvchhRjVBYBRPcDIploa7E2ND/N0HO7yhfyPYTpXjgTEFFx9DQX9RQ1LrKJt/vBs5/Ibf3osekCAwEAAQ==".getBytes();
         //私钥
         byte[] privateKey=RSACoder.getPrivateKey(keyMap);
-        System.out.println("公钥：/n"+Base64.encodeBase64String(publicKey));
-        System.out.println("私钥：/n"+Base64.encodeBase64String(privateKey));
+//        privateKey = "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAiFz20I+RP0+U69yGFGNUFgFE9wMimWhrsTY0P83Qc7vKF/I9hOleOBMQUXH0NBf1FDUusom3+8Gzn8ht/eix6QIDAQABAkAVTejltrhrmsRagS6VettFQNeEfAHo086Xdi99lGsv2XdDKQkPHPwTfFOpHeYK8fx7StsGa2+P8Zd+EPVSlee9AiEA9+fPGY5hCCqj8IZOvoVMlKyPdg35MO3Yg7YVqjqOTXMCIQCM0MumxabVmmmrhWRJfRa/jqSJyAgQjuttLWssSOKsMwIhAKsdAkItmKQ+anI3AltXPwjQIyXldz9irLQdFs8tI9QpAiAMDLHgi3lDPftc2gVC5JlVuvcJczx9bj1nEkPhfjsnUQIhALplYx2YpTwSz84fVpc2XHhNB74WMGIliXxKfZarzm4Z".getBytes();
+        System.out.println("公钥：\n"+
+                Base64.encodeBase64String(publicKey)
+//                publicKey.toString() 无法打印
+
+        );
+        System.out.println("私钥：\n"+
+                Base64.encodeBase64String(privateKey)
+//                privateKey.toString() 无法打印
+        );
+        System.out.println();
+        for (byte i : privateKey){
+            System.out.print(i);
+        }
+
 
         System.out.println("================密钥对构造完毕,甲方将公钥公布给乙方，开始进行加密数据的传输=============");
         String str="RSA密码交换算法";
@@ -183,6 +197,10 @@ public class RSACoder {
         //乙方进行数据的解密
         byte[] decode1=RSACoder.decryptByPublicKey(code1, publicKey);
         System.out.println("乙方解密后的数据："+new String(decode1)+"\n\n");
+
+
+
+
 
         System.out.println("===========反向进行操作，乙方向甲方发送数据==============\n\n");
 

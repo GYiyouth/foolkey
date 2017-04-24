@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class StudentDTO {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String userName;

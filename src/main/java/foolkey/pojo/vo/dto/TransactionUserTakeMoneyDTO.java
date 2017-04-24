@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_transaction_user_take_money")
-public class TransactionUserTakeMoney {
+public class TransactionUserTakeMoneyDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class TransactionUserTakeMoney {
     @Column(name = "order_state")
     private OrderStateEnum orderStateEnum;
 
-    public TransactionUserTakeMoney() {
+    public TransactionUserTakeMoneyDTO() {
         super();
     }
 

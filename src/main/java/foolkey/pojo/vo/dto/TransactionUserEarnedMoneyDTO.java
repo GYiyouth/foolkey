@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_transaction_user_earned_money")
-public class TransactionUserEarnedMoney {
+public class TransactionUserEarnedMoneyDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +31,7 @@ public class TransactionUserEarnedMoney {
     @Column(name = "create_time")
     private Date createdTime;
 
-    public TransactionUserEarnedMoney() {
+    public TransactionUserEarnedMoneyDTO() {
         super();
     }
 
