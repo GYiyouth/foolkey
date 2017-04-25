@@ -270,7 +270,12 @@
         </dependency>
 
 
-
+        <!--腾讯云内容分发依赖-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>4.4</version>
+        </dependency>
 
 
 

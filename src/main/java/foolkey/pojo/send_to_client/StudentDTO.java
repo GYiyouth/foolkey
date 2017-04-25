@@ -12,7 +12,7 @@ import java.util.Date;
 @Component("send_to_client_studentDTO")
 @Entity
 @Table(name = "v_student_safe")
-public class StudentDTO {
+public class StudentDTO extends AbstractDTO{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +65,10 @@ public class StudentDTO {
 
     @Column(name = "learning_number")
     private Integer learningNumber;
+
+
+
+
 
     public StudentDTO() {
         super();
@@ -268,4 +272,6 @@ public class StudentDTO {
     public void setLearningNumber(Integer learningNumber) {
         this.learningNumber = learningNumber;
     }
+
+
 }
