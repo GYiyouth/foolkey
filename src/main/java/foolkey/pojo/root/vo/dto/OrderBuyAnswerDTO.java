@@ -10,12 +10,12 @@ import javax.persistence.Table;
  * Created by geyao on 2017/4/24.
  */
 @Component @Entity @Table(name = "t_order_buy_answer")
-public class OrderButAnswerDTO extends OrderAbstract{
+public class OrderBuyAnswerDTO extends OrderAbstract{
 
     @Column(name = "question_answer_id")
     private Long questionId;
 
-    public OrderButAnswerDTO() {
+    public OrderBuyAnswerDTO() {
         super();
     }
 
