@@ -43,7 +43,7 @@ public class GetServerPublicKeyController extends AbstractController{
         try {
             RSAKeyDTO rsaKeyDTO = rsaKeyBO.getServerRSAKeyDTO();
             jsonObject.put(" pub ", rsaKeyDTO.getPubBase64Str());
-            jsonObject.put(" pri ", rsaKeyDTO.getPriBase64Str());
+//            jsonObject.put(" pri ", rsaKeyDTO.getPriBase64Str());
             jsonObject.put("result", "success");
         }catch (Exception e){
             e.printStackTrace();

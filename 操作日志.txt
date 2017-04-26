@@ -26,11 +26,11 @@
     app向server提交 ：服务器公钥 请求
     server返回值    ：服务器公钥，明文传输，用于app加密
 
-    app向server提交 ：服务器公钥加密后的 userName passWord，AESKey，token，密文,base64格式
-    server返回值    ：注册结果
+    app向server提交 ：服务器公钥加密后的 userName passWord，AESKey，密文,base64格式
+    server返回值    ：注册结果, token, AESKey加密的密文
 
-    之后使用AES加密来传输，三段，1：明文的token
-                             2：密文的token(AES密钥加密)
+    之后使用AES加密来传输，三段，1：明文，一定要包含，token
+                             2：密文，要包含 token(AES密钥加密)
                              3：密文的其他信息（AES密钥加密）
                              服务器会根据1，找到对应的AES密钥加密，然后对2进行解谜，看是否和1相等，如果相等，则继续看第三部分，是否能揭秘正常。
 
