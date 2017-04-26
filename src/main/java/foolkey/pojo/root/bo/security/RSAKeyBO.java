@@ -109,19 +109,5 @@ public class RSAKeyBO {
         return new String(clearBytes);
     }
 
-    public byte[] getPriBytes() {
-        return priBytes;
-    }
 
-    public void setPriBytes(byte[] priBytes) {
-        this.priBytes = priBytes;
-    }
-
-    public byte[] getPubBytes() {
-        return pubBytes;
-    }
-
-    public void setPubBytes(byte[] pubBytes) {
-        this.pubBytes = pubBytes;
-    }
 }

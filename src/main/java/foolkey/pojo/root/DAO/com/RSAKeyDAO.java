@@ -67,7 +67,7 @@ public class RSAKeyDAO {
      * @return
      * @throws Exception
      */
-    public RSAKeyDTO getUserRSAKeyDTO(Long userId) throws Exception{
+    private RSAKeyDTO getUserRSAKeyDTO(Long userId) throws Exception{
         RSAKeyDTO rsaKeyDTO;
         List<RSAKeyDTO> list = (List<RSAKeyDTO>)
                 hibernateTemplate.find("from RSAKeyDTO r where  r.userId = ? order by r.id desc ", userId);
@@ -84,7 +84,7 @@ public class RSAKeyDAO {
      * @param rsaKeyDTO
      * @throws Exception
      */
-    public void saveRSAKeyDTO(RSAKeyDTO rsaKeyDTO) throws Exception{
+    private void saveRSAKeyDTO(RSAKeyDTO rsaKeyDTO) throws Exception{
         hibernateTemplate.save(rsaKeyDTO);
     }
 }

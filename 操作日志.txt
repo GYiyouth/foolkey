@@ -26,18 +26,22 @@
     app向server提交 ：服务器公钥 请求
     server返回值    ：服务器公钥，明文传输，用于app加密
 
-    app向server提交 ：服务器公钥加密后的 userName passWord，密文
+    app向server提交 ：服务器公钥加密后的 userName passWord，AESKey，token，密文,base64格式
     server返回值    ：注册结果
 
-    app向server提交 ：app公钥，明文传输
-    server返回值    ：使用app公钥加密后的AESKey，以及用户token 密文
-    之后使用AES加密来传输
+    之后使用AES加密来传输，三段，1：明文的token
+                             2：密文的token(AES密钥加密)
+                             3：密文的其他信息（AES密钥加密）
+                             服务器会根据1，找到对应的AES密钥加密，然后对2进行解谜，看是否和1相等，如果相等，则继续看第三部分，是否能揭秘正常。
 
-    退出登录后，重新登录：
-    app向server提交 ：服务器公钥 请求
-    server返回值    ：服务器公钥，明文传输，用于app公钥加密
 
-    app向server提交 ：用户名密码，以及app公钥，用server端公钥加密传输
-    server返回值    ：登录结果、用户新token，以及新的AESKey，用app公钥加密
+//    退出登录后，重新登录：
+//    app向server提交 ：服务器公钥 请求
+//    server返回值    ：服务器公钥，明文传输，用于app公钥加密
+
+//    app向server提交 ：用户名密码，以及AES密钥，用server端公钥加密传输
+//    server返回值    ：登录结果、用户新token，用AES密钥，加密
 
     服务器的公私钥 和 app的公钥 会被持久化，AES不会被持久化
+
+    写了一个拦截器，拦截 /rsa/*后面的请求，将会用服务器的私钥进行解谜，揭秘失败则返回false

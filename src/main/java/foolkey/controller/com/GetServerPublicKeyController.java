@@ -37,7 +37,6 @@ public class GetServerPublicKeyController extends AbstractController{
 
     @RequestMapping
     public void execute(
-            HttpSession session,
             HttpServletResponse response
     ) throws Exception{
 

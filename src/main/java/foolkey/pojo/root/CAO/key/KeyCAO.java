@@ -54,7 +54,7 @@ public class KeyCAO {
      * @param userToken
      * @return
      */
-    public boolean containsRSAKey(String userToken){
+    private boolean containsRSAKey(String userToken){
         Map userMap = cache.getMap(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         return keyMap != null && keyMap.containsKey(rsaKeyDTOToken);
@@ -65,7 +65,7 @@ public class KeyCAO {
      * @param userToken
      * @return
      */
-    public RSAKeyDTO getUserRSAKeyDTO(String userToken){
+    private RSAKeyDTO getUserRSAKeyDTO(String userToken){
         Map userMap = cache.getMap(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         if (keyMap != null)
@@ -106,7 +106,7 @@ public class KeyCAO {
      * @param userToken
      * @return
      */
-    public RSAKeyDTO updateUserRSAKeyDTO(RSAKeyDTO newRSAKeyDTO, String userToken){
+    private RSAKeyDTO updateUserRSAKeyDTO(RSAKeyDTO newRSAKeyDTO, String userToken){
         Map userMap = cache.getMap(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         keyMap.put(rsaKeyDTOToken, newRSAKeyDTO);

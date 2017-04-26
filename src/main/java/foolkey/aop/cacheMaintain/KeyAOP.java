@@ -30,7 +30,7 @@ public class KeyAOP {
     }
 
     @Around("execution(* foolkey.tool.security.AESCoder.getAESKeyBase64() ) ")
-    public void updateUserAESKey(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object updateUserAESKey(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
         Object rvt = joinPoint.proceed(args);
         String userToken = args[0].toString();
@@ -38,5 +38,6 @@ public class KeyAOP {
         keyCAO.updateUserAESKey(aesBase64Key, userToken);
 
         System.out.println("AOP实现了用户AESKey缓存的更新");
+        return rvt;
     }
 }

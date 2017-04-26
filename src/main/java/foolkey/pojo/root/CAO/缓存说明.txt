@@ -15,7 +15,6 @@
 
 3，{userToken} - Map
                      - key - Map
-                                  - rsaKeyDTO  RSAKeyDTO
                                   - aesKeyToken String, 对称加密的key， base64格式
 
                      - studentDTO StudentDTO

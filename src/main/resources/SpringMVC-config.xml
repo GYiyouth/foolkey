@@ -12,7 +12,7 @@
     <!--基于注解-->
     <!--这里必须要写上扫描的包，不然起不到servlet的作用-->
     <!--跟根目录那里的配置不一样-->
-    <context:component-scan base-package="foolkey.controller"/>
+    <context:component-scan base-package="foolkey.controller, foolkey.interceptor"/>
 
     <!--注解类型的处理映射器-->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
@@ -31,17 +31,17 @@
     </bean>
 
     <!--拦截器-->
-    <!--<mvc:interceptors>-->
-    <!--<bean class="interceptor.InterceptorOne"/>-->
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/SpringMVC/*"/>-->
-    <!--<bean class="interceptor.InterceptorOne"/>-->
-    <!--</mvc:interceptor>-->
+    <mvc:interceptors>
+        <!--<bean class="foolkey.interceptor.com.RSADecrypt">-->
+        <mvc:interceptor>
+            <mvc:mapping path="/rsa/*"/>
+            <bean id="rsaDecryptInterceptor"/>
+        </mvc:interceptor>
     <!--<mvc:interceptor>-->
     <!--<mvc:mapping path="/SpringMVC/FormHandler0.download"/>-->
     <!--<bean class="interceptor.InterceptorOne"/>-->
     <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    </mvc:interceptors>
 
 
     <!--下载配置-->
