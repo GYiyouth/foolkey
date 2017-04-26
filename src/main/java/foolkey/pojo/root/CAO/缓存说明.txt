@@ -1,0 +1,24 @@
+对缓存的维护、读取
+根节点是一个map，通过cache调用，目前由LocalCache实现
+本质上是一个 HashMap < String, Map >
+结构如下:
+
+1, key - Map
+             - rsaKeyDTO  RSAKeyDTO
+
+
+2，java, C...（不同的领域,根据 TechnicTagEnum.java ）
+            - Map
+                    - article Map
+                    - course Map
+                    - question Map
+
+3，{userToken} - Map
+                     - key - Map
+                                  - rsaKeyDTO  RSAKeyDTO
+                                  - aesKeyToken String, 对称加密的key， base64格式
+
+                     - studentDTO StudentDTO
+                     - blackList Map
+                                     - < token (String), Map >
+                                        这里后面其实是指针，指向别的用户，不会new HashMap

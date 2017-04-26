@@ -33,7 +33,7 @@ public class UploadFileTencent {
         // 初始化cosClient
         COSClient cosClient = new COSClient(clientConfig, cred);
 
-        UploadFileRequest fileRequest = new UploadFileRequest(bucketName, "/photo/test.png",
+        UploadFileRequest fileRequest = new UploadFileRequest(bucketName, "/photo/test2.png",
                 "/Users/geyao/Downloads/最帅的人.jpg");
         fileRequest.setInsertOnly(InsertOnly.OVER_WRITE);
 
@@ -57,7 +57,7 @@ public class UploadFileTencent {
     }
 
     public static void main(String[] args) {
-        download();
+        upload();
     }
 
 }

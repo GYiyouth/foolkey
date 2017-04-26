@@ -12,3 +12,32 @@
 2017/04/25
 葛尧：
     测试了腾讯云的上传下载功能
+
+2017/04/26
+葛尧：
+    设计加密与缓存机制。
+    缓存机制，接口Cache，目前有5个方法，把缓存当做是Map一样操作。实现类是 LocalCache，里面有一个map来存放缓存。
+    缓存的结构是String - Map .后者是类似于Session的结构，也会用作别的东西，如加密机制。详细参考——
+    foolkey/pojo/root/CAO/缓存说明.txt
+
+    加密机制分为RSA非对称加密和AES对称加密机制，后者是主要使用的，因为它快，但密钥要传给app端，则必须用非对称加密传过去
+    由App端保存。机制如下：
+    第一次使用，即注册时：
+    app向server提交 ：服务器公钥 请求
+    server返回值    ：服务器公钥，明文传输，用于app加密
+
+    app向server提交 ：服务器公钥加密后的 userName passWord，密文
+    server返回值    ：注册结果
+
+    app向server提交 ：app公钥，明文传输
+    server返回值    ：使用app公钥加密后的AESKey，以及用户token 密文
+    之后使用AES加密来传输
+
+    退出登录后，重新登录：
+    app向server提交 ：服务器公钥 请求
+    server返回值    ：服务器公钥，明文传输，用于app公钥加密
+
+    app向server提交 ：用户名密码，以及app公钥，用server端公钥加密传输
+    server返回值    ：登录结果、用户新token，以及新的AESKey，用app公钥加密
+
+    服务器的公私钥 和 app的公钥 会被持久化，AES不会被持久化

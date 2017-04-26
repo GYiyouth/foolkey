@@ -20,7 +20,7 @@ public class TestBO {
         hibernateTemplate.save(studentDTO);
     }
 
-    @Scheduled(fixedRate = 3000)
+//    @Scheduled(fixedRate = 3000)
     public void foo(){
         System.out.println(1);
     }
