@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by admin on 2017/4/25.
  */
-@Repository("deleteArticleDAO")
+@Repository("getArticleDAO")
 public class GetArticleDAO extends GetBaseDAO<ArticleDTO> {
 }
