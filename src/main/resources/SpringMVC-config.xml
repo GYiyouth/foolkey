@@ -32,15 +32,11 @@
 
     <!--拦截器-->
     <mvc:interceptors>
-        <!--<bean class="foolkey.interceptor.com.RSADecrypt">-->
         <mvc:interceptor>
             <mvc:mapping path="/rsa/*"/>
-            <bean id="rsaDecryptInterceptor"/>
+            <bean class="foolkey.interceptor.com.RSADecryptInterceptor"/>
         </mvc:interceptor>
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/SpringMVC/FormHandler0.download"/>-->
-    <!--<bean class="interceptor.InterceptorOne"/>-->
-    <!--</mvc:interceptor>-->
+
     </mvc:interceptors>
 
 

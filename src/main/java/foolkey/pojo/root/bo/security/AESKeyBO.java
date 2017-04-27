@@ -1,6 +1,8 @@
 package foolkey.pojo.root.bo.security;
 
+import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.CAO.key.KeyCAO;
+import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.cache.Cache;
 import foolkey.tool.security.AESCoder;
@@ -27,6 +29,8 @@ public class AESKeyBO {
     private Cache cache;
     @Resource(name = "keyCAO")
     private KeyCAO keyCAO;
+    @Resource(name = "userCAO")
+    private UserCAO userCAO;
 
     private String base64key;
 
@@ -53,14 +57,6 @@ public class AESKeyBO {
                 );
         return ConverterByteBase64.byte2Base64(cipherBytes);
     }
-
-    public String encrypt(String RowStr) throws Exception{
-        byte[] cipherBytes = aesCoder.encryptAES(RowStr.getBytes(),
-                aesCoder.loadKeyAES(base64key)
-        );
-        return ConverterByteBase64.byte2Base64(cipherBytes);
-    }
-
     /**
      * 解密
      * @param cipherBase64Str base64格式的密文
@@ -75,11 +71,17 @@ public class AESKeyBO {
                 );
         return new String(clearBytes);
     }
-    public String decrypt(String cipherBase64Str ) throws Exception{
-        byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
-        byte[] clearBytes = aesCoder.decryptAES( cipherBytes,
-                aesCoder.loadKeyAES(base64key)
-        );
-        return new String(clearBytes);
+
+    /**
+     * 更新、保存用户的AESKey 缓存
+     * 如果缓存区不存在用户的缓存，则会开辟一块
+     * @param token
+     * @param aesBase64Key
+     */
+    public void saveUserAESKey(String token, String aesBase64Key){
+        if (!userCAO.containsUser(token)){
+            userCAO.saveUserInfo(token);
+        }
+        keyCAO.updateUserAESKey(aesBase64Key, token);
     }
 }

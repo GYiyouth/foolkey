@@ -1,5 +1,7 @@
 package foolkey.pojo;
 
+import foolkey.pojo.root.bo.security.RSAKeyBO;
+import foolkey.tool.BeanFactory;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.AESCoder;
 import foolkey.tool.security.RSACoder;
@@ -12,32 +14,31 @@ import javax.crypto.SecretKey;
 public class Test2 {
 
     public static void main(String[] args) throws Exception{
-        String raw = "对称加密的密钥";
+//        String raw = "对称加密的密钥";
 
         //对称加密
-        AESCoder aesCoder = new AESCoder();
-        String aesKey = aesCoder.getAESKeyBase64();
-        System.out.println("对称加密 " +raw);
-        System.out.println(aesKey);
-        byte[] keys = ConverterByteBase64.base642Byte(aesKey);
-        System.out.println( keys.length);
-        SecretKey key = aesCoder.loadKeyAES(aesKey);
-        byte[] ciper = aesCoder.encryptAES(raw.getBytes("UTF-8"), key);
-        byte[] clear = aesCoder.decryptAES(ciper, key);
+//        AESCoder aesCoder = new AESCoder();
+//        String aesKey = aesCoder.getAESKeyBase64();
+//        System.out.println("对称加密 " +raw);
+//        System.out.println(aesKey);
+//        byte[] keys = ConverterByteBase64.base642Byte(aesKey);
+//        System.out.println( keys.length);
+//        SecretKey key = aesCoder.loadKeyAES(aesKey);
+//        byte[] ciper = aesCoder.encryptAES(raw.getBytes("UTF-8"), key);
+//        byte[] clear = aesCoder.decryptAES(ciper, key);
+//
+//        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
+//        System.out.println("明文\n" + new String(clear));
 
-        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
-        System.out.println("明文\n" + new String(clear));
+        RSAKeyBO keyBO = BeanFactory.getBean("rsaKeyBO", RSAKeyBO.class);
+        String raw = "愚人科技";
+        System.out.println("原文是 \n+ " + raw);
+        String cipherText = keyBO.encryptByPub(raw, keyBO.getServerRSAKeyDTO().getPubBase64Str());
 
-        RSACoder rsaCoder = new RSACoder();
-        byte[] rsaPriBytes = rsaCoder.getPrivateKey();
-        byte[] ciperbytes = rsaCoder.encryptByPrivateKey(aesKey.getBytes(), rsaPriBytes);
-        byte[] rsaPubBytes = rsaCoder.getPublicKey();
-        byte[] clearBytes = rsaCoder.decryptByPublicKey(ciperbytes, rsaPubBytes);
-        String newAESKeyStr = new String(clearBytes);
-        System.out.println("对称加密的密钥是 + " + newAESKeyStr);
-        System.out.println("与加密前是否相等？ " + newAESKeyStr.equals(aesKey));
-        System.out.println("再用它解密密文看看？ ");
-        byte[] finalbytes = aesCoder.decryptAES(ciper, key);
-        System.out.println(new String(finalbytes));
+        String str = keyBO.decrypyBase64StrByPri(cipherText, keyBO.getServerRSAKeyDTO().getPriBase64Str());
+
+        System.out.println("密钥解密 ");
+        System.out.println(str.equals(raw));
+        System.out.println(str);
     }
 }

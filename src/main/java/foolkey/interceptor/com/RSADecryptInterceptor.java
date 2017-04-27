@@ -2,6 +2,7 @@ package foolkey.interceptor.com;
 
 import foolkey.pojo.root.bo.security.RSAKeyBO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
+import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.cache.Cache;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -36,14 +37,20 @@ public class RSADecryptInterceptor implements HandlerInterceptor {
         try {
             request.setCharacterEncoding("UTF-8");
 
-            String cipherText = request.getParameter("cipherText");
-
+            //获取密文
+            String cipherText = request.getAttribute("cipherText").toString();
+            //拿取私钥
             RSAKeyDTO rsaKeyDTO= rsaKeyBO.getServerRSAKeyDTO();
             String priKeyStr = rsaKeyDTO.getPriBase64Str();
+
+            System.out.println("密文的hashCode " + cipherText.hashCode());
+            //解密
             String decryptText = rsaKeyBO.decrypyBase64StrByPri(cipherText, priKeyStr);
+            System.out.println("解密后 ");
+            System.out.println(decryptText);
 
+            //转换为json，处理信息
             JSONObject decryptJSON = JSONObject.fromObject(decryptText);
-
             Map map = new HashedMap();
             Iterator iterator = decryptJSON.keys();
             while (iterator.hasNext()){

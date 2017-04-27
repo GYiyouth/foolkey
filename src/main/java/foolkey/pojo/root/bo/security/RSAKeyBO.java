@@ -18,11 +18,6 @@ import javax.annotation.Resource;
 @Service("rsaKeyBO")
 @Transactional
 public class RSAKeyBO {
-//    private static final String token1 = "key";
-//    private static final String token2 = "rsaPubKey";
-//    private static final String token3 = "rsaPriKey";
-
-
     @Resource(name = "rsaKeyDAO")
     private RSAKeyDAO rsaKeyDAO;
 
@@ -60,7 +55,7 @@ public class RSAKeyBO {
 
     /**
      * 私钥加密
-     * @param raw
+     * @param raw 明文
      * @return base64编码的密文
      * @throws Exception
      */
@@ -69,7 +64,6 @@ public class RSAKeyBO {
         String cipherBase64Str = ConverterByteBase64.byte2Base64(cipherBytes);
         return cipherBase64Str;
     }
-
     /**
      * 公钥解密
      * @param cipherBase64Str
@@ -81,11 +75,10 @@ public class RSAKeyBO {
         byte[] clearBytes = rsaCoder.decryptByPublicKey(cipherBytes, pubBytes);
         return new String(clearBytes);
     }
-
     /**
      * 公钥加密
-     * @param raw
-     * @return
+     * @param raw 明文
+     * @return base64格式的String密文
      * @throws Exception
      */
     public String encryptByPub(String raw, String pubKeyStrBase64) throws Exception{
@@ -95,14 +88,18 @@ public class RSAKeyBO {
         String cipherBase64Str = ConverterByteBase64.byte2Base64(cipherBytes);
         return cipherBase64Str;
     }
-
     /**
      * 私钥解密
-     * @param cipherBase64Str
-     * @return
+     * @param cipherBase64Str base64格式的String密文
+     * @return 正常明文
      * @throws Exception
      */
     public String decrypyBase64StrByPri(String cipherBase64Str, String priKeyStrBase64) throws Exception{
+        System.out.println("密文是 ");
+        System.out.println(cipherBase64Str);
+        System.out.println("密钥是 ");
+        System.out.println(priKeyStrBase64);
+
         byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
         byte[] priKeyBytes = ConverterByteBase64.base642Byte(priKeyStrBase64);
         byte[] clearBytes = rsaCoder.decryptByPrivateKey(cipherBytes, priKeyBytes);

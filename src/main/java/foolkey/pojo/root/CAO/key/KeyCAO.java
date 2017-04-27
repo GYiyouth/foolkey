@@ -1,5 +1,6 @@
 package foolkey.pojo.root.CAO.key;
 
+import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
 import foolkey.tool.cache.Cache;
 import org.springframework.stereotype.Component;
@@ -12,13 +13,7 @@ import java.util.Map;
  * Created by geyao on 2017/4/26.
  */
 @Component("keyCAO")
-public class KeyCAO {
-    private static final String keyToken = "key";
-    private static final String rsaKeyDTOToken = "rsaKeyDTO";
-    private static final String aesKeyToken = "aesKeyToken";
-
-    @Resource(name = "localCache")
-    private Cache cache;
+public class KeyCAO extends AbstractCAO{
 
     /**
      * 判断是否含服务器 RSA key

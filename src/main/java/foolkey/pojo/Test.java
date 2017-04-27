@@ -2,7 +2,10 @@ package foolkey.pojo;
 
 import foolkey.pojo.root.bo.security.RSAKeyBO;
 import foolkey.tool.BeanFactory;
+import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.RSACoder;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by geyao on 2017/4/24.
@@ -12,9 +15,7 @@ public class Test {
 
 
     public static void main(String[] args) throws Exception{
-        RSACoder rsaCoder = new RSACoder();
-        String raw = "愚猿foolkey";
-        System.out.println("加密前 " + raw);
+
 //        KeyPair keyPair = rsaCoder.getKeyPair();
 //        String pubstr = rsaCoder.getStringPublicKey(keyPair);
 //        System.out.println("公钥是 \n" + pubstr);
@@ -65,11 +66,39 @@ public class Test {
 //
 //        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
 //        System.out.println("明文\n" + new String(clear));
-        RSAKeyBO rsaKeyBO = BeanFactory.getBean("rsaKeyBO", RSAKeyBO.class);
-//        rsaKeyBO.createRSAKey();
-//        System.out.println("公钥加密， 私钥解密");
-//        String cipher1 = rsaKeyBO.encryptByPub(raw);
-//        System.out.println(cipher1);
-//        System.out.println("原文 " + rsaKeyBO.decrypyBase64StrByPri(cipher1));
+        String raw = "愚人科技 水==\n 电费水电费飞 ";
+        String raw16 = encode(raw);
+        System.out.println(raw16);
+        System.out.println(decode(raw16));
     }
+    /*
+* 将字符串编码成16进制数字,适用于所有字符（包括中文）
+*/
+    public static String encode(String str)
+    {
+// 根据默认编码获取字节数组
+        byte[] bytes=str.getBytes();
+        StringBuilder sb=new StringBuilder(bytes.length*2);
+// 将字节数组中每个字节拆解成2位16进制整数
+        for(int i=0;i<bytes.length;i++)
+        {
+            sb.append(hexString.charAt((bytes[i]&0xf0)>>4));
+            sb.append(hexString.charAt((bytes[i]&0x0f)>>0));
+        }
+        return sb.toString();
+    }
+    private static String hexString="0123456789ABCDEF";
+    /*
+    * 将16进制数字解码成字符串,适用于所有字符（包括中文）
+    */
+    public static String decode(String bytes)
+    {
+        ByteArrayOutputStream baos=new ByteArrayOutputStream(bytes.length()/2);
+// 将每2位16进制整数组装成一个字节
+        for(int i=0;i<bytes.length();i+=2)
+            baos.write((hexString.indexOf(bytes.charAt(i))<<4 |hexString.indexOf(bytes.charAt(i+1))));
+        return new String(baos.toByteArray());
+    }
+
+
 }

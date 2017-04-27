@@ -1,39 +1,39 @@
 package foolkey.tool;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * Created by geyao on 2017/4/26.
  */
 public class ConverterB20X {
 
-    /**将二进制转换成16进制
-     * @param buf
-     * @return
-     */
-    public static String parseByte2HexStr(byte buf[]) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < buf.length; i++) {
-            String hex = Integer.toHexString(buf[i] & 0xFF);
-            if (hex.length() == 1) {
-                hex = '0' + hex;
-            }
-            sb.append(hex.toUpperCase());
+    /*
+    * 将字符串编码成16进制数字,适用于所有字符（包括中文）
+    */
+    public static String encode(String str)
+    {
+    // 根据默认编码获取字节数组
+        byte[] bytes=str.getBytes();
+        StringBuilder sb=new StringBuilder(bytes.length*2);
+    // 将字节数组中每个字节拆解成2位16进制整数
+        for(int i=0;i<bytes.length;i++)
+        {
+            sb.append(hexString.charAt((bytes[i]&0xf0)>>4));
+            sb.append(hexString.charAt((bytes[i]&0x0f)>>0));
         }
         return sb.toString();
     }
-
-    /**将16进制转换为二进制
-     * @param hexStr
-     * @return
-     */
-    public static byte[] parseHexStr2Byte(String hexStr) {
-        if (hexStr.length() < 1)
-            return null;
-        byte[] result = new byte[hexStr.length()/2];
-        for (int i = 0;i< hexStr.length()/2; i++) {
-            int high = Integer.parseInt(hexStr.substring(i*2, i*2+1), 16);
-            int low = Integer.parseInt(hexStr.substring(i*2+1, i*2+2), 16);
-            result[i] = (byte) (high * 16 + low);
-        }
-        return result;
+    private static String hexString="0123456789ABCDEF";
+    /*
+    * 将16进制数字解码成字符串,适用于所有字符（包括中文）
+    */
+    public static String decode(String bytes)
+    {
+        ByteArrayOutputStream baos=new ByteArrayOutputStream(bytes.length()/2);
+    // 将每2位16进制整数组装成一个字节
+        for(int i=0;i<bytes.length();i+=2)
+            baos.write((hexString.indexOf(bytes.charAt(i))<<4 |hexString.indexOf(bytes.charAt(i+1))));
+        return new String(baos.toByteArray());
     }
+
 }
