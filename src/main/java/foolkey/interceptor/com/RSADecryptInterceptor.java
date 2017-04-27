@@ -10,7 +10,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.net.URLDecoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,16 +38,30 @@ public class RSADecryptInterceptor implements HandlerInterceptor {
             request.setCharacterEncoding("UTF-8");
 
             //获取密文
-            String cipherText = request.getAttribute("cipherText").toString();
+            String cipherText = request.getParameter("cipherText").toString();
+
+            System.out.println("收到的——");
+            System.out.println(cipherText);
+
+//            cipherText = cipherText.replaceAll("\\n", "");
+            cipherText = cipherText.replaceFirst("壹","\n");
+            cipherText = cipherText.replaceFirst("壹","\n");
+            cipherText = cipherText.substring(0, cipherText.length() -1 );
+
+            System.out.println(cipherText);
+//            cipherText = cipherText.replaceAll("十", "+");
             //拿取私钥
             RSAKeyDTO rsaKeyDTO= rsaKeyBO.getServerRSAKeyDTO();
             String priKeyStr = rsaKeyDTO.getPriBase64Str();
 
             System.out.println("密文的hashCode " + cipherText.hashCode());
+
             //解密
             String decryptText = rsaKeyBO.decrypyBase64StrByPri(cipherText, priKeyStr);
+
             System.out.println("解密后 ");
             System.out.println(decryptText);
+
 
             //转换为json，处理信息
             JSONObject decryptJSON = JSONObject.fromObject(decryptText);

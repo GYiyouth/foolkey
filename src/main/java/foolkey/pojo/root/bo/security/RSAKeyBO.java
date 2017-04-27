@@ -103,7 +103,9 @@ public class RSAKeyBO {
         byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
         byte[] priKeyBytes = ConverterByteBase64.base642Byte(priKeyStrBase64);
         byte[] clearBytes = rsaCoder.decryptByPrivateKey(cipherBytes, priKeyBytes);
-        return new String(clearBytes);
+        String result = new String(clearBytes);
+        result = result.replaceAll("\u0000", "");
+        return result;
     }
 
 

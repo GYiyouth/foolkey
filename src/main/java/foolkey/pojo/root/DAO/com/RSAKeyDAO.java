@@ -43,7 +43,7 @@ public class RSAKeyDAO {
         rsaKeyDTO.setPubBase64Str(pubStr);
         rsaKeyDTO.setPriBase64Str(priStr);
         rsaKeyDTO.setId(1L);
-        hibernateTemplate.update(rsaKeyDTO);
+        hibernateTemplate.save(rsaKeyDTO);
         return rsaKeyDTO;
     }
 

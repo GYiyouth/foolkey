@@ -45,14 +45,14 @@ public class GetServerPublicKeyController extends AbstractController{
         try {
             RSAKeyDTO rsaKeyDTO = rsaKeyBO.getServerRSAKeyDTO();
             String raw = "愚人科技";
-            System.out.println("原文是 \n+ " + raw);
+//            System.out.println("原文是 \n+ " + raw);
             String cipherText = rsaKeyBO.encryptByPub(raw, rsaKeyBO.getServerRSAKeyDTO().getPubBase64Str());
 
             String str = rsaKeyBO.decrypyBase64StrByPri(cipherText, rsaKeyBO.getServerRSAKeyDTO().getPriBase64Str());
 
-            System.out.println("密钥解密？ ");
-            System.out.println(str.equals(raw));
-            System.out.println(str);
+//            System.out.println("密钥解密？ ");
+//            System.out.println(str.equals(raw));
+//            System.out.println(str);
             jsonObject.put("publicKey", rsaKeyDTO.getPubBase64Str());
             jsonObject.put("privateKey", rsaKeyDTO.getPriBase64Str());
             jsonObject.put("clearText", raw);
