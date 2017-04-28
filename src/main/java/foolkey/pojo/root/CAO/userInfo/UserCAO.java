@@ -52,6 +52,29 @@ public class UserCAO extends AbstractCAO{
     }
 
     /**
+     * 询问缓存有无该用户的StudentDTO
+     * @param token
+     * @return
+     */
+    public boolean containStudentDTO(String token){
+        if ( containsUser(token)) {
+            Map userMap = getUserMap(token);
+            return (userMap.containsKey(userInfoToken));
+        }
+        return false;
+    }
+
+    /**
+     * 从缓存中获取用户 StudentDTO
+     * @param token
+     * @return
+     */
+    public StudentDTO getStudentDTO(String token){
+        Map userMap = getUserMap(token);
+        return  (StudentDTO) (userMap.get(userInfoToken));
+    }
+
+    /**
      * 从缓存中获取用户缓存区
      * @param token
      * @return

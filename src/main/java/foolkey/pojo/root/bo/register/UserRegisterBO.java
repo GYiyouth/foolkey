@@ -33,6 +33,11 @@ public class UserRegisterBO {
         return flag;
     }
 
+    /**
+     * 检验用户的缓存区是否存在
+     * @param token
+     * @return
+     */
     public boolean checkStudentToken(String token){
         return userCAO.containsUser(token);
     }

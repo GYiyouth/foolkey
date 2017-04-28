@@ -2,6 +2,7 @@ package foolkey.pojo;
 
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.security.RSAKeyBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.RSACoder;
@@ -67,12 +68,8 @@ public class Test {
 //
 //        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
 //        System.out.println("明文\n" + new String(clear));
-        String raw = "愚人科技 水==\n 电费水电费飞 ";
-
-        UserRegisterBO userRegisterBO = BeanFactory.getBean("userRegisterBO", UserRegisterBO.class);
-        boolean s = userRegisterBO.checkStudentByUserName("123");
-        System.out.println(s);
-        System.out.println(userRegisterBO.checkStudentToken("123"));
+        StudentInfoBO studentInfoBO = BeanFactory.getBean("studentInfoBO", StudentInfoBO.class);
+        studentInfoBO.getStudentDTO("1", "1");
     }
 
 

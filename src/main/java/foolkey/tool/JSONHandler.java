@@ -82,7 +82,7 @@ public class JSONHandler {
      * @param response
      * @throws Exception
      */
-    public static void sendFailJSON(HttpServletResponse response){
+    public void sendFailJSON(HttpServletResponse response){
 
 
         try {

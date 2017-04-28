@@ -55,7 +55,7 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
             return true;
         }catch (Exception e){
             e.printStackTrace();
-            JSONHandler.sendFailJSON(response);
+            jsonHandler.sendFailJSON(response);
             return false;
         }
     }

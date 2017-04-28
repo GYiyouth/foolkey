@@ -35,5 +35,19 @@ public abstract class AbstractInterceptor implements HandlerInterceptor{
 
     }
 
+    /**
+     * 对编码进行预处理
+     * @param cipherText
+     * @return
+     */
+    protected String cipherPreHandler(String cipherText){
+        if (cipherText == null || cipherText.equals(""))
+            return "";
+        cipherText = cipherText.replaceFirst("愚","\n");
+        cipherText = cipherText.replaceFirst("愚","\n");
+        cipherText = cipherText.substring(0, cipherText.length() -1 );
+        return cipherText;
+    }
+
 
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 /**
  * 非对称加密的信息，解谜，密文
  * 【cipherText】
+ * 密文由于长度限制，发送时，最好是每个字段分别加密，不要再一段密文里加太多东西
  * Created by geyao on 2017/4/26.
  */
 @Controller(value = "rsaDecryptInterceptor")
@@ -61,7 +62,7 @@ public class RSADecryptInterceptor extends AbstractInterceptor {
             //传给control
             request.setAttribute("userName", userName);
             request.setAttribute("passWord", passWord);
-            request.setAttribute("aesKey", aesKey);
+            request.setAttribute("AESKey", aesKey);
 
             return true;
 
@@ -73,17 +74,5 @@ public class RSADecryptInterceptor extends AbstractInterceptor {
     }
 
 
-    /**
-     * 对编码进行预处理
-     * @param cipherText
-     * @return
-     */
-    private String cipherPreHandler(String cipherText){
-        if (cipherText == null || cipherText.equals(""))
-            return "";
-        cipherText = cipherText.replaceFirst("壹","\n");
-        cipherText = cipherText.replaceFirst("壹","\n");
-        cipherText = cipherText.substring(0, cipherText.length() -1 );
-        return cipherText;
-    }
+
 }
