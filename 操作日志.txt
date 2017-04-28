@@ -67,3 +67,5 @@
     对于RSA加密的信息，实际上是一个结构简单的JSON
         key - 明文
         value - 密文，且为简单String格式，即不为JSON
+
+    写了一个全局异常处理器 foolkey.controller.exceptionHandler.GlobalExceptionHandler，会打印异常，抛出result:fail

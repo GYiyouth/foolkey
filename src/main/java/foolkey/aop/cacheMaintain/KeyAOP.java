@@ -29,6 +29,7 @@ public class KeyAOP {
     public void updateServerRSAKeyDTO(RSAKeyDTO rsaKeyDTO){
         if (rsaKeyDTO != null)
             keyCAO.updateServerRSAKeyDTO(rsaKeyDTO);
+        System.out.println(this.getClass());
         System.out.println("AOP实现了服务器RSAKey缓存的更新!!");
     }
 

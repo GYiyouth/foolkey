@@ -1,6 +1,6 @@
 package foolkey.aop.cacheMaintain;
 
-import foolkey.pojo.root.CAO.Article.ArticleCAO;
+import foolkey.pojo.root.CAO.article.*;
 import org.aspectj.lang.annotation.Aspect;
 
 import javax.annotation.Resource;
@@ -11,8 +11,8 @@ import javax.annotation.Resource;
 @Aspect
 public class ArticleAOP {
 
-    @Resource(name = "articleCAO")
-    private ArticleCAO articleCAO;
+//    @Resource(name = "articleCAO")
+//    private ArticleCAO articleCAO;
 
 
 }

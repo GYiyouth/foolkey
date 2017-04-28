@@ -96,4 +96,12 @@ public class UserCAO extends AbstractCAO{
         keyMap.put(aesKeyToken, AESKey);
         userMap.put(keyToken, keyMap);
     }
+
+    /**
+     * 清除某个用户的缓存区
+     * @param token
+     */
+    public void removeUserCache(String token){
+        cache.getCache().remove(token);
+    }
 }

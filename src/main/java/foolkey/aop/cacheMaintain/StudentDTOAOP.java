@@ -28,6 +28,7 @@ public class StudentDTOAOP {
         System.out.println("密码：" + args[1]);
         String token = args[0].toString() + args[1].toString();
         Object rvt = joinPoint.proceed();
+        System.out.println(this.getClass());
         if (rvt != null) {
             userCAO.saveStudentDTO(token, (StudentDTO) rvt);
             System.out.println("AOP实现了服务器 " + token + " \n缓存的更新!!");

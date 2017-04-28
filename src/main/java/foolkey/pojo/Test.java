@@ -6,6 +6,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.RSACoder;
+import net.sf.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -68,8 +69,8 @@ public class Test {
 //
 //        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
 //        System.out.println("明文\n" + new String(clear));
-        StudentInfoBO studentInfoBO = BeanFactory.getBean("studentInfoBO", StudentInfoBO.class);
-        studentInfoBO.getStudentDTO("1", "1");
+        JSONObject cipherText = JSONObject
+                .fromObject("{}");
     }
 
 

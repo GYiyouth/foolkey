@@ -35,16 +35,16 @@ public class ControllerLog {
      * 对于每次发送JSON，都打印出来
      * @param arg0
      */
-    @Before(value = "execution(* foolkey.tool.JSONHandler.send*(..)) && args(arg0, ..)")
+    @Before(value = "execution(* foolkey.tool.JSONHandler.sendJSON(..)) && args(arg0, ..)")
     public void JSONHandlerLog(JSONObject arg0){
-        System.out.println("返回的json值是");
+        System.out.println("AOP返回的json值是");
         System.out.println(arg0.toString());
     }
 
     //似乎对于类方法无效
     @Before(value = "execution(* foolkey.tool.JSONHandler.sendFailJSON(..))")
     public void failJSONHandlerLog(JoinPoint joinPoint){
-        System.out.println("拦截器未通过");
+        System.out.println("AOP拦截器未通过");
         System.out.println(joinPoint.getTarget().getClass().getName());
     }
 }

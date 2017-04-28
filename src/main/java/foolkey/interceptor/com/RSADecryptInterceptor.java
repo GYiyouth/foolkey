@@ -68,7 +68,7 @@ public class RSADecryptInterceptor extends AbstractInterceptor {
 
         }catch (Exception e){
             e.printStackTrace();
-            jsonHandler.sendFailJSON(response);
+//            jsonHandler.sendFailJSON(response);
         }
         return false;
     }

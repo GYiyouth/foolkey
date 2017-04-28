@@ -24,7 +24,7 @@ public class ComRSADecryptInterceptor extends AbstractInterceptor {
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object o
     )throws Exception {
-        try {
+//        try {
             request.setCharacterEncoding("UTF-8");
 
             //获取JSON
@@ -54,12 +54,12 @@ public class ComRSADecryptInterceptor extends AbstractInterceptor {
 
 
             return true;
-
-        }catch (Exception e){
-            e.printStackTrace();
-            jsonHandler.sendFailJSON(response);
-        }
-        return false;
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+////            jsonHandler.sendFailJSON(response);
+//        }
+//        return false;
     }
 
 }
