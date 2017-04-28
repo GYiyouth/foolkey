@@ -1,8 +1,8 @@
 package foolkey.pojo.root.vo.dto;
 
-import foolkey.pojo.root.vo.assistObject.IndustryTagEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.assistObject.TeachStateEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -20,8 +20,12 @@ public class CourseAbstract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "industry_tag")
-    private IndustryTagEnum industryTagEnum;
+    @Column(name = "creator_id")
+    private Long creatorId;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "technic_tag")
+    private TechnicTagEnum technicTagEnum;
 
     @Column(name = "topic")
     private String topic;
@@ -45,7 +49,7 @@ public class CourseAbstract {
     public String toString() {
         return "CourseAbstract{" +
                 "id=" + id +
-                ", industryTagEnum=" + industryTagEnum +
+                ", technicTagEnum=" + technicTagEnum +
                 ", topic='" + topic + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
@@ -63,12 +67,20 @@ public class CourseAbstract {
         this.id = id;
     }
 
-    public IndustryTagEnum getIndustryTagEnum() {
-        return industryTagEnum;
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setIndustryTagEnum(IndustryTagEnum industryTagEnum) {
-        this.industryTagEnum = industryTagEnum;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public TechnicTagEnum getTechnicTagEnum() {
+        return technicTagEnum;
+    }
+
+    public void setTechnicTagEnum(TechnicTagEnum technicTagEnum) {
+        this.technicTagEnum = technicTagEnum;
     }
 
     public String getTopic() {

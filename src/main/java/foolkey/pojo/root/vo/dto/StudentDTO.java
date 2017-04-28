@@ -38,7 +38,7 @@ public class StudentDTO {
     private Date birthday;
 
     @Column(name = "current_tag")
-    private IndustryTagEnum industryTagEnum;
+    private TechnicTagEnum technicTagEnum;
     @Column(name = "top_school_graduation")
     private SchoolEnum schoolEnum;
 
@@ -92,7 +92,7 @@ public class StudentDTO {
                 ", sexTagEnum=" + sexTagEnum +
                 ", organization='" + organization + '\'' +
                 ", birthday=" + birthday +
-                ", industryTagEnum=" + industryTagEnum +
+                ", technicTagEnum=" + technicTagEnum +
                 ", schoolEnum=" + schoolEnum +
                 ", blogUrl='" + blogUrl + '\'' +
                 ", githubUrl='" + githubUrl + '\'' +
@@ -191,12 +191,12 @@ public class StudentDTO {
         this.birthday = birthday;
     }
 
-    public IndustryTagEnum getIndustryTagEnum() {
-        return industryTagEnum;
+    public TechnicTagEnum getTechnicTagEnum() {
+        return technicTagEnum;
     }
 
-    public void setIndustryTagEnum(IndustryTagEnum industryTagEnum) {
-        this.industryTagEnum = industryTagEnum;
+    public void setTechnicTagEnum(TechnicTagEnum technicTagEnum) {
+        this.technicTagEnum = technicTagEnum;
     }
 
     public SchoolEnum getSchoolEnum() {

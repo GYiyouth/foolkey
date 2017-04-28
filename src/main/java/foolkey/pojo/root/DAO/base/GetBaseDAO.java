@@ -18,7 +18,7 @@ import java.util.List;
 public class GetBaseDAO<T> {
 
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    protected HibernateTemplate hibernateTemplate;
 
     /**
      * 根据ID加载实体
@@ -95,7 +95,7 @@ public class GetBaseDAO<T> {
                 Query query = session.createQuery(hql);
                 //为包含占位符的HQL语句设置参数
                 for (int i = 0, len = params.length; i < len; i++) {
-                    query.setParameter(i + "", params[i]);
+                    query.setParameter(i , params[i]);
                 }
                 List<T> result = query.setFirstResult((pageNo - 1) * pageSize)
                         .setMaxResults(pageSize)

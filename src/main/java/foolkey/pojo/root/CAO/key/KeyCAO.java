@@ -2,10 +2,7 @@ package foolkey.pojo.root.CAO.key;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
-import foolkey.tool.cache.Cache;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 import java.util.Map;
 
 /**

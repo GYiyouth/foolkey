@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @Component("localCache")
 public class LocalCache implements Cache{
+
     private static HashMap<String, Map> cache1 = new HashMap<>();
     static {
         for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){
