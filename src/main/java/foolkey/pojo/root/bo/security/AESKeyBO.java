@@ -1,16 +1,13 @@
 package foolkey.pojo.root.bo.security;
 
-import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.CAO.key.KeyCAO;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.cache.Cache;
 import foolkey.tool.security.AESCoder;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * 不管健壮，追求性能
@@ -80,7 +77,7 @@ public class AESKeyBO {
      */
     public void saveUserAESKey(String token, String aesBase64Key){
         if (!userCAO.containsUser(token)){
-            userCAO.initStudentCache(token);
+            userCAO.initUserCache(token);
         }
         keyCAO.updateUserAESKey(aesBase64Key, token);
     }

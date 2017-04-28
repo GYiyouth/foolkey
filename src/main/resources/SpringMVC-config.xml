@@ -32,9 +32,11 @@
 
     <!--拦截器-->
     <mvc:interceptors>
+        <bean class="foolkey.interceptor.com.PrinterInterceptor"/>
+
         <mvc:interceptor>
             <mvc:mapping path="/rsa/register"/>
-            <bean class="foolkey.interceptor.com.RSADecryptInterceptor"/>
+            <bean class="foolkey.interceptor.com.ComRSADecryptInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>

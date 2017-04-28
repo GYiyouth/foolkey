@@ -21,7 +21,7 @@ public class UserCAO extends AbstractCAO{
      * 在缓存中开辟一个新的用户缓存区
      * @param token
      */
-    public void initStudentCache(String token){
+    public void initUserCache(String token){
         Map userMap = new HashedMap();
         Map keyMap = new HashedMap();
         Map blackListMap = new HashedMap();
@@ -52,7 +52,9 @@ public class UserCAO extends AbstractCAO{
     }
 
     /**
-     * 询问缓存有无该用户的StudentDTO
+     * 先问有没有该用户的缓存
+     * 再问缓存有无该用户的StudentDTO
+     *
      * @param token
      * @return
      */

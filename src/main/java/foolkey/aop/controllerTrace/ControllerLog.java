@@ -31,6 +31,10 @@ public class ControllerLog {
         return rvt;
     }
 
+    /**
+     * 对于每次发送JSON，都打印出来
+     * @param arg0
+     */
     @Before(value = "execution(* foolkey.tool.JSONHandler.send*(..)) && args(arg0, ..)")
     public void JSONHandlerLog(JSONObject arg0){
         System.out.println("返回的json值是");

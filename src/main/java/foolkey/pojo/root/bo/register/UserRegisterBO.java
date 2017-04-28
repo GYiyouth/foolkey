@@ -62,7 +62,7 @@ public class UserRegisterBO {
      * @param aesKey
      */
     public void saveStudentToCache(String token, StudentDTO studentDTO, String aesKey){
-        userCAO.initStudentCache(token);
+        userCAO.initUserCache(token);
         userCAO.saveStudentDTO(token, studentDTO);
         userCAO.saveStudentAESKey(token, aesKey);
     }

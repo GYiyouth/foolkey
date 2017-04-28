@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * 这种情况的产生有以下原因：
  *
  * 客户端丢失了token
- * 服务器丢失了该用户的缓存
+ * 服务器丢失了该用户的缓存  （不存在，若丢失，从数据库取）
  *
  * 需要用户提交 ：
  * RSA加密的 —— userName、passWord、AESKey
