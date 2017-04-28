@@ -9,7 +9,7 @@
     <!--启用@Aspect支持-->
     <aop:aspectj-autoproxy/>
     <!--切面类，包名加在下划线里-->
-    <context:component-scan base-package="foolkey.aop">
+    <context:component-scan base-package="foolkey.aop.*">
         <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
     </context:component-scan>
 </beans>

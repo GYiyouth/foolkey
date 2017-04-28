@@ -1,5 +1,6 @@
 package foolkey.interceptor.com;
 
+import foolkey.interceptor.AbstractInterceptor;
 import foolkey.pojo.root.bo.security.RSAKeyBO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
 import foolkey.tool.ConverterByteBase64;
@@ -23,11 +24,9 @@ import java.util.Map;
  * Created by geyao on 2017/4/26.
  */
 @Controller(value = "rsaDecryptInterceptor")
-public class RSADecryptInterceptor implements HandlerInterceptor {
+public class RSADecryptInterceptor extends AbstractInterceptor {
     @Resource(name = "rsaKeyBO")
     private RSAKeyBO rsaKeyBO;
-    @Resource(name = "localCache")
-    private Cache cache;
 
 
     @Override
@@ -37,57 +36,54 @@ public class RSADecryptInterceptor implements HandlerInterceptor {
         try {
             request.setCharacterEncoding("UTF-8");
 
-            //获取密文
+            //获取JSON
             String cipherText = request.getParameter("cipherText").toString();
 
-            System.out.println("收到的——");
-            System.out.println(cipherText);
+            //需要前端提供以下字段，分别加密
+            JSONObject jsonObject = JSONObject.fromObject(cipherText);
+            String userNameCipher = jsonObject.get("userName").toString();
+            String passWordCipher = jsonObject.get("passWord").toString();
+            String aesKeyCipher = jsonObject.get("AESKey").toString();
+            //对密文预处理
+            userNameCipher = cipherPreHandler(userNameCipher);
+            passWordCipher = cipherPreHandler(passWordCipher);
+            aesKeyCipher = cipherPreHandler(aesKeyCipher);
 
-//            cipherText = cipherText.replaceAll("\\n", "");
-            cipherText = cipherText.replaceFirst("壹","\n");
-            cipherText = cipherText.replaceFirst("壹","\n");
-            cipherText = cipherText.substring(0, cipherText.length() -1 );
-
-            System.out.println(cipherText);
-//            cipherText = cipherText.replaceAll("十", "+");
             //拿取私钥
             RSAKeyDTO rsaKeyDTO= rsaKeyBO.getServerRSAKeyDTO();
             String priKeyStr = rsaKeyDTO.getPriBase64Str();
 
-            System.out.println("密文的hashCode " + cipherText.hashCode());
-
             //解密
-            String decryptText = rsaKeyBO.decrypyBase64StrByPri(cipherText, priKeyStr);
+            String userName = rsaKeyBO.decrypyBase64StrByPri(userNameCipher, priKeyStr);
+            String passWord = rsaKeyBO.decrypyBase64StrByPri(passWordCipher, priKeyStr);
+            String aesKey = rsaKeyBO.decrypyBase64StrByPri(aesKeyCipher, priKeyStr);
 
-            System.out.println("解密后 ");
-            System.out.println(decryptText);
+            //传给control
+            request.setAttribute("userName", userName);
+            request.setAttribute("passWord", passWord);
+            request.setAttribute("aesKey", aesKey);
 
-
-            //转换为json，处理信息
-            JSONObject decryptJSON = JSONObject.fromObject(decryptText);
-            Map map = new HashedMap();
-            Iterator iterator = decryptJSON.keys();
-            while (iterator.hasNext()){
-                String key = iterator.next().toString();
-                map.put(key, decryptJSON.get(key));
-            }
-            request.setAttribute("decryptJSON", decryptJSON);
-            request.setAttribute("decryptMap", map);
             return true;
 
         }catch (Exception e){
             e.printStackTrace();
+            jsonHandler.sendFailJSON(response);
         }
         return false;
     }
 
-    @Override
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        return;
-    }
 
-    @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        return;
+    /**
+     * 对编码进行预处理
+     * @param cipherText
+     * @return
+     */
+    private String cipherPreHandler(String cipherText){
+        if (cipherText == null || cipherText.equals(""))
+            return "";
+        cipherText = cipherText.replaceFirst("壹","\n");
+        cipherText = cipherText.replaceFirst("壹","\n");
+        cipherText = cipherText.substring(0, cipherText.length() -1 );
+        return cipherText;
     }
 }

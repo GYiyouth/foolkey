@@ -29,44 +29,17 @@ public class GetServerPublicKeyController extends AbstractController{
     @Resource(name = "rsaKeyBO")
     private RSAKeyBO rsaKeyBO;
 
-    @Resource(name = "aesKeyBO")
-    private AESKeyBO aesKeyBO;
-
-
-    @Resource(name = "localCache")
-    private Cache cache;
-
 
     @RequestMapping
     public void execute(
             HttpServletResponse response
     ) throws Exception{
 
+        JSONObject jsonObject = new JSONObject();
         try {
             RSAKeyDTO rsaKeyDTO = rsaKeyBO.getServerRSAKeyDTO();
-            String raw = "愚人科技";
-//            System.out.println("原文是 \n+ " + raw);
-            String cipherText = rsaKeyBO.encryptByPub(raw, rsaKeyBO.getServerRSAKeyDTO().getPubBase64Str());
 
-            String str = rsaKeyBO.decrypyBase64StrByPri(cipherText, rsaKeyBO.getServerRSAKeyDTO().getPriBase64Str());
-
-//            System.out.println("密钥解密？ ");
-//            System.out.println(str.equals(raw));
-//            System.out.println(str);
             jsonObject.put("publicKey", rsaKeyDTO.getPubBase64Str());
-            jsonObject.put("privateKey", rsaKeyDTO.getPriBase64Str());
-            jsonObject.put("clearText", raw);
-            jsonObject.put("cipherText", cipherText);
-
-            String pub16 = ConverterB20X.encode(rsaKeyDTO.getPubBase64Str());
-            String pri16 = ConverterB20X.encode(rsaKeyDTO.getPriBase64Str());
-            String cipher16 = ConverterB20X.encode(cipherText);
-            String clear16 = ConverterB20X.encode(raw);
-            jsonObject.put("pub16", pub16);
-            jsonObject.put("pri16", pri16);
-            jsonObject.put("cipher16", cipher16);
-            jsonObject.put("clear16", clear16);
-
             jsonObject.put("result", "success");
         }catch (Exception e){
             e.printStackTrace();

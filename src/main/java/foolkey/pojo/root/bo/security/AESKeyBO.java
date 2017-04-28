@@ -35,13 +35,13 @@ public class AESKeyBO {
     private String base64key;
 
     /**
-     * 先从缓存中获取该用户的key，没有的话，建一个
+     * 从缓存中获取该用户的key，没有的话，返回false
      * @return base64编码的key
      */
     public String getKeybase64Str(String userToken) throws Exception{
         if (keyCAO.containsAESKey(userToken))
             return keyCAO.getUserAESKeyDTO(userToken);
-        return aesCoder.getAESKeyBase64();
+        return null;
     }
 
     /**
@@ -80,7 +80,7 @@ public class AESKeyBO {
      */
     public void saveUserAESKey(String token, String aesBase64Key){
         if (!userCAO.containsUser(token)){
-            userCAO.saveUserInfo(token);
+            userCAO.initStudentCache(token);
         }
         keyCAO.updateUserAESKey(aesBase64Key, token);
     }

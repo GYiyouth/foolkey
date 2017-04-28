@@ -105,6 +105,8 @@ public class RSAKeyBO {
         byte[] clearBytes = rsaCoder.decryptByPrivateKey(cipherBytes, priKeyBytes);
         String result = new String(clearBytes);
         result = result.replaceAll("\u0000", "");
+        System.out.println("解密结果是");
+        System.out.println(result);
         return result;
     }
 

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 public class RSACoder {
     //非对称密钥算法
     public static final String KEY_ALGORITHM="RSA";
+    public static final String CIPHER_ALGORITHM = "RSA/ECB/NoPadding";
 
 
     /**
@@ -86,7 +87,7 @@ public class RSACoder {
         //生成私钥
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         //数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
@@ -106,7 +107,7 @@ public class RSACoder {
         PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
 
         //数据加密
-        Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
         return cipher.doFinal(data);
     }
@@ -123,7 +124,7 @@ public class RSACoder {
         //生成私钥
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         //数据解密
-        Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
@@ -143,7 +144,7 @@ public class RSACoder {
         //产生公钥
         PublicKey pubKey = keyFactory.generatePublic(x509KeySpec);
         //数据解密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, pubKey);
         return cipher.doFinal(data);
     }

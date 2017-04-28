@@ -33,8 +33,13 @@
     <!--拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/rsa/*"/>
+            <mvc:mapping path="/rsa/register"/>
             <bean class="foolkey.interceptor.com.RSADecryptInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/updateAESKey"/>
+            <bean class="foolkey.interceptor.com.AESDecryptInterceptor"/>
         </mvc:interceptor>
 
     </mvc:interceptors>

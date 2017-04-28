@@ -1,11 +1,13 @@
 package foolkey.pojo.root.CAO.userInfo;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.cache.Cache;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,7 +21,7 @@ public class UserCAO extends AbstractCAO{
      * 在缓存中开辟一个新的用户缓存区
      * @param token
      */
-    public void saveUserInfo(String token){
+    public void initStudentCache(String token){
         Map userMap = new HashedMap();
         Map keyMap = new HashedMap();
         Map blackListMap = new HashedMap();
@@ -28,6 +30,16 @@ public class UserCAO extends AbstractCAO{
         userMap.put(blackListToken, blackListMap);
 
         cache.put(token, userMap);
+    }
+
+    /**
+     * 把用户信息存储在缓存中
+     * @param token
+     * @param studentDTO
+     */
+    public void saveStudentDTO(String token, StudentDTO studentDTO){
+        Map map = getUserMap(token);
+        map.put(userInfoToken, studentDTO);
     }
 
     /**
@@ -46,5 +58,17 @@ public class UserCAO extends AbstractCAO{
      */
     public Map getUserMap(String token){
         return cache.getMap(token);
+    }
+
+    /**
+     * 存储用户的对称密钥
+     * @param token
+     * @param AESKey
+     */
+    public void saveStudentAESKey(String token, String AESKey){
+        Map userMap = cache.getMap(token);
+        Map keyMap = new HashMap();
+        keyMap.put(aesKeyToken, AESKey);
+        userMap.put(keyToken, keyMap);
     }
 }

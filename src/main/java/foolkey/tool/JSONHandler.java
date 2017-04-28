@@ -59,7 +59,7 @@ public class JSONHandler {
      * @param response
      * @throws Exception
      */
-	public void sendJSON(JSONObject jsonObject, HttpServletResponse response) throws Exception{
+	public void sendJSON(JSONObject jsonObject, HttpServletResponse response){
         if (jsonObject == null || response == null){
             System.out.println(JSONHandler.class);
             System.out.println("jsonObject == null || response == null");
@@ -67,9 +67,34 @@ public class JSONHandler {
         if (!jsonObject.containsKey("result")){
             jsonObject.put("result", "fail");
         }
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonObject.toString());
-        response.getWriter().flush();
-        response.getWriter().close();
+        try {
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonObject.toString());
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * 明文传输告知失败
+     * @param response
+     * @throws Exception
+     */
+    public static void sendFailJSON(HttpServletResponse response){
+
+
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result", "fail");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonObject.toString());
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

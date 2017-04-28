@@ -13,7 +13,7 @@ public class SHA1Coder {
      * @return 加密的字符串
      * SHA1加密
      */
-    public final static String SHA1(String rowString) {
+    public static String SHA1(String rowString) {
         try {
             MessageDigest digest = java.security.MessageDigest
                     .getInstance("SHA-1");

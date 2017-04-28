@@ -16,7 +16,6 @@ public abstract class AbstractController {
     @Resource(name = "jsonHandler")
     protected JSONHandler jsonHandler;
 
-    protected JSONObject jsonObject = new JSONObject();
 
     /**
      * 前置函数

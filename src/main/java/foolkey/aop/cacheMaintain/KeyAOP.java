@@ -29,15 +29,15 @@ public class KeyAOP {
         System.out.println("AOP实现了服务器RSAKey缓存的更新!!");
     }
 
-    @Around("execution(* foolkey.tool.security.AESCoder.getAESKeyBase64() ) ")
-    public Object updateUserAESKey(ProceedingJoinPoint joinPoint) throws Throwable{
-        Object[] args = joinPoint.getArgs();
-        Object rvt = joinPoint.proceed(args);
-        String userToken = args[0].toString();
-        String aesBase64Key = rvt.toString();
-        keyCAO.updateUserAESKey(aesBase64Key, userToken);
-
-        System.out.println("AOP实现了用户AESKey缓存的更新");
-        return rvt;
-    }
+//    @Around("execution(* foolkey.tool.security.AESCoder.getAESKeyBase64() ) ")
+//    public Object updateUserAESKey(ProceedingJoinPoint joinPoint) throws Throwable{
+//        Object[] args = joinPoint.getArgs();
+//        Object rvt = joinPoint.proceed(args);
+//        String userToken = args[0].toString();
+//        String aesBase64Key = rvt.toString();
+//        keyCAO.updateUserAESKey(aesBase64Key, userToken);
+//
+//        System.out.println("AOP实现了用户AESKey缓存的更新");
+//        return rvt;
+//    }
 }
