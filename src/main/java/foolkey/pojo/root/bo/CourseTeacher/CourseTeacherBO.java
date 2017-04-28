@@ -1,9 +1,10 @@
-package foolkey.pojo.root.bo;
+package foolkey.pojo.root.bo.CourseTeacher;
 
 import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.tool.StaticVariable;
 import foolkey.tool.cache.Cache;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,17 @@ public class CourseTeacherBO {
      * @throws Exception
      */
     public ArrayList<CourseTeacherDTO> getPopularCourseTeacher(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
-        if (courseTeacherCAO.contaionsCourseTeacher(technicTagEnum, pageNo, pageSize))
-            return courseTeacherCAO.getCourseTeacherPopular(technicTagEnum,pageNo,pageSize);
-        return (ArrayList<CourseTeacherDTO>) getCourseTeacherDAO.findCourseTeacherByPage(technicTagEnum,pageNo,pageSize);
-//            return keyCAO.getUserAESKeyDTO(userToken);
-//        return aesCoder.getAESKeyBase64();
-
-
+        //请求的内容超过内存大小
+        if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
+            return  getCourseTeacherDAO.findCourseTeacherByPageMoreCache(technicTagEnum,pageNo,pageSize);
+        }else{
+            if (courseTeacherCAO.contaionsCourseTeacher(technicTagEnum, pageNo, pageSize)) {
+                System.out.println("缓存有！");
+                return courseTeacherCAO.getCourseTeacherPopular(technicTagEnum, pageNo, pageSize);
+            }else {
+                System.out.println("缓存没有");
+                return getCourseTeacherDAO.findCourseTeacherByPageLessCache(technicTagEnum, pageNo, pageSize);
+            }
+        }
     }
 }

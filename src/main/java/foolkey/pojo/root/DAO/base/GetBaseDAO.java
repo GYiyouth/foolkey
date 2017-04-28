@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class GetBaseDAO<T> {
      * @return
      */
     public long findCount(Class<T> entityClazz) {
-        List<Long> list = (List<Long>) hibernateTemplate.find("select count(*) from " + entityClazz.getSimpleName() + " en");
+        ArrayList<Long> list = (ArrayList<Long>) hibernateTemplate.find("select count(*) from " + entityClazz.getSimpleName() + " en");
         return list.get(0);
     }
 
@@ -63,7 +64,7 @@ public class GetBaseDAO<T> {
      * @return 当前页的所有记录
      */
     @SuppressWarnings("unchecked")
-    public List<T> findByPage(final String hql, final int pageNo, final int pageSize) {
+    public ArrayList<T> findByPage(final String hql, final int pageNo, final int pageSize) {
         List<T> list = hibernateTemplate.execute(new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(Session session) throws HibernateException {
@@ -75,7 +76,7 @@ public class GetBaseDAO<T> {
                 return result;
             }
         });
-        return list;
+        return (ArrayList<T>) list;
     }
 
     /**
@@ -87,7 +88,7 @@ public class GetBaseDAO<T> {
      * @return 当前页的所有记录
      */
     @SuppressWarnings("unchecked")
-    public List<T> findByPage(final String hql, final int pageNo, final int pageSize, final Object... params) {
+    public ArrayList<T> findByPage(final String hql, final int pageNo, final int pageSize, final Object... params) {
         List<T> list = hibernateTemplate.execute(new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(Session session) throws HibernateException {
@@ -103,7 +104,7 @@ public class GetBaseDAO<T> {
                 return result;
             }
         });
-        return list;
+        return (ArrayList<T>) list;
     }
 
 
