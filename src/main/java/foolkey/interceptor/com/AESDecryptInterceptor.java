@@ -44,7 +44,11 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
 
             //获取第三部分，密文，并解密
             String cipherStr = request.getParameter("cipherText");
-            cipherStr = aesKeyBO.decrypt(cipherStr, aesKey);
+            //如果第三部分为空，则处理一下，预防抛出异常
+            if (cipherStr == null || cipherStr.equals(""))
+                cipherStr = "{}";
+            else
+                cipherStr = aesKeyBO.decrypt(cipherStr, aesKey);
             JSONObject cipherText = JSONObject
                     .fromObject(cipherStr);
 
