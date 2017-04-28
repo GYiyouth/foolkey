@@ -4,6 +4,7 @@ import foolkey.tool.cache.Cache;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Created by geyao on 2017/4/27.
@@ -18,10 +19,9 @@ public abstract class AbstractCAO {
     protected static final String aesKeyToken = "aesKeyToken";
 
     //以下缓存群，在各个技术标签下均有
-    protected static final String courseToken = "";
-    protected static final String articleToken = "";
-    protected static final String question = "";
-
+    protected static final String courseTeacherToken = "courseTeacherToken";
+    protected static final String articleToken = "articleToken";
+    protected static final String question = "question";
 
     @Resource(name = "localCache")
     protected Cache cache;
