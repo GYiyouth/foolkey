@@ -23,17 +23,40 @@ public class CourseTeacherAOP {
     private CourseTeacherCAO courseTeacherCAO;
 
     /**
-     *
+     * 添加搜索结果到缓存
      * @param jp
      * @param courseTeacherDTOS
      */
     @AfterReturning(returning = "courseTeacherDTOS",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.findCourseTeacherByPageLessCache(..))"  )
-    public void addCourseTeacherDTO(JoinPoint jp, ArrayList<CourseTeacherDTO> courseTeacherDTOS){
+    public void addCourseTeacherDTOToCache(JoinPoint jp, ArrayList<CourseTeacherDTO> courseTeacherDTOS){
         System.out.println("参数为：");
         System.out.println(jp.getArgs()[0]);
+        System.out.println(jp.getArgs()[1]);
         if (courseTeacherDTOS != null)
             courseTeacherCAO.addCourseTeacherPopular((TechnicTagEnum) jp.getArgs()[0],courseTeacherDTOS);
-        System.out.println("AOP实现了服务器RSAKey缓存的更新!!");
+        System.out.println("AOP实现了courseTeacherDTO缓存的更新!!");
+    }
+
+    /**
+     * 自动化添加课程到缓存
+     * @param jp
+     * @param courseTeacherDTOS
+     */
+    @AfterReturning(returning = "courseTeacherDTOS",
+            pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.autoAddCourseTeacherDTOToCache(..))"  )
+    public void autoAddCourseTeacherDTOToCache(JoinPoint jp, ArrayList<CourseTeacherDTO> courseTeacherDTOS){
+        if (courseTeacherDTOS != null) {
+            courseTeacherCAO.autoAddCourseTeacherToCache((TechnicTagEnum) jp.getArgs()[0], courseTeacherDTOS);
+        }
+        System.out.println("AOP实现了courseTeacherDTO缓存的自动更新!!");
+    }
+    @AfterReturning(returning = "courseTeacherDTO",
+            pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.update(..))"  )
+    public void updateCourseTeacherDTO(JoinPoint jp,CourseTeacherDTO courseTeacherDTO){
+        if (courseTeacherDTO != null) {
+            courseTeacherCAO.updateCourseTeacherDTO((TechnicTagEnum) jp.getArgs()[0], courseTeacherDTO);
+        }
+        System.out.println("AOP实现了courseTeacherDTO缓存的自动更新!!");
     }
 }

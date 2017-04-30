@@ -2,7 +2,7 @@ package foolkey.pojo.root.vo.dto;
 
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
-import foolkey.pojo.root.vo.assistObject.TeachStateEnum;
+import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
@@ -37,7 +37,7 @@ public class OrderBuyCourseDTO extends OrderAbstract{
     private TeachMethodEnum teachMethodEnum;
 
     @Column(name = "teach_state")
-    private TeachStateEnum teachStateEnum;
+    private CourseTeacherStateEnum teachStateEnum;
 
     @Column(name = "lesson_end_time")
     private Date lessonEndTime;
@@ -104,11 +104,11 @@ public class OrderBuyCourseDTO extends OrderAbstract{
         this.teachMethodEnum = teachMethodEnum;
     }
 
-    public TeachStateEnum getTeachStateEnum() {
+    public CourseTeacherStateEnum getTeachStateEnum() {
         return teachStateEnum;
     }
 
-    public void setTeachStateEnum(TeachStateEnum teachStateEnum) {
+    public void setTeachStateEnum(CourseTeacherStateEnum teachStateEnum) {
         this.teachStateEnum = teachStateEnum;
     }
 

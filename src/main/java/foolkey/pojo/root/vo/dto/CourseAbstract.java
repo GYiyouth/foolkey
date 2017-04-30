@@ -1,12 +1,11 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
-import foolkey.pojo.root.vo.assistObject.TeachStateEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by admin on 2017/4/24.
@@ -40,22 +39,19 @@ public class CourseAbstract {
     private TeachMethodEnum teachMethodEnum;
 
     @Column(name ="class_time")
-    private Date classTime;
-
-    @Column(name = "teach_state")
-    private TeachStateEnum teachStateEnum;
+    private CourseTimeDayEnum courseTimeDayEnum;
 
     @Override
     public String toString() {
         return "CourseAbstract{" +
                 "id=" + id +
+                ", creatorId=" + creatorId +
                 ", technicTagEnum=" + technicTagEnum +
                 ", topic='" + topic + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", teachMethodEnum=" + teachMethodEnum +
-                ", classTime=" + classTime +
-                ", teachStateEnum=" + teachStateEnum +
+                ", courseTimeDayEnum=" + courseTimeDayEnum +
                 '}';
     }
 
@@ -115,19 +111,11 @@ public class CourseAbstract {
         this.teachMethodEnum = teachMethodEnum;
     }
 
-    public Date getClassTime() {
-        return classTime;
+    public CourseTimeDayEnum getCourseTimeDayEnum() {
+        return courseTimeDayEnum;
     }
 
-    public void setClassTime(Date classTime) {
-        this.classTime = classTime;
-    }
-
-    public TeachStateEnum getTeachStateEnum() {
-        return teachStateEnum;
-    }
-
-    public void setTeachStateEnum(TeachStateEnum teachStateEnum) {
-        this.teachStateEnum = teachStateEnum;
+    public void setCourseTimeDayEnum(CourseTimeDayEnum courseTimeDayEnum) {
+        this.courseTimeDayEnum = courseTimeDayEnum;
     }
 }

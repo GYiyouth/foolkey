@@ -5,6 +5,7 @@ import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
 import foolkey.tool.cache.Cache;
 import foolkey.tool.cache.LocalCache;
+import javafx.beans.binding.ObjectExpression;
 
 import java.util.ArrayList;
 
@@ -210,13 +211,31 @@ public class MyDoubleLink {
         }
     }
 
+    //初始化
+    public void InitMyDoubleLink(){
+        length = 0;
+        header = null;
+        tail = null;
+    }
+
+    //修改节点内容
+    public void updateNodeByIndex(int index,Object data){
+        if (index > length - 1 || index < 0) {
+            throw new IndexOutOfBoundsException("索引超出了边界！");
+        } else if (header == null) {
+            throw new NullPointerException("链表为空！");
+        } else{
+            Node node = getNodeByIndex(index);
+            node.setData(data);
+        }
+    }
 
     public static void main(String[] args) {
 
         MyDoubleLink mytest = new MyDoubleLink();
         mytest.addHead("12334");
         mytest.addTail("wangpeili");
-        mytest.addHead(123);
+        mytest.addHead("123");
         mytest.addHead("test");
         mytest.addTail("test2");
         mytest.addHead("hahha");
@@ -237,6 +256,16 @@ public class MyDoubleLink {
         for (Object object : results) {
             System.out.println(object.toString());
         }
+
+        for(int i = 0;i<mytest.getLength();i++){
+            if(mytest.getNodeByIndex(i).getData().equals("123")){
+                System.out.println("i"+i);
+                mytest.delNodeByIndex(i);
+                break;
+            }
+        }
+        mytest.allPrint();
+
     }
 
 

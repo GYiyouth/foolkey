@@ -1,6 +1,5 @@
 package foolkey.aop.cacheMaintain;
 
-import foolkey.pojo.root.CAO.article.*;
 import org.aspectj.lang.annotation.Aspect;
 
 import javax.annotation.Resource;

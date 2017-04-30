@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.CourseTeacher;
 
 import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
+import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.tool.StaticVariable;
@@ -26,6 +27,9 @@ public class CourseTeacherBO {
     @Resource(name = "getCourseTeacherDAO")
     private GetCourseTeacherDAO getCourseTeacherDAO;
 
+    @Resource(name = "saveCourseTeacherDAO")
+    private SaveCourseTeacherDAO saveCourseTeacherDAO;
+
     /**
      * 获取某个标签下流行的课程
      * @param technicTagEnum
@@ -46,6 +50,18 @@ public class CourseTeacherBO {
                 System.out.println("缓存没有");
                 return getCourseTeacherDAO.findCourseTeacherByPageLessCache(technicTagEnum, pageNo, pageSize);
             }
+        }
+    }
+
+    /**
+     * 发布课程
+     * @param courseTeacherDTO
+     */
+    public void publishCourseTeacher(CourseTeacherDTO courseTeacherDTO){
+        if(courseTeacherDTO == null){
+            throw new NullPointerException("课程内容为空");
+        }else{
+            saveCourseTeacherDAO.save(courseTeacherDTO);
         }
     }
 }

@@ -1,6 +1,7 @@
 package foolkey.pojo;
 
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.BeanFactory;
 
 /**
@@ -9,7 +10,7 @@ import foolkey.tool.BeanFactory;
 public class TestG {
     public static void main(String[] args) {
         GetCourseTeacherDAO getCourseTeacherDAO = BeanFactory.getBean("getCourseTeacherDAO",GetCourseTeacherDAO.class);
-        String hql = "select ct from CourseTeacherDTO ct,TeacherDTO t where ct.creatorId = t.id and ct.technicTagEnum = ? order by t.teacherAverageScore desc,ct.averageScore desc";
-//        getCourseTeacherDAO.test(hql,1,4, 前端);
+//        String hql = "select ct from CourseTeacherDTO ct,TeacherDTO t where ct.creatorId = t.id and ct.technicTagEnum = ? order by t.teacherAverageScore desc,ct.averageScore desc";
+        getCourseTeacherDAO.findCourseTeacherByPageMoreCache(TechnicTagEnum.Java,1,3);
     }
 }

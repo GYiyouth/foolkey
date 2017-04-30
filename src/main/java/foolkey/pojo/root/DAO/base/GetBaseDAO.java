@@ -39,8 +39,8 @@ public class GetBaseDAO<T> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<T> findAll(Class<T> entityClazz) {
-        return (List<T>) hibernateTemplate.find("select en from "
+    public ArrayList<T> findAll(Class<T> entityClazz) {
+        return (ArrayList<T>) hibernateTemplate.find("select en from "
                 + entityClazz.getSimpleName() + " en");
     }
 
@@ -53,6 +53,27 @@ public class GetBaseDAO<T> {
     public long findCount(Class<T> entityClazz) {
         ArrayList<Long> list = (ArrayList<Long>) hibernateTemplate.find("select count(*) from " + entityClazz.getSimpleName() + " en");
         return list.get(0);
+    }
+
+    /**
+     * 数据库读取前n条数据
+     * @param hql
+     * @param resultSize
+     * @return
+     */
+    public ArrayList<T> find(String hql,Integer resultSize) {
+        List<T> list = hibernateTemplate.execute(new HibernateCallback<List<T>>() {
+            @Override
+            public List<T> doInHibernate(Session session) throws HibernateException {
+                //执行Hibernate分页查询
+                List<T> result = session.createQuery(hql)
+                        .setFirstResult(1)
+                        .setMaxResults(resultSize)
+                        .list();
+                return result;
+            }
+        });
+        return (ArrayList<T>) list;
     }
 
     /**

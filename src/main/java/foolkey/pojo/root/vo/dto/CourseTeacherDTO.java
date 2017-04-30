@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
@@ -15,45 +16,56 @@ import java.util.Date;
 @Table(name = "t_course_teacher")
 public class CourseTeacherDTO extends CourseAbstract{
 
-    //预计时长
+    //预计时长 0.5h/1h...
     @Column(name = "duration")
-    private Date duration;
+    private Float duration;
 
     //课程数
     @Column(name = "class_amount")
-    private Date classAmount;
+    private Integer classAmount;
+
+    @Column(name = "course_teacher_state")
+    private CourseTeacherStateEnum courseTeacherStateEnum;
 
     @Column(name  = "sales")
     private Integer sales;
 
     @Column(name = "average_score")
-    private double averageScore;
-
+    private Double averageScore;
 
     @Override
     public String toString() {
         return "CourseTeacherDTO{" +
                 "duration=" + duration +
                 ", classAmount=" + classAmount +
+                ", courseTeacherStateEnum=" + courseTeacherStateEnum +
                 ", sales=" + sales +
                 ", averageScore=" + averageScore +
                 '}';
     }
 
-    public Date getDuration() {
+    public Float getDuration() {
         return duration;
     }
 
-    public void setDuration(Date duration) {
+    public void setDuration(Float duration) {
         this.duration = duration;
     }
 
-    public Date getClassAmount() {
+    public Integer getClassAmount() {
         return classAmount;
     }
 
-    public void setClassAmount(Date classAmount) {
+    public void setClassAmount(Integer classAmount) {
         this.classAmount = classAmount;
+    }
+
+    public CourseTeacherStateEnum getCourseTeacherStateEnum() {
+        return courseTeacherStateEnum;
+    }
+
+    public void setCourseTeacherStateEnum(CourseTeacherStateEnum courseTeacherStateEnum) {
+        this.courseTeacherStateEnum = courseTeacherStateEnum;
     }
 
     public Integer getSales() {
@@ -64,11 +76,11 @@ public class CourseTeacherDTO extends CourseAbstract{
         this.sales = sales;
     }
 
-    public double getAverageScore() {
+    public Double getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(double averageScore) {
+    public void setAverageScore(Double averageScore) {
         this.averageScore = averageScore;
     }
 }
