@@ -63,7 +63,7 @@
 
     约定 使用AOP、或者来完成加解密的工作，同时把密码的 SHA1加密工作移交给 APP。
         我也写了对于密码进行 SHA1加密的AOP foolkey.aop.passWordEncrypt.PassWordSHA1EncryptAOP
-        对于RSA算法的解密，写了一个通用的解密拦截器，等待测试：foolkey.interceptor.com.ComRSADecryptInterceptor
+        对于RSA算法的解密，写了一个通用的解密拦截器，等待测试：foolkey.interceptor.com.RSADecryptInterceptor
     对于RSA加密的信息，实际上是一个结构简单的JSON
         key - 明文
         value - 密文，且为简单String格式，即不为JSON

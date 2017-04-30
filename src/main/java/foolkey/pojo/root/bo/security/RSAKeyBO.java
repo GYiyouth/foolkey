@@ -94,19 +94,13 @@ public class RSAKeyBO {
      * @return 正常明文
      * @throws Exception
      */
-    public String decrypyBase64StrByPri(String cipherBase64Str, String priKeyStrBase64) throws Exception{
-        System.out.println("密文是 ");
-        System.out.println(cipherBase64Str);
-        System.out.println("密钥是 ");
-        System.out.println(priKeyStrBase64);
+    public String decryptBase64StrByPri(String cipherBase64Str, String priKeyStrBase64) throws Exception{
 
         byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
         byte[] priKeyBytes = ConverterByteBase64.base642Byte(priKeyStrBase64);
         byte[] clearBytes = rsaCoder.decryptByPrivateKey(cipherBytes, priKeyBytes);
         String result = new String(clearBytes);
         result = result.replaceAll("\u0000", "");
-        System.out.println("解密结果是");
-        System.out.println(result);
         return result;
     }
 

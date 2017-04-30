@@ -39,6 +39,7 @@ public class SaveUserController extends AbstractController {
             String userName = request.getAttribute("userName").toString();
             String passWord = request.getAttribute("passWord").toString();
             String aesKey = request.getAttribute("AESKey").toString();
+//            String aesIv = request.getAttribute("AESIv").toString()
             //密码进行加密
 //            passWord = sha1KeyBO.encrypt(passWord); 这一步移交给了 app，或者由AOP来做
             //生成token

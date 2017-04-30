@@ -41,7 +41,8 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/rsa/register"/>
-            <bean class="foolkey.interceptor.com.ComRSADecryptInterceptor"/>
+            <mvc:mapping path="/rsa/login"/>
+            <bean class="foolkey.interceptor.com.RSADecryptInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>

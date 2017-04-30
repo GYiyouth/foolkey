@@ -6,6 +6,7 @@ import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 import java.util.Iterator;
 
 /**
@@ -24,6 +25,7 @@ public class PrinterInterceptor extends AbstractInterceptor{
             String key = iterator.next().toString();
             System.out.println(" key : value -----   " + key + " : " + httpServletRequest.getParameter(key));
         }
+
         return true;
     }
 }

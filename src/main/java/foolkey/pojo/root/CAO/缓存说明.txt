@@ -15,7 +15,8 @@
 
 3，{userToken} - Map
                      - key - Map
-                                  - aesKeyToken String, 对称加密的key， base64格式
+                                  - aesKeyToken String, 对称加密的key
+
 
                      - studentDTO StudentDTO
                      - blackList Map

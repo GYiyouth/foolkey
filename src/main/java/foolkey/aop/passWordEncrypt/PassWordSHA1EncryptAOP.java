@@ -25,7 +25,7 @@ public class PassWordSHA1EncryptAOP {
      * @return
      * @throws Throwable
      */
-    @Around("execution(* foolkey.pojo.root.bo.student.StudentInfoBO.getStudentDTO(..) )")
+//    @Around("execution(* foolkey.pojo.root.bo.student.StudentInfoBO.getStudentDTO(..) )")
     public StudentDTO encrypt(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
         String userName = args[0].toString();

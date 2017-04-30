@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -15,6 +16,14 @@ import javax.crypto.spec.SecretKeySpec;
 public class AESCoder {
     //对称密钥算法
     private static final String KEY_ALGORITHM="AES";
+
+    private static final String CIPHER = "AES/CBC/PKCS5Padding";
+
+    private String sKey = "smkldospdosldaaa";//key，可自行修改
+    private String ivParameter = "0392039203920300";//偏移量,可自行修改
+
+    private IvParameterSpec iv = new IvParameterSpec( ivParameter.getBytes() );
+
     /**
      * 密钥长度
      * */
@@ -55,9 +64,10 @@ public class AESCoder {
     public byte[] encryptAES(byte[] source, SecretKey secretKey) throws Exception{
         byte[] enCodeFormat = secretKey.getEncoded();
         SecretKeySpec key = new SecretKeySpec(enCodeFormat, KEY_ALGORITHM);
-        Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);// 创建密码器
+
+        Cipher cipher = Cipher.getInstance(CIPHER);// 创建密码器
         byte[] byteContent = source;
-        cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+        cipher.init(Cipher.ENCRYPT_MODE, key, iv);// 初始化
         byte[] result = cipher.doFinal(byteContent);
         return result; // 加密
     }
@@ -72,8 +82,8 @@ public class AESCoder {
     public byte[] decryptAES(byte[] source, SecretKey secretKey) throws Exception{
         byte[] enCodeFormat = secretKey.getEncoded();
         SecretKeySpec key = new SecretKeySpec(enCodeFormat, KEY_ALGORITHM);
-        Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);// 创建密码器
-        cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
+        Cipher cipher = Cipher.getInstance(CIPHER);// 创建密码器
+        cipher.init(Cipher.DECRYPT_MODE, key, iv);// 初始化
         byte[] result = cipher.doFinal(source);
         return result; // 加密
     }

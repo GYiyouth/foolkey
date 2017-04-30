@@ -5,6 +5,7 @@ import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.cache.Cache;
 import foolkey.tool.security.AESCoder;
+import foolkey.tool.security.AESOperator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +32,9 @@ public class AESKeyBO {
 
     private String base64key;
 
+    @Resource(name = "aesOperator")
+    private AESOperator aesOperator;
+
     /**
      * 从缓存中获取该用户的key，没有的话，返回false
      * @return base64编码的key
@@ -48,11 +52,12 @@ public class AESKeyBO {
      * @return base64格式的密文
      * @throws Exception
      */
-    public String encrypt(String RowStr, String base64KeyStr) throws Exception{
-        byte[] cipherBytes = aesCoder.encryptAES(RowStr.getBytes(),
-                aesCoder.loadKeyAES(base64KeyStr)
-                );
-        return ConverterByteBase64.byte2Base64(cipherBytes);
+    public String encrypt(String RowStr, String KeyStr) throws Exception{
+//        byte[] cipherBytes = aesCoder.encryptAES(RowStr.getBytes(),
+//                aesCoder.loadKeyAES(base64KeyStr)
+//                );
+//        return ConverterByteBase64.byte2Base64(cipherBytes);
+        return aesOperator.encrypt(RowStr, KeyStr);
     }
     /**
      * 解密
@@ -61,12 +66,13 @@ public class AESKeyBO {
      * @return 明文
      * @throws Exception
      */
-    public String decrypt(String cipherBase64Str, String base64KeyStr) throws Exception{
-        byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
-        byte[] clearBytes = aesCoder.decryptAES( cipherBytes,
-                aesCoder.loadKeyAES(base64KeyStr)
-                );
-        return new String(clearBytes);
+    public String decrypt(String cipherBase64Str, String KeyStr) throws Exception{
+//        byte[] cipherBytes = ConverterByteBase64.base642Byte(cipherBase64Str);
+//        byte[] clearBytes = aesCoder.decryptAES( cipherBytes,
+//                aesCoder.loadKeyAES(base64KeyStr)
+//                );
+//        return new String(clearBytes);
+        return aesOperator.decrypt(cipherBase64Str, KeyStr);
     }
 
     /**

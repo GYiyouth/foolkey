@@ -2,11 +2,6 @@ package foolkey.pojo;
 
 import foolkey.pojo.root.bo.security.RSAKeyBO;
 import foolkey.tool.BeanFactory;
-import foolkey.tool.ConverterByteBase64;
-import foolkey.tool.security.AESCoder;
-import foolkey.tool.security.RSACoder;
-
-import javax.crypto.SecretKey;
 
 /**
  * Created by geyao on 2017/4/26.
@@ -35,7 +30,7 @@ public class Test2 {
         System.out.println("原文是 \n+ " + raw);
         String cipherText = keyBO.encryptByPub(raw, keyBO.getServerRSAKeyDTO().getPubBase64Str());
 
-        String str = keyBO.decrypyBase64StrByPri(cipherText, keyBO.getServerRSAKeyDTO().getPriBase64Str());
+        String str = keyBO.decryptBase64StrByPri(cipherText, keyBO.getServerRSAKeyDTO().getPriBase64Str());
 
         System.out.println("密钥解密 ");
         System.out.println(str.equals(raw));
