@@ -23,6 +23,7 @@ public class TransactionUserEarnedMoneyDTO {
     private Double amount;
 
     @Column(name = "order_type")
+    @Enumerated(EnumType.ORDINAL)
     private TransactionTypeEnum transactionTypeEnum;
 
     @Column(name = "order_id")

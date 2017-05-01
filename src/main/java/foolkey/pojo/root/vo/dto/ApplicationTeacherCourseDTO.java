@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Component
 @Entity
-@Table(name = "t_application_teacher_score")
+@Table(name = "t_application_teacher_course")
 public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
 
     @Column(name = "courseTeacher_id")

@@ -3,9 +3,7 @@ package foolkey.pojo.root.vo.dto;
 import foolkey.pojo.root.vo.assistObject.PaymentEnum;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by geyao on 2017/4/24.
@@ -16,6 +14,7 @@ import javax.persistence.Table;
 public class OrderBuyKeyDTO extends OrderAbstract {
 
     @Column(name = "payment")
+    @Enumerated(EnumType.ORDINAL)
     private PaymentEnum paymentEnum;
 
     public OrderBuyKeyDTO() {

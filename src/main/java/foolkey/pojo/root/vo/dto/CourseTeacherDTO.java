@@ -3,9 +3,7 @@ package foolkey.pojo.root.vo.dto;
 import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -18,13 +16,14 @@ public class CourseTeacherDTO extends CourseAbstract{
 
     //预计时长 0.5h/1h...
     @Column(name = "duration")
-    private Float duration;
+    private Double duration;
 
     //课程数
     @Column(name = "class_amount")
     private Integer classAmount;
 
     @Column(name = "course_teacher_state")
+    @Enumerated(EnumType.ORDINAL)
     private CourseTeacherStateEnum courseTeacherStateEnum;
 
     @Column(name  = "sales")
@@ -44,11 +43,11 @@ public class CourseTeacherDTO extends CourseAbstract{
                 '}';
     }
 
-    public Float getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Float duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 

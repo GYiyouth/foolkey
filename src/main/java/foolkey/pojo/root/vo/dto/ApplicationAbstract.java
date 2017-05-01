@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -26,6 +27,10 @@ public class ApplicationAbstract {
     @Column(name = "apply_time")
     private Date applyTime;
 
+    @Column(name = "state")
+    @Enumerated(EnumType.ORDINAL)
+    private ApplicationStateEnum state;
+
     @Override
     public String toString() {
         return "ApplicationAbstract{" +
@@ -33,6 +38,7 @@ public class ApplicationAbstract {
                 ", applicantId=" + applicantId +
                 ", messageId=" + messageId +
                 ", applyTime=" + applyTime +
+                ", state=" + state +
                 '}';
     }
 
@@ -66,5 +72,13 @@ public class ApplicationAbstract {
 
     public void setApplicantId(Long applicantId) {
         this.applicantId = applicantId;
+    }
+
+    public ApplicationStateEnum getState() {
+        return state;
+    }
+
+    public void setState(ApplicationStateEnum state) {
+        this.state = state;
     }
 }

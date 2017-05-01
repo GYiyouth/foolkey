@@ -5,9 +5,7 @@ import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -34,15 +32,18 @@ public class OrderBuyCourseDTO extends OrderAbstract{
     private Long couponId;
 
     @Column(name = "teach_method")
+    @Enumerated(EnumType.ORDINAL)
     private TeachMethodEnum teachMethodEnum;
 
     @Column(name = "teach_state")
+    @Enumerated(EnumType.ORDINAL)
     private CourseTeacherStateEnum teachStateEnum;
 
     @Column(name = "lesson_end_time")
     private Date lessonEndTime;
 
     @Column(name = "course_type")
+    @Enumerated(EnumType.ORDINAL)
     private CourseTypeEnum courseTypeEnum;
 
     public OrderBuyCourseDTO() {

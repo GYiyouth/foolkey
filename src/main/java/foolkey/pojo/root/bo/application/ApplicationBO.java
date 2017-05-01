@@ -21,11 +21,13 @@ public class ApplicationBO {
      */
     public ApplicationTeacherCourseDTO saveApplicationForTeacherCourse(
             Long applicantId,
-            Long courseId
+            Long courseId,
+            Long messageId
     ){
         ApplicationTeacherCourseDTO application = new ApplicationTeacherCourseDTO();
         application.setApplicantId(applicantId);
         application.setCourseTeacherId(courseId);
+        application.setMessageId(messageId);
         dao.save(application);
         return application;
     }

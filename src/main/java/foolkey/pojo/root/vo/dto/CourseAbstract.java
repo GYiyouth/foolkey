@@ -36,9 +36,11 @@ public class CourseAbstract {
     private Double price;
 
     @Column(name = "teach_method")
+    @Enumerated(EnumType.ORDINAL)
     private TeachMethodEnum teachMethodEnum;
 
     @Column(name ="class_time")
+    @Enumerated(EnumType.ORDINAL)
     private CourseTimeDayEnum courseTimeDayEnum;
 
     @Override

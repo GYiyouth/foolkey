@@ -39,6 +39,7 @@ public class QuestionAnswerDTO {
     private Date invalidTime;
 
     @Column(name = "state")
+    @Enumerated(EnumType.ORDINAL)
     private QuestionStateEnum questionStateEnum;
 
     @Column(name = "onlooker_number")

@@ -34,6 +34,7 @@ public class OrderAbstract {
     private Long userId;
 
     @Column(name = "state")
+    @Enumerated(EnumType.ORDINAL)
     private OrderStateEnum orderStateEnum;
 
     @Override

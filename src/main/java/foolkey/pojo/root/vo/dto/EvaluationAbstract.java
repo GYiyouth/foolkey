@@ -27,6 +27,7 @@ public class EvaluationAbstract {
     private Long orderId;
 
     @Column(name = "state")
+    @Enumerated(EnumType.ORDINAL)
     private EvaluationStateEnum evaluationStateEnum;
 
     @Column(name = "score")

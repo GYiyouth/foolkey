@@ -8,10 +8,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.pojo.root.vo.dto.*;
 import foolkey.tool.JSONHandler;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +61,7 @@ public class PlaceOrderTeacherCourseBO {
 
         // 获取学生DTO，课程DTO，老师DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        CourseTeacherDTO courseDTO = null;
+        CourseTeacherDTO courseDTO = courseBO.getCourseTeacherDTOById(courseId);
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(courseDTO.getId());
 
         //验证课程，老师
@@ -104,9 +101,9 @@ public class PlaceOrderTeacherCourseBO {
             jsonHandler.sendJSON(jsonObject, response);
 
             //生成申请、消息
+            MessageOrderDTO message = messageOrderBO.saveOrderMessage(teacherDTO.getId(), order.getId());
             applicationBO.saveApplicationForTeacherCourse(
-                    studentDTO.getId(), courseDTO.getId());
-            messageOrderBO.saveOrderMessage(teacherDTO.getId(), order.getId());
+                    studentDTO.getId(), courseDTO.getId(), message.getId());
 
             //给老师发送申请、消息
 

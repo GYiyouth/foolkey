@@ -3,9 +3,7 @@ package foolkey.pojo.root.vo.dto;
 import foolkey.pojo.root.vo.assistObject.FeedbackTypeEnum;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by geyao on 2017/4/24.
@@ -19,6 +17,7 @@ public class MessageFeedbackDTO extends MessageAbstract{
     private Long receiverId;
 
     @Column(name = "t_message_feedback")
+    @Enumerated(EnumType.ORDINAL)
     private FeedbackTypeEnum feedbackTypeEnum;
 
     public MessageFeedbackDTO() {

@@ -27,6 +27,7 @@ public class TeacherDTO {
     private Integer teachingNumber;
 
     @Column(name = "verify_state")
+    @Enumerated(EnumType.ORDINAL)
     private VerifyStateEnum verifyState;
 
     @Column(name = "follower_number")

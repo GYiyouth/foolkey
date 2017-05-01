@@ -118,4 +118,9 @@ public class CourseTeacherBO {
         }
     }
 
+    public CourseTeacherDTO getCourseTeacherDTOById(String courseId) throws Exception {
+        Long id = Long.parseLong(courseId);
+        return getCourseTeacherDTOById(id);
+    }
+
 }

@@ -53,9 +53,11 @@ public class StudentDTO {
     private String nickedName;
 
     @Column(name = "role")
+    @Enumerated(EnumType.ORDINAL)
     private RoleEnum roleEnum;
 
     @Column(name = "userState")
+    @Enumerated(EnumType.ORDINAL)
     private UserStateEnum userStateEnum;
 
     private String slogan;

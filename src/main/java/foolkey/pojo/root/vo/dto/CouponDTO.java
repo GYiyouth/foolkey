@@ -37,6 +37,7 @@ public class CouponDTO {
     private Date deadTime;
 
     @Column(name = "coupon_type")
+    @Enumerated(EnumType.ORDINAL)
     private CouponTypeEnum couponTypeEnum;
 
     @Override

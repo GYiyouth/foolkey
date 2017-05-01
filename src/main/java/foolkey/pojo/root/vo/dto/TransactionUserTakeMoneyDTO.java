@@ -28,6 +28,7 @@ public class TransactionUserTakeMoneyDTO {
     private Double amount;
 
     @Column(name = "order_state")
+    @Enumerated(EnumType.ORDINAL)
     private OrderStateEnum orderStateEnum;
 
     public TransactionUserTakeMoneyDTO() {

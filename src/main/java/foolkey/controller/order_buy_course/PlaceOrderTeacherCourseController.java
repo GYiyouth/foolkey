@@ -28,6 +28,7 @@ public class PlaceOrderTeacherCourseController extends AbstractController{
     @Resource(name = "placeOrderTeacherCourseBO")
     private PlaceOrderTeacherCourseBO placeOrderTeacherCourseBO;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
