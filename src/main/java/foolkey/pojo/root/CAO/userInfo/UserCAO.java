@@ -104,4 +104,13 @@ public class UserCAO extends AbstractCAO{
     public void removeUserCache(String token){
         cache.getCache().remove(token);
     }
+
+    /**
+     * 根据id获取token
+     * @param id
+     */
+    public String getUserToken(Long id){
+        Map idTokenMap = cache.getMap(studentId_token);
+        return idTokenMap.get(id).toString();
+    }
 }

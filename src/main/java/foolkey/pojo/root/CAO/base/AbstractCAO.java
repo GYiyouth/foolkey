@@ -23,6 +23,8 @@ public abstract class AbstractCAO {
     protected static final String articleToken = "articleToken";
     protected static final String question = "question";
 
+    protected static final String studentId_token = "id_token";
+
     @Resource(name = "localCache")
     protected Cache cache;
 }
