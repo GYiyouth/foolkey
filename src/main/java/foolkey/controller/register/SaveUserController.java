@@ -5,6 +5,9 @@ import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.security.AESKeyBO;
 import foolkey.pojo.root.bo.security.SHA1KeyBO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
+import foolkey.pojo.root.vo.assistObject.SexTagEnum;
+import foolkey.pojo.root.vo.assistObject.UserStateEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.cache.Cache;
 import net.sf.json.JSONObject;
@@ -53,6 +56,14 @@ public class SaveUserController extends AbstractController {
                 StudentDTO studentDTO = new StudentDTO();
                 studentDTO.setUserName(userName);
                 studentDTO.setPassWord(passWord);
+                studentDTO.setCash(0.0);
+                studentDTO.setVirtualCurrency(0.0);
+                studentDTO.setLearningNumber(0);
+                studentDTO.setLearningTime(0);
+                studentDTO.setRoleEnum(RoleEnum.student);
+                studentDTO.setPrestige(0);
+                studentDTO.setSexTagEnum(SexTagEnum.Male);
+                studentDTO.setUserStateEnum(UserStateEnum.unverified);
                 userRegisterBO.saveStudent(studentDTO);
                 userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
