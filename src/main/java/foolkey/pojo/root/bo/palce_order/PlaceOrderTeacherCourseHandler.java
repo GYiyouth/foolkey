@@ -41,10 +41,6 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
 
     @Autowired
     private CreateOrderBO createOrderBO;
-    @Autowired
-    private ApplicationBO applicationBO;
-    @Autowired
-    private MessageOrderBO messageOrderBO;
 
     public void execute(
             HttpServletRequest request,
