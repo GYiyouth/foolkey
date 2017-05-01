@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by admin on 2017/4/28.
  */
 @Controller
-@RequestMapping(value = "/course")
+@RequestMapping(value = "/courseTeacher")
 public class CourseTeacherController extends AbstractController{
 
     @Resource(name = "courseTeacherBO")

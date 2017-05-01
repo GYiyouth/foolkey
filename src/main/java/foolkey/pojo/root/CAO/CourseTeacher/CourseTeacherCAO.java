@@ -2,6 +2,7 @@ package foolkey.pojo.root.CAO.CourseTeacher;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.DataStructure.MyDoubleLink;
+import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.tool.StaticVariable;
@@ -196,5 +197,45 @@ public class CourseTeacherCAO extends AbstractCAO{
             }
         }
         return null;
+    }
+
+
+    public Node getNode(Long id){
+        if(id == null){
+            throw new NullPointerException("id is null");
+        }else{
+            for(TechnicTagEnum technicTagEnum:TechnicTagEnum.values()){
+                Map<String, MyDoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+                if((technicMap != null) && (technicMap.containsKey(courseTeacherToken))){
+                    MyDoubleLink courseTeacherPopularDoubleLink =  technicMap.get(courseTeacherToken);
+                    for(int i = 0;i<courseTeacherPopularDoubleLink.getLength();i++){
+                        CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                        if(courseTeacherDTO.getId() == id){
+                            return courseTeacherPopularDoubleLink.getNodeByIndex(i);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+
+    public void show(){
+        for(TechnicTagEnum technicTagEnum:TechnicTagEnum.values()){
+            Map<String, MyDoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+            if((technicMap != null) && (technicMap.containsKey(courseTeacherToken))){
+                MyDoubleLink courseTeacherPopularDoubleLink =  technicMap.get(courseTeacherToken);
+                for(int i = 0;i<courseTeacherPopularDoubleLink.getLength();i++){
+                    CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                    if(courseTeacherDTO.getId() == 123L){
+                        CourseTeacherDTO courseTeacherDTO1 = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                        System.out.println(courseTeacherDTO1.getId()+"====");
+                        System.out.println(courseTeacherDTO1.getTopic()+"=======");
+                    }
+                }
+            }
+        }
+//        return null;
     }
 }

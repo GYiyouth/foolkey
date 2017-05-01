@@ -3,6 +3,8 @@ package foolkey.pojo.root.bo.CourseTeacher;
 import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
+import foolkey.pojo.root.DAO.course_teacher.UpdateCourseTeacherDAO;
+import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
@@ -34,6 +36,9 @@ public class CourseTeacherBO {
 
     @Resource(name = "saveCourseTeacherDAO")
     private SaveCourseTeacherDAO saveCourseTeacherDAO;
+
+    @Resource(name = "updateCourseTeacherDAO")
+    private UpdateCourseTeacherDAO updateCourseTeacherDAO;
 
     @Autowired
     private TeacherInfoBO teacherInfoBO;
@@ -104,6 +109,12 @@ public class CourseTeacherBO {
         return false;
     }
 
+    /**
+     * 根据课程id获取课程信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public CourseTeacherDTO getCourseTeacherDTOById(Long id) throws Exception{
         if(id == null){
             throw new NullPointerException("id is null");
@@ -122,5 +133,32 @@ public class CourseTeacherBO {
         Long id = Long.parseLong(courseId);
         return getCourseTeacherDTOById(id);
     }
+
+    /**
+     * 修改缓存的课程信息
+     * @param courseTeacherDTO
+     * @return
+     * @throws Exception
+     */
+    public void updateCourseTeacherCache(CourseTeacherDTO courseTeacherDTO) throws Exception {
+        if(courseTeacherDTO == null){
+            throw new NullPointerException("courseTeacherDTO is null");
+        }else{
+            Node node = courseTeacherCAO.getNode(courseTeacherDTO.getId());
+            if(node != null) {
+                node.setData(courseTeacherDTO);
+            }
+        }
+    }
+
+    public void updateCourseTeacherDTO(CourseTeacherDTO courseTeacherDTO) throws Exception{
+        if(courseTeacherDTO == null){
+            throw new NullPointerException("courseTeacherDTO is null");
+        }else{
+            updateCourseTeacherDAO.update(courseTeacherDTO);
+        }
+    }
+
+
 
 }

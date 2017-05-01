@@ -2,12 +2,13 @@ package foolkey.controller.CourseTeacher;
 
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -15,24 +16,23 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/courseTeacher")
-public class GetCourseTeacherByIdController extends AbstractController {
+public class MyController extends AbstractController{
 
     @Resource(name = "courseTeacherBO")
     private CourseTeacherBO courseTeacherBO;
 
-    @RequestMapping(value = "/getCourseTeacherById")
+
+    @RequestMapping(value = "/ttt")
     public void execute(
             @RequestParam("id")Long id,
-            HttpServletResponse response
-    ){
-        try {
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
-            jsonObject.put("result","success");
-            jsonObject.put("courseTeacherDTO",courseTeacherDTO);
-            jsonHandler.sendJSON(jsonObject,response);
-        }catch (Exception e){
-            e.printStackTrace();
-            jsonHandler.sendFailJSON(response);
-        }
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) throws Exception{
+        System.out.println("111111");
+//        courseTeacherBO.test(2L);
+//        courseTeacherBO.test2();
+        jsonObject.put("result","success");
+        jsonHandler.sendJSON(jsonObject,response);
     }
+
 }
