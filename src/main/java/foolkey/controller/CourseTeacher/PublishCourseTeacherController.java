@@ -35,7 +35,7 @@ public class PublishCourseTeacherController extends AbstractController{
             @RequestParam("price")Double price,
             @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
             @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-            @RequestParam("duration")Float duration,
+            @RequestParam("duration")Double duration,
             @RequestParam("classAmount")Integer classAmount,
             HttpServletResponse response
     ) throws Exception {
