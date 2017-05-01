@@ -55,6 +55,7 @@ public class PlaceOrderTeacherCourseBO {
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         JSONObject jsonObject = new JSONObject();
+        JSONHandler jsonHandler = new JSONHandler();
 
         // 从明文中获取以下token，课程id，老师id
         String token = clearJSON.getString("token");
@@ -100,7 +101,6 @@ public class PlaceOrderTeacherCourseBO {
             //先给客户端返回订单，再生成申请，以及给老师发送消息
             jsonObject.put("order", order);
             jsonObject.put("result", order);
-            JSONHandler jsonHandler = new JSONHandler();
             jsonHandler.sendJSON(jsonObject, response);
 
             //生成申请、消息
@@ -110,6 +110,8 @@ public class PlaceOrderTeacherCourseBO {
 
             //给老师发送申请、消息
 
+        }else {
+            jsonHandler.sendJSON(jsonObject, response);
         }
 
     }
