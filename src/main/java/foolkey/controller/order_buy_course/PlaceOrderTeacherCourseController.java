@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
  * 这里需要提交的数据有 课程编号、老师编号、购买时长
  * 后台逻辑是：验证课程开课状态、验证老师与课程是否匹配、验证老师的账号状态（AOP)
- * 生成订单，生成相应的申请、消息，并发送给老师
+ * 生成订单，返回结果
+ * 等待用户付款后，生成相应的申请、消息，并发送给老师
  * Created by geyao on 2017/4/30.
  */
 @Controller
@@ -33,6 +34,6 @@ public class PlaceOrderTeacherCourseController extends AbstractController{
             HttpServletRequest request,
             HttpServletResponse response
     )throws Exception{
-        placeOrderTeacherCourseBO.execute(request, response);
+        placeOrderTeacherCourseBO.execute(request, response, jsonObject);
     }
 }

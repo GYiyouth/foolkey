@@ -1,0 +1,93 @@
+package foolkey.pojo.root.bo.palce_order;
+
+import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.application.ApplicationBO;
+import foolkey.pojo.root.bo.coupon.GetCouponBO;
+import foolkey.pojo.root.bo.coupon.UseCouponBO;
+import foolkey.pojo.root.bo.message.MessageOrderBO;
+import foolkey.pojo.root.bo.order_course.GetOrderBO;
+import foolkey.pojo.root.bo.order_course.UpdateOrderBO;
+import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.dto.*;
+import foolkey.tool.JSONHandler;
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 支付订单
+ * AES加密
+ * 获取token，订单id，优惠券id
+ * 修改订单状态，生成消息，申请，发送给老师
+ * Created by geyao on 2017/5/1.
+ */
+@Service
+@Transactional
+public class PayOrderHandler extends AbstractBO{
+
+    @Autowired
+    private GetOrderBO getOrderBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
+    @Autowired
+    private GetCouponBO getCouponBO;
+    @Autowired
+    private UseCouponBO useCouponBO;
+    @Autowired
+    private PayForOrderBO payForOrderBO;
+    @Autowired
+    private UpdateOrderBO updateOrderBO;
+    @Autowired
+    private MessageOrderBO messageOrderBO;
+    @Autowired
+    private ApplicationBO applicationBO;
+    @Autowired
+    private TeacherInfoBO teacherInfoBO;
+
+    public void execute(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            JSONObject jsonObject
+    )throws Exception{
+        String clearText = request.getAttribute("clearText").toString();
+        JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+        String token = clearJSON.getString("token");
+        String orderId = clearJSON.getString("orderId");
+        String couponId = clearJSON.getString("couponId");
+
+        //获取OrderDTO，获取studentDTO，获取couponId
+        OrderBuyCourseDTO orderDTO = getOrderBO.getCourseOrder(orderId);
+        StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+        CouponDTO couponDTO = getCouponBO.getCouponDTO(couponId);
+
+        //使用优惠券
+        useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);
+
+        //扣款，改变订单状态
+        payForOrderBO.pay(studentDTO, orderDTO);
+        updateOrderBO.updateOrderSateAfterPay(orderDTO);
+
+        //反馈给客户端
+        jsonObject.put("result", "success");
+        jsonHandler.sendJSON(jsonObject, response);
+
+        //生成消息与申请，发送
+
+        TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(orderDTO.getTeacherId());
+//        CourseTeacherDTO courseDTO =
+
+        //生成申请、消息
+        MessageOrderDTO message = messageOrderBO.saveOrderMessage(teacherDTO.getId(), orderDTO.getId());
+        applicationBO.saveApplicationForTeacherCourse(
+                studentDTO.getId(), orderDTO.getId(), message.getId());
+
+        //给老师发送申请、消息
+    }
+}

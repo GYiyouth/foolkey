@@ -1,5 +1,6 @@
 package foolkey.pojo.root.bo.palce_order;
 
+import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.application.ApplicationBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
@@ -21,12 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 向老师课程下订单的BO
  * 后台逻辑是：验证课程开课状态、验证老师与课程是否匹配、验证老师的账号状态
- * 生成订单，生成相应的申请、消息，并发送给老师
+ * 生成订单，返回
+ * 付款后，再生成相应的申请、消息，并发送给老师（这一步先不做了）
  * Created by geyao on 2017/4/30.
  */
 @Service(value = "placeOrderTeacherCourseBO")
 @Transactional
-public class PlaceOrderTeacherCourseBO {
+public class PlaceOrderTeacherCourseBO extends AbstractBO{
 
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -46,13 +48,11 @@ public class PlaceOrderTeacherCourseBO {
 
     public void execute(
             HttpServletRequest request,
-            HttpServletResponse response
+            HttpServletResponse response,
+            JSONObject jsonObject
     ) throws Exception{
         String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
-
-        JSONObject jsonObject = new JSONObject();
-        JSONHandler jsonHandler = new JSONHandler();
 
         // 从明文中获取以下token，课程id，老师id
         String token = clearJSON.getString("token");
@@ -97,15 +97,9 @@ public class PlaceOrderTeacherCourseBO {
 
             //先给客户端返回订单，再生成申请，以及给老师发送消息
             jsonObject.put("order", order);
-            jsonObject.put("result", order);
+            jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
 
-            //生成申请、消息
-            MessageOrderDTO message = messageOrderBO.saveOrderMessage(teacherDTO.getId(), order.getId());
-            applicationBO.saveApplicationForTeacherCourse(
-                    studentDTO.getId(), courseDTO.getId(), message.getId());
-
-            //给老师发送申请、消息
 
         }else {
             jsonHandler.sendJSON(jsonObject, response);

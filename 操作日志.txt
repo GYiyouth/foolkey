@@ -78,3 +78,5 @@
     UserCAO里增加了保存id——token键值对到缓存的方法
     在CourseTeacherBO里写了一个方法，用来验证一个老师课程是否可以被购买
     新建 对老师课程的申请
+    现在只有付款以后，才会生成消息与申请，并发送给老师。
+    Application将不包含courseId，而包含orderId了

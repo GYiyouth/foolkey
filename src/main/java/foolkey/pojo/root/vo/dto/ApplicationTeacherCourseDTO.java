@@ -14,21 +14,21 @@ import javax.persistence.Table;
 @Table(name = "t_application_teacher_course")
 public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
 
-    @Column(name = "courseTeacher_id")
-    private Long courseTeacherId;
+    @Column(name = "order_id")
+    private Long orderId;
 
     @Override
     public String toString() {
         return "ApplicationTeacherCourseDTO{" +
-                "courseTeacherId=" + courseTeacherId +
+                "order=" + orderId +
                 '}';
     }
 
-    public Long getCourseTeacherId() {
-        return courseTeacherId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setCourseTeacherId(Long courseTeacherId) {
-        this.courseTeacherId = courseTeacherId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }
