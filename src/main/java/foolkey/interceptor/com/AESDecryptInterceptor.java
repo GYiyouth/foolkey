@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  * clearText:JSON格式，明文，必须包含token
  * validation:由clearText 对称加密得来
  * cipherText:一些保密数据，密文
+ *
+ * request.setAttribute("clearText", clearText);
+ * request.setAttribute("cipherText", cipherText);
+   并不在意这两者是什么格式，不会转换
  * Created by geyao on 2017/4/28.
  */
 @Controller("aesDecryptInterceptor")

@@ -127,4 +127,12 @@ public class OrderBuyCourseDTO extends OrderAbstract{
     public void setCourseTypeEnum(CourseTypeEnum courseTypeEnum) {
         this.courseTypeEnum = courseTypeEnum;
     }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
 }

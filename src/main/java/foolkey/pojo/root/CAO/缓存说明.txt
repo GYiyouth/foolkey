@@ -25,4 +25,9 @@
 
 4，id_token - Map
                      - key ：学生的id，Long类型
-                     - value：学生的token
+                     - value：学生的token，String
+
+
+5，token_id - Map
+                     - key : 学生的token，String
+                     - value : 学生的id，Long

@@ -104,4 +104,6 @@ public class OrderAbstract {
     public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
+
+
 }

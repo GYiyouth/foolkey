@@ -21,7 +21,7 @@ public class LocalCache implements Cache{
             Map map = new HashedMap();
             cache1.put(technicTagEnum.toString(), map);
         }
-        String[] keys = {"key"};
+        String[] keys = {"key", "id_token", "token_id"};
         for (String key : keys){
             cache1.put(key, new HashedMap());
         }

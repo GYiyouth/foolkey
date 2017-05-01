@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ControllerLog {
 
     //对于controller类无效
-    @Around("execution(* foolkey.controller..*.execute(..))")
+//    @Around("execution(* foolkey.controller..*.execute(..))")
     public Object classLog(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
         String method = joinPoint.getSignature().getName();

@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo;
+package foolkey.pojo.root.DAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;

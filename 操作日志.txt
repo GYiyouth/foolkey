@@ -69,3 +69,12 @@
         value - 密文，且为简单String格式，即不为JSON
 
     写了一个全局异常处理器 foolkey.controller.exceptionHandler.GlobalExceptionHandler，会打印异常，抛出result:fail
+
+
+2017/05/01
+葛尧：
+    在缓存中增加了2个区，id——token互为键值对的2个map
+    新写了一个方法，TokenCreator，用来生成token，目前是简单的相加
+    UserCAO里增加了保存id——token键值对到缓存的方法
+    在CourseTeacherBO里写了一个方法，用来验证一个老师课程是否可以被购买
+    新建 对老师课程的申请

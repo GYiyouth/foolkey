@@ -19,7 +19,7 @@ public class ApplicationBO {
      * 生成对老师课程的申请消息
      * @return
      */
-    public ApplicationTeacherCourseDTO createApplicationForTeacherCourse(
+    public ApplicationTeacherCourseDTO saveApplicationForTeacherCourse(
             Long applicantId,
             Long courseId
     ){

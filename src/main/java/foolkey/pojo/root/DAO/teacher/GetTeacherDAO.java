@@ -9,4 +9,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("getTeacherDAO")
 public class GetTeacherDAO extends GetBaseDAO<TeacherDTO>{
+
+    /**
+     * 根据id获取老师信息
+     * @param id
+     * @return
+     */
+    public TeacherDTO getTeacherDTO(Long id){
+        return hibernateTemplate.get(TeacherDTO.class, id);
+    }
 }

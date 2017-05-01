@@ -113,4 +113,27 @@ public class UserCAO extends AbstractCAO{
         Map idTokenMap = cache.getMap(studentId_token);
         return idTokenMap.get(id).toString();
     }
+
+    /**
+     * 根据token获取id
+     * @param token
+     * @return
+     */
+    public Long getUserId(String token){
+        Map tokenIdMap = cache.getMap(studentToken_id);
+        return (Long) tokenIdMap.get(token);
+    }
+
+    /**
+     * 在缓存中保存id与token的对应关系
+     * @param token
+     * @param id
+     * @return
+     */
+    public void saveIdToken(String token, Long id){
+        Map id_tokenMap = cache.getMap(studentId_token);
+        Map token_idMap = cache.getMap(studentToken_id);
+        id_tokenMap.put(id, token);
+        token_idMap.put(token, id);
+    }
 }

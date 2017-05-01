@@ -44,4 +44,32 @@ public class StudentInfoBO {
         }
         //如果不存在，返回null
     }
+
+    /**
+     * 获取学生信息，直接根据token
+     * @param token
+     * @return
+     */
+    public StudentDTO getStudentDTO(String token){
+        //根据token问缓存
+        if (userCAO.containStudentDTO(token))
+            return userCAO.getStudentDTO(token);
+        else {//缓存中没有这个人的信息，让它重新登录吧，仅知道token的情况下，无法从数据库取
+            return null;
+        }
+    }
+
+    /**
+     * 获取学生信息，根据id
+     * @param id
+     * @return
+     */
+    public StudentDTO getStudentDTO(Long id){
+        String token = userCAO.getUserToken(id);
+        if (userCAO.containStudentDTO(token))
+            return userCAO.getStudentDTO(token);
+        else {//缓存中没有这个人的信息，去数据库取
+            return getStudentDAO.get(StudentDTO.class, id);
+        }
+    }
 }
