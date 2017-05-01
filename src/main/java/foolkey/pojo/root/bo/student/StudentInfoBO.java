@@ -2,8 +2,11 @@ package foolkey.pojo.root.bo.student;
 
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
+import foolkey.pojo.root.DAO.student.UpdateStudentDAO;
 import foolkey.pojo.root.bo.security.SHA1KeyBO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.TokenCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,8 @@ public class StudentInfoBO {
 
     @Resource(name = "getStudentDAO")
     private GetStudentDAO getStudentDAO;
+    @Autowired
+    private UpdateStudentDAO updateStudentDAO;
     @Resource(name = "userCAO")
     private UserCAO userCAO;
     @Resource(name = "sha1KeyBO")
@@ -71,5 +76,16 @@ public class StudentInfoBO {
         else {//缓存中没有这个人的信息，去数据库取
             return getStudentDAO.get(StudentDTO.class, id);
         }
+    }
+
+    /**
+     * 更新用户信息，同时更新数据库和缓存
+     * @param studentDTO
+     */
+    public StudentDTO updateStudent(StudentDTO studentDTO) {
+        updateStudentDAO.update(studentDTO);
+        String token = TokenCreator.createToken(studentDTO.getUserName(), studentDTO.getPassWord());
+        userCAO.saveStudentDTO(token, studentDTO);
+        return studentDTO;
     }
 }

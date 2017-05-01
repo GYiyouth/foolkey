@@ -61,6 +61,7 @@ public class PayOrderHandler extends AbstractBO{
         String token = clearJSON.getString("token");
         String orderId = clearJSON.getString("orderId");
         String couponId = clearJSON.getString("couponId");
+        Double totalPrice = clearJSON.getDouble("totalPrice");
 
         //获取OrderDTO，获取studentDTO，获取couponId
         OrderBuyCourseDTO orderDTO = getOrderBO.getCourseOrder(orderId);
@@ -68,11 +69,24 @@ public class PayOrderHandler extends AbstractBO{
         CouponDTO couponDTO = getCouponBO.getCouponDTO(couponId);
 
         //使用优惠券
-        useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);
+        Double price = useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);
+        if ( price == null || !price.equals(totalPrice) ){
+            // 优惠券非法
+            jsonObject.put("result", "fail");
+            jsonObject.put("reason", "coupon");
+            jsonHandler.sendJSON(jsonObject, response);
+            return;
+        }
 
-        //扣款，改变订单状态
-        payForOrderBO.pay(studentDTO, orderDTO);
+        //扣款，改变订单状态，更新用户信息
+        Boolean payFlag = payForOrderBO.pay(studentDTO, orderDTO, couponDTO, price);
+        if ( !payFlag ){ // 扣款失败
+            jsonObject.put("reason", "pay");
+            jsonHandler.sendJSON(jsonObject, response);
+            throw new Exception("优惠券信息不符");
+        }
         updateOrderBO.updateOrderSateAfterPay(orderDTO);
+        studentInfoBO.updateStudent(studentDTO);
 
         //反馈给客户端
         jsonObject.put("result", "success");

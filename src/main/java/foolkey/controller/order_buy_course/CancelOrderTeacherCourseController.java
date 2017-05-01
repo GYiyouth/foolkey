@@ -1,6 +1,7 @@
 package foolkey.controller.order_buy_course;
 
-import foolkey.pojo.root.bo.palce_order.CancelOrderTeacherCourseBO;
+import foolkey.controller.AbstractController;
+import foolkey.pojo.root.bo.palce_order.CancelOrderTeacherCourseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,15 +14,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RequestMapping ("/aes/cancelOrderTeacherCourse")
 @Controller
-public class CancelOrderTeacherCourseController {
+public class CancelOrderTeacherCourseController extends AbstractController{
 
     @Autowired
-    private CancelOrderTeacherCourseBO cancelOrderTeacherCourseBO;
+    private CancelOrderTeacherCourseHandler cancelOrderTeacherCourseHandler;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
     )throws Exception{
-        cancelOrderTeacherCourseBO.execute(request, response);
+        cancelOrderTeacherCourseHandler.execute(request, response,jsonObject);
     }
 }

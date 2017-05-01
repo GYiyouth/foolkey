@@ -22,7 +22,7 @@ public class StudentDTOAOP {
      * 更新用户缓存区，以及id_token的对应区
      * @param joinPoint
      */
-    @Around(value = "execution(* foolkey.pojo.root.DAO.student.GetStudentDAO.getStudentDTO(..))")
+    @Around(value = "execution(* foolkey.pojo.root.DAO.student.GetStudentDAO.getStudentDTO(..)) ")
     public Object updateStudentDTO(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
         System.out.println(this.getClass());

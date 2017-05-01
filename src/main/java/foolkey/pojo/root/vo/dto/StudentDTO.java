@@ -21,10 +21,11 @@ public class StudentDTO {
 
     private String passWord;
 
-    private Integer cash;
+    @Column(name = "cash")
+    private Double cash;
 
     @Column(name = "virtual_currency")
-    private Integer virtualCurrency;
+    private Double virtualCurrency;
 
     private Integer prestige;
 
@@ -137,19 +138,19 @@ public class StudentDTO {
         this.passWord = passWord;
     }
 
-    public Integer getCash() {
+    public Double getCash() {
         return cash;
     }
 
-    public void setCash(Integer cash) {
+    public void setCash(Double cash) {
         this.cash = cash;
     }
 
-    public Integer getVirtualCurrency() {
+    public Double getVirtualCurrency() {
         return virtualCurrency;
     }
 
-    public void setVirtualCurrency(Integer virtualCurrency) {
+    public void setVirtualCurrency(Double virtualCurrency) {
         this.virtualCurrency = virtualCurrency;
     }
 
