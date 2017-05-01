@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service(value = "placeOrderTeacherCourseBO")
 @Transactional
-public class PlaceOrderTeacherCourseBO extends AbstractBO{
+public class PlaceOrderTeacherCourseHandler extends AbstractBO{
 
     @Autowired
     private StudentInfoBO studentInfoBO;

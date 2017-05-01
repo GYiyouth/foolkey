@@ -1,7 +1,7 @@
 package foolkey.controller.order_buy_course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.palce_order.PlaceOrderTeacherCourseBO;
+import foolkey.pojo.root.bo.palce_order.PlaceOrderTeacherCourseHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PlaceOrderTeacherCourseController extends AbstractController{
 
     @Resource(name = "placeOrderTeacherCourseBO")
-    private PlaceOrderTeacherCourseBO placeOrderTeacherCourseBO;
+    private PlaceOrderTeacherCourseHandler placeOrderTeacherCourseBO;
 
     @RequestMapping
     public void execute(

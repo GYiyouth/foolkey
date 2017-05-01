@@ -1,6 +1,7 @@
 package foolkey.pojo.root.bo.coupon;
 
 import foolkey.pojo.root.vo.assistObject.CouponTypeEnum;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -31,6 +32,12 @@ public class UseCouponBO {
             return null;
         if (couponDTO.getDeadTime().compareTo(new Date()) < 0) // 优惠券已使用或者过期
             return null;
+
+        CourseTypeEnum courseTypeEnum = orderDTO.getCourseTypeEnum();
+        CouponTypeEnum couponTypeEnum = couponDTO.getCouponTypeEnum();
+        if ( !couponTypeEnum.checkType(courseTypeEnum) ) // 优惠券类型不符
+            return null;
+
         if (couponDTO.getCouponTypeEnum().compareTo(CouponTypeEnum.购买课程) == 0
                 || couponDTO.getCouponTypeEnum().compareTo(CouponTypeEnum.全场) == 0){
             int time = couponDTO.getDeadTime().compareTo( new Date() );

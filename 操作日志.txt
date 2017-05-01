@@ -82,3 +82,5 @@
     Application将不包含courseId，而包含orderId了
 
     使用优惠券的deadTime判断此优惠券是否使用或过期
+
+    付款的controller，以及加强了对优惠券的验证
