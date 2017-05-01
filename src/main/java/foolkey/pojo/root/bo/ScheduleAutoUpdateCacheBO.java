@@ -1,4 +1,4 @@
-package foolkey.tool;
+package foolkey.pojo.root.bo;
 
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
@@ -14,18 +14,18 @@ import java.util.Date;
  * Created by ustcg on 2017/4/30.
  */
 @Component("myJob")
-public class MyJob {
+public class ScheduleAutoUpdateCacheBO {
 
     @Resource(name = "getCourseTeacherDAO")
     private GetCourseTeacherDAO getCourseTeacherDAO;
 
-    public MyJob() {
+    public ScheduleAutoUpdateCacheBO() {
         System.out.println("创建自动任务...");
     }
 
     @Scheduled(cron = "0 0 0/2 * * ? ")//每隔2小时
     public void run(){
-        System.out.println("Hello MyJob  "+
+        System.out.println("Hello ScheduleAutoUpdateCacheBO  "+
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ").format(new Date()));
         for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
             System.out.println("更新"+technicTagEnum.name());

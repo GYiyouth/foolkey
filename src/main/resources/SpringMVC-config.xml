@@ -16,8 +16,8 @@
     <!--这里必须要写上扫描的包，不然起不到servlet的作用-->
     <!--跟根目录那里的配置不一样-->
     <context:component-scan base-package="foolkey.controller, foolkey.interceptor"/>
-    <!--开启这个配置，spring才能识别@Scheduled注解-->
-    <task:annotation-driven/>
+    <!--&lt;!&ndash;开启这个配置，spring才能识别@Scheduled注解&ndash;&gt;-->
+    <!--<task:annotation-driven/>-->
 
     <!--注解类型的处理映射器-->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>

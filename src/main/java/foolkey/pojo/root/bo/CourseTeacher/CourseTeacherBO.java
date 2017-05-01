@@ -103,4 +103,19 @@ public class CourseTeacherBO {
         }
         return false;
     }
+
+    public CourseTeacherDTO getCourseTeacherDTOById(Long id) throws Exception{
+        if(id == null){
+            throw new NullPointerException("id is null");
+        }else{
+            CourseTeacherDTO courseTeacherDTO = courseTeacherCAO.getCourseTeacherDTOById(id);
+            if(courseTeacherDTO != null){
+                System.out.println("缓存有！");
+               return courseTeacherDTO;
+            }else{
+                return getCourseTeacherDAO.get(CourseTeacherDTO.class,id);
+            }
+        }
+    }
+
 }

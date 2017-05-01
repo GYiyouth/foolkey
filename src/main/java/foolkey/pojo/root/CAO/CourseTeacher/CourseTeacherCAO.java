@@ -175,4 +175,26 @@ public class CourseTeacherCAO extends AbstractCAO{
             }
         }
     }
+
+    /**
+     * 判断缓存中有没有这个id的课程
+     * 有：返回courseTeacherDTO  无：返回null
+     * @param id
+     * @return
+     */
+    public CourseTeacherDTO getCourseTeacherDTOById(Long id){
+        for(TechnicTagEnum technicTagEnum:TechnicTagEnum.values()){
+            Map<String, MyDoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+            if((technicMap != null) && (technicMap.containsKey(courseTeacherToken))){
+                MyDoubleLink courseTeacherPopularDoubleLink =  technicMap.get(courseTeacherToken);
+                for(int i = 0;i<courseTeacherPopularDoubleLink.getLength();i++){
+                    CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                    if(courseTeacherDTO.getId() == id){
+                        return courseTeacherDTO;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
