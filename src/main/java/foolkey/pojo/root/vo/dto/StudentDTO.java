@@ -323,8 +323,5 @@ public class StudentDTO {
         this.learningNumber = learningNumber;
     }
 
-    @Override
-    public StudentDTO clone() throws CloneNotSupportedException {
-        return (StudentDTO) super.clone();
-    }
+
 }

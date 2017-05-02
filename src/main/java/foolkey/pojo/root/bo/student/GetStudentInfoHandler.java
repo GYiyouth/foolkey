@@ -34,10 +34,8 @@ public class GetStudentInfoHandler extends AbstractBO {
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
 
-        StudentDTO studentDTO1 = studentDTO.clone();
-        studentDTO1.setPassWord("");
 
-        jsonObject.put("studentDTO", studentDTO1);
+        jsonObject.put("studentDTO", studentDTO);
         jsonObject.put("result", "success");
 
         jsonHandler.sendJSON(jsonObject, response);
