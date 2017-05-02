@@ -18,6 +18,7 @@ public class SwitchToTeacherController extends AbstractController{
     @Autowired
     private SwitchToTeacherHandler switchToTeacherHandler;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
