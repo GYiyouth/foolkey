@@ -24,13 +24,13 @@ public class DeleteCourseTeacherController extends AbstractController {
     @Autowired
     private CourseTeacherDTO courseTeacherDTO;
 
-    @RequestMapping(value = "/updateCourseTeacher")
+    @RequestMapping(value = "/deleteCourseTeacher")
     public void execute(
             @RequestParam("id")Long id,
             HttpServletResponse response
     ) throws Exception {
         try {
-            System.out.println("修改课程信息");
+            System.out.println("删除程信息");
             CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
             courseTeacherDTO.setId(id);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
