@@ -36,9 +36,12 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public boolean containsAESKey(String userToken){
-        Map userMap = cache.getMap(userToken);
-        Map keyMap = (Map) userMap.get(keyToken);
-        return keyMap != null && keyMap.containsKey(aesKeyToken);
+        if (cache.isContainToken(userToken)) {
+            Map userMap = cache.getMap(userToken);
+            Map keyMap = (Map) userMap.get(keyToken);
+            return keyMap != null && keyMap.containsKey(aesKeyToken);
+        }else
+            return false;
     }
 
     /**

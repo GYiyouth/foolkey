@@ -43,8 +43,8 @@ public class SwitchToTeacherHandler extends AbstractBO{
         else {
             jsonObject.put("verified", teacherDTO.getVerifyState().toString());
             jsonObject.put("teacherDTO", teacherDTO);
-            jsonObject.put("result", "success");
         }
+        jsonObject.put("result", "success");
 
         jsonHandler.sendJSON(jsonObject, response);
     }
