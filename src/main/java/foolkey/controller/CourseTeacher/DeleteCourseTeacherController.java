@@ -4,11 +4,13 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -24,13 +26,19 @@ public class DeleteCourseTeacherController extends AbstractController {
     @Autowired
     private CourseTeacherDTO courseTeacherDTO;
 
-    @RequestMapping(value = "/updateCourseTeacher")
+    @RequestMapping(value = "/deleteCourseTeacher")
     public void execute(
-            @RequestParam("id")Long id,
+            HttpServletRequest request,
+//            @RequestParam("id")Long id,
             HttpServletResponse response
     ) throws Exception {
         try {
-            System.out.println("修改课程信息");
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+            Long id = clearJSON.getLong("id");
+
+            System.out.println("删除程信息");
             CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
             courseTeacherDTO.setId(id);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
