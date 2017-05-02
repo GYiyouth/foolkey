@@ -62,12 +62,14 @@ public class CourseTeacherAOP {
     }
 
     @AfterReturning(returning = "courseTeacherDTO",
-            pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO.save())")
+            pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO.save(..))")
     public void addCourseTeacherDTOToCache(CourseTeacherDTO courseTeacherDTO){
         if(courseTeacherDTO != null){
+            //如果没有满，加到最前面
             if(courseTeacherCAO.getTechnicTagCourseTeacherLength(courseTeacherDTO.getTechnicTagEnum())<StaticVariable.cacheSize){
                 courseTeacherCAO.addCourseTeacherToCache(courseTeacherDTO);
             }
         }
+        System.out.println("添加课程之后，完成对缓存的更新");
     }
 }

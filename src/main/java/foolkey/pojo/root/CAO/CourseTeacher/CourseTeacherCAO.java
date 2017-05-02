@@ -326,6 +326,5 @@ public class CourseTeacherCAO extends AbstractCAO{
                 }
             }
         }
-//        return null;
     }
 }

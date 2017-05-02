@@ -9,4 +9,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("saveCourseTeacherDAO")
 public class SaveCourseTeacherDAO extends SaveBaseDAO<CourseTeacherDTO>{
+
+    @Override
+    public CourseTeacherDTO save(CourseTeacherDTO courseTeacherDTO) {
+        super.save(courseTeacherDTO);
+        return courseTeacherDTO;
+    }
 }
