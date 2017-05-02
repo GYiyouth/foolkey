@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/5/2.
  */
-@Controller
-@RequestMapping(value = "/courseTeacher")
+//@Controller
+//@RequestMapping(value = "/courseTeacher")
 public class DeleteCourseTeacherController extends AbstractController {
 
     @Autowired
