@@ -4,6 +4,7 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.TokenCreator;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +58,10 @@ public class LoginController extends AbstractController {
             //清空缓存、新建缓存
                 //AOP来做
             //
+            String token = TokenCreator.createToken(userName, passWord);
+            //保存用户的aesKey
+            userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
+            jsonObject.put("token", token);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
         }catch (Exception e){
