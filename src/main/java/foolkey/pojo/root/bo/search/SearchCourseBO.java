@@ -20,8 +20,8 @@ public class SearchCourseBO {
 
     public List<CourseTeacherDTO> searchCourseDTO(ArrayList<String> keyList, ArrayList<TechnicTagEnum> techList, ArrayList<CourseTimeDayEnum>timeList, int pageNo){
 
-
-
+        //如果只有技术关键字，则从缓存中取
+        if (keyList.size() == 0 && timeList.size() == 0 && )
         return null;
     }
 }
