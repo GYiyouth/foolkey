@@ -1,7 +1,9 @@
 package foolkey.pojo.root.CAO.key;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
+import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 
@@ -11,6 +13,9 @@ import java.util.Map;
  */
 @Component("keyCAO")
 public class KeyCAO extends AbstractCAO{
+
+    @Autowired
+    private UserCAO userCAO;
 
     /**
      * 判断是否含服务器 RSA key
@@ -40,8 +45,11 @@ public class KeyCAO extends AbstractCAO{
             Map userMap = cache.getMap(userToken);
             Map keyMap = (Map) userMap.get(keyToken);
             return keyMap != null && keyMap.containsKey(aesKeyToken);
-        }else
+        }else{
+            userCAO.initUserCache(userToken);
             return false;
+        }
+
     }
 
     /**
