@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 public class RSALog {
 
 
-    @AfterReturning(returning = "cipherText", pointcut = "execution(* foolkey.pojo.root.bo.security.RSAKeyBO.de*(..))")
+    @AfterReturning(returning = "cipherText", pointcut = "execution(* foolkey.pojo.root.bo.security.RSAKeyBO.en*(..))")
     public void printEncrypt(String cipherText){
         System.out.println("AOP RSA加密后");
         System.out.println(cipherText);

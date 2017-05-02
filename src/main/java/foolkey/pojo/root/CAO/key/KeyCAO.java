@@ -75,6 +75,9 @@ public class KeyCAO extends AbstractCAO{
         Map keyMap = (Map) userMap.get(keyToken);
         if (keyMap != null)
             return (String) keyMap.get(aesKeyToken);
+        System.out.println("该用户没有keyMap");
+        System.out.println(userMap);
+        System.out.println(keyMap);
         return null;
     }
 

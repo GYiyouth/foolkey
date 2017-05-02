@@ -25,7 +25,7 @@ public class CouponDTO {
     private String name;
 
     @Column(name = "level")
-    private Double level;
+    private Double level;// 门槛
 
     @Column(name = "value")
     private Double value;

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/4/28.
  */
 @Controller
-@RequestMapping("/logOut")
+@RequestMapping("/aes/logOut")
 public class LogOutController extends AbstractController {
     @Resource(name = "logOutBO")
     private LogOutBO logOutBO;
@@ -25,10 +25,11 @@ public class LogOutController extends AbstractController {
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
-    ){
-        //获取clearText，这是个JSON对象，再获取token
+    ) throws Exception{
+        //获取clearJSON，这是个JSON对象，再获取token
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(
-                request.getAttribute("clearText")
+                clearText
         );
         String token = clearJSON.getString("token");
         //根据token找到对应的AESKey

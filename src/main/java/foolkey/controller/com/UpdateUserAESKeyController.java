@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/4/28.
  */
 @Controller
-@RequestMapping(value = "/updateAESKey")
+@RequestMapping(value = "/aes/updateAESKey")
 public class UpdateUserAESKeyController extends AbstractController{
     @Resource(name = "aesKeyBO")
     private AESKeyBO aesKeyBO;

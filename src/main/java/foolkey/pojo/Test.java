@@ -6,6 +6,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.RSACoder;
+import foolkey.tool.security.StringMatchRate;
 import net.sf.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -69,8 +70,9 @@ public class Test {
 //
 //        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
 //        System.out.println("明文\n" + new String(clear));
-        JSONObject cipherText = JSONObject
-                .fromObject("{}");
+        String str1 = "1234567890-=abc";
+        String str2 = "1234557890-=abc";
+        System.out.println(StringMatchRate.getMatchRate(str1, str2));
     }
 
 

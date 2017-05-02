@@ -42,6 +42,7 @@ public class AESKeyBO {
     public String getKeybase64Str(String userToken) throws Exception{
         if (keyCAO.containsAESKey(userToken))
             return keyCAO.getUserAESKeyDTO(userToken);
+        System.out.println("缓存中无该用户的缓存区");
         return null;
     }
 

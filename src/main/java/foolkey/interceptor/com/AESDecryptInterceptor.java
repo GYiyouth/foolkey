@@ -3,6 +3,7 @@ package foolkey.interceptor.com;
 import foolkey.interceptor.AbstractInterceptor;
 import foolkey.pojo.root.bo.security.AESKeyBO;
 import foolkey.tool.JSONHandler;
+import foolkey.tool.security.StringMatchRate;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -32,22 +33,34 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         try {
             request.setCharacterEncoding("UTF-8");
-            JSONObject clearText = JSONObject
-                    .fromObject(request.getParameter("clearText"));
-            String token = clearText.getString("token");
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject
+                    .fromObject(clearText);
+            String token = clearJSON.getString("token");
 
             //获取缓存中，用户的对称密钥
             String aesKey = aesKeyBO.getKeybase64Str(token);
+
             //解密验证字段，并和1做比较
             String validationCipherStr = request.getParameter("validation");
+            //预处理
+            validationCipherStr = validationCipherStr.substring(0, validationCipherStr.length() -1);
+            validationCipherStr = validationCipherStr.replaceFirst("愚", "\n");
+            System.out.println(validationCipherStr);
+            //解密
             String validationClearStr = aesKeyBO.decrypt(validationCipherStr, aesKey);
+
             JSONObject validation = JSONObject
                     .fromObject(validationClearStr);
-            if (!validation.equals(clearText))
+            //匹配率小于0.8，则说明不相等
+            if (StringMatchRate.getMatchRate(validationClearStr, clearText) < 0.8) {
+                System.out.println("明密文不相等");
+                System.out.println(validationClearStr);
                 return false;
-
+            }
             //获取第三部分，密文，并解密
-            String cipherStr = request.getParameter("cipherText");
+            String cipherStr = request.getParameter("cipherText");;
+
             //如果第三部分为空，则处理一下，预防抛出异常
             if (cipherStr == null || cipherStr.equals(""))
                 cipherStr = "{}";
@@ -57,7 +70,7 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
                     .fromObject(cipherStr);
 
             //在request里放置1，3 JSONObject
-            request.setAttribute("clearText", clearText);
+            request.setAttribute("clearText", clearJSON);
             request.setAttribute("cipherText", cipherText);
 
             return true;
