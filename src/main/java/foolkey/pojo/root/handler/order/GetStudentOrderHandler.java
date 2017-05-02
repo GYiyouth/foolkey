@@ -1,8 +1,10 @@
-package foolkey.pojo.root.bo.coupon;
+package foolkey.pojo.root.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.order_course.GetOrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.dto.CouponDTO;
+import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +13,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 获取我的优惠券，需要带上token
+ * 获取做为学生身份拥有的订单
+ * aes加密，需要传输token，以及订单类型
  * Created by geyao on 2017/5/2.
  */
 @Service
 @Transactional(readOnly = true)
-public class GetMyCouponHandler extends AbstractBO{
+public class GetStudentOrderHandler extends AbstractBO{
 
     @Autowired
-    private GetCouponBO getCouponBO;
+    private GetOrderBO getOrderBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
 
@@ -30,30 +34,20 @@ public class GetMyCouponHandler extends AbstractBO{
             HttpServletRequest request,
             HttpServletResponse response,
             JSONObject jsonObject
-    )throws Exception{
+    ) throws Exception{
         String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         String token = clearJSON.getString("token");
-        int pageNum = clearJSON.getInt("pageNo");
-        int pageSize = clearJSON.getInt("pageSize");
+        String orderStateStr = clearJSON.getString("orderState");
+
+        OrderStateEnum orderState = OrderStateEnum.valueOf(orderStateStr);
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
-        List<CouponDTO> couponDTOList = getCouponBO.getCouponDTOList(
-                studentDTO.getId() + "", pageNum, pageSize
-        );
-
-//        for (CouponDTO couponDTO:
-//             couponDTOList) {
-//            couponDTO.setDeadTime(
-//                    couponDTO.getDeadTime().toString()
-//            );
-//        }
-
-        jsonObject.put("couponList", couponDTOList);
+        List<OrderBuyCourseDTO> list = getOrderBO.getCourseOrderAsStudent(studentDTO.getId(), orderState);
+        jsonObject.put("orderList", list);
         jsonObject.put("result", "success");
-
         jsonHandler.sendJSON(jsonObject, response);
     }
 }

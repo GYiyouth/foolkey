@@ -70,9 +70,15 @@ public class Test {
 //
 //        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
 //        System.out.println("明文\n" + new String(clear));
-        String str1 = "1234567890-=abc";
-        String str2 = "1234557890-=abc";
-        System.out.println(StringMatchRate.getMatchRate(str1, str2));
+        Double d1 = 11.0;
+        Double d2 = d1 % 1;
+        System.out.println(d2);
+        System.out.println(d1 - d2);
+        String str1 = new String( (d1- d2) + "");
+        str1 = str1.split("\\.")[0];
+        System.out.println(str1);
+        int i1 = Integer.parseInt(str1);
+        System.out.println(i1);
     }
 
 
