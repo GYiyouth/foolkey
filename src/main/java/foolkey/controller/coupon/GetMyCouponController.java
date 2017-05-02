@@ -21,6 +21,7 @@ public class GetMyCouponController extends AbstractController{
     @Autowired
     private GetMyCouponHandler couponHandler;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response

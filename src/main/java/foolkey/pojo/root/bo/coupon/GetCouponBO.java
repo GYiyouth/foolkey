@@ -38,10 +38,10 @@ public class GetCouponBO {
     public List<CouponDTO> getCouponDTOList(String studentId, int pageNum, int pageSize){
         return
                 getCouponDAO.findByPage(
-                "from CouponDTO c where c.ownerId = ? and deadTime >= ?;"
+                "from CouponDTO c where c.ownerId = ? and deadTime >= ?"
                 ,pageNum
                 ,pageSize
-                ,studentId
+                ,Long.parseLong( studentId )
                 ,new Date()
         );
     }

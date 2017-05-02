@@ -35,7 +35,7 @@ public class GetMyCouponHandler extends AbstractBO{
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         String token = clearJSON.getString("token");
-        int pageNum = clearJSON.getInt("pageNum");
+        int pageNum = clearJSON.getInt("pageNo");
         int pageSize = clearJSON.getInt("pageSize");
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
