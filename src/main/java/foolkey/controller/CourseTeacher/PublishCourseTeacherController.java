@@ -62,7 +62,6 @@ public class PublishCourseTeacherController extends AbstractController{
             Double duration = clearJSON.getDouble("duration");
             Integer classAmount = clearJSON.getInt("classAmount");
 
-            System.out.println("========");
             courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
             courseTeacherDTO.setTechnicTagEnum(technicTagEnum);
             courseTeacherDTO.setTopic(topic);
