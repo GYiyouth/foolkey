@@ -4,11 +4,13 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
@@ -24,12 +26,19 @@ public class CourseTeacherController extends AbstractController{
 
     @RequestMapping(value = "/getCourseTeacherPopular")
     public void execute(
-            @RequestParam("pageNo") Integer pageNo,
-            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+            HttpServletRequest request,
+//            @RequestParam("pageNo") Integer pageNo,
+//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             HttpServletResponse response
             ){
         try {
-            ArrayList<CourseTeacherDTO> courseTeacherDTOArrayList = courseTeacherBO.getPopularCourseTeacher(technicTagEnum, pageNo, 2);
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+            Integer pageNo = clearJSON.getInt("pageNo");
+            String technicTag = clearJSON.getString("technicTagEnum");
+                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+            ArrayList<CourseTeacherDTO> courseTeacherDTOArrayList = courseTeacherBO.getPopularCourseTeacher(technicTagEnum, pageNo, 10);
             for (CourseTeacherDTO courseTeacherDTO : courseTeacherDTOArrayList) {
                 System.out.println("------" + courseTeacherDTO + "--id:" + courseTeacherDTO.getId());
             }

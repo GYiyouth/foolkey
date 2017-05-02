@@ -1,6 +1,7 @@
 package foolkey.pojo.root.vo.dto;
 
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.SexTagEnum;
 import foolkey.pojo.root.vo.assistObject.StudentBaseEnum;
 import foolkey.pojo.root.vo.assistObject.TeacherRequirementEnum;
 import org.springframework.stereotype.Component;
@@ -26,12 +27,16 @@ public class CourseStudentDTO extends CourseAbstract{
     @Column(name = "student_base")
     private StudentBaseEnum studentBaseEnum;
 
+    @Column(name = "teacher_sex_requirement")
+    private SexTagEnum sexTagEnum;
+
     @Override
     public String toString() {
         return "CourseStudentDTO{" +
                 "teacherRequirementEnum=" + teacherRequirementEnum +
                 ", courseStudentStateEnum=" + courseStudentStateEnum +
                 ", studentBaseEnum=" + studentBaseEnum +
+                ", sexTagEnum=" + sexTagEnum +
                 '}';
     }
 
@@ -57,5 +62,13 @@ public class CourseStudentDTO extends CourseAbstract{
 
     public void setStudentBaseEnum(StudentBaseEnum studentBaseEnum) {
         this.studentBaseEnum = studentBaseEnum;
+    }
+
+    public SexTagEnum getSexTagEnum() {
+        return sexTagEnum;
+    }
+
+    public void setSexTagEnum(SexTagEnum sexTagEnum) {
+        this.sexTagEnum = sexTagEnum;
     }
 }

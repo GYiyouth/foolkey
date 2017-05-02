@@ -66,6 +66,8 @@ public class PublishCourseStudentController extends AbstractController {
                 TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
             String studentBase = clearJSON.getString("studentBaseEnum");
                 StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);
+            String sexTag = clearJSON.getString("sexTagEnum");
+                SexTagEnum sexTagEnum = SexTagEnum.valueOf(sexTag);
 
 
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
@@ -79,6 +81,7 @@ public class PublishCourseStudentController extends AbstractController {
             courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
             courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
             courseStudentDTO.setCourseStudentStateEnum(CourseStudentStateEnum.待接单);
+            courseStudentDTO.setSexTagEnum(sexTagEnum);
             courseStudentBO.publishCourseStudent(courseStudentDTO);
             jsonObject.put("result","success");
             jsonObject.put("courseStudentDTO",courseStudentDTO);

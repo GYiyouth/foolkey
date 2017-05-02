@@ -144,7 +144,7 @@ public class CourseTeacherBO {
         if(courseTeacherDTO == null){
             throw new NullPointerException("courseTeacherDTO is null");
         }else{
-            Node node = courseTeacherCAO.getCourseTeacherNode(courseTeacherDTO.getId());
+            Node node = courseTeacherCAO.getCourseTeacherNode(courseTeacherDTO);
             if(node != null) {
                 CourseTeacherDTO oldCourseTeacherDTO = (CourseTeacherDTO) node.getData();
                 //判断是否修改了类别
@@ -157,7 +157,7 @@ public class CourseTeacherBO {
                         node.getPrev().setNext(null);
 
                     }else if(node.getPrev() == null){
-                        courseTeacherCAO.deleteCourseTeacherNode(courseTeacherDTO.getId());
+                        courseTeacherCAO.deleteCourseTeacherNode(courseTeacherDTO);
                     }
                 }
 

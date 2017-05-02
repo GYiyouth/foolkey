@@ -3,6 +3,7 @@ package foolkey.aop.cacheMaintain;
 import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.tool.StaticVariable;
 import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -58,5 +59,15 @@ public class CourseTeacherAOP {
             courseTeacherCAO.updateCourseTeacherDTO((TechnicTagEnum) jp.getArgs()[0], courseTeacherDTO);
         }
         System.out.println("AOP实现了courseTeacherDTO缓存的自动更新!!");
+    }
+
+    @AfterReturning(returning = "courseTeacherDTO",
+            pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO.save())")
+    public void addCourseTeacherDTOToCache(CourseTeacherDTO courseTeacherDTO){
+        if(courseTeacherDTO != null){
+            if(courseTeacherCAO.getTechnicTagCourseTeacherLength(courseTeacherDTO.getTechnicTagEnum())<StaticVariable.cacheSize){
+                courseTeacherCAO.addCourseTeacherToCache(courseTeacherDTO);
+            }
+        }
     }
 }
