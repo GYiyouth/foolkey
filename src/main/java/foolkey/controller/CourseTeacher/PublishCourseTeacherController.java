@@ -2,11 +2,13 @@ package foolkey.controller.CourseTeacher;
 
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +26,16 @@ public class PublishCourseTeacherController extends AbstractController{
     @Resource(name = "courseTeacherBO")
     private CourseTeacherBO courseTeacherBO;
 
+    @Autowired
+    private StudentInfoBO studentInfoBO;
+
     @Resource(name = "courseTeacherDTO")
     private CourseTeacherDTO courseTeacherDTO;
 
     @RequestMapping(value = "/publishCourseTeacher")
     public void execute(
             @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+            @RequestParam("token")String token,
             @RequestParam("topic")String topic,
             @RequestParam("description")String description ,
             @RequestParam("price")Double price,
@@ -41,6 +47,7 @@ public class PublishCourseTeacherController extends AbstractController{
     ) throws Exception {
         try {
             System.out.println("========");
+            courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
             courseTeacherDTO.setTechnicTagEnum(technicTagEnum);
             courseTeacherDTO.setTopic(topic);
             courseTeacherDTO.setDescription(description);

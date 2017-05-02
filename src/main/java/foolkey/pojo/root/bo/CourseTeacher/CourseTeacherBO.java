@@ -144,13 +144,33 @@ public class CourseTeacherBO {
         if(courseTeacherDTO == null){
             throw new NullPointerException("courseTeacherDTO is null");
         }else{
-            Node node = courseTeacherCAO.getNode(courseTeacherDTO.getId());
+            Node node = courseTeacherCAO.getCourseTeacherNode(courseTeacherDTO.getId());
             if(node != null) {
-                node.setData(courseTeacherDTO);
+                CourseTeacherDTO oldCourseTeacherDTO = (CourseTeacherDTO) node.getData();
+                //判断是否修改了类别
+                if(oldCourseTeacherDTO.getTechnicTagEnum() == courseTeacherDTO.getTechnicTagEnum()){
+                    System.out.println("没有修改技术类别");
+                    node.setData(courseTeacherDTO);
+                }else{
+                    // 1. 删除当前类别的当前节点
+                    if(node.getNext()==null){
+                        node.getPrev().setNext(null);
+
+                    }else if(node.getPrev() == null){
+                        courseTeacherCAO.deleteCourseTeacherNode(courseTeacherDTO.getId());
+                    }
+                }
+
             }
+
         }
     }
 
+    /**
+     * 更新数据库的内容
+     * @param courseTeacherDTO
+     * @throws Exception
+     */
     public void updateCourseTeacherDTO(CourseTeacherDTO courseTeacherDTO) throws Exception{
         if(courseTeacherDTO == null){
             throw new NullPointerException("courseTeacherDTO is null");

@@ -1,18 +1,13 @@
 package foolkey.pojo.root.DataStructure;
 
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
-import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
-import foolkey.tool.cache.Cache;
-import foolkey.tool.cache.LocalCache;
-import javafx.beans.binding.ObjectExpression;
 
 import java.util.ArrayList;
 
 /**
  * Created by admin on 2017/4/26.
  */
-public class MyDoubleLink {
+public class DoubleLink {
 
     //记录链表的节点数
     int length = 0;
@@ -232,7 +227,7 @@ public class MyDoubleLink {
 
     public static void main(String[] args) {
 
-        MyDoubleLink mytest = new MyDoubleLink();
+        DoubleLink mytest = new DoubleLink();
         mytest.addHead("12334");
         mytest.addTail("wangpeili");
         mytest.addHead("123");
