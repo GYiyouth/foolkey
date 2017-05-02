@@ -29,7 +29,8 @@ public class StudentDTO {
 
     private Integer prestige;
 
-    private Integer name;
+
+    private String name;
 
     @Column(name = "sex")
     private SexTagEnum sexTagEnum;
@@ -162,11 +163,11 @@ public class StudentDTO {
         this.prestige = prestige;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 

@@ -26,6 +26,7 @@ public class CourseAbstract {
     @Column(name = "technic_tag")
     private TechnicTagEnum technicTagEnum;
 
+    //名字
     @Column(name = "topic")
     private String topic;
 
