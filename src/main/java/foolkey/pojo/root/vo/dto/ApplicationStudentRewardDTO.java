@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class ApplicationStudentRewardDTO extends ApplicationAbstract{
 
     @Column(name = "courseStudent_id")
-    private Long courseStudentId;
+    private Long studentId;
 
     @Column(name = "order_id")
     private Long orderId;
@@ -23,17 +23,17 @@ public class ApplicationStudentRewardDTO extends ApplicationAbstract{
     @Override
     public String toString() {
         return "ApplicationStudentRewardDTO{" +
-                "courseStudentId=" + courseStudentId +
+                "studentId=" + studentId +
                 ", orderId=" + orderId +
                 "} " + super.toString();
     }
 
-    public Long getCourseStudentId() {
-        return courseStudentId;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setCourseStudentId(Long courseStudentId) {
-        this.courseStudentId = courseStudentId;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public Long getOrderId() {

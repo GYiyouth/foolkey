@@ -2,10 +2,13 @@ package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
+import foolkey.pojo.root.vo.assistObject.UserStateEnum;
+import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
@@ -36,6 +39,8 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
     private TeacherInfoBO teacherInfoBO;
     @Autowired
     private CourseStudentBO courseStudentBO;
+    @Autowired
+    private ApplicationInfoBO applicationInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -66,6 +71,18 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
         //发送给课程创始人
         StudentDTO sendStudentDTO = new StudentDTO();
         sendStudentDTO.myClone(sendStudentDTO, studentDTO);
+
+        //生成申请
+        ApplicationStudentRewardDTO application = applicationInfoBO
+                .createApplicationForStudentReward(
+                        teacherDTO.getId(), // 申请人
+                        null,               //messageId
+                        null,               //orderId
+                        courseDTO.getCreatorId()//处理人
+        );
+
+        applicationInfoBO.save(application);
+
 
         //发送消息
 

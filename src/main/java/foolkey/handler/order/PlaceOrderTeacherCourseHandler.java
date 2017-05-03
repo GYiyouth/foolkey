@@ -95,7 +95,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
                     .createApplicationForTeacherCourse(
                             studentDTO.getId(),
                             order.getId(),
-                            null,
+                            null, // message现在没有
                             teacherDTO.getId()
                     );
 
