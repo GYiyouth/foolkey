@@ -18,6 +18,7 @@ public class ApplicationAbstract {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //申请人
     @Column(name = "applicant_id")
     private Long applicantId;
 
