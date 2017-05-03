@@ -19,10 +19,10 @@ public class ApplicationInfoBO {
     private SaveApplicationTeacherCourseDAO dao;
 
     /**
-     * 生成对老师课程的申请消息
+     * 生成对老师课程的申请消息，并存储
      * @return
      */
-    public ApplicationTeacherCourseDTO saveApplicationForTeacherCourse(
+    public ApplicationTeacherCourseDTO createApplicationForTeacherCourse(
             Long applicantId,
             Long orderId,
             Long messageId,
@@ -35,7 +35,12 @@ public class ApplicationInfoBO {
         application.setTeacherId(teacherId);
         application.setApplyTime(new Date());
         application.setState( ApplicationStateEnum.processing);
-        dao.save(application);
+//        dao.save(application);
         return application;
+    }
+
+    public ApplicationTeacherCourseDTO save(ApplicationTeacherCourseDTO application){
+                dao.save(application);
+                return application;
     }
 }

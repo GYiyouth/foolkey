@@ -98,9 +98,9 @@ public class PayOrderHandler extends AbstractBO{
 
         //生成申请、消息
         MessageOrderDTO message = messageOrderBO.saveOrderMessage(teacherDTO.getId(), orderDTO.getId());
-        applicationBO.saveApplicationForTeacherCourse(
+        ApplicationTeacherCourseDTO application = applicationBO.createApplicationForTeacherCourse(
                 studentDTO.getId(), orderDTO.getId(), message.getId(), teacherDTO.getId());
-
+        applicationBO.save(application);
         //给老师发送申请、消息
     }
 }
