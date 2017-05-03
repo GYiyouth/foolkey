@@ -1,4 +1,4 @@
-package foolkey.pojo.root.handler.teacher;
+package foolkey.handler.teacher;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;

@@ -1,7 +1,7 @@
 package foolkey.controller.order_buy_course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.palce_order.PlaceOrderTeacherCourseHandler;
+import foolkey.handler.order.PlaceOrderTeacherCourseHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

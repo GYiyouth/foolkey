@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo.palce_order;
+package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.order_course.GetOrderBO;

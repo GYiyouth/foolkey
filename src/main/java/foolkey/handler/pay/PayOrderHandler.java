@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo.palce_order;
+package foolkey.handler.pay;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.application.ApplicationBO;
@@ -11,7 +11,6 @@ import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.dto.*;
-import foolkey.tool.JSONHandler;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
