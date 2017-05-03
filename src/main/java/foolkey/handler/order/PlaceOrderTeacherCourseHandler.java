@@ -5,6 +5,7 @@ import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.order_course.OrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.dto.*;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * 向老师课程下订单的BO
@@ -88,6 +90,15 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
             );
 
             //先给客户端返回订单，再生成申请，以及给老师发送消息
+            ApplicationTeacherCourseDTO application = new ApplicationTeacherCourseDTO();
+            application.setApplicantId( studentDTO.getId() );
+            application.setTeacherId( teacherDTO.getId() );
+            application.setApplyTime( new Date() );
+            application.setState(ApplicationStateEnum.processing);
+            application.setOrderId( order.getId() );
+
+
+
             jsonObject.put("order", order);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);

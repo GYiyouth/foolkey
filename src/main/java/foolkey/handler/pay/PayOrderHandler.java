@@ -1,7 +1,7 @@
 package foolkey.handler.pay;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.application.ApplicationBO;
+import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.GetCouponBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
@@ -45,7 +45,7 @@ public class PayOrderHandler extends AbstractBO{
     @Autowired
     private MessageOrderBO messageOrderBO;
     @Autowired
-    private ApplicationBO applicationBO;
+    private ApplicationInfoBO applicationBO;
     @Autowired
     private TeacherInfoBO teacherInfoBO;
 
@@ -99,7 +99,7 @@ public class PayOrderHandler extends AbstractBO{
         //生成申请、消息
         MessageOrderDTO message = messageOrderBO.saveOrderMessage(teacherDTO.getId(), orderDTO.getId());
         applicationBO.saveApplicationForTeacherCourse(
-                studentDTO.getId(), orderDTO.getId(), message.getId());
+                studentDTO.getId(), orderDTO.getId(), message.getId(), teacherDTO.getId());
 
         //给老师发送申请、消息
     }
