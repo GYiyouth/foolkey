@@ -80,9 +80,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
             TeachMethodEnum teachMethod = TeachMethodEnum.valueOf(
                     clearJSON.getString("teachMethod")
             );// 授课方法
-            CourseTypeEnum courseType = CourseTypeEnum.valueOf(
-                    clearJSON.getString("courseType")
-            ); // 课程种类
+            CourseTypeEnum courseType = CourseTypeEnum.老师课程;
             // 生成订单，并存进数据库
             OrderBuyCourseDTO order = orderBO.createOrder(
                     amount, number, studentDTO, teacherDTO.getId()
