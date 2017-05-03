@@ -1,10 +1,12 @@
 package foolkey.pojo.root.bo.order_course;
 
+import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,10 @@ import java.util.Date;
  */
 @Service
 @Transactional
-public class CreateOrderBO {
+public class OrderBO {
+
+    @Autowired
+    private SaveOrderCourseDAO saveOrderCourseDAO;
 
     /**
      * 根据信息生成订单
@@ -46,6 +51,9 @@ public class CreateOrderBO {
         order.setCreatedTime(new Date());
         order.setOrderStateEnum(OrderStateEnum.unpay);
 
+        saveOrderCourseDAO.save(order);
+
         return order;
     }
+
 }

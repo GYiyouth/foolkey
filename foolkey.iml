@@ -80,5 +80,6 @@
     <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15:1.46" level="project" />
+    <orderEntry type="library" name="MiPush_SDK_Server_2_2_18" level="project" />
   </component>
 </module>

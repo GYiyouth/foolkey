@@ -2,15 +2,12 @@ package foolkey.pojo.root.bo.palce_order;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
-import foolkey.pojo.root.bo.application.ApplicationBO;
-import foolkey.pojo.root.bo.message.MessageOrderBO;
-import foolkey.pojo.root.bo.order_course.CreateOrderBO;
+import foolkey.pojo.root.bo.order_course.OrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.dto.*;
-import foolkey.tool.JSONHandler;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +37,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
     private CourseTeacherBO courseBO;
 
     @Autowired
-    private CreateOrderBO createOrderBO;
+    private OrderBO orderBO;
 
     public void execute(
             HttpServletRequest request,
@@ -86,8 +83,8 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
             CourseTypeEnum courseType = CourseTypeEnum.valueOf(
                     clearJSON.getString("courseType")
             ); // 课程种类
-            // 生成订单
-            OrderBuyCourseDTO order = createOrderBO.createOrder(
+            // 生成订单，并存进数据库
+            OrderBuyCourseDTO order = orderBO.createOrder(
                     amount, number, studentDTO, teacherDTO.getId()
                     , courseDTO.getId(), cutOffPercent, teachMethod, courseType
             );
