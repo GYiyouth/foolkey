@@ -18,9 +18,6 @@ public class CourseTeacherDTO extends CourseAbstract{
     @Column(name = "duration")
     private Double duration;
 
-    //课程数
-    @Column(name = "class_amount")
-    private Integer classAmount;
 
     @Column(name = "course_teacher_state")
     @Enumerated(EnumType.ORDINAL)
@@ -36,7 +33,6 @@ public class CourseTeacherDTO extends CourseAbstract{
     public String toString() {
         return "CourseTeacherDTO{" +
                 "duration=" + duration +
-                ", classAmount=" + classAmount +
                 ", courseTeacherStateEnum=" + courseTeacherStateEnum +
                 ", sales=" + sales +
                 ", averageScore=" + averageScore +
@@ -51,13 +47,6 @@ public class CourseTeacherDTO extends CourseAbstract{
         this.duration = duration;
     }
 
-    public Integer getClassAmount() {
-        return classAmount;
-    }
-
-    public void setClassAmount(Integer classAmount) {
-        this.classAmount = classAmount;
-    }
 
     public CourseTeacherStateEnum getCourseTeacherStateEnum() {
         return courseTeacherStateEnum;
