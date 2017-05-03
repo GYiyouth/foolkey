@@ -17,11 +17,15 @@ public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
     @Column(name = "order_id")
     private Long orderId;
 
+    @Column(name = "courseTeacher_id")
+    private Long teacherId;
+
     @Override
     public String toString() {
         return "ApplicationTeacherCourseDTO{" +
-                "order=" + orderId +
-                '}';
+                "orderId=" + orderId +
+                ", teacherId=" + teacherId +
+                "} " + super.toString();
     }
 
     public Long getOrderId() {
@@ -30,5 +34,13 @@ public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 }
