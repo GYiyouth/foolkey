@@ -3,9 +3,11 @@ package foolkey.pojo.root.handler.order;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.order_course.GetOrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ public class GetStudentOrderHandler extends AbstractBO{
     private GetOrderBO getOrderBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
+    @Autowired
+    private TeacherInfoBO teacherInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -46,7 +50,29 @@ public class GetStudentOrderHandler extends AbstractBO{
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
         List<OrderBuyCourseDTO> list = getOrderBO.getCourseOrderAsStudent(studentDTO.getId(), orderState);
+
+        //便利上面的那个列表，获取老师的信息
+        List<StudentDTO> t1 = new ArrayList<>();
+        List<TeacherDTO> t2 = new ArrayList<>();
+
+        for (OrderBuyCourseDTO order : list){
+            Long tid = order.getTeacherId();
+            StudentDTO studentDTO1 = new StudentDTO();
+            StudentDTO studentDTO2 = new StudentDTO();
+            studentDTO2 = studentInfoBO.getStudentDTO(tid);
+            studentDTO1.myClone(studentDTO1, studentDTO2);
+            studentDTO1.setPassWord("");
+
+            TeacherDTO teacherDTO = new TeacherDTO();
+            teacherDTO = teacherInfoBO.getTeacherDTO(tid);
+
+            t1.add(studentDTO1);
+            t2.add(teacherDTO);
+        }
+
         jsonObject.put("orderList", list);
+        jsonObject.put("teacherInfo1", t1);
+        jsonObject.put("teacherInfo2", t2);
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
     }
