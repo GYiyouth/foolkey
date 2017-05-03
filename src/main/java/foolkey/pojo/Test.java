@@ -3,13 +3,17 @@ package foolkey.pojo;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.security.RSAKeyBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.security.RSACoder;
 import foolkey.tool.security.StringMatchRate;
 import net.sf.json.JSONObject;
 
+import java.beans.PropertyDescriptor;
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Created by geyao on 2017/4/24.
@@ -20,65 +24,19 @@ public class Test {
 
     public static void main(String[] args) throws Exception{
 
-//        KeyPair keyPair = rsaCoder.getKeyPair();
-//        String pubstr = rsaCoder.getStringPublicKey(keyPair);
-//        System.out.println("公钥是 \n" + pubstr);
-//        String pristr = rsaCoder.getStringPrivateKey(keyPair);
-//        System.out.println("私钥是 \n" + pristr);
-//
-//        byte[] Ciphertext = rsaCoder.publicEncrypt(raw.getBytes(), (RSAPublicKey)keyPair.getPublic());
-//
-//        System.out.println("加密后 \n " + ConverterByteBase64.byte2Base64(Ciphertext));
-//        System.out.println("公钥加密， 私钥解密");
-//        byte[] clearText = rsaCoder.privateDecrypt(Ciphertext, rsaCoder.getPrivateKey(pristr));
-//        String clearStr = new String(clearText);
-//        System.out.println(clearStr);
-//
-//        RSACoder rsaCoderOld = new RSACoder();
-//        byte[] pubbytes = rsaCoderOld.getPublicKey();
-//        byte[] pribytes = rsaCoderOld.getPrivateKey();
-//        System.out.println("公钥是" + ConverterByteBase64.byte2Base64(pubbytes));
-//        System.out.println("密钥是" + ConverterByteBase64.byte2Base64(pribytes));
-//
-//        Ciphertext = rsaCoderOld.encryptByPublicKey(raw.getBytes(), pubbytes);
-//
-//        System.out.println("密文 " + new String(Ciphertext));
-//        clearText = rsaCoderOld.decryptByPrivateKey(Ciphertext, pribytes);
-//        System.out.println("明文" + new String(clearText));
-//
-//        System.out.println("换密钥加锁，公钥解密");
-//
-//        Ciphertext = rsaCoderOld.encryptByPrivateKey(raw.getBytes(), pribytes);
-//
-//        System.out.println("密文 " + ConverterByteBase64.byte2Base64(Ciphertext));
-//        clearText = rsaCoderOld.decryptByPublicKey(Ciphertext, pubbytes);
-//        System.out.println("明文 " + new String(clearText));
+        StudentDTO studentDTO = new StudentDTO();
+        StudentDTO studentDTO1 = new StudentDTO();
+
+        studentDTO.setId(1L);
 
 
-//        System.out.println("=======");
-//        System.out.println();
-//        System.out.println();
-//        AESCoder aesCoder = new AESCoder();
-//        String aesKey = aesCoder.getAESKeyBase64();
-//        System.out.println("对称加密");
-//        System.out.println(aesKey);
-//        byte[] keys = ConverterByteBase64.base642Byte(aesKey);
-//        System.out.println( keys.length);
-//        SecretKey key = aesCoder.loadKeyAES(aesKey);
-//        byte[] ciper = aesCoder.encryptAES(raw.getBytes("UTF-8"), key);
-//        byte[] clear = aesCoder.decryptAES(ciper, key);
-//
-//        System.out.println("密文\n" + ConverterByteBase64.byte2Base64(ciper));
-//        System.out.println("明文\n" + new String(clear));
-        Double d1 = 11.0;
-        Double d2 = d1 % 1;
-        System.out.println(d2);
-        System.out.println(d1 - d2);
-        String str1 = new String( (d1- d2) + "");
-        str1 = str1.split("\\.")[0];
-        System.out.println(str1);
-        int i1 = Integer.parseInt(str1);
-        System.out.println(i1);
+        Field[] fields1 = studentDTO.getClass().getDeclaredFields();
+
+        PropertyDescriptor descriptor = new PropertyDescriptor(fields1[0].getName(), studentDTO1.getClass());
+        Method setMethod = descriptor.getWriteMethod();
+        Method getMethod = descriptor.getReadMethod();
+        setMethod.invoke(studentDTO1, getMethod.invoke(studentDTO) );
+        System.out.println(studentDTO1);
     }
 
 

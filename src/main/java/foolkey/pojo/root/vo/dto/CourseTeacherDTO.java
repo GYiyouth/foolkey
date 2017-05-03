@@ -40,7 +40,7 @@ public class CourseTeacherDTO extends CourseAbstract{
                 ", courseTeacherStateEnum=" + courseTeacherStateEnum +
                 ", sales=" + sales +
                 ", averageScore=" + averageScore +
-                '}';
+                "} " + super.toString();
     }
 
     public Double getDuration() {

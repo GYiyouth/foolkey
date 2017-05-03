@@ -45,7 +45,7 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
             String validationCipherStr = request.getParameter("validation");
             //预处理
             validationCipherStr = validationCipherStr.substring(0, validationCipherStr.length() -1);
-            validationCipherStr = validationCipherStr.replaceFirst("愚", "\n");
+            validationCipherStr = validationCipherStr.replaceAll("愚", "\n");
             System.out.println(validationCipherStr);
             //解密
             String validationClearStr = aesKeyBO.decrypt(validationCipherStr, aesKey);

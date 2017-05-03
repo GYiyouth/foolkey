@@ -4,6 +4,11 @@ import foolkey.pojo.root.vo.assistObject.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Date;
 
 /**
@@ -83,6 +88,7 @@ public class StudentDTO {
         super();
     }
 
+
     @Override
     public String toString() {
         return "StudentDTO{" +
@@ -92,7 +98,7 @@ public class StudentDTO {
                 ", cash=" + cash +
                 ", virtualCurrency=" + virtualCurrency +
                 ", prestige=" + prestige +
-                ", name=" + name +
+                ", name='" + name + '\'' +
                 ", sexTagEnum=" + sexTagEnum +
                 ", organization='" + organization + '\'' +
                 ", birthday=" + birthday +
@@ -323,5 +329,13 @@ public class StudentDTO {
         this.learningNumber = learningNumber;
     }
 
-
+    public void myClone(StudentDTO target, StudentDTO source) throws Exception{
+        Field[] fields = source.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), source.getClass());
+            Method setMethod = descriptor.getWriteMethod();
+            Method getMethod = descriptor.getReadMethod();
+            setMethod.invoke(target, getMethod.invoke(source));
+        }
+    }
 }

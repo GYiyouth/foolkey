@@ -33,11 +33,12 @@ public class UserCAO extends AbstractCAO{
     }
 
     /**
-     * 把用户信息存储在缓存中
+     * 把用户信息存储在缓存中，同时更新id_token的对称关系
      * @param token
      * @param studentDTO
      */
     public void saveStudentDTO(String token, StudentDTO studentDTO){
+        saveIdToken(token, studentDTO.getId());
         Map map = getUserMap(token);
         map.put(userInfoToken, studentDTO);
     }

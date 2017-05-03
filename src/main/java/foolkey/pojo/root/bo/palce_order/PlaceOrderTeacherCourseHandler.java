@@ -53,12 +53,13 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
         // 从明文中获取以下token，课程id，老师id
         String token = clearJSON.getString("token");
         String courseId = clearJSON.getString("courseId");
-//        String teacherId = clearJSON.getString("teacherId");
+        String teacherId = clearJSON.getString("teacherId");
 
         // 获取学生DTO，课程DTO，老师DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         CourseTeacherDTO courseDTO = courseBO.getCourseTeacherDTOById(courseId);
-        TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(courseDTO.getId());
+        TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( Long.parseLong(teacherId) );
+
 
         //验证课程，老师
         boolean courseFlag = courseBO.checkCourse(courseDTO);

@@ -47,7 +47,7 @@ public class SearchHandler extends AbstractBO{
         String clearText = request.getParameter("clearText");
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-        String input = clearJSON.getString("keyWord");
+        String input = clearJSON.getString("keyWord").toLowerCase().trim();
         String condition = clearJSON.getString("condition");
         String page = clearJSON.getString("pageNo");
 

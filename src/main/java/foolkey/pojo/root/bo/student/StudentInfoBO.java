@@ -70,12 +70,7 @@ public class StudentInfoBO {
      * @return
      */
     public StudentDTO getStudentDTO(Long id){
-        String token = userCAO.getUserToken(id);
-        if (userCAO.containStudentDTO(token))
-            return userCAO.getStudentDTO(token);
-        else {//缓存中没有这个人的信息，去数据库取
-            return getStudentDAO.get(StudentDTO.class, id);
-        }
+        return getStudentDAO.get(StudentDTO.class, id);
     }
 
     /**
