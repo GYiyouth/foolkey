@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.CourseStudent;
 
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
+import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
@@ -25,6 +26,9 @@ public class CourseStudentBO {
     @Autowired
     private GetCourseStudentDAO getCourseStudentDAO;
 
+    @Autowired
+    private UpdateCourseStudentDAO updateCourseStudentDAO;
+
     /**
      * 发布悬赏
      * @param courseStudentDTO
@@ -44,5 +48,15 @@ public class CourseStudentBO {
      */
     public CourseStudentDTO getCourseStudentDTO(Long id){
         return getCourseStudentDAO.get(CourseStudentDTO.class, id);
+    }
+
+    /**
+     * 更新学生悬赏任务
+     * @param courseDTO
+     * @return
+     */
+    public CourseStudentDTO update(CourseStudentDTO courseDTO){
+        updateCourseStudentDAO.update(courseDTO);
+        return courseDTO;
     }
 }

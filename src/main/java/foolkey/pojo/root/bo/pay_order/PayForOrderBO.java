@@ -1,6 +1,6 @@
 package foolkey.pojo.root.bo.pay_order;
 
-import foolkey.pojo.root.bo.order_course.UpdateOrderBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
@@ -20,7 +20,7 @@ public class PayForOrderBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
-    private UpdateOrderBO orderBO;
+    private OrderInfoBO orderBO;
 
     public Boolean pay(StudentDTO studentDTO, OrderBuyCourseDTO order, CouponDTO couponDTO, Double expectPrice){
         Double money = studentDTO.getVirtualCurrency();

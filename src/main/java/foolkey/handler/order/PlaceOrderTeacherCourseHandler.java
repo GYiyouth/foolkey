@@ -3,7 +3,7 @@ package foolkey.handler.order;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
-import foolkey.pojo.root.bo.order_course.OrderBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
@@ -38,7 +38,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
     private CourseTeacherBO courseBO;
 
     @Autowired
-    private OrderBO orderBO;
+    private OrderInfoBO orderInfoBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
 
@@ -85,7 +85,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
             );// 授课方法
             CourseTypeEnum courseType = CourseTypeEnum.老师课程;
             // 生成订单，并存进数据库
-            OrderBuyCourseDTO order = orderBO.createOrder(
+            OrderBuyCourseDTO order = orderInfoBO.createOrder(
                     amount, number, studentDTO, teacherDTO.getId()
                     , courseDTO.getId(), cutOffPercent, teachMethod, courseType
             );

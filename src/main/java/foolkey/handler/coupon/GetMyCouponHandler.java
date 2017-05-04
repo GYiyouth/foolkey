@@ -1,6 +1,7 @@
-package foolkey.pojo.root.bo.coupon;
+package foolkey.handler.coupon;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -22,7 +23,7 @@ import java.util.List;
 public class GetMyCouponHandler extends AbstractBO{
 
     @Autowired
-    private GetCouponBO getCouponBO;
+    private CouponInfoBO couponInfoBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
 
@@ -40,7 +41,7 @@ public class GetMyCouponHandler extends AbstractBO{
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
-        List<CouponDTO> couponDTOList = getCouponBO.getCouponDTOList(
+        List<CouponDTO> couponDTOList = couponInfoBO.getCouponDTOList(
                 studentDTO.getId() + "", pageNum, pageSize
         );
 

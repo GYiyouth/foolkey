@@ -76,12 +76,21 @@ public class OrderInfoBO {
 
     /**
      * 获取订单资料
-     * @param courseId 订单id
+     * @param orderId 订单id
      * @return
      */
-    public OrderBuyCourseDTO getCourseOrder(String courseId){
-        Long id = Long.parseLong(courseId);
+    public OrderBuyCourseDTO getCourseOrder(String orderId){
+        Long id = Long.parseLong(orderId);
         return getOrderCourseDAO.get(OrderBuyCourseDTO.class, id);
+    }
+
+    /**
+     * 获取订单资料
+     * @param courseId 学生悬赏课程的Id
+     * @return
+     */
+    public OrderBuyCourseDTO getRewardOrder(String courseId, OrderStateEnum state){
+        return getOrderCourseDAO.getRewardOrderByCourseId(Long.parseLong( courseId ), state);
     }
 
     /**

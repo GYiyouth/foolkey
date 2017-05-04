@@ -1,7 +1,7 @@
-package foolkey.controller.coupon;
+package foolkey.controller.CourseStudent;
 
 import foolkey.controller.AbstractController;
-import foolkey.handler.coupon.GetMyCouponHandler;
+import foolkey.handler.application.AcceptRewardApplicationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,22 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 获取我的优惠券
- * aes加密
- * Created by geyao on 2017/5/2.
+ * Created by geyao on 2017/5/4.
  */
 @Controller
-@RequestMapping("/aes/getMyCoupon")
-public class GetMyCouponController extends AbstractController{
+@RequestMapping("/aes/acceptRewardApplication")
+public class AcceptRewardApplicationController extends AbstractController{
 
     @Autowired
-    private GetMyCouponHandler couponHandler;
+    private AcceptRewardApplicationHandler handler;
 
     @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws Exception{
-        couponHandler.execute(request, response, jsonObject);
+    )throws Exception{
+        handler.execute(request, response, jsonObject);
     }
 }

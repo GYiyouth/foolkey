@@ -1,7 +1,7 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.order_course.GetOrderBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
@@ -28,7 +28,7 @@ import java.util.List;
 public class GetStudentOrderHandler extends AbstractBO{
 
     @Autowired
-    private GetOrderBO getOrderBO;
+    private OrderInfoBO orderInfoBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
@@ -49,7 +49,7 @@ public class GetStudentOrderHandler extends AbstractBO{
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
-        List<OrderBuyCourseDTO> list = getOrderBO.getCourseOrderAsStudent(studentDTO.getId(), orderState);
+        List<OrderBuyCourseDTO> list = orderInfoBO.getCourseOrderAsStudent(studentDTO.getId(), orderState);
 
         //便利上面的那个列表，获取老师的信息
         List<StudentDTO> t1 = new ArrayList<>();

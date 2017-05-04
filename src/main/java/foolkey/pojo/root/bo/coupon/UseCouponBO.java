@@ -28,7 +28,7 @@ public class UseCouponBO {
 
         if (couponDTO == null)
             return orderDTO.getAmount();
-        if (!couponDTO.getId().equals( studentDTO.getId() ))
+        if (!couponDTO.getId().equals( studentDTO.getId() )) // 优惠券所有者不对
             return null;
         if (couponDTO.getDeadTime().compareTo(new Date()) < 0) // 优惠券已使用或者过期
             return null;
@@ -38,17 +38,15 @@ public class UseCouponBO {
         if ( !couponTypeEnum.checkType(courseTypeEnum) ) // 优惠券类型不符
             return null;
 
-        if (couponDTO.getCouponTypeEnum().compareTo(CouponTypeEnum.购买课程) == 0
-                || couponDTO.getCouponTypeEnum().compareTo(CouponTypeEnum.全场) == 0){
-            int time = couponDTO.getDeadTime().compareTo( new Date() );
-            if (time > 0){
-                int level = couponDTO.getLevel().compareTo(orderDTO.getAmount());
-                if (level < 0) {
-                    orderDTO.setCouponId(couponDTO.getId());
-                    return (orderDTO.getAmount() - couponDTO.getValue());
-                }
-            }
+
+        int level = couponDTO.getLevel().compareTo(orderDTO.getAmount());
+        if (level < 0) { // 验证门槛
+            orderDTO.setCouponId(couponDTO.getId());
+            return (orderDTO.getAmount() - couponDTO.getValue());
+        }else { //门槛未达到
+//            return orderDTO.getAmount();
         }
+
         return null;
     }
 }

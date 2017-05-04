@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class DeleteBaseDAO<T> {
 
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    protected HibernateTemplate hibernateTemplate;
 
     /**
      * 删除实体

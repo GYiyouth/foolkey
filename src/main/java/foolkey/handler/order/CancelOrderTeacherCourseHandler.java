@@ -1,8 +1,7 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.order_course.GetOrderBO;
-import foolkey.pojo.root.bo.order_course.UpdateOrderBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import net.sf.json.JSONObject;
@@ -22,10 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 @Transactional
 public class CancelOrderTeacherCourseHandler extends AbstractBO{
+
     @Autowired
-    private GetOrderBO getOrderBO;
-    @Autowired
-    private UpdateOrderBO updateOrderBO;
+    private OrderInfoBO orderInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -38,11 +36,11 @@ public class CancelOrderTeacherCourseHandler extends AbstractBO{
         String token = clearJSON.getString("token");
         String orderid = clearJSON.getString("orderId");
 
-        OrderBuyCourseDTO order = getOrderBO.getCourseOrder(orderid);
+        OrderBuyCourseDTO order = orderInfoBO.getCourseOrder(orderid);
         if (order.getOrderStateEnum().compareTo(OrderStateEnum.unpay) == 0){
             //仅当处于未付款的时候，可以使用
             order.setOrderStateEnum(OrderStateEnum.cancel);
-            updateOrderBO.update(order);
+            orderInfoBO.update(order);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
             return;

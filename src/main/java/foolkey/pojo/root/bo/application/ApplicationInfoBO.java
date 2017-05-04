@@ -1,8 +1,11 @@
 package foolkey.pojo.root.bo.application;
 
+import foolkey.pojo.root.DAO.application_student_reward.DeleteApplicationStudentRewardDAO;
 import foolkey.pojo.root.DAO.application_student_reward.SaveApplicationStudentRewardDAO;
+import foolkey.pojo.root.DAO.application_teacher_course.DeleteApplicationTeacherCourseDAO;
 import foolkey.pojo.root.DAO.application_teacher_course.SaveApplicationTeacherCourseDAO;
 import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.ApplicationTeacherCourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,10 @@ public class ApplicationInfoBO {
     private SaveApplicationTeacherCourseDAO saveApplicationTeacherCourseDAO;
     @Autowired
     private SaveApplicationStudentRewardDAO saveApplicationStudentRewardDAO;
+    @Autowired
+    private DeleteApplicationStudentRewardDAO deleteApplicationStudentRewardDAO;
+    @Autowired
+    private DeleteApplicationTeacherCourseDAO deleteApplicationTeacherCourseDAO;
 
     /**
      * 生成对老师课程的申请消息，并存储
@@ -73,5 +80,35 @@ public class ApplicationInfoBO {
     public ApplicationStudentRewardDTO save(ApplicationStudentRewardDTO applicaiton){
         saveApplicationStudentRewardDAO.save(applicaiton);
         return applicaiton;
+    }
+
+    /**
+     * 删除对学生悬赏的申请
+     * @param studentId
+     * @param teacherId
+     */
+    public void deleteRewardApplication(Long studentId, Long teacherId){
+        deleteApplicationStudentRewardDAO.delete(teacherId, studentId);
+    }
+
+    /**
+     * 删除对老师课程的申请
+     * @param applicantId
+     * @param orderId
+     */
+    public void deleteTeacherCourseApplication(Long applicantId, Long orderId){
+        deleteApplicationTeacherCourseDAO.delete(applicantId, orderId);
+    }
+
+    /**
+     * 根据orderId删除课程申请
+     * @param orderId
+     * @param courseType
+     */
+    public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType){
+        if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0)
+            deleteApplicationStudentRewardDAO.deleteAllByCourseId(orderId);
+        if (courseType.compareTo(CourseTypeEnum.老师课程) == 0)
+            deleteApplicationTeacherCourseDAO.deleteAllByCourseId(orderId);
     }
 }

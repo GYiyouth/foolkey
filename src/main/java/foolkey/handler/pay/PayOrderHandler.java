@@ -2,11 +2,10 @@ package foolkey.handler.pay;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
-import foolkey.pojo.root.bo.coupon.GetCouponBO;
+import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
-import foolkey.pojo.root.bo.order_course.GetOrderBO;
-import foolkey.pojo.root.bo.order_course.UpdateOrderBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
@@ -31,17 +30,17 @@ import javax.servlet.http.HttpServletResponse;
 public class PayOrderHandler extends AbstractBO{
 
     @Autowired
-    private GetOrderBO getOrderBO;
+    private OrderInfoBO getOrderBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
-    private GetCouponBO getCouponBO;
+    private CouponInfoBO couponInfoBO;
     @Autowired
     private UseCouponBO useCouponBO;
     @Autowired
     private PayForOrderBO payForOrderBO;
     @Autowired
-    private UpdateOrderBO updateOrderBO;
+    private OrderInfoBO updateOrderBO;
     @Autowired
     private MessageOrderBO messageOrderBO;
     @Autowired
@@ -65,7 +64,7 @@ public class PayOrderHandler extends AbstractBO{
         //获取OrderDTO，获取studentDTO，获取couponId
         OrderBuyCourseDTO orderDTO = getOrderBO.getCourseOrder(orderId);
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        CouponDTO couponDTO = getCouponBO.getCouponDTO(couponId);
+        CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId);
 
         //使用优惠券
         Double price = useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);
