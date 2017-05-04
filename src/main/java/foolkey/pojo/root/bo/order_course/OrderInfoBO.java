@@ -1,6 +1,8 @@
 package foolkey.pojo.root.bo.order_course;
 
+import foolkey.pojo.root.DAO.order_course.GetOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
+import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
@@ -11,16 +13,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by geyao on 2017/5/1.
  */
 @Service
 @Transactional
-public class OrderBO {
+public class OrderInfoBO {
+
+    @Autowired
+    private GetOrderCourseDAO getOrderCourseDAO;
 
     @Autowired
     private SaveOrderCourseDAO saveOrderCourseDAO;
+
+    @Autowired
+    private UpdateOrderCourseDAO updateOrderCourseDAO;
 
     /**
      * 根据信息生成订单
@@ -54,6 +63,35 @@ public class OrderBO {
         saveOrderCourseDAO.save(order);
 
         return order;
+    }
+
+    public void update(OrderBuyCourseDTO order){
+        updateOrderCourseDAO.update(order);
+    }
+
+    public void updateOrderSateAfterPay(OrderBuyCourseDTO order){
+        order.setOrderStateEnum(OrderStateEnum.payed);
+        update(order);
+    }
+
+    /**
+     * 获取订单资料
+     * @param courseId 订单id
+     * @return
+     */
+    public OrderBuyCourseDTO getCourseOrder(String courseId){
+        Long id = Long.parseLong(courseId);
+        return getOrderCourseDAO.get(OrderBuyCourseDTO.class, id);
+    }
+
+    /**
+     * 获取学生角色的未付款课程订单
+     * @param studentId
+     * @return
+     * @throws Exception
+     */
+    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderStateEnum) throws Exception{
+        return getOrderCourseDAO.getCourseOrderAsStudent(studentId, orderStateEnum);
     }
 
 }
