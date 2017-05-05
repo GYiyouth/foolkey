@@ -70,6 +70,7 @@ public class SaveUserController extends AbstractController {
                 //返回AES加密后的用户token
                 String tokenCipher = aesKeyBO.encrypt(token, aesKey);
                 jsonObject.put("tokenCipher", tokenCipher);
+                jsonObject.put("id", studentDTO.getId());
                 jsonObject.put("result", "success");
             }else {
 

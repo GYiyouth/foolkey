@@ -61,6 +61,7 @@ public class LoginController extends AbstractController {
             String token = TokenCreator.createToken(userName, passWord);
             //保存用户的aesKey
             userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
+            jsonObject.put("id", studentDTO.getId());
             jsonObject.put("token", token);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
