@@ -9,8 +9,11 @@ import java.util.ArrayList;
  */
 public class DoubleLink {
 
+    public DoubleLink() {
+    }
+
     //记录链表的节点数
-    int length = 0;
+    private int length = 0;
     //定义上一个节点
     private Node header;
     //定义下一个节点
@@ -197,13 +200,24 @@ public class DoubleLink {
     public ArrayList<Object> getNode(Integer begin, Integer end) {
         if (begin > end) {
             throw new IndexOutOfBoundsException("开始节点在结束节点后面！");
-        } else {
-            ArrayList<Object> results = new ArrayList<>();
-            for (int i = begin; i <= end; i++) {
-                results.add(getDataByIndex(i));
-            }
-            return results;
+        }else if(end >= length){
+            end = length-1;
         }
+        ArrayList<Object> results = new ArrayList<>();
+        for (int i = begin; i <= end; i++) {
+            results.add(getDataByIndex(i));
+        }
+        return results;
+
+    }
+
+    //获得所有节点内容
+    public ArrayList<Object> getAllNode() {
+        ArrayList<Object> results = new ArrayList<>();
+        for(int i=0;i<length;i++){
+            results.add(getDataByIndex(i));
+        }
+        return results;
     }
 
     //初始化
@@ -235,6 +249,9 @@ public class DoubleLink {
         mytest.addTail("test2");
         mytest.addHead("hahha");
 
+        DoubleLink mytest2 = new DoubleLink();
+        mytest2.addHead("gengrui");
+
 //        mytest.insertDataByIndex("here", 3);
 //        mytest.insertDataByIndex("here2", 3);
         System.out.println("++++++++++++删除前++++++++++++");
@@ -261,6 +278,8 @@ public class DoubleLink {
         }
         mytest.allPrint();
 
+        System.out.println("=====");
+        mytest2.allPrint();
     }
 
 

@@ -21,6 +21,22 @@ import java.util.List;
 public class GetCourseTeacherDAO extends GetBaseDAO<CourseTeacherDTO>{
 
     /**
+     * 根据技术分类，查询前n条记录
+     * @param technicTagEnum
+     * @param resultSize
+     * @return
+     */
+    public ArrayList<CourseTeacherDTO> findByTechnicTagEnumAndResultSize(TechnicTagEnum technicTagEnum,Integer resultSize){
+        ArrayList<CourseTeacherDTO> courseTeacherDTOS = new ArrayList<>();
+        String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
+        courseTeacherDTOS = findByPage(hql,1,resultSize,technicTagEnum);
+        for(CourseTeacherDTO courseTeacherDTO:courseTeacherDTOS){
+            System.out.println(courseTeacherDTO);
+        }
+        return courseTeacherDTOS;
+    }
+
+    /**
      * 根据技术分类，获取类别下面的所有热门课程
      * 此时内存没存满
      * @param technicTagEnum

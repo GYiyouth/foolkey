@@ -19,7 +19,10 @@ public class LocalCache implements Cache{
     static {
         for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){
             Map map = new HashedMap();
+            //一个备用的，主要目的是存储一些可能进入热门的课程
+            Map mapReserve = new HashMap();
             cache1.put(technicTagEnum.toString(), map);
+            cache1.put(technicTagEnum.toString()+"Reserve",mapReserve);
         }
         String[] keys = {"key", "id_token", "token_id"};
         for (String key : keys){

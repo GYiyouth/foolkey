@@ -33,38 +33,38 @@ public class UpdateCourseTeacherController extends AbstractController {
     @RequestMapping(value = "/updateCourseTeacher")
     public void execute(
             HttpServletRequest request,
-//            @RequestParam("id")Long id,
-//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
-//            @RequestParam("topic")String topic,
-//            @RequestParam("description")String description ,
-//            @RequestParam("price")Double price,
-//            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
-//            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-//            @RequestParam("duration")Double duration,
-//            @RequestParam("classAmount")Integer classAmount,
+            @RequestParam("id")Long id,
+            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+            @RequestParam("topic")String topic,
+            @RequestParam("description")String description ,
+            @RequestParam("price")Double price,
+            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
+            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
+            @RequestParam("duration")Double duration,
             HttpServletResponse response
     ) throws Exception {
         try {
-            String clearText = request.getParameter("clearText");
-            JSONObject clearJSON = JSONObject.fromObject(clearText);
-
-            String token =clearJSON.getString("token");
-            Long id = clearJSON.getLong("id");
-            String technicTagStr = clearJSON.getString("technicTagEnum");
-            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
-            String topic = clearJSON.getString("topic");
-            String description = clearJSON.getString("description");
-            Double price = clearJSON.getDouble("price");
-            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
-            CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
-            String teachMethodStr = clearJSON.getString("teachMethodEnum");
-            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-            Double duration = clearJSON.getDouble("duration");
-            Integer classAmount = clearJSON.getInt("classAmount");
+            //获取-解析JSON明文数据
+//            String clearText = request.getParameter("clearText");
+//            JSONObject clearJSON = JSONObject.fromObject(clearText);
+//
+//            String token =clearJSON.getString("token");
+//            Long id = clearJSON.getLong("id");
+//            String technicTagStr = clearJSON.getString("technicTagEnum");
+//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
+//            String topic = clearJSON.getString("topic");
+//            String description = clearJSON.getString("description");
+//            Double price = clearJSON.getDouble("price");
+//            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
+//            CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
+//            String teachMethodStr = clearJSON.getString("teachMethodEnum");
+//            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
+//            Double duration = clearJSON.getDouble("duration");
 
 
             System.out.println("修改课程信息");
             courseTeacherDTO.setId(id);
+            courseTeacherDTO.setCreatorId(20002L);
             courseTeacherDTO.setTechnicTagEnum(technicTagEnum);
             courseTeacherDTO.setTopic(topic);
             courseTeacherDTO.setDescription(description);
@@ -73,11 +73,12 @@ public class UpdateCourseTeacherController extends AbstractController {
             courseTeacherDTO.setTeachMethodEnum(teachMethodEnum);
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);
             courseTeacherDTO.setDuration(duration);
-//            courseTeacherDTO.setClassAmount(classAmount);
             courseTeacherDTO.setSales(0);
             courseTeacherDTO.setAverageScore(0.0);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
             courseTeacherBO.updateCourseTeacherDTO(courseTeacherDTO);
+
+            //封装-传送JSON
             jsonObject.put("result","success");
             jsonObject.put("courseTeacherDTO",courseTeacherDTO);
             jsonHandler.sendJSON(jsonObject,response);

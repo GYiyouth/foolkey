@@ -1,8 +1,12 @@
 package foolkey.pojo.root.bo.teacher;
 
+import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.UpdateTeacherDAO;
+import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.tool.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,8 @@ public class TeacherInfoBO {
     @Autowired
     private GetTeacherDAO getTeacherDAO;
     @Autowired
+    private GetStudentDAO getStudentDAO;
+    @Autowired
     private UpdateTeacherDAO updateTeacherDAO;
 
     public TeacherDTO getTeacherDTO(String id){
@@ -30,5 +36,13 @@ public class TeacherInfoBO {
     public TeacherDTO updateTeacherDTO(TeacherDTO teacherDTO) throws Exception{
         updateTeacherDAO.update(teacherDTO);
         return teacherDTO;
+    }
+
+    public TeacherAllInfoDTO getTeacherAllInfoDTO(Long id) {
+        StudentDTO studentDTO = getStudentDAO.get(StudentDTO.class,id);
+        TeacherDTO teacherDTO = getTeacherDAO.get(TeacherDTO.class,id);
+        TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
+        teacherAllInfoDTO.clone(studentDTO,teacherDTO);
+        return teacherAllInfoDTO;
     }
 }

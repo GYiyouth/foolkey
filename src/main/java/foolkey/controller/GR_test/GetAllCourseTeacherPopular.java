@@ -1,10 +1,12 @@
-package foolkey.controller.CourseTeacher;
+package foolkey.controller.GR_test;
 
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,39 +17,38 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
- * Created by admin on 2017/4/28.
+ * Created by GR on 2017/5/3.
  */
 @Controller
-@RequestMapping(value = "/courseTeacher")
-public class CourseTeacherController extends AbstractController{
+@RequestMapping(value = "/test")
+public class GetAllCourseTeacherPopular extends AbstractController{
 
     @Resource(name = "courseTeacherBO")
     private CourseTeacherBO courseTeacherBO;
 
+    @Autowired
+    private StudentInfoBO studentInfoBO;
     @RequestMapping(value = "/getCourseTeacherPopular")
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("pageNo") Integer pageNo,
-//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             HttpServletResponse response
-            ){
+    ){
         try {
-            String clearText = request.getParameter("clearText");
-            JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-            Integer pageNo = clearJSON.getInt("pageNo");
-            String technicTag = clearJSON.getString("technicTagEnum");
-                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
-            ArrayList<CourseTeacherDTO> courseTeacherDTOArrayList = courseTeacherBO.getPopularCourseTeacher(technicTagEnum, pageNo, 10);
-            for (CourseTeacherDTO courseTeacherDTO : courseTeacherDTOArrayList) {
-                System.out.println("------" + courseTeacherDTO + "--id:" + courseTeacherDTO.getId());
-            }
+//            ArrayList<CourseTeacherDTO> courseTeacherDTOArrayList = courseTeacherBO.getAllCourseTeacherDTOInPopular(technicTagEnum);
+//            for (CourseTeacherDTO courseTeacherDTO : courseTeacherDTOArrayList) {
+//                System.out.println("------" + courseTeacherDTO + "--id:" + courseTeacherDTO.getId());
+//            }
+//
             jsonObject.put("result","success");
-            jsonObject.put("courseTeacherDTOS",courseTeacherDTOArrayList);
+//            jsonObject.put("courseTeacherDTOS",courseTeacherDTOArrayList);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();
             jsonHandler.sendFailJSON(response);
         }
     }
+
 }
