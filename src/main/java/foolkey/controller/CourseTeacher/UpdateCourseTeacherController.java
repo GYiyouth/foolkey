@@ -73,7 +73,7 @@ public class UpdateCourseTeacherController extends AbstractController {
             courseTeacherDTO.setTeachMethodEnum(teachMethodEnum);
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);
             courseTeacherDTO.setDuration(duration);
-            courseTeacherDTO.setClassAmount(classAmount);
+//            courseTeacherDTO.setClassAmount(classAmount);
             courseTeacherDTO.setSales(0);
             courseTeacherDTO.setAverageScore(0.0);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);

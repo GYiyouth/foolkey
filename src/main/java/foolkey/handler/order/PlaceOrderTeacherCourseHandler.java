@@ -3,6 +3,7 @@ package foolkey.handler.order;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
@@ -41,6 +42,8 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
     private OrderInfoBO orderInfoBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
@@ -101,6 +104,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
 
             applicationInfoBO.save(application);
 
+            messageBO.sendForApplication(application, studentDTO, courseDTO);
 
             jsonObject.put("order", order);
             jsonObject.put("result", "success");

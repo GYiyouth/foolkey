@@ -3,6 +3,7 @@ package foolkey.handler.order;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
@@ -12,6 +13,7 @@ import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.tool.push_message.MessagePusher;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,8 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
     private CourseStudentBO courseStudentBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
@@ -72,7 +76,6 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
         StudentDTO sendStudentDTO = new StudentDTO();
         sendStudentDTO.myClone(sendStudentDTO, studentDTO);
 
-        //生成申请
         ApplicationStudentRewardDTO application = applicationInfoBO
                 .createApplicationForStudentReward(
                         teacherDTO.getId(), // 申请人
@@ -80,11 +83,12 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
                         null,               //orderId
                         courseDTO.getCreatorId()//处理人
         );
-
         applicationInfoBO.save(application);
-
-
-        //发送消息
+        MessagePusher.sendToUserAccount(
+                courseDTO.getCreatorId() + "", "messagePayLoad"
+                , "title", "description"
+        );
+        messageBO.sendForApplication(application, studentDTO, courseDTO);
 
 
         //返回

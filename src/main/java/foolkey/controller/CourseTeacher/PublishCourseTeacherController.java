@@ -71,7 +71,7 @@ public class PublishCourseTeacherController extends AbstractController{
             courseTeacherDTO.setTeachMethodEnum(teachMethodEnum);
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);
             courseTeacherDTO.setDuration(duration);
-            courseTeacherDTO.setClassAmount(classAmount);
+//            courseTeacherDTO.setCl
             courseTeacherDTO.setSales(0);
             courseTeacherDTO.setAverageScore(0.0);
             courseTeacherBO.publishCourseTeacher(courseTeacherDTO);
