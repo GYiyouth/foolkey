@@ -1,6 +1,7 @@
 package foolkey.pojo.root.bo.recharge;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 public class ChargeMoneyHandler extends AbstractBO{
+    @Autowired
+    private MessageBO messageBO;
 
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -37,5 +40,7 @@ public class ChargeMoneyHandler extends AbstractBO{
 
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
+
+        messageBO.sendForRecharge(studentDTO, amount);
     }
 }

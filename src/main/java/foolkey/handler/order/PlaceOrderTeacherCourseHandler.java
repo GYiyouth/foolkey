@@ -94,6 +94,12 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
             );
 
             //先给客户端返回订单，再生成申请，以及给老师发送消息
+            jsonObject.put("order", order);
+            jsonObject.put("result", "success");
+            jsonHandler.sendJSON(jsonObject, response);
+
+
+
             ApplicationTeacherCourseDTO application = applicationInfoBO
                     .createApplicationForTeacherCourse(
                             studentDTO.getId(),
@@ -106,9 +112,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
 
             messageBO.sendForApplication(application, studentDTO, courseDTO);
 
-            jsonObject.put("order", order);
-            jsonObject.put("result", "success");
-            jsonHandler.sendJSON(jsonObject, response);
+
 
 
         }else {

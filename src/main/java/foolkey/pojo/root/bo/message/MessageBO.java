@@ -61,4 +61,24 @@ public class MessageBO {
                         description
                 );
     }
+
+    /**
+     * 成功充值的消息
+     * @param studentDTO
+     * @param amount
+     * @return
+     * @throws Exception
+     */
+    public Result sendForRecharge(
+            StudentDTO studentDTO,
+            Double amount
+    )throws Exception{
+        String messagePayLoad = "";
+        String title = "充值成功！";
+        String description = "您已成功充值" + amount + "虚拟币";
+        return
+                MessagePusher.sendToUserAccount(
+                        studentDTO.getId() + "", messagePayLoad, title, description
+                );
+    }
 }

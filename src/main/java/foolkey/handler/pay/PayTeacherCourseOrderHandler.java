@@ -4,6 +4,7 @@ import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 @Transactional
-public class PayOrderHandler extends AbstractBO{
+public class PayTeacherCourseOrderHandler extends AbstractBO{
 
     @Autowired
     private OrderInfoBO getOrderBO;
@@ -47,6 +48,8 @@ public class PayOrderHandler extends AbstractBO{
     private ApplicationInfoBO applicationBO;
     @Autowired
     private TeacherInfoBO teacherInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
@@ -101,5 +104,6 @@ public class PayOrderHandler extends AbstractBO{
                 studentDTO.getId(), orderDTO.getId(), message.getId(), teacherDTO.getId());
         applicationBO.save(application);
         //给老师发送申请、消息
+//        messageBO.sendForApplication(application, studentDTO, )
     }
 }
