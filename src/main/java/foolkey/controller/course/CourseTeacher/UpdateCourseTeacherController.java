@@ -38,7 +38,7 @@ public class UpdateCourseTeacherController extends AbstractController {
             @RequestParam("price")Double price,
             @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
             @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-            @RequestParam("duration")Double duration,
+            @RequestParam("duration")Float duration,
             HttpServletResponse response
     ) throws Exception {
         try {
@@ -59,6 +59,8 @@ public class UpdateCourseTeacherController extends AbstractController {
 //            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
 //            Double duration = clearJSON.getDouble("duration");
 
+            //根据id获取旧的悬赏信息
+            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
 
             System.out.println("修改课程信息");
             courseTeacherDTO.setId(id);
@@ -72,7 +74,7 @@ public class UpdateCourseTeacherController extends AbstractController {
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);
             courseTeacherDTO.setDuration(duration);
             courseTeacherDTO.setSales(0);
-            courseTeacherDTO.setAverageScore(0.0);
+            courseTeacherDTO.setAverageScore(0.0F);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
             courseTeacherBO.updateCourseTeacherDTO(courseTeacherDTO);
 
