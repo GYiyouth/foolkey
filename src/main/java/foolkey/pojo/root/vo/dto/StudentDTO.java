@@ -80,7 +80,7 @@ public class StudentDTO {
 
     //学习时长
     @Column(name = "learning_time")
-    private Double learningTime;
+    private Float learningTime;
     //上课次数，包括悬赏和老师课程
     @Column(name = "learning_number")
     private Integer learningNumber;
@@ -314,11 +314,11 @@ public class StudentDTO {
         this.studentAverageScore = studentAverageScore;
     }
 
-    public Double getLearningTime() {
+    public Float getLearningTime() {
         return learningTime;
     }
 
-    public void setLearningTime(Double learningTime) {
+    public void setLearningTime(Float learningTime) {
         this.learningTime = learningTime;
     }
 

@@ -22,7 +22,7 @@ public class TeacherDTO {
 
     //授课时长
     @Column(name = "teaching_time")
-    private Double teachingTime;
+    private Float teachingTime;
 
     //教授的学生人次
     @Column(name = "teaching_number")
@@ -59,11 +59,11 @@ public class TeacherDTO {
         this.teacherAverageScore = teacherAverageScore;
     }
 
-    public Double getTeachingTime() {
+    public Float getTeachingTime() {
         return teachingTime;
     }
 
-    public void setTeachingTime(Double teachingTime) {
+    public void setTeachingTime(Float teachingTime) {
         this.teachingTime = teachingTime;
     }
 
