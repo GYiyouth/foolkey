@@ -1,7 +1,7 @@
-package foolkey.controller.CourseStudent;
+package foolkey.controller.course.com;
 
 import foolkey.controller.AbstractController;
-import foolkey.handler.application.AcceptRewardApplicationHandler;
+import foolkey.handler.course.com.StartClassHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by geyao on 2017/5/4.
+ * 上课
+ * aes加密
+ * Created by geyao on 2017/5/6.
  */
 @Controller
-@RequestMapping("/aes/acceptRewardApplication")
-public class AcceptRewardApplicationController extends AbstractController{
-
+@RequestMapping("/aes/startClass")
+public class StartClassController extends AbstractController{
     @Autowired
-    private AcceptRewardApplicationHandler handler;
+    private StartClassHandler handler;
 
     @RequestMapping
     public void execute(

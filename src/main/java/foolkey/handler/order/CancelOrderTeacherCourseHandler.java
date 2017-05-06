@@ -37,7 +37,7 @@ public class CancelOrderTeacherCourseHandler extends AbstractBO{
         String orderid = clearJSON.getString("orderId");
 
         OrderBuyCourseDTO order = orderInfoBO.getCourseOrder(orderid);
-        if (order.getOrderStateEnum().compareTo(OrderStateEnum.unpay) == 0){
+        if (order.getOrderStateEnum().compareTo(OrderStateEnum.unPay) == 0){
             //仅当处于未付款的时候，可以使用
             order.setOrderStateEnum(OrderStateEnum.cancel);
             orderInfoBO.update(order);

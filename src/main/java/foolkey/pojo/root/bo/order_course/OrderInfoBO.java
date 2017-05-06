@@ -6,7 +6,6 @@ import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
-import foolkey.pojo.root.vo.dto.OrderAbstract;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class OrderInfoBO {
         order.setCourseTypeEnum(courseType);
 
         order.setCreatedTime(new Date());
-        order.setOrderStateEnum(OrderStateEnum.unpay);
+        order.setOrderStateEnum(OrderStateEnum.unPay);
 
 //        saveOrderCourseDAO.save(order);
 
