@@ -20,6 +20,7 @@ public abstract class AbstractCAO {
 
     //以下缓存群，在各个技术标签下均有
     protected static final String courseTeacherToken = "courseTeacherToken";
+    protected static final String courseStudentToken = "courseStudentToken";
     protected static final String articleToken = "articleToken";
     protected static final String question = "question";
 

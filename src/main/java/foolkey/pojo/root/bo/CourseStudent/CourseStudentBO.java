@@ -1,16 +1,27 @@
 package foolkey.pojo.root.bo.CourseStudent;
 
+import foolkey.pojo.root.CAO.CourseStudent.CourseStudentCAO;
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.DirectionEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
+import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.BeanFactory;
 import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 /**
  * Created by ustcg on 2017/4/30.
@@ -25,9 +36,46 @@ public class CourseStudentBO {
     private SaveCourseStudentDAO saveCourseStudentDAO;
     @Autowired
     private GetCourseStudentDAO getCourseStudentDAO;
-
     @Autowired
     private UpdateCourseStudentDAO updateCourseStudentDAO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
+    @Autowired
+    private CourseStudentCAO courseStudentCAO;
+
+
+
+
+    /**
+     * 添加最新的悬赏到缓存
+     * @param technicTagEnum
+     * @param size
+     */
+    public void fillCourseStudentPopularDTOToCache(TechnicTagEnum technicTagEnum, Integer size){
+        if(technicTagEnum == null || size == null || size == 0){
+            throw new NullPointerException("technicTagEnum/ size is null");
+        }else {
+            try {
+                // 1.从数据库读取最新的size条记录
+                ArrayList<CourseStudentDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
+                ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
+                for (CourseStudentDTO courseStudentDTO : courseStudentDTOS) {
+                    StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
+                    CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
+                    courseStudentPopularDTO.setStudentDTO(studentDTO);
+                    courseStudentPopularDTO.setCourseStudentDTO(courseStudentDTO);
+                    courseStudentPopularDTOS.add(courseStudentPopularDTO);
+                }
+                //添加到缓存中
+                //尾插
+                if(courseStudentPopularDTOS.size()!=0) {
+                    courseStudentCAO.addCourseStudentPopularDTOSToCache(technicTagEnum, courseStudentPopularDTOS, DirectionEnum.tail);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * 发布悬赏

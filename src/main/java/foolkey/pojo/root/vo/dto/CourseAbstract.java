@@ -6,6 +6,7 @@ import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by admin on 2017/4/24.
@@ -44,6 +45,11 @@ public class CourseAbstract {
     @Enumerated(EnumType.ORDINAL)
     private CourseTimeDayEnum courseTimeDayEnum;
 
+    //创建时间
+    @Column(name = "create_time")
+    private Date createTime;
+
+
     @Override
     public String toString() {
         return "CourseAbstract{" +
@@ -55,6 +61,7 @@ public class CourseAbstract {
                 ", price=" + price +
                 ", teachMethodEnum=" + teachMethodEnum +
                 ", courseTimeDayEnum=" + courseTimeDayEnum +
+                ", createTime=" + createTime +
                 '}';
     }
 
@@ -120,5 +127,13 @@ public class CourseAbstract {
 
     public void setCourseTimeDayEnum(CourseTimeDayEnum courseTimeDayEnum) {
         this.courseTimeDayEnum = courseTimeDayEnum;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

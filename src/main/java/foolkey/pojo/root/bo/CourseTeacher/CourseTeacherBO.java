@@ -66,7 +66,6 @@ public class CourseTeacherBO {
                     CourseTeacherPopularDTO courseTeacherPopularDTO = BeanFactory.getBean("courseTeacherPopularDTO", CourseTeacherPopularDTO.class);
                     courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
                     courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-                    System.out.println("=====---==="+courseTeacherPopularDTO);
                     courseTeacherPopularDTOS.add(courseTeacherPopularDTO);
                 }
                 if(courseTeacherDTOS.size()!=0) {
