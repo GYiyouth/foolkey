@@ -96,7 +96,7 @@ public class TeacherAllInfoDTO {
     private Integer teacherAverageScore;
 
     //已经教了多长时间
-    private Integer teachingTime;
+    private Double teachingTime;
 
     //教了多少人
     private Integer teachingNumber;
@@ -390,11 +390,11 @@ public class TeacherAllInfoDTO {
         this.teacherAverageScore = teacherAverageScore;
     }
 
-    public Integer getTeachingTime() {
+    public Double getTeachingTime() {
         return teachingTime;
     }
 
-    public void setTeachingTime(Integer teachingTime) {
+    public void setTeachingTime(Double teachingTime) {
         this.teachingTime = teachingTime;
     }
 

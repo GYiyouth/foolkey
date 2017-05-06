@@ -21,7 +21,7 @@ public class TeacherDTO {
     private Integer teacherAverageScore;
 
     @Column(name = "teaching_time")
-    private Integer teachingTime;
+    private Double teachingTime;
 
     @Column(name = "teaching_number")
     private Integer teachingNumber;
@@ -57,11 +57,11 @@ public class TeacherDTO {
         this.teacherAverageScore = teacherAverageScore;
     }
 
-    public Integer getTeachingTime() {
+    public Double getTeachingTime() {
         return teachingTime;
     }
 
-    public void setTeachingTime(Integer teachingTime) {
+    public void setTeachingTime(Double teachingTime) {
         this.teachingTime = teachingTime;
     }
 
