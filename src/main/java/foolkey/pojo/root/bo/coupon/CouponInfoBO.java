@@ -29,6 +29,16 @@ public class CouponInfoBO {
             return null;
         return getCouponDAO.get(CouponDTO.class, Long.parseLong(couponId));
     }
+    /**
+     * 根据id获取优惠券信息
+     * @param couponId
+     * @return
+     */
+    public CouponDTO getCouponDTO(Long couponId){
+        if (couponId == null || couponId.equals(""))
+            return null;
+        return getCouponDAO.get(CouponDTO.class, couponId);
+    }
 
     /**
      * 获取某个人的所有可用优惠券

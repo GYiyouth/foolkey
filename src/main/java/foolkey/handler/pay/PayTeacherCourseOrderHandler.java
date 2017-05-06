@@ -8,7 +8,7 @@ import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
-import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
+import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.dto.*;
@@ -40,7 +40,7 @@ public class PayTeacherCourseOrderHandler extends AbstractBO{
     @Autowired
     private UseCouponBO useCouponBO;
     @Autowired
-    private PayForOrderBO payForOrderBO;
+    private PayBO payBO;
     @Autowired
     private OrderInfoBO updateOrderBO;
     @Autowired
@@ -83,7 +83,7 @@ public class PayTeacherCourseOrderHandler extends AbstractBO{
         }
 
         //扣款，改变订单状态，更新用户信息
-        Boolean payFlag = payForOrderBO.pay(studentDTO, orderDTO, couponDTO, price);
+        Boolean payFlag = payBO.pay(studentDTO, orderDTO, couponDTO, price);
         if ( !payFlag ){ // 扣款失败
             jsonObject.put("reason", "pay");
             jsonHandler.sendJSON(jsonObject, response);

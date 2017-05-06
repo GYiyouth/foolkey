@@ -3,6 +3,7 @@ package foolkey.pojo.root.bo.pay_order;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
+import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class PayForOrderBO {
+public class PayBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
@@ -32,6 +33,20 @@ public class PayForOrderBO {
         if (!totalPrice.equals(expectPrice))
             return false;
         totalPrice = totalPrice * order.getCutOffPercent();
+        if (money > totalPrice){
+            money = money - totalPrice;
+            studentDTO.setVirtualCurrency(money);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean payForReward(StudentDTO studentDTO, CourseStudentDTO courseDTO, CouponDTO couponDTO){
+        Double money = studentDTO.getVirtualCurrency();
+        Double totalPrice = courseDTO.getPrice();
+
+        if (couponDTO != null)
+            totalPrice = totalPrice - couponDTO.getValue();
         if (money > totalPrice){
             money = money - totalPrice;
             studentDTO.setVirtualCurrency(money);

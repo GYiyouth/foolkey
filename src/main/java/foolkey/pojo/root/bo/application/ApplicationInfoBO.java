@@ -51,13 +51,13 @@ public class ApplicationInfoBO {
 
     public ApplicationStudentRewardDTO createApplicationForStudentReward(
             Long applicantId,
-            Long orderId,
+            Long courseId,
             Long messageId,
             Long studentId
     ){
         ApplicationStudentRewardDTO application = new ApplicationStudentRewardDTO();
         application.setApplicantId(applicantId);
-        application.setOrderId(orderId);
+        application.setCourseId(courseId);
         application.setMessageId(messageId);
         application.setStudentId(studentId);
         application.setApplyTime(new Date());
@@ -110,5 +110,14 @@ public class ApplicationInfoBO {
             deleteApplicationStudentRewardDAO.deleteAllByCourseId(orderId);
         if (courseType.compareTo(CourseTypeEnum.老师课程) == 0)
             deleteApplicationTeacherCourseDAO.deleteAllByCourseId(orderId);
+    }
+
+    /**
+     * 根据id获取申请DTO，学生课程的申请
+     * @param applicationId
+     * @return
+     */
+    public ApplicationStudentRewardDTO getRewardApplicationDTO(Long applicationId) {
+        return getRewardApplicationDTO(applicationId);
     }
 }

@@ -6,7 +6,7 @@ import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
-import foolkey.pojo.root.bo.pay_order.PayForOrderBO;
+import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
@@ -49,7 +49,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
     private OrderInfoBO orderInfoBO;
 
     @Autowired
-    private PayForOrderBO payForOrderBO;
+    private PayBO payBO;
 
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
@@ -85,7 +85,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
             return;
         }
 
-        boolean flag = payForOrderBO.pay(studentDTO, orderDTO, couponDTO, needToPay);
+        boolean flag = payBO.pay(studentDTO, orderDTO, couponDTO, needToPay);
         if (!flag){
             //付款出错
             jsonObject.put("result", "fail");

@@ -1,7 +1,7 @@
-package foolkey.controller.order_buy_course;
+package foolkey.controller.pay;
 
 import foolkey.controller.AbstractController;
-import foolkey.handler.order.ApplyStudentCourseHandler;
+import foolkey.handler.pay.PayStudentCourseOrderHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by geyao on 2017/5/3.
+ * Created by geyao on 2017/5/6.
  */
-@RequestMapping("/aes/placeOrderStudentCourse")
 @Controller
-public class PlaceOrderStudentCourseController extends AbstractController{
+@RequestMapping("/aes/payStudentCourseOrder")
+public class PayStudentCourseOrderController extends AbstractController {
+
     @Autowired
-    private ApplyStudentCourseHandler handler;
+    private PayStudentCourseOrderHandler handler;
 
     @RequestMapping
     public void execute(
