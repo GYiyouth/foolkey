@@ -20,9 +20,11 @@ public class TeacherDTO {
     @Column(name = "teacher_average_score")
     private Integer teacherAverageScore;
 
+    //授课时长
     @Column(name = "teaching_time")
     private Double teachingTime;
 
+    //教授的学生人次
     @Column(name = "teaching_number")
     private Integer teachingNumber;
 
