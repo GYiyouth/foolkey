@@ -1,14 +1,14 @@
-package foolkey.handler.course.com;
+package foolkey.handler.course.haveClass;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/6.
  */
 @Service
+@Transactional
 public class StartClassHandler extends AbstractBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -47,6 +48,7 @@ public class StartClassHandler extends AbstractBO {
 
         //修改订单状态
         orderDTO.setOrderStateEnum(OrderStateEnum.onClass);
+        orderInfoBO.update(orderDTO);
 
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);

@@ -59,7 +59,7 @@ public class SaveUserController extends AbstractController {
                 studentDTO.setCash(0.0);
                 studentDTO.setVirtualCurrency(0.0);
                 studentDTO.setLearningNumber(0);
-                studentDTO.setLearningTime(0.0);
+                studentDTO.setLearningTime(0.0F);
                 studentDTO.setRoleEnum(RoleEnum.student);
                 studentDTO.setPrestige(0);
                 studentDTO.setSexTagEnum(SexTagEnum.Male);

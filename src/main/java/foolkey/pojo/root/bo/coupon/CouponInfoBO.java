@@ -1,5 +1,6 @@
 package foolkey.pojo.root.bo.coupon;
 
+import foolkey.pojo.root.DAO.coupon.DeleteCouponDAO;
 import foolkey.pojo.root.DAO.coupon.GetCouponDAO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class CouponInfoBO {
 
     @Autowired
     private GetCouponDAO getCouponDAO;
+    @Autowired
+    private DeleteCouponDAO deleteCouponDAO;
 
     /**
      * 根据id获取优惠券信息
@@ -54,5 +57,13 @@ public class CouponInfoBO {
                 ,Long.parseLong( studentId )
                 ,new Date()
         );
+    }
+
+    /**
+     * 删除优惠券
+     * @param couponDTO
+     */
+    public void delete(CouponDTO couponDTO){
+        deleteCouponDAO.delete(couponDTO);
     }
 }
