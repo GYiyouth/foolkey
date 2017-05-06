@@ -1,5 +1,6 @@
 package foolkey.pojo.root.bo.message;
 
+//import com.xiaomi.xmpush.server.Result;
 import com.xiaomi.xmpush.server.Result;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.tool.push_message.MessagePusher;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by geyao on 2017/5/5.
  */
-@Service
+@Service("messageBO")
 public class MessageBO {
 
     /**

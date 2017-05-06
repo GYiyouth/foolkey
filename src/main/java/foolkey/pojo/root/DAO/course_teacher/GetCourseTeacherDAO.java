@@ -30,9 +30,6 @@ public class GetCourseTeacherDAO extends GetBaseDAO<CourseTeacherDTO>{
         ArrayList<CourseTeacherDTO> courseTeacherDTOS = new ArrayList<>();
         String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
         courseTeacherDTOS = findByPage(hql,1,resultSize,technicTagEnum);
-        for(CourseTeacherDTO courseTeacherDTO:courseTeacherDTOS){
-            System.out.println(courseTeacherDTO);
-        }
         return courseTeacherDTOS;
     }
 

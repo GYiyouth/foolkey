@@ -9,13 +9,23 @@ import java.util.Date;
 public class Time {
 
     /**
-     * 获取当前时间
+     * 获取当前时间String
      * 格式：yyyy-MM-dd HH:mm:ss
      * @return
      */
     public static String getCurrentTime(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(new Date());
+    }
+
+    /**
+     * 获取当前时间Date
+     * @return
+     * @throws Exception
+     */
+    public static Date getCurrentDate() throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.parse(getCurrentTime());
     }
 
     public static String getYear(){

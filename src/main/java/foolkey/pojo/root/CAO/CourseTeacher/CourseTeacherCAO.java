@@ -29,7 +29,7 @@ public class CourseTeacherCAO extends AbstractCAO {
      * @param directionEnum
      */
     public void addCourseTeacherPopularDTOSToCache(TechnicTagEnum technicTagEnum, ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS, DirectionEnum directionEnum){
-        if(courseTeacherPopularDTOS == null || courseTeacherPopularDTOS.size() == 0 || directionEnum == null){
+        if(technicTagEnum == null || courseTeacherPopularDTOS == null || courseTeacherPopularDTOS.size() == 0 || directionEnum == null){
             throw new NullPointerException("courseTeacherPopularDTOS/directionEnum is null");
         }else{
             System.out.println("类别："+technicTagEnum.name());
@@ -42,6 +42,7 @@ public class CourseTeacherCAO extends AbstractCAO {
                 //2. 课程的双向链表
                 DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
                 for (CourseTeacherPopularDTO courseTeacherPopularDTO : courseTeacherPopularDTOS) {
+                    System.out.println("热门课程DTO："+courseTeacherPopularDTO);
                     if(directionEnum==DirectionEnum.head){
                         courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
                     }else {
@@ -59,6 +60,7 @@ public class CourseTeacherCAO extends AbstractCAO {
                     //已经有了“课程”项
                     DoubleLink courseTeacherPopularDoubleLink = technicMap.get(courseTeacherToken);
                     for (CourseTeacherPopularDTO courseTeacherPopularDTO : courseTeacherPopularDTOS) {
+                        System.out.println("热门课程DTO："+courseTeacherPopularDTO);
                         if(directionEnum==DirectionEnum.head){
                             courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
                         }else {
@@ -71,7 +73,7 @@ public class CourseTeacherCAO extends AbstractCAO {
                     //创建课程项
                     DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
                     for (CourseTeacherPopularDTO courseTeacherPopularDTO : courseTeacherPopularDTOS) {
-                        System.out.println("==="+courseTeacherPopularDTO);
+                        System.out.println("热门课程DTO："+courseTeacherPopularDTO);
                         if(directionEnum==DirectionEnum.head){
                             courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
                         }else {
@@ -83,10 +85,6 @@ public class CourseTeacherCAO extends AbstractCAO {
                 }
             }
 
-            Map<String, DoubleLink> technicMap2 = cache.getMap("Java");
-            DoubleLink courseTeacherPopularDoubleLink = technicMap2.get(courseTeacherToken);
-            CourseTeacherPopularDTO courseTeacherPopularDTO = (CourseTeacherPopularDTO) courseTeacherPopularDoubleLink.getDataByIndex(0);
-            System.out.println(courseTeacherPopularDTO.getCourseTeacherDTO().getTechnicTagEnum()+"hahah"+courseTeacherPopularDoubleLink.getLength());
         }
     }
 

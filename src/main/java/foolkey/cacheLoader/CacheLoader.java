@@ -1,9 +1,11 @@
 package foolkey.cacheLoader;
 
+import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,11 @@ import org.springframework.stereotype.Component;
 //public class CacheLoader{}
 public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Autowired
+    private CourseTeacherBO courseTeacherBO;
+    @Autowired
+    private CourseStudentBO courseStudentBO;
+
 
     /**
      * 预热程序，填充缓存中的信息
@@ -24,12 +31,13 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 //        if (contextRefreshedEvent.getApplicationContext().getParent() != null)//root application context 没有parent，他就是老大.
         if(contextRefreshedEvent.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")) {
-            System.out.println("name:" + contextRefreshedEvent.getApplicationContext().getDisplayName());
             for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
                 //1.添加热门课程到缓存中
                 System.out.println("预热程序，热门课程类别：" + technicTagEnum);
-                CourseTeacherBO courseTeacherBO = BeanFactory.getBean("courseTeacherBO", CourseTeacherBO.class);
                 courseTeacherBO.fillCourseTeacherPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
+                //2.添加最新的、未解决的悬赏到缓存中
+                System.out.println("预热程序，悬赏类别：" + technicTagEnum);
+                courseStudentBO.fillCourseStudentPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
             }
         }
     }
