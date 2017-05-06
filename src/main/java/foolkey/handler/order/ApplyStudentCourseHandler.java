@@ -29,12 +29,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * 后续的事情：老师可以撤销（迭代）
  * 学生在处理申请后，需要付款
- * 只够进入到上课、评价的流程
+ * 之后进入到上课、评价的流程
  * Created by geyao on 2017/5/3.
  */
 @Service
 @Transactional
-public class PlaceOrderStudentCourseHandler extends AbstractBO {
+public class ApplyStudentCourseHandler extends AbstractBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
@@ -79,8 +79,8 @@ public class PlaceOrderStudentCourseHandler extends AbstractBO {
         ApplicationStudentRewardDTO application = applicationInfoBO
                 .createApplicationForStudentReward(
                         teacherDTO.getId(), // 申请人
+                        courseId,               //courseId
                         null,               //messageId
-                        null,               //orderId
                         courseDTO.getCreatorId()//处理人
         );
         applicationInfoBO.save(application);

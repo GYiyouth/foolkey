@@ -92,6 +92,8 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
                     amount, number, studentDTO, teacherDTO.getId()
                     , courseDTO.getId(), cutOffPercent, teachMethod, courseType
             );
+            orderInfoBO.save(order);
+
 
             //先给客户端返回订单，再生成申请，以及给老师发送消息
             jsonObject.put("order", order);

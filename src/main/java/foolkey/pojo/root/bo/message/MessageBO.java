@@ -82,4 +82,19 @@ public class MessageBO {
                         studentDTO.getId() + "", messagePayLoad, title, description
                 );
     }
+
+
+    public Result sendForPayReward(
+            StudentDTO studentDTO, //学生悬赏的拥有者
+            StudentDTO teacher, //老师，收件人
+            CourseStudentDTO courseDTO //课程
+    )throws Exception{
+        String messgePayLoad = "sendForPayReWard";
+        String title = "有人同意了你的悬赏申请！";
+        String description = studentDTO.getName() + " 的 " + courseDTO.getTopic();
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messgePayLoad, title, description
+                );
+    }
 }

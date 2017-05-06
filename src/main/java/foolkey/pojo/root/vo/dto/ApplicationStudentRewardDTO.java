@@ -14,17 +14,17 @@ import javax.persistence.Table;
 @Table(name = "t_application_student_reward")
 public class ApplicationStudentRewardDTO extends ApplicationAbstract{
 
-    @Column(name = "courseStudent_id")
+    @Column(name = "student_id")
     private Long studentId;
 
     @Column(name = "order_id")
-    private Long orderId;
+    private Long courseId;
 
     @Override
     public String toString() {
         return "ApplicationStudentRewardDTO{" +
                 "studentId=" + studentId +
-                ", orderId=" + orderId +
+                ", orderId=" + courseId +
                 "} " + super.toString();
     }
 
@@ -36,11 +36,11 @@ public class ApplicationStudentRewardDTO extends ApplicationAbstract{
         this.studentId = studentId;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 }
