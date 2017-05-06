@@ -7,7 +7,7 @@
           <element id="module-output" name="foolkey" />
         </element>
         <element id="directory" name="lib">
-          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.2.7.Final/hibernate-core-5.2.7.Final.jar" output-file-name="hibernate-core-5.2.7.final.jar" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.2.7.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
