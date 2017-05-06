@@ -88,4 +88,12 @@ public class EvaluationAbstract {
     public void setEvaluationStateEnum(EvaluationStateEnum evaluationStateEnum) {
         this.evaluationStateEnum = evaluationStateEnum;
     }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
 }

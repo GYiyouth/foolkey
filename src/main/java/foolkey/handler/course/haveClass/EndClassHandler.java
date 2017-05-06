@@ -1,15 +1,14 @@
 package foolkey.handler.course.haveClass;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.pojo.root.vo.dto.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +42,8 @@ public class EndClassHandler extends AbstractBO {
     private OrderInfoBO orderInfoBO;
     @Autowired
     private CouponInfoBO couponInfoBO;
+    @Autowired
+    private CourseTeacherBO courseTeacherBO;
 
     public void execute(
             HttpServletRequest request,
@@ -68,6 +69,7 @@ public class EndClassHandler extends AbstractBO {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
         CouponDTO couponDTO = couponInfoBO.getCouponDTO(orderDTO.getCouponId());
 
+
         //修改订单状态
         orderDTO.setOrderStateEnum(OrderStateEnum.endClass);
         //修改学生状态
@@ -76,6 +78,7 @@ public class EndClassHandler extends AbstractBO {
         //修改老师状态
         teacherDTO.setTeachingNumber( teacherDTO.getTeachingNumber() + 1 );
         teacherDTO.setTeachingTime( teacherDTO.getTeachingTime() + hourNum );
+
 
         //保存订单、老师、学生
         orderInfoBO.update(orderDTO);
