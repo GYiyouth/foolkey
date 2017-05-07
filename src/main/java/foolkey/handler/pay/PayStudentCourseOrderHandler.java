@@ -124,7 +124,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         //删除其他申请
         applicationInfoBO.deleteAllApplicationByOrderId(order.getId(), CourseTypeEnum.学生悬赏);
 
-        //删除优惠券
-        couponInfoBO.delete(couponDTO);
+        //删除优惠券，由于退款的存在，这个优惠券的价格要去除，所以删除就放在评价吧
+//        couponInfoBO.delete(couponDTO);
     }
 }

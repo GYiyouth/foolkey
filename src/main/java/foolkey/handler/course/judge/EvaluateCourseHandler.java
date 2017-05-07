@@ -2,14 +2,12 @@ package foolkey.handler.course.judge;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
-import foolkey.pojo.root.vo.dto.EvaluationCourseDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,8 @@ public class EvaluateCourseHandler extends AbstractBO {
     private CourseTeacherBO courseTeacherBO;
     @Autowired
     private EvaluationInfoBO evaluationInfoBO;
+    @Autowired
+    private CouponInfoBO couponInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -83,13 +83,20 @@ public class EvaluateCourseHandler extends AbstractBO {
         jsonHandler.sendJSON(jsonObject, response);
 
         //修改课程的得分
-        Double totalScore = courseDTO.getSales() * courseDTO.getAverageScore();
+        Double totalScore = 0.0 + courseDTO.getSales() * courseDTO.getAverageScore();
         totalScore += score;
         courseDTO.setSales( courseDTO.getSales() + 1 );
         Double average = totalScore / courseDTO.getSales();
-        courseDTO.setAverageScore( average );
+        courseDTO.setAverageScore( Float.parseFloat( average.toString() ) );
         //保存
         courseTeacherBO.updateCourseTeacherDTO(courseDTO);
+
+        //删除优惠券
+        Long couponId = orderDTO.getCouponId();
+        if ( couponId != null & !couponId.equals(0L)) {
+            CouponDTO couponDTO = couponInfoBO.getCouponDTO( couponId );
+            couponInfoBO.delete(couponDTO);
+        }
 
 
     }

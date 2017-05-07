@@ -110,7 +110,7 @@ public class PayTeacherCourseOrderHandler extends AbstractBO{
         //给老师发送申请、消息
         messageBO.sendForApplication(application, studentDTO, courseTeacherDTO);
 
-        //删除优惠券
-        couponInfoBO.delete(couponDTO);
+        //删除优惠券 由于退款的存在，这个优惠券的价格要去除，所以删除就放在评价吧
+//        couponInfoBO.delete(couponDTO);
     }
 }
