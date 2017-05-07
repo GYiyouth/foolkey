@@ -4,10 +4,12 @@ import foolkey.pojo.root.DAO.application_student_reward.DeleteApplicationStudent
 import foolkey.pojo.root.DAO.application_student_reward.SaveApplicationStudentRewardDAO;
 import foolkey.pojo.root.DAO.application_teacher_course.DeleteApplicationTeacherCourseDAO;
 import foolkey.pojo.root.DAO.application_teacher_course.SaveApplicationTeacherCourseDAO;
+import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
-import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
-import foolkey.pojo.root.vo.dto.ApplicationTeacherCourseDTO;
+import foolkey.pojo.root.vo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,12 @@ public class ApplicationInfoBO {
     private DeleteApplicationStudentRewardDAO deleteApplicationStudentRewardDAO;
     @Autowired
     private DeleteApplicationTeacherCourseDAO deleteApplicationTeacherCourseDAO;
+    @Autowired
+    private CourseStudentBO courseStudentBO;
+    @Autowired
+    private CourseTeacherBO courseTeacherBO;
+    @Autowired
+    private OrderInfoBO orderInfoBO;
 
     /**
      * 生成对老师课程的申请消息，并存储
@@ -105,11 +113,16 @@ public class ApplicationInfoBO {
      * @param orderId
      * @param courseType
      */
-    public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType){
-        if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0)
-            deleteApplicationStudentRewardDAO.deleteAllByCourseId(orderId);
-        if (courseType.compareTo(CourseTypeEnum.老师课程) == 0)
-            deleteApplicationTeacherCourseDAO.deleteAllByCourseId(orderId);
+    public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType) throws Exception{
+        OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
+        if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0) {
+            CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
+            deleteApplicationStudentRewardDAO.deleteAllByCourseId(courseStudentDTO.getId());
+        }
+        if (courseType.compareTo(CourseTypeEnum.老师课程) == 0) {
+            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+            deleteApplicationTeacherCourseDAO.deleteAllByCourseId(courseTeacherDTO.getId());
+        }
     }
 
     /**

@@ -33,17 +33,17 @@ public class DeleteApplicationStudentRewardDAO extends DeleteBaseDAO<Application
 
     /**
      * 删除所有学生悬赏申请
-     * @param orderId 悬赏orderId
+     * @param courseId 悬赏orderId
      */
-    public void deleteAllByCourseId(Long orderId){
+    public void deleteAllByCourseId(Long courseId){
         SessionFactory sessionFactory = BeanFactory.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
         String hql = "delete from ApplicationStudentRewardDTO  asr " +
-                "where asr.orderId = ?";
+                "where asr.courseId = ?";
 
         session.createQuery(hql)
-                .setParameter(0,orderId)
+                .setParameter(0,courseId)
                 .executeUpdate();
     }
 

@@ -140,4 +140,26 @@ public class MessageBO {
                         teacher.getId() + "", messagePayLoad, title, description
                 );
     }
+
+    /**
+     * 申请关闭交易时，给老师发送的消息
+     * @param student
+     * @param teacher
+     * @param courseName
+     * @return
+     * @throws Exception
+     */
+    public Result sendForRefundToTeacher(
+            StudentDTO student,
+            StudentDTO teacher,
+            String courseName
+    )throws Exception{
+        String messagePayLoad = "sendForVerifyFailed";
+        String title = "有人申请了退款，请尽快处理哦";
+        String description = "课程：" + courseName ;
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
 }

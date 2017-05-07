@@ -3,9 +3,12 @@ package foolkey.pojo.root.bo.order_course;
 import foolkey.pojo.root.DAO.order_course.GetOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
+import foolkey.pojo.root.bo.coupon.CouponInfoBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
+import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,12 @@ public class OrderInfoBO {
 
     @Autowired
     private UpdateOrderCourseDAO updateOrderCourseDAO;
+    @Autowired
+    private CouponInfoBO couponInfoBO;
+    @Autowired
+    private OrderInfoBO orderInfoBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
     /**
      * 根据信息生成订单
@@ -120,6 +129,40 @@ public class OrderInfoBO {
      */
     public OrderBuyCourseDTO save(OrderBuyCourseDTO order){
         return saveOrderCourseDAO.save(order);
+    }
+
+    /**
+     * 课程的订单，退款，会更新订单信息、学生余额，删除优惠券
+     * @param orderDTO
+     * @param studentDTO
+     * @return
+     * @throws Exception
+     */
+    public boolean courseRefund(OrderBuyCourseDTO orderDTO, StudentDTO studentDTO) throws Exception{
+        //修改订单状态
+        orderDTO.setOrderStateEnum(OrderStateEnum.agreeRefund);
+        //获取退款价格
+        Double price = orderDTO.getAmount();
+        Long couponId = orderDTO.getCouponId();
+        if ( couponId != null && !couponId.equals(0L) ){
+            //如果使用了优惠券，则把这个价格去除
+            CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId);
+            price = price - couponDTO.getValue();
+            if (price < 0){
+                throw new Exception("价格出错");
+            }
+            //删除优惠券
+            couponInfoBO.delete(couponDTO);
+        }
+        //退款
+        studentDTO.setVirtualCurrency( studentDTO.getVirtualCurrency() + price );
+        //更新学生余额
+        studentInfoBO.updateStudent(studentDTO);
+        //再次修改订单状态
+        orderDTO.setOrderStateEnum( OrderStateEnum.refundCompete);
+        //更新订单状态
+        orderInfoBO.update(orderDTO);
+        return true;
     }
 
 }
