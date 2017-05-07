@@ -55,7 +55,7 @@ public class ApplyToVerifyHandler extends AbstractBO {
             teacherDTO = new TeacherDTO();
             teacherDTO.setId( studentDTO.getId() );
             teacherDTO.setFollowerNumber(0);
-            teacherDTO.setTeacherAverageScore(0);
+            teacherDTO.setTeacherAverageScore(0.0F);
             teacherDTO.setTeachingTime(0.0F);
             teacherDTO.setTeachingTime(0.0F);
         }else { // 否则，从数据库获取
