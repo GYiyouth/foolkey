@@ -50,6 +50,14 @@ public class ApplyToVerifyHandler extends AbstractBO {
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         TeacherDTO teacherDTO;
+
+        //认证老师将返回失败
+        if (studentDTO.getRoleEnum().compareTo(RoleEnum.teacher) == 0){
+            jsonHandler.sendFailJSON(response);
+            return;
+        }
+
+
         // 如果role为student 新建teacher角色
         if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0){
             teacherDTO = new TeacherDTO();
