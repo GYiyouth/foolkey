@@ -110,6 +110,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         order.setOrderStateEnum(OrderStateEnum.agreed);
         order.setCouponId(couponId);
         order.setPayTime(new Date());
+
         orderInfoBO.save(order);
 
         //返回result

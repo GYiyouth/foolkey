@@ -2,6 +2,7 @@ package foolkey.handler.course.judge;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
@@ -33,6 +34,8 @@ public class EvaluateCourseHandler extends AbstractBO {
     private OrderInfoBO orderInfoBO;
     @Autowired
     private CourseTeacherBO courseTeacherBO;
+    @Autowired
+    private EvaluationInfoBO evaluationInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -59,7 +62,7 @@ public class EvaluateCourseHandler extends AbstractBO {
 
         //新建一个评价
         EvaluationCourseDTO evaluationDTO = new EvaluationCourseDTO();
-        evaluationDTO.setCreatorid( studentDTO.getId() );
+        evaluationDTO.setCreatorId( studentDTO.getId() );
         evaluationDTO.setAcceptor_id( courseDTO.getCreatorId() );
         evaluationDTO.setEvaluationStateEnum(EvaluationStateEnum.done);
         evaluationDTO.setOrderId( orderId );
@@ -70,6 +73,23 @@ public class EvaluateCourseHandler extends AbstractBO {
         evaluationDTO.setPic2Path( pic2Path );
         evaluationDTO.setPic3Path( pic3Path );
         evaluationDTO.setPic4Path( pic4Path );
+        //保存
+        evaluationInfoBO.save(evaluationDTO);
+
+
+        //返回
+        jsonObject.put("result", "success");
+        jsonObject.put("evaluation", evaluationDTO);
+        jsonHandler.sendJSON(jsonObject, response);
+
+        //修改课程的得分
+        Double totalScore = courseDTO.getSales() * courseDTO.getAverageScore();
+        totalScore += score;
+        courseDTO.setSales( courseDTO.getSales() + 1 );
+        Double average = totalScore / courseDTO.getSales();
+        courseDTO.setAverageScore( average );
+        //保存
+        courseTeacherBO.updateCourseTeacherDTO(courseDTO);
 
 
     }

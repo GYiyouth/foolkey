@@ -18,7 +18,7 @@ public class EvaluationAbstract {
     private Long id;
 
     @Column(name = "creator_id")
-    private Long creatorid;
+    private Long creatorId;
 
     @Column(name = "accept_id")
     private Long acceptor_id;
@@ -42,7 +42,7 @@ public class EvaluationAbstract {
     public String toString() {
         return "EvaluationAbstract{" +
                 "id=" + id +
-                ", creatorid=" + creatorid +
+                ", creatorid=" + creatorId +
                 ", acceptor_id=" + acceptor_id +
                 ", orderId=" + orderId +
                 ", evaluationStateEnum=" + evaluationStateEnum +
@@ -57,12 +57,12 @@ public class EvaluationAbstract {
         this.id = id;
     }
 
-    public Long getCreatorid() {
-        return creatorid;
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorid(Long creatorid) {
-        this.creatorid = creatorid;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     public Long getAcceptor_id() {

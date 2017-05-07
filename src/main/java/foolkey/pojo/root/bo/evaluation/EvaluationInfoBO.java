@@ -63,4 +63,16 @@ public class EvaluationInfoBO {
     public void save(EvaluationTeacherDTO  evaluation){
         saveEvaluationTeacherDAO.save(evaluation);
     }
+
+    public EvaluationCourseDTO getEvaluationCourseDTO(Long id){
+        return getEvaluationCourseDAO.get(EvaluationCourseDTO.class, id);
+    }
+
+    public EvaluationStudentDTO getEvaluationStudentDTO(Long id){
+        return getEvaluationStudentDAO.get(EvaluationStudentDTO.class, id);
+    }
+
+    public EvaluationTeacherDTO getEvaluationTeacherDTO(Long id){
+        return getEvaluationTeacherDAO.get(EvaluationTeacherDTO.class, id);
+    }
 }

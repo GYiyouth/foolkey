@@ -83,7 +83,7 @@ public class TeacherAllInfoDTO {
     private String description;
 
     //作为学生，平均分
-    private Integer studentAverageScore;
+    private Float studentAverageScore;
 
     //学习时间？
     private Float learningTime;
@@ -93,7 +93,7 @@ public class TeacherAllInfoDTO {
 
     /*******************老师特有部分信息*************/
     //作为老师的平均分
-    private Integer teacherAverageScore;
+    private Float teacherAverageScore;
 
     //已经教了多长时间
     private Float teachingTime;
@@ -358,11 +358,11 @@ public class TeacherAllInfoDTO {
         this.description = description;
     }
 
-    public Integer getStudentAverageScore() {
+    public Float getStudentAverageScore() {
         return studentAverageScore;
     }
 
-    public void setStudentAverageScore(Integer studentAverageScore) {
+    public void setStudentAverageScore(Float studentAverageScore) {
         this.studentAverageScore = studentAverageScore;
     }
 
@@ -382,11 +382,11 @@ public class TeacherAllInfoDTO {
         this.learningNumber = learningNumber;
     }
 
-    public Integer getTeacherAverageScore() {
+    public Float getTeacherAverageScore() {
         return teacherAverageScore;
     }
 
-    public void setTeacherAverageScore(Integer teacherAverageScore) {
+    public void setTeacherAverageScore(Float teacherAverageScore) {
         this.teacherAverageScore = teacherAverageScore;
     }
 

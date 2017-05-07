@@ -122,3 +122,8 @@
 
 葛尧：
     设定为对老师评价以后，会对老师进行转账
+    转账的比例写在了 foolkey.tool.constant_values.MoneyRate
+    转账原始金额是order的amount，是优惠券、折扣之前的价格
+
+
+    把交易状态改成了orderTypeEnum

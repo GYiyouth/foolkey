@@ -1,6 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
-import foolkey.pojo.root.vo.assistObject.TransactionTypeEnum;
+import foolkey.pojo.root.vo.assistObject.OrderTypeEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class TransactionUserEarnedMoneyDTO {
 
     @Column(name = "order_type")
     @Enumerated(EnumType.ORDINAL)
-    private TransactionTypeEnum transactionTypeEnum;
+    private OrderTypeEnum orderTypeEnum;
 
     @Column(name = "order_id")
     private Long orderId;
@@ -42,7 +42,7 @@ public class TransactionUserEarnedMoneyDTO {
                 "id=" + id +
                 ", acceptUserId=" + acceptUserId +
                 ", amount=" + amount +
-                ", transactionTypeEnum=" + transactionTypeEnum +
+                ", orderTypeEnum=" + orderTypeEnum +
                 ", orderId=" + orderId +
                 ", createdTime=" + createdTime +
                 '}';
@@ -72,12 +72,12 @@ public class TransactionUserEarnedMoneyDTO {
         this.amount = amount;
     }
 
-    public TransactionTypeEnum getTransactionTypeEnum() {
-        return transactionTypeEnum;
+    public OrderTypeEnum getOrderTypeEnum() {
+        return orderTypeEnum;
     }
 
-    public void setTransactionTypeEnum(TransactionTypeEnum transactionTypeEnum) {
-        this.transactionTypeEnum = transactionTypeEnum;
+    public void setOrderTypeEnum(OrderTypeEnum orderTypeEnum) {
+        this.orderTypeEnum = orderTypeEnum;
     }
 
     public Long getOrderId() {

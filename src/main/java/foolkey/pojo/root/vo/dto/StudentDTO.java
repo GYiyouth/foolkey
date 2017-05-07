@@ -76,7 +76,7 @@ public class StudentDTO {
     private String description;
 
     @Column(name = "averageScore")
-    private Integer studentAverageScore;
+    private Float studentAverageScore;
 
     //学习时长
     @Column(name = "learning_time")
@@ -306,11 +306,11 @@ public class StudentDTO {
         this.description = description;
     }
 
-    public Integer getStudentAverageScore() {
+    public Float getStudentAverageScore() {
         return studentAverageScore;
     }
 
-    public void setStudentAverageScore(Integer studentAverageScore) {
+    public void setStudentAverageScore(Float studentAverageScore) {
         this.studentAverageScore = studentAverageScore;
     }
 

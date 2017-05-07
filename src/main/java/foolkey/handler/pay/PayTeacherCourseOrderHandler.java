@@ -89,6 +89,7 @@ public class PayTeacherCourseOrderHandler extends AbstractBO{
             jsonHandler.sendJSON(jsonObject, response);
             throw new Exception("优惠券信息不符");
         }
+
         updateOrderBO.updateOrderSateAfterPay(orderDTO);
         studentInfoBO.updateStudent(studentDTO);
 

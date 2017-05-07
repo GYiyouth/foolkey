@@ -18,7 +18,7 @@ public class TeacherDTO {
     private Long id;
 
     @Column(name = "teacher_average_score")
-    private Integer teacherAverageScore;
+    private Float teacherAverageScore;
 
     //授课时长
     @Column(name = "teaching_time")
@@ -51,11 +51,11 @@ public class TeacherDTO {
                 '}';
     }
 
-    public Integer getTeacherAverageScore() {
+    public Float getTeacherAverageScore() {
         return teacherAverageScore;
     }
 
-    public void setTeacherAverageScore(Integer teacherAverageScore) {
+    public void setTeacherAverageScore(Float teacherAverageScore) {
         this.teacherAverageScore = teacherAverageScore;
     }
 
