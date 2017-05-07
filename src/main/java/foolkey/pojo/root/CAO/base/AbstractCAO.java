@@ -14,6 +14,7 @@ public abstract class AbstractCAO {
 
     protected static final String keyToken = "key";
     protected static final String userInfoToken = "studentDTO";
+    protected static final String teacherInfoToken = "teacherDTO";
     protected static final String blackListToken = "blackList";
     protected static final String rsaKeyDTOToken = "rsaKeyDTO";
     protected static final String aesKeyToken = "aesKeyToken";

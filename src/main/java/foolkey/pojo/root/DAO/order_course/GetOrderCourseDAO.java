@@ -45,16 +45,10 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
             return null;
     }
 
-    public OrderBuyCourseDTO findAllByStudentId(Long studentId){
-        List <OrderBuyCourseDTO> list =
+    public List<OrderBuyCourseDTO> findAllByStudentId(Long studentId){
+        return
                 (List<OrderBuyCourseDTO>)
                         hibernateTemplate.find(
-                                "from OrderBuyCourseDTO ob where ob.courseId = ? " +
-                                        "and ob.orderStateEnum = ?", rewardId, state
-                        );
-        if (list.size() > 0)
-            return list.get(0);
-        else
-            return null;
+                                "from OrderBuyCourseDTO ob where ob.orderStateEnum = ?", studentId);
     }
 }

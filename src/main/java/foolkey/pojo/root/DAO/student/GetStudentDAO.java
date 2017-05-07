@@ -4,6 +4,7 @@ import foolkey.pojo.root.DAO.base.GetBaseDAO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by admin on 2017/4/25.
  */
 @Repository("getStudentDAO")
+@Transactional
 public class GetStudentDAO extends GetBaseDAO<StudentDTO>{
 
 

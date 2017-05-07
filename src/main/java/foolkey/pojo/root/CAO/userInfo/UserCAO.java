@@ -1,7 +1,9 @@
 package foolkey.pojo.root.CAO.userInfo;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.cache.Cache;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,7 @@ public class UserCAO extends AbstractCAO{
         saveIdToken(token, studentDTO.getId());
         Map map = getUserMap(token);
         map.put(userInfoToken, studentDTO);
+        cache.put(token, map);
     }
 
     /**
@@ -136,5 +139,11 @@ public class UserCAO extends AbstractCAO{
         Map token_idMap = cache.getMap(studentToken_id);
         id_tokenMap.put(id, token);
         token_idMap.put(token, id);
+    }
+
+    public void saveTeacherDTO(String token, TeacherDTO teacherDTO){
+        Map map = getUserMap(token);
+        map.put(teacherInfoToken, teacherDTO);
+        cache.put(token, map);
     }
 }

@@ -3,8 +3,11 @@ package foolkey.pojo.root.bo.student;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.student.UpdateStudentDAO;
+import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
 import foolkey.pojo.root.bo.security.SHA1KeyBO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ public class StudentInfoBO {
 
     @Resource(name = "getStudentDAO")
     private GetStudentDAO getStudentDAO;
+    @Autowired
+    private GetTeacherDAO getTeacherDAO;
     @Autowired
     private UpdateStudentDAO updateStudentDAO;
     @Resource(name = "userCAO")
@@ -92,8 +97,18 @@ public class StudentInfoBO {
     public void fillStudentDTOToCache(){
         ArrayList<StudentDTO> studentDTOS = getStudentDAO.findAll(StudentDTO.class);
         for(StudentDTO studentDTO:studentDTOS){
+            //生成token
             String token = TokenCreator.createToken(studentDTO.getUserName(),studentDTO.getPassWord());
+            //缓存存储学生信息
             userCAO.saveStudentDTO(token,studentDTO);
+
+            //判断是老师，存储老师信息
+            if(studentDTO.getRoleEnum()== RoleEnum.teacher) {
+                TeacherDTO teacherDTO = getTeacherDAO.getTeacherDTO(studentDTO.getId());
+                userCAO.saveTeacherDTO(token, teacherDTO);
+            }
+            System.out.println("token:"+token);
+
         }
     }
 }

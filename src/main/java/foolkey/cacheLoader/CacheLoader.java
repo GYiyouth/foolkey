@@ -41,10 +41,11 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
                 //2.添加最新的、未解决的悬赏到缓存中
                 System.out.println("预热程序，悬赏类别：" + technicTagEnum);
                 courseStudentBO.fillCourseStudentPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
-                //3.添加学生信息到缓存
-                System.out.println("预热程序，学生信息：");
-                studentInfoBO.fillStudentDTOToCache();
             }
+            //3.添加学生-老师信息到缓存
+            System.out.println("预热程序，学生-老师信息：");
+            studentInfoBO.fillStudentDTOToCache();
+
         }
     }
 }
