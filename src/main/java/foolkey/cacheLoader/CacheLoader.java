@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 
 /**
  * Created by GR on 2017/5/3.
@@ -45,7 +47,8 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
             //3.添加学生-老师信息到缓存
             System.out.println("预热程序，学生-老师信息：");
             studentInfoBO.fillStudentDTOToCache();
-
+            //4.添加token_id,id_token
+            studentInfoBO.fillTokenIdAndIdToken();
         }
     }
 }
