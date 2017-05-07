@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 文章，暂时不做
  * Created by admin on 2017/4/24.
  */
 @Component
@@ -17,24 +18,31 @@ public class ArticleDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //标题
     @Column(name = "topic")
     private String topic;
 
+    //内容
     @Column(name = "content")
     private String content;
 
+    //老师id
     @Column(name = "teacher_id")
     private Long teacherId;
 
+    //最后操作时间
     @Column(name = "last_opera_time")
     private Date lastOperaTime;
 
+    //点赞数
     @Column(name = "likes")
     private Integer likes;
 
+    //收集数
     @Column(name = "collections")
     private Integer collections;
 
+    //踩数
     @Column(name = "dislikes")
     private Integer dislikes;
 

@@ -18,21 +18,27 @@ public class OrderAbstract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //金额，虚拟币
     @Column(name = "amount")
     private Double amount;
 
+    //创建时间
     @Column(name = "create_time")
     private Date createdTime;
 
+    //支付时间
     @Column(name = "pay_time")
     private Date payTime;
 
+    //存活时间，如果一直不付款，则过了以后就会取消
     @Column(name = "exist_time")
     private Date existingTime;
 
+    //用户的id，一般都是studentId
     @Column(name = "user_id")
     private Long userId;
 
+    //订单的状态
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private OrderStateEnum orderStateEnum;

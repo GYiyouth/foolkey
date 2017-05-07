@@ -17,11 +17,14 @@ public class TransactionUserEarnedMoneyDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //老师的id
     @Column(name = "acceptor_id")
     private Long acceptUserId;
 
+    //金额，人民币，由虚拟货币转换来，汇率参考foolkey.tool.constant_values.MoneyRate
     private Double amount;
 
+    //订单分类
     @Column(name = "order_type")
     @Enumerated(EnumType.ORDINAL)
     private OrderTypeEnum orderTypeEnum;
@@ -29,6 +32,7 @@ public class TransactionUserEarnedMoneyDTO {
     @Column(name = "order_id")
     private Long orderId;
 
+    //创建时间
     @Column(name = "create_time")
     private Date createdTime;
 

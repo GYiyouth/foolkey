@@ -20,9 +20,11 @@ public class CourseAbstract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //创建者
     @Column(name = "creator_id")
     private Long creatorId;
 
+    //技术标签
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "technic_tag")
     private TechnicTagEnum technicTagEnum;
@@ -31,16 +33,20 @@ public class CourseAbstract {
     @Column(name = "topic")
     private String topic;
 
+    //描述
     @Column(name = "description")
     private String description;
 
+    //定价，虚拟币
     @Column(name = "price")
     private Double price;
 
+    //授课方式
     @Column(name = "teach_method")
     @Enumerated(EnumType.ORDINAL)
     private TeachMethodEnum teachMethodEnum;
 
+    //授课时间
     @Column(name ="class_time")
     @Enumerated(EnumType.ORDINAL)
     private CourseTimeDayEnum courseTimeDayEnum;

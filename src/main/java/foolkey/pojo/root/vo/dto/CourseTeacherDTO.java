@@ -14,18 +14,21 @@ import java.util.Date;
 @Table(name = "t_course_teacher")
 public class CourseTeacherDTO extends CourseAbstract{
 
-    //预计时长 0.5h/1h...
+    //建议时长 0.5h/1h...
     @Column(name = "duration")
     private Float duration;
 
 
+    //开课状态
     @Column(name = "course_teacher_state")
     @Enumerated(EnumType.ORDINAL)
     private CourseTeacherStateEnum courseTeacherStateEnum;
 
+    //销量
     @Column(name  = "sales")
     private Integer sales;
 
+    //平均得分
     @Column(name = "average_score")
     private Float averageScore;
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 /**
+ * 收藏的文章，暂时不做
  * Created by admin on 2017/4/24.
  */
 @Component

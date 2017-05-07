@@ -21,31 +21,39 @@ public class StudentDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    //用户名，一般是手机号
     private String userName;
 
+    //密码
     private String passWord;
 
+    //账上现金，人民币
     @Column(name = "cash")
     private Double cash;
 
+    //账上虚拟币
     @Column(name = "virtual_currency")
     private Double virtualCurrency;
 
+    //声望数
     private Integer prestige;
 
 
+    //真名
     private String name;
 
     @Column(name = "sex")
     private SexTagEnum sexTagEnum;
 
+    //用户所属组织
     private String organization;
 
     private Date birthday;
 
+    //用户的技术标签
     @Column(name = "current_tag")
     private TechnicTagEnum technicTagEnum;
+    //用户最高学历
     @Column(name = "top_school_graduation")
     private SchoolEnum schoolEnum;
 
@@ -55,24 +63,30 @@ public class StudentDTO {
 
     private String otherUrl;
 
+    //头像链接
     private String photoUrl;
 
+    //昵称
     private String nickedName;
 
+    //角色 student, teacher, alreadyApplied ，后面2者均代表这名用户已经有了自己的teacherDTO
     @Column(name = "role")
     @Enumerated(EnumType.ORDINAL)
     private RoleEnum roleEnum;
 
+    //用户状态 unverified, normal, temporaryBan, permanentBan ,目前默认都是normal
     @Column(name = "userState")
     @Enumerated(EnumType.ORDINAL)
     private UserStateEnum userStateEnum;
 
+    //用户的口号，相当于个性签名
     private String slogan;
 
     private String email;
 
     private String phoneNumber;
 
+    //用户对自己的详细描述
     private String description;
 
     @Column(name = "averageScore")

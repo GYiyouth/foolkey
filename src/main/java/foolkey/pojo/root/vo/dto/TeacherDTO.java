@@ -28,10 +28,12 @@ public class TeacherDTO {
     @Column(name = "teaching_number")
     private Integer teachingNumber;
 
+    //认证状态，分为 进行中，已认证，失败 三种
     @Column(name = "verify_state")
     @Enumerated(EnumType.ORDINAL)
     private VerifyStateEnum verifyState;
 
+    //关注者人数
     @Column(name = "follower_number")
     private Integer followerNumber;
 

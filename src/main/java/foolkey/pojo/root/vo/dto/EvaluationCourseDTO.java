@@ -15,12 +15,15 @@ import javax.persistence.Table;
 @Table(name = "t_evaluation_course")
 public class EvaluationCourseDTO extends EvaluationAbstract {
 
+    //评价的文字内容
     @Column(name = "content")
     private String content;
 
+    //课程id
     @Column(name = "course_id")
     private Long courseId;
 
+    //图片1地址
     @Column(name = "pic1Path")
     private String pic1Path;
 

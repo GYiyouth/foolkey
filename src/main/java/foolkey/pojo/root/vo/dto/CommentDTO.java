@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 评论，暂时不做
  * Created by admin on 2017/4/24.
  */
 @Component

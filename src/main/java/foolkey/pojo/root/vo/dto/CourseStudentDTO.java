@@ -18,15 +18,19 @@ import javax.persistence.Table;
 @Table(name = "t_course_student")
 public class CourseStudentDTO extends CourseAbstract{
 
+    // 认证老师,非认证老师,不限
     @Column(name = "teacher_requirement")
     private TeacherRequirementEnum teacherRequirementEnum;
 
+    // 悬赏状态 待接单,已解决
     @Column(name = "course_student_state")
     private CourseStudentStateEnum courseStudentStateEnum;
 
+    // 学生基础
     @Column(name = "student_base")
     private StudentBaseEnum studentBaseEnum;
 
+    // 性别
     @Column(name = "teacher_sex_requirement")
     private SexTagEnum sexTagEnum;
 

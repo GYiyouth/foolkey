@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 /**
+ * 关注的关系表
  * Created by geyao on 2017/4/24.
  */
 @Component
@@ -16,9 +17,11 @@ public class RelationFollowDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //被专注者id
     @Column(name = "owner_id")
     private Long ownerId;
 
+    //关注者id
     @Column(name = "follower_id")
     private Long followId;
 

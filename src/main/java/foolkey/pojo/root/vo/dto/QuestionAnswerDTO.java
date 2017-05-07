@@ -17,40 +17,52 @@ public class QuestionAnswerDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //提问者Id
     @Column(name = "asker_id")
     private Long askerId;
 
+    //回答的Id
     @Column(name = "answer_id")
     private Long answerId;
 
+    //问题的标题
     @Column(name = "title")
     private String title;
 
+    //问题的描述
     @Column(name = "question_content")
     private String questionContent;
 
+    //问题的标价，虚拟币
     @Column(name = "price")
     private Double price;
 
+    //问题的创建时间
     @Column(name = "create_time")
     private Date createdTime;
 
+    //失效时间
     @Column(name = "invalid_time")
     private Date invalidTime;
 
+    //问题的状态 未回答, 已回答, 已过期
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private QuestionStateEnum questionStateEnum;
 
+    //围观的人数
     @Column(name = "onlooker_number")
     private Integer onlookerNumber;
 
+    //回答的时间
     @Column(name = "answer_time")
     private Date answerTime;
 
+    //回答的内容
     @Column(name = "answer_content")
     private String answerContent;
 
+    //回答的最后更新时间
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
 

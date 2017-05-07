@@ -1,6 +1,7 @@
 package foolkey.pojo.root.vo.dto;
 
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.assistObject.TransactionStateEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -18,18 +19,22 @@ public class TransactionUserTakeMoneyDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //提现用户的id，一般等于studentId，teacherId
     @Column(name = "user_id")
     private Long userId;
 
+    //实现时间
     @Column(name = "create_Time")
     private Date createdTime;
 
+    //提现金额，一定是人民币
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "order_state")
+    //到账状态，分为未到账、已到账
+    @Column(name = "transaction_state")
     @Enumerated(EnumType.ORDINAL)
-    private OrderStateEnum orderStateEnum;
+    private TransactionStateEnum transactionState;
 
     public TransactionUserTakeMoneyDTO() {
         super();
@@ -42,7 +47,7 @@ public class TransactionUserTakeMoneyDTO {
                 ", userId=" + userId +
                 ", createdTime=" + createdTime +
                 ", amount=" + amount +
-                ", orderStateEnum=" + orderStateEnum +
+                ", transactionState=" + transactionState +
                 '}';
     }
 
@@ -78,11 +83,11 @@ public class TransactionUserTakeMoneyDTO {
         this.amount = amount;
     }
 
-    public OrderStateEnum getOrderStateEnum() {
-        return orderStateEnum;
+    public TransactionStateEnum getTransactionState() {
+        return transactionState;
     }
 
-    public void setOrderStateEnum(OrderStateEnum orderStateEnum) {
-        this.orderStateEnum = orderStateEnum;
+    public void setTransactionState(TransactionStateEnum transactionState) {
+        this.transactionState = transactionState;
     }
 }

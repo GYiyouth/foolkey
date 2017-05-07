@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "t_order_ask_question")
 public class OrderAskQuestionDTO extends OrderAbstract{
 
+    //被提问者id
     @Column(name = "receiver_id")
     private Long receiverId;
 

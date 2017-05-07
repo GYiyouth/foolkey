@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * 作废
  * Created by geyao on 2017/4/24.
  */
 @Entity

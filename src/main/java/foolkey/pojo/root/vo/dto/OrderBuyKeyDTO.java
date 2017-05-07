@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 /**
+ * 购买虚拟币的订单
  * Created by geyao on 2017/4/24.
  */
 @Component

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 /**
+ * 评价，其实除了课程评价，评分是不让对方看到的
  * Created by geyao on 2017/4/24.
  */
 @Component
@@ -17,19 +18,24 @@ public class EvaluationAbstract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //评价人的id
     @Column(name = "creator_id")
     private Long creatorId;
 
+    //被评价者id
     @Column(name = "accept_id")
     private Long acceptor_id;
 
+    //相关的订单
     @Column(name = "order_id")
     private Long orderId;
 
+    //评价的状态，目前没有什么用
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private EvaluationStateEnum evaluationStateEnum;
 
+    //分数
     @Column(name = "score")
     private Double score;
 

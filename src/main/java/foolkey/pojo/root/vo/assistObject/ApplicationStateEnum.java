@@ -5,5 +5,5 @@ package foolkey.pojo.root.vo.assistObject;
  * Created by geyao on 2017/5/1.
  */
 public enum  ApplicationStateEnum {
-    aggre, refuse, expired, cancel, processing
+    agree, refuse, expired, cancel, processing
 }

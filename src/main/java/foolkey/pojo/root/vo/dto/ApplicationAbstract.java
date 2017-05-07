@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 申请
  * Created by admin on 2017/4/24.
  */
 @Component
@@ -22,12 +23,15 @@ public class ApplicationAbstract {
     @Column(name = "applicant_id")
     private Long applicantId;
 
+    //messageId，暂时不做
     @Column(name = "message_id")
     private Long messageId;
 
+    //申请的时间
     @Column(name = "apply_time")
     private Date applyTime;
 
+    //状态 agree, refuse, expired, cancel, processing
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private ApplicationStateEnum state;

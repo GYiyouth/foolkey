@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 优惠券
  * Created by admin on 2017/4/24.
  */
 @Component
@@ -18,24 +19,31 @@ public class CouponDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //拥有者
     @Column(name = "owner_id")
     private Long ownerId;
 
+    //名字
     @Column(name = "name")
     private String name;
 
+    // 门槛
     @Column(name = "level")
-    private Double level;// 门槛
+    private Double level;
 
+    //价值
     @Column(name = "value")
     private Double value;
 
+    //发放时间
     @Column(name = "release_time")
     private Date releaseTime;
 
+    //过期时间，如果使用了，则整个券被删除
     @Column(name = "dead_time")
     private Date deadTime;
 
+    //优惠券类型
     @Column(name = "coupon_type")
     @Enumerated(EnumType.ORDINAL)
     private CouponTypeEnum couponTypeEnum;
