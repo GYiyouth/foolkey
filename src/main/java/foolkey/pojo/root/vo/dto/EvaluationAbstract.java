@@ -37,7 +37,7 @@ public class EvaluationAbstract {
 
     //分数
     @Column(name = "score")
-    private Float score;
+    private Double score;
 
 
     public EvaluationAbstract() {
@@ -95,11 +95,11 @@ public class EvaluationAbstract {
         this.evaluationStateEnum = evaluationStateEnum;
     }
 
-    public Float getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Float score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 }
