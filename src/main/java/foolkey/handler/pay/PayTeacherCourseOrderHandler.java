@@ -109,5 +109,8 @@ public class PayTeacherCourseOrderHandler extends AbstractBO{
         applicationBO.save(application);
         //给老师发送申请、消息
         messageBO.sendForApplication(application, studentDTO, courseTeacherDTO);
+
+        //删除优惠券
+        couponInfoBO.delete(couponDTO);
     }
 }

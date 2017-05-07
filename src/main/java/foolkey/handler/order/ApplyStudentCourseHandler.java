@@ -6,9 +6,7 @@ import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
-import foolkey.pojo.root.vo.assistObject.RoleEnum;
-import foolkey.pojo.root.vo.assistObject.UserStateEnum;
+import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -59,15 +57,27 @@ public class ApplyStudentCourseHandler extends AbstractBO {
         String token = clearJSON.getString("token");
         Long courseId = clearJSON.getLong("courseId");
 
-        //获取个人信息验证RoleEnum字段
+        //获取个人信息
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0)
-            jsonHandler.sendJSON(jsonObject, response);
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(studentDTO.getId());
-
-
         //获取课程信息
         CourseStudentDTO courseDTO = courseStudentBO.getCourseStudentDTO( courseId );
+
+        //验证资格
+        //学生、认证失败的老师也不能接单
+        if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0
+                || teacherDTO.getVerifyState().compareTo(VerifyStateEnum.refused) == 0                )
+            jsonHandler.sendJSON(jsonObject, response);
+        //如果学生要求仅认证老师
+        if (courseDTO.getTeacherRequirementEnum().compareTo( TeacherRequirementEnum.认证老师) == 0
+                &&  (studentDTO.getRoleEnum().compareTo( RoleEnum.teacher) != 0
+                    || teacherDTO.getVerifyState().compareTo(VerifyStateEnum.verified) != 0
+                    )
+                ){
+            //那么未认证老师无法接单
+            jsonHandler.sendFailJSON(response);
+        }
+
         //验证课程状态
         if (courseDTO.getCourseStudentStateEnum().compareTo(CourseStudentStateEnum.已解决) == 0)
             jsonHandler.sendJSON(jsonObject, response);

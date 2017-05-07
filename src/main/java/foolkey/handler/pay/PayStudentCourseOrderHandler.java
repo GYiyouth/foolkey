@@ -123,5 +123,8 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
 
         //删除其他申请
         applicationInfoBO.deleteAllApplicationByOrderId(order.getId(), CourseTypeEnum.学生悬赏);
+
+        //删除优惠券
+        couponInfoBO.delete(couponDTO);
     }
 }
