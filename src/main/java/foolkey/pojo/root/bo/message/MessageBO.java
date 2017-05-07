@@ -162,4 +162,40 @@ public class MessageBO {
                         teacher.getId() + "", messagePayLoad, title, description
                 );
     }
+
+    /**
+     * 退款成功后，给学生发送的消息
+     * @param student
+     * @return
+     * @throws Exception
+     */
+    public Result sendForRefundSuccessToStudent(
+            StudentDTO student
+    )throws Exception{
+        String messagePayLoad = "sendForVerifyFailed";
+        String title = "退款已通过";
+        String description = "您的退款申请已经被老师同意，退款稍后会到账";
+        return
+                MessagePusher.sendToUserAccount(
+                        student.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 退款失败后，给学生发送的消息
+     * @param student
+     * @return
+     * @throws Exception
+     */
+    public Result sendForRefundFailedToStudent(
+            StudentDTO student
+    )throws Exception{
+        String messagePayLoad = "sendForVerifyFailed";
+        String title = "您的退款申请未通过";
+        String description = "请和老师协调退款，或向系统求助";
+        return
+                MessagePusher.sendToUserAccount(
+                        student.getId() + "", messagePayLoad, title, description
+                );
+    }
 }
