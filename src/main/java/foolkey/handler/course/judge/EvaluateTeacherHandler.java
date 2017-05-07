@@ -6,8 +6,10 @@ import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.CheckEvaluationForVerifyBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.EvaluationTeacherDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -43,6 +45,8 @@ public class EvaluateTeacherHandler extends AbstractBO{
     private EvaluationInfoBO evaluationInfoBO;
     @Autowired
     private GiveMoneyToTeacherBO giveMoneyToTeacherBO;
+    @Autowired
+    private CheckEvaluationForVerifyBO checkEvaluationForVerifyBO;
 
     public void execute(
             HttpServletRequest request,
@@ -90,5 +94,10 @@ public class EvaluateTeacherHandler extends AbstractBO{
         evaluationTeacherDTO.setOrderId( orderId );
         evaluationTeacherDTO.setScore( Double.parseDouble(score + "") );
         evaluationInfoBO.save(evaluationTeacherDTO);
+
+        //检查老师的认证状态
+        if (teacher.getRoleEnum().compareTo( RoleEnum.alreadyApplied ) == 0){
+            //非认证老师，需要查看过往评价，有没有5次连续好评
+        }
     }
 }

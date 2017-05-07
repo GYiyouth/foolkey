@@ -84,17 +84,60 @@ public class MessageBO {
     }
 
 
+    /**
+     * 发送给老师，申请悬赏通过
+     * @param studentDTO
+     * @param teacher
+     * @param courseDTO
+     * @return
+     * @throws Exception
+     */
     public Result sendForPayReward(
             StudentDTO studentDTO, //学生悬赏的拥有者
             StudentDTO teacher, //老师，收件人
             CourseStudentDTO courseDTO //课程
     )throws Exception{
-        String messgePayLoad = "sendForPayReWard";
+        String messagePayLoad = "sendForPayReWard";
         String title = "有人同意了你的悬赏申请！";
         String description = studentDTO.getName() + " 的 " + courseDTO.getTopic();
         return
                 MessagePusher.sendToUserAccount(
-                        teacher.getId() + "", messgePayLoad, title, description
+                        teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 发送给老师，认证通过
+     * @param teacher
+     * @return
+     * @throws Exception
+     */
+    public Result sendForVerifyPassed(
+            StudentDTO teacher
+    )throws Exception{
+        String messagePayLoad = "sendForVerifyPassed";
+        String title = "恭喜您，教师认证通过";
+        String description = "解锁了 发布课程、接受提问 功能！";
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
+    /**
+     * 发送给老师，认证失败
+     * @param teacher
+     * @return
+     * @throws Exception
+     */
+    public Result sendForVerifyFailed(
+            StudentDTO teacher
+    )throws Exception{
+        String messagePayLoad = "sendForVerifyFailed";
+        String title = "很抱歉，教师认证未通过";
+        String description = "由于最近的一次中差评，您的教师认证申请未通过";
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messagePayLoad, title, description
                 );
     }
 }
