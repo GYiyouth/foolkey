@@ -111,4 +111,18 @@ public class StudentInfoBO {
 
         }
     }
+
+    /**
+     * 存储所有学生的token_id id_token
+     */
+    public void fillTokenIdAndIdToken(){
+        ArrayList<StudentDTO> studentDTOS = getStudentDAO.findAll(StudentDTO.class);
+        for(StudentDTO studentDTO:studentDTOS){
+            //生成token
+            String token = TokenCreator.createToken(studentDTO.getUserName(),studentDTO.getPassWord());
+            //存储id
+            //缓存存储token_id,id_token
+            userCAO.saveIdToken(token,studentDTO.getId());
+        }
+    }
 }
