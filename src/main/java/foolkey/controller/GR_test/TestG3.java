@@ -1,5 +1,7 @@
 package foolkey.controller.GR_test;
 
+import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.Time;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,7 +9,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TestG3 {
-    public void initTest(){
-        System.out.println("初始化？！");
+    public static void main(String[] args) throws Exception {
+//        System.out.println(Time.getDate());
+        StudentDTO studentDTO = new StudentDTO();
+        StudentDTO aimStudentDTO = new StudentDTO();
+        studentDTO.setPassWord("1221");
+        studentDTO.myClone(aimStudentDTO,studentDTO);
+        System.out.println(aimStudentDTO.getPassWord()+"?");
     }
 }

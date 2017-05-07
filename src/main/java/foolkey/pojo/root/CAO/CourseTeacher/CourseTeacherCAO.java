@@ -23,6 +23,62 @@ public class CourseTeacherCAO extends AbstractCAO {
 
     /**
      * OK
+     * 添加一门热门课程到缓存中
+     * @param courseTeacherPopularDTO
+     */
+    public void addCourseTeacherPopularDTOToCache(CourseTeacherPopularDTO courseTeacherPopularDTO, TechnicTagEnum technicTagEnum,DirectionEnum directionEnum) {
+
+        Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+
+        if (technicMap == null) {
+            //创建此标签的缓存
+            // 缓存还没有这类标签的缓存
+            //1. 创建 标签下面的课程map
+            DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
+            Map<String, DoubleLink> technicCourseTeacherMap = new HashedMap();
+            if(directionEnum==DirectionEnum.head){
+                courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
+            }else {
+                courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
+            }
+            //2. 把课程的链表添加到map中
+            technicCourseTeacherMap.put(courseTeacherToken, courseTeacherPopularDoubleLink);
+            //3. 把map添加到缓存的标签token里面
+            cache.put(courseTeacherPopularDTO.getCourseTeacherDTO().getTechnicTagEnum().name(), technicCourseTeacherMap);
+        } else {
+            //缓存里面有此类的标签 例如Java
+            if (technicMap.containsKey(courseTeacherToken)) {
+                //已经有了“课程”项
+                System.out.println("有了课程项");
+                DoubleLink courseTeacherPopularDoubleLink = technicMap.get(courseTeacherToken);
+                //重置
+//                courseTeacherPopularDoubleLink.InitMyDoubleLink();
+                System.out.println("链表长度：" + courseTeacherPopularDoubleLink.getLength());
+                if(directionEnum==DirectionEnum.head){
+                    courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
+                }else {
+                    courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
+                }
+                System.out.println(courseTeacherPopularDoubleLink.getLength() + "?个");
+            } else {
+                //没有课程项
+                //创建课程项
+                System.out.println("没有课程项");
+                DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
+                if(directionEnum==DirectionEnum.head){
+                    courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
+                }else {
+                    courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
+                }
+                technicMap.put(courseTeacherToken, courseTeacherPopularDoubleLink);
+            }
+        }
+    }
+
+
+
+    /**
+     * OK
      * 添加热门课程到缓存
      * @param courseTeacherPopularDTOS
      * @param technicTagEnum
@@ -207,7 +263,6 @@ public class CourseTeacherCAO extends AbstractCAO {
     /**
      * OK
      * 根据id，获取在缓存中的节点
-     *
      * @param id
      * @return
      */
@@ -324,60 +379,6 @@ public class CourseTeacherCAO extends AbstractCAO {
 
     }
 
-
-    /**
-     * OK
-     * 添加一门课程到缓存中
-     * @param courseTeacherPopularDTO
-     */
-    public void addCourseTeacherPopularDTOToCache(CourseTeacherPopularDTO courseTeacherPopularDTO, TechnicTagEnum technicTagEnum,DirectionEnum directionEnum) {
-
-        Map<String, DoubleLink> technicMap = cache.getMap(courseTeacherPopularDTO.getCourseTeacherDTO().getTechnicTagEnum().name());
-
-        if (technicMap == null) {
-            //创建此标签的缓存
-            // 缓存还没有这类标签的缓存
-            //1. 创建 标签下面的课程map
-            DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
-            Map<String, DoubleLink> technicCourseTeacherMap = new HashedMap();
-            if(directionEnum==DirectionEnum.head){
-                courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
-            }else {
-                courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
-            }
-            //2. 把课程的链表添加到map中
-            technicCourseTeacherMap.put(courseTeacherToken, courseTeacherPopularDoubleLink);
-            //3. 把map添加到缓存的标签token里面
-            cache.put(courseTeacherPopularDTO.getCourseTeacherDTO().getTechnicTagEnum().name(), technicCourseTeacherMap);
-        } else {
-            //缓存里面有此类的标签 例如Java
-            if (technicMap.containsKey(courseTeacherToken)) {
-                //已经有了“课程”项
-                System.out.println("有了课程项");
-                DoubleLink courseTeacherPopularDoubleLink = technicMap.get(courseTeacherToken);
-                //重置
-//                courseTeacherPopularDoubleLink.InitMyDoubleLink();
-                System.out.println("链表长度：" + courseTeacherPopularDoubleLink.getLength());
-                if(directionEnum==DirectionEnum.head){
-                    courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
-                }else {
-                    courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
-                }
-                System.out.println(courseTeacherPopularDoubleLink.getLength() + "?个");
-            } else {
-                //没有课程项
-                //创建课程项
-                System.out.println("没有课程项");
-                DoubleLink courseTeacherPopularDoubleLink = new DoubleLink();
-                if(directionEnum==DirectionEnum.head){
-                    courseTeacherPopularDoubleLink.addHead(courseTeacherPopularDTO);
-                }else {
-                    courseTeacherPopularDoubleLink.addTail(courseTeacherPopularDTO);
-                }
-                technicMap.put(courseTeacherToken, courseTeacherPopularDoubleLink);
-            }
-        }
-    }
 
 
     /**

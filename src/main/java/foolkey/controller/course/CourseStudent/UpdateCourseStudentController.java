@@ -13,47 +13,43 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by ustcg on 2017/4/30.
+ * Created by ustcg on 2017/5/6.
  */
 @Controller
 @RequestMapping(value = "/courseStudent")
-public class PublishCourseStudentController extends AbstractController {
-
-    @Resource(name = "courseStudentBO")
-    private CourseStudentBO courseStudentBO;
-
-    @Resource(name = "courseStudentDTO")
-    private CourseStudentDTO courseStudentDTO;
+public class UpdateCourseStudentController extends AbstractController{
 
     @Autowired
     private StudentInfoBO studentInfoBO;
+    @Autowired
+    private CourseStudentBO courseStudentBO;
 
-    @RequestMapping(value = "/publishRewardCourse")
+
+    @RequestMapping(value = "/updateRewardTeacher")
     public void execute(
-//            HttpServletRequest request,
-//            @RequestParam("token") String token,
-            @RequestParam("technicTagEnum") TechnicTagEnum technicTagEnum,
-            @RequestParam("topic") String topic,
-            @RequestParam("description") String description,
-            @RequestParam("price") Double price,
-            @RequestParam("courseTimeDayEnum") CourseTimeDayEnum courseTimeDayEnum,
-            @RequestParam("teachMethodEnum") TeachMethodEnum teachMethodEnum,
-            @RequestParam("teacherRequirementEnum") TeacherRequirementEnum teacherRequirementEnum,
-            @RequestParam("studentBaseEnum") StudentBaseEnum studentBaseEnum,
+            HttpServletRequest request,
+            @RequestParam("id")Long id,
+            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+            @RequestParam("topic")String topic,
+            @RequestParam("description")String description ,
+            @RequestParam("price")Double price,
+            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
+            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
+            @RequestParam("teacherRequirementEnum")TeacherRequirementEnum teacherRequirementEnum,
+            @RequestParam("studentBaseEnum")StudentBaseEnum studentBaseEnum,
             HttpServletResponse response
     ) throws Exception {
         try {
-            System.out.println("00000");
-            // 获取-分析JSON传递的明文信息
+            //获取-解析JSON明文数据
 /*            String clearText = request.getParameter("clearText");
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-            String token = clearJSON.getString("token");
+            String token =clearJSON.getString("token");
+            Long id = clearJSON.getLong("id");
             String technicTagStr = clearJSON.getString("technicTagEnum");
             TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
             String topic = clearJSON.getString("topic");
@@ -63,15 +59,20 @@ public class PublishCourseStudentController extends AbstractController {
             CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
             String teachMethodStr = clearJSON.getString("teachMethodEnum");
             TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-            String teacherRequirementStr = clearJSON.getString("teachRequirementEnum");
+            String teacherRequirementStr = clearJSON.getString("teacherRequirementEnum");
             TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
-            String studentBase = clearJSON.getString("studentBaseEnum");
-            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);*/
+            String studentBaseStr = clearJSON.getString("studentBaseEnum");
+            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf("studentBaseStr");*/
 
-            // 创建一个curseStudentDTO(悬赏)，并赋值
-            /*StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-            courseStudentDTO.setCreatorId(studentDTO.getId());*/
 
+            //根据id获取旧的悬赏信息
+            CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(id);
+
+            //对悬赏赋新值
+            System.out.println("修改课程信息");
+
+//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+//            courseStudentDTO.setCreatorId(studentDTO.getId());
             courseStudentDTO.setCreatorId(20001L);
 
             courseStudentDTO.setTechnicTagEnum(technicTagEnum);
@@ -82,15 +83,12 @@ public class PublishCourseStudentController extends AbstractController {
             courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
             courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
             courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
-            courseStudentDTO.setCourseStudentStateEnum(CourseStudentStateEnum.待接单);
-            courseStudentDTO.setCreateTime(Time.getCurrentDate());
 
-            //发布悬赏
-            courseStudentBO.publishCourseStudent(courseStudentDTO);
-            jsonObject.put("result", "success");
-            jsonObject.put("courseStudentDTO", courseStudentDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-        } catch (Exception e) {
+            //封装-传送JSON
+            jsonObject.put("result","success");
+            jsonObject.put("courseStudentDTO",courseStudentDTO);
+            jsonHandler.sendJSON(jsonObject,response);
+        }catch (Exception e){
             e.printStackTrace();
             jsonHandler.sendFailJSON(response);
         }

@@ -16,6 +16,7 @@ import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.BeanFactory;
+import foolkey.tool.StaticVariable;
 import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,53 @@ public class CourseStudentBO {
             }
         }
     }
+
+    /**
+     * 分页获取某个标签下最新的悬赏
+     * @param technicTagEnum
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<CourseStudentPopularDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
+        //请求的内容超过内存大小
+        //暂时不允许超过内存大小
+        if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
+            return new ArrayList<>();
+        }else{
+            if (courseStudentCAO.containsCourseStudent(technicTagEnum, pageNo, pageSize)) {
+                System.out.println("缓存有！");
+                return courseStudentCAO.getCourseStudentPopularDTO(technicTagEnum, pageNo, pageSize);
+            }else {
+                //缓存没有则数据库彻底没了
+                System.out.println("缓存没有");
+                return new ArrayList<>();
+            }
+        }
+    }
+
+
+    /**
+     * 根据课程id获取悬赏信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public CourseStudentDTO getCourseStudentDTOById(Long id) throws Exception{
+        if(id == null){
+            throw new NullPointerException("id is null");
+        }else{
+            CourseStudentDTO courseStudentDTO = courseStudentCAO.getCourseStudentDTOByCourseStudentId(id);
+            if(courseStudentDTO != null ){
+                System.out.println("缓存有！");
+                return courseStudentDTO;
+            }else{
+                return getCourseStudentDAO.get(CourseStudentDTO.class,id);
+            }
+        }
+    }
+
 
     /**
      * 发布悬赏

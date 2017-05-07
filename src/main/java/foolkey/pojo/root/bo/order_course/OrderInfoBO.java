@@ -104,6 +104,16 @@ public class OrderInfoBO {
     }
 
     /**
+     * 获取学生角色的未付款课程订单
+     * @param studentId
+     * @return
+     * @throws Exception
+     */
+    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId) throws Exception{
+        return getOrderCourseDAO.findAllByStudentId(studentId);
+    }
+
+    /**
      * 存储订单
      * @param order
      * @return

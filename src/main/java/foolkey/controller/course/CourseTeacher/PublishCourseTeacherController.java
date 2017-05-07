@@ -5,6 +5,8 @@ import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.tool.Time;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,7 @@ public class PublishCourseTeacherController extends AbstractController{
             @RequestParam("price")Double price,
             @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
             @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-            @RequestParam("duration")Double duration,
+            @RequestParam("duration")Float duration,
             HttpServletResponse response
     ) throws Exception {
         try {
@@ -53,12 +55,12 @@ public class PublishCourseTeacherController extends AbstractController{
 //                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
 //            String topic = clearJSON.getString("topic");
 //            String description = clearJSON.getString("description");
-//            Double price = clearJSON.getDouble("price");
+//            Float price = clearJSON.getFloat("price");
 //            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
 //                CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
 //            String teachMethodStr = clearJSON.getString("teachMethodEnum");
 //                TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-//            Double duration = clearJSON.getDouble("duration");
+//            Float duration = clearJSON.getFloat("duration");
 
             //发布课程
 //            courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
@@ -72,7 +74,8 @@ public class PublishCourseTeacherController extends AbstractController{
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);
             courseTeacherDTO.setDuration(duration);
             courseTeacherDTO.setSales(0);
-            courseTeacherDTO.setAverageScore(0.0);
+            courseTeacherDTO.setAverageScore(0.0F);
+            courseTeacherDTO.setCreateTime(Time.getCurrentDate());
             courseTeacherBO.publishCourseTeacher(courseTeacherDTO);
 
             //封装-传送JSON

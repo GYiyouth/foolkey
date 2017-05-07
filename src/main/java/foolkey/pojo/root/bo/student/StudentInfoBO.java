@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 /**
  * 验证用户是否存在等方法，在 foolkey.pojo.root.bo.register.UserRegisterBO
@@ -82,5 +83,17 @@ public class StudentInfoBO {
         String token = TokenCreator.createToken(studentDTO.getUserName(), studentDTO.getPassWord());
         userCAO.saveStudentDTO(token, studentDTO);
         return studentDTO;
+    }
+
+
+    /**
+     * 把学生信息添加到缓存
+     */
+    public void fillStudentDTOToCache(){
+        ArrayList<StudentDTO> studentDTOS = getStudentDAO.findAll(StudentDTO.class);
+        for(StudentDTO studentDTO:studentDTOS){
+            String token = TokenCreator.createToken(studentDTO.getUserName(),studentDTO.getPassWord());
+            userCAO.saveStudentDTO(token,studentDTO);
+        }
     }
 }

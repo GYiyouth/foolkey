@@ -16,7 +16,7 @@ public class CourseTeacherDTO extends CourseAbstract{
 
     //预计时长 0.5h/1h...
     @Column(name = "duration")
-    private Double duration;
+    private Float duration;
 
 
     @Column(name = "course_teacher_state")
@@ -27,7 +27,7 @@ public class CourseTeacherDTO extends CourseAbstract{
     private Integer sales;
 
     @Column(name = "average_score")
-    private Double averageScore;
+    private Float averageScore;
 
     @Override
     public String toString() {
@@ -39,14 +39,13 @@ public class CourseTeacherDTO extends CourseAbstract{
                 "} " + super.toString();
     }
 
-    public Double getDuration() {
+    public Float getDuration() {
         return duration;
     }
 
-    public void setDuration(Double duration) {
+    public void setDuration(Float duration) {
         this.duration = duration;
     }
-
 
     public CourseTeacherStateEnum getCourseTeacherStateEnum() {
         return courseTeacherStateEnum;
@@ -64,11 +63,11 @@ public class CourseTeacherDTO extends CourseAbstract{
         this.sales = sales;
     }
 
-    public Double getAverageScore() {
+    public Float getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(Double averageScore) {
+    public void setAverageScore(Float averageScore) {
         this.averageScore = averageScore;
     }
 }
