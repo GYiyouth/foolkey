@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.give_money_to_user;
 
 import foolkey.pojo.root.DAO.transaction_user_earned_money.SaveTransactionUserEarnedMoneyDAO;
 import foolkey.pojo.root.vo.assistObject.OrderTypeEnum;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TransactionUserEarnedMoneyDTO;
@@ -24,7 +25,7 @@ public class GiveMoneyToTeacherBO {
 
 
     /**
-     * 老师上课以后，给老师分钱，这里分钱，是优惠券之前的前
+     * 老师上课以后，给老师分钱，这里分钱，是优惠券之前的钱
      * 会修改老师现金，但不会保存
      * @param teacher
      * @param orderDTO
@@ -33,6 +34,12 @@ public class GiveMoneyToTeacherBO {
     public TransactionUserEarnedMoneyDTO giveMoneyToTeacher(
             StudentDTO teacher, OrderBuyCourseDTO orderDTO
     ){
+        if (teacher.getRoleEnum().compareTo( RoleEnum.alreadyApplied) == 0){
+            //对于非认证老师，就只有虚拟币增加
+            Double virtual = orderDTO.getAmount() * MoneyRate.TEACHER_GET_MONEY_RATE;
+            teacher.setVirtualCurrency( teacher.getVirtualCurrency() + virtual );
+        }
+
         TransactionUserEarnedMoneyDTO transactionUserEarnedMoneyDTO = new TransactionUserEarnedMoneyDTO();
         transactionUserEarnedMoneyDTO.setAcceptUserId(teacher.getId());
         transactionUserEarnedMoneyDTO.setAmount( orderDTO.getAmount() );
