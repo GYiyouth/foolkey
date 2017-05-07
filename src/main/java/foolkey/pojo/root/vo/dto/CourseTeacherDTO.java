@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 课程
  * Created by admin on 2017/4/24.
  */
 @Component

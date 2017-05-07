@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "t_collection_question_answer")
 public class CollectionQuestionAnswerDTO extends CollectionAbstract{
 
+    //收藏的问题-回答的id
     @Column(name = "question_answer_id")
     private Long questionAnswerId;
 

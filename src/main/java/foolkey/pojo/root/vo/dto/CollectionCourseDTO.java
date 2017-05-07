@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "t_collection_course")
 public class CollectionCourseDTO extends CollectionAbstract{
 
+    //收藏的课程id
     @Column(name = "course_id")
     private Long courseId;
 

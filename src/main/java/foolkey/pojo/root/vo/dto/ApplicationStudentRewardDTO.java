@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * 申请学生的悬赏
  * Created by admin on 2017/4/24.
  */
 @Component
@@ -14,9 +15,11 @@ import javax.persistence.Table;
 @Table(name = "t_application_student_reward")
 public class ApplicationStudentRewardDTO extends ApplicationAbstract{
 
+    //学生(发布悬赏人)的id
     @Column(name = "student_id")
     private Long studentId;
 
+    //课程的id
     @Column(name = "order_id")
     private Long courseId;
 

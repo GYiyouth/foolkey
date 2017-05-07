@@ -18,9 +18,11 @@ public class CollectionAbstract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //收藏人的id
     @Column(name = "user_id")
     private Long userId;
 
+    //收藏的时间
     @Column(name = "collection_time")
     private Date collectionTime;
 

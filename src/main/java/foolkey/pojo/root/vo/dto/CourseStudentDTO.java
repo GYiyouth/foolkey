@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * 悬赏
  * Created by admin on 2017/4/24.
  */
 @Component

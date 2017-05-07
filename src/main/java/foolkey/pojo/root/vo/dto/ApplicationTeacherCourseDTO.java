@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * 申请老师的课程
  * Created by admin on 2017/4/24.
  */
 @Component
@@ -14,9 +15,11 @@ import javax.persistence.Table;
 @Table(name = "t_application_teacher_course")
 public class ApplicationTeacherCourseDTO extends ApplicationAbstract{
 
+    //订单的id
     @Column(name = "order_id")
     private Long orderId;
 
+    //老师(创建课程人)的id
     @Column(name = "courseTeacher_id")
     private Long teacherId;
 

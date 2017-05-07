@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "t_collection_article")
 public class CollectionArticleDTO extends CollectionAbstract{
 
+    //收藏的文章id
     @Column(name = "article_id")
     private Long articleId;
 

@@ -18,18 +18,23 @@ public class CommentDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //评论人的id
     @Column(name = "creator_id")
     private Long creatorId;
 
+    //评论文章的id
     @Column(name = "article_id")
     private Long articleId;
 
+    //评论的是哪条评论
     @Column(name = "comment_id")
     private Long commentId;
 
+    //评论时间
     @Column(name = "comment_time")
     private Date commentTime;
 
+    //评论的内容
     @Column(name = "content")
     private String content;
 
