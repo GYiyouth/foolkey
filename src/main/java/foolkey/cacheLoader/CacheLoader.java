@@ -2,6 +2,7 @@ package foolkey.cacheLoader;
 
 import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
 import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
@@ -22,6 +23,8 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
     private CourseTeacherBO courseTeacherBO;
     @Autowired
     private CourseStudentBO courseStudentBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
 
     /**
@@ -38,6 +41,9 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
                 //2.添加最新的、未解决的悬赏到缓存中
                 System.out.println("预热程序，悬赏类别：" + technicTagEnum);
                 courseStudentBO.fillCourseStudentPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
+                //3.添加学生信息到缓存
+                System.out.println("预热程序，学生信息：");
+                studentInfoBO.fillStudentDTOToCache();
             }
         }
     }
