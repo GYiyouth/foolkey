@@ -75,7 +75,7 @@ public class EvaluateStudentHandler extends AbstractBO {
         evaluationDTO.setAcceptor_id( orderDTO.getUserId() );
         evaluationDTO.setEvaluationStateEnum(EvaluationStateEnum.done);
         evaluationDTO.setOrderId( orderId );
-        evaluationDTO.setScore(score );
+        evaluationDTO.setScore( Double.parseDouble( score + "" ) );
 
         evaluationInfoBO.save(evaluationDTO);
     }

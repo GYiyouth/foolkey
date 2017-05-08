@@ -170,6 +170,25 @@ public class CourseTeacherBO {
         return getCourseTeacherDTOById(id);
     }
 
+
+    /**
+     * 根据课程id获取到课程-老师DTO
+     * @param courseId
+     * @return
+     * @throws Exception
+     */
+    public CourseTeacherPopularDTO getCourseTeacherDTOByCourseId(Long courseId) throws Exception {
+        // 首先根据课程id获取课程DTO
+        CourseTeacherDTO courseTeacherDTO = getCourseTeacherDTOById(courseId);
+        // 获取所属老师的信息
+        TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
+        // 创建课程-老师DTO，并赋值
+        CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
+        courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
+        courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+        return courseTeacherPopularDTO;
+    }
+
     /**
      * 修改缓存的课程信息
      * @param courseTeacherDTO

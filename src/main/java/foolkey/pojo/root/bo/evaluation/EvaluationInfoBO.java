@@ -20,6 +20,8 @@ import foolkey.pojo.root.vo.dto.EvaluationTeacherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 /**
  * Created by geyao on 2017/5/6.
  */
@@ -74,5 +76,45 @@ public class EvaluationInfoBO {
 
     public EvaluationTeacherDTO getEvaluationTeacherDTO(Long id){
         return getEvaluationTeacherDAO.get(EvaluationTeacherDTO.class, id);
+    }
+
+
+    /**
+     * 分页显示某门课的评论
+     * @param courseTeacherId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<EvaluationCourseDTO> getEvaluationCourseDTOByCourseTeacherId(Long courseTeacherId, Integer pageNo, Integer pageSize) throws Exception{
+        String hql = "select ec from EvaluationCourseDTO ec where ec.courseId = ?";
+        return getEvaluationCourseDAO.findByPage(hql,pageNo,pageSize,courseTeacherId);
+    }
+
+    /**
+     * 分页显示某个老师的评论
+     * @param teacherId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<EvaluationTeacherDTO> getEvaluationTeacherDTOByTeacherId(Long teacherId, Integer pageNo, Integer pageSize) throws Exception{
+        String hql = "select et from EvaluationTeacherDTO et where et.acceptor_id = ?";
+        return getEvaluationTeacherDAO.findByPage(hql,pageNo,pageSize,teacherId);
+    }
+
+    /**
+     * 分页显示某个学生的评论
+     * @param studentId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<EvaluationStudentDTO> getEvaluationStudentDTOByStudentId(Long studentId, Integer pageNo, Integer pageSize) throws Exception{
+        String hql = "select es from EvaluationStudentDTO es where es.acceptor_id = ?";
+        return getEvaluationStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
     }
 }

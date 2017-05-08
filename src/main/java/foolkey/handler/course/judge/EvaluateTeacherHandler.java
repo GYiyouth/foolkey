@@ -92,7 +92,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
         evaluationTeacherDTO.setAcceptor_id( teacherId );
         evaluationTeacherDTO.setEvaluationStateEnum( EvaluationStateEnum.done );
         evaluationTeacherDTO.setOrderId( orderId );
-        evaluationTeacherDTO.setScore( score );
+        evaluationTeacherDTO.setScore( Double.parseDouble(score + "") );
         evaluationInfoBO.save(evaluationTeacherDTO);
 
         //检查老师的认证状态
