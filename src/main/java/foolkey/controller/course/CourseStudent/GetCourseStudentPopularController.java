@@ -5,6 +5,8 @@ import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.tool.StaticVariable;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,24 +31,24 @@ public class GetCourseStudentPopularController extends AbstractController{
     @RequestMapping(value = "/getRewardCoursePopular")
     public void execute(
             HttpServletRequest request,
-            @RequestParam("pageNo") Integer pageNo,
-            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+//            @RequestParam("pageNo") Integer pageNo,
+//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             HttpServletResponse response
     ){
         try {
             //获取并解析JSON明文数据
-//            String clearText = request.getParameter("clearText");
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//            Integer pageNo = clearJSON.getInt("pageNo");
-//            String technicTag = clearJSON.getString("technicTagEnum");
-//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-            //获取热门的课程
-            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, 10);
+            Integer pageNo = clearJSON.getInt("pageNo");
+            String technicTag = clearJSON.getString("technicTagEnum");
+            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+
+            //获取热门的悬赏
+            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
             for (CourseStudentPopularDTO courseStudentPopularDTO : courseStudentPopularDTOS) {
-                System.out.println("热门课程：" + courseStudentPopularDTO.getCourseStudentDTO() + "--id:" + courseStudentPopularDTO.getCourseStudentDTO().getId());
-                System.out.println("所属老师："+courseStudentPopularDTO.getStudentDTO()+"---id:"+courseStudentPopularDTO.getStudentDTO().getId());
+                System.out.println("热门悬赏：" + courseStudentPopularDTO.getCourseStudentDTO() + "--id:" + courseStudentPopularDTO.getCourseStudentDTO().getId());
+                System.out.println("所属学生："+courseStudentPopularDTO.getStudentDTO()+"---id:"+courseStudentPopularDTO.getStudentDTO().getId());
             }
 
             //封装-传送json

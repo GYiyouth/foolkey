@@ -151,8 +151,14 @@ public class CourseStudentBO {
      * @param courseDTO
      * @return
      */
-    public CourseStudentDTO update(CourseStudentDTO courseDTO){
+    public CourseStudentDTO update(CourseStudentDTO courseDTO) throws Exception{
         updateCourseStudentDAO.update(courseDTO);
         return courseDTO;
+    }
+
+
+    public ArrayList<CourseStudentDTO> getMyCourseStudentDTO(Long studentId,Integer pageNo, Integer pageSize) throws Exception{
+        String hql = "select cs from CourseStudentDTO cs where cs.creatorId = ? order by cs.courseStudentStateEnum desc,createTime desc";
+        return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
     }
 }
