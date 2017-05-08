@@ -6,6 +6,8 @@ import foolkey.pojo.root.bo.RelationFollow.RelationFollowBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,25 +35,25 @@ public class GetCourseTeacherPopularController extends AbstractController{
     @RequestMapping(value = "/getCourseTeacherPopular")
     public void execute(
             HttpServletRequest request,
-            @RequestParam("token") String token,
-            @RequestParam("pageNo") Integer pageNo,
-            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+//            @RequestParam("token") String token,
+//            @RequestParam("pageNo") Integer pageNo,
+//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             HttpServletResponse response
             ){
         try {
             //获取并解析JSON明文数据
-//            String clearText = request.getParameter("clearText");
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//            String token =clearJSON.getString("token");
-//            Integer pageNo = clearJSON.getInt("pageNo");
-//            String technicTag = clearJSON.getString("technicTagEnum");
-//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
-            //获取学生的id
-//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-//            Long studentId = studentDTO.getId();
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-            Long studentId = 20003L;
+            String token =clearJSON.getString("token");
+            Integer pageNo = clearJSON.getInt("pageNo");
+            String technicTag = clearJSON.getString("technicTagEnum");
+            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+//            获取学生的id
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+            Long studentId = studentDTO.getId();
+
+//            Long studentId = 20003L;
 
             //获取热门的课程
             ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = courseTeacherBO.getCourseTeacherPopularDTO(technicTagEnum, pageNo, 10);
