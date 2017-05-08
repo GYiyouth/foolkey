@@ -35,22 +35,22 @@ public class PublishCourseStudentController extends AbstractController {
 
     @RequestMapping(value = "/publishRewardCourse")
     public void execute(
-//            HttpServletRequest request,
+            HttpServletRequest request,
 //            @RequestParam("token") String token,
-            @RequestParam("technicTagEnum") TechnicTagEnum technicTagEnum,
-            @RequestParam("topic") String topic,
-            @RequestParam("description") String description,
-            @RequestParam("price") Double price,
-            @RequestParam("courseTimeDayEnum") CourseTimeDayEnum courseTimeDayEnum,
-            @RequestParam("teachMethodEnum") TeachMethodEnum teachMethodEnum,
-            @RequestParam("teacherRequirementEnum") TeacherRequirementEnum teacherRequirementEnum,
-            @RequestParam("studentBaseEnum") StudentBaseEnum studentBaseEnum,
+//            @RequestParam("technicTagEnum") TechnicTagEnum technicTagEnum,
+//            @RequestParam("topic") String topic,
+//            @RequestParam("description") String description,
+//            @RequestParam("price") Double price,
+//            @RequestParam("courseTimeDayEnum") CourseTimeDayEnum courseTimeDayEnum,
+//            @RequestParam("teachMethodEnum") TeachMethodEnum teachMethodEnum,
+//            @RequestParam("teacherRequirementEnum") TeacherRequirementEnum teacherRequirementEnum,
+//            @RequestParam("studentBaseEnum") StudentBaseEnum studentBaseEnum,
             HttpServletResponse response
     ) throws Exception {
         try {
             System.out.println("00000");
             // 获取-分析JSON传递的明文信息
-/*            String clearText = request.getParameter("clearText");
+            String clearText = request.getParameter("clearText");
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             String token = clearJSON.getString("token");
@@ -66,13 +66,13 @@ public class PublishCourseStudentController extends AbstractController {
             String teacherRequirementStr = clearJSON.getString("teachRequirementEnum");
             TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
             String studentBase = clearJSON.getString("studentBaseEnum");
-            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);*/
+            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);
 
             // 创建一个curseStudentDTO(悬赏)，并赋值
-            /*StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-            courseStudentDTO.setCreatorId(studentDTO.getId());*/
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+            courseStudentDTO.setCreatorId(studentDTO.getId());
 
-            courseStudentDTO.setCreatorId(20001L);
+//            courseStudentDTO.setCreatorId(20001L);
 
             courseStudentDTO.setTechnicTagEnum(technicTagEnum);
             courseStudentDTO.setTopic(topic);
