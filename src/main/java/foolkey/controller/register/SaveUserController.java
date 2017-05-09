@@ -75,7 +75,8 @@ public class SaveUserController extends AbstractController {
 //                System.out.println("token加密前 " + token);
 //                System.out.println("token加密后 " + tokenCipher);
                 jsonObject.put("tokenCipher", token);
-                jsonObject.put("student", studentDTO);
+                jsonObject.put("studentDTO", studentDTO);
+                jsonObject.put("id", studentDTO.getId());
                 jsonObject.put("result", "success");
             }else {
 

@@ -76,6 +76,7 @@ public class LoginController extends AbstractController {
                     jsonObject.put("teacherDTO", teacherDTO);
             }
             jsonObject.put("studentDTO", studentDTO);
+            jsonObject.put("id", studentDTO.getId());
             jsonObject.put("token", token);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
