@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class TeacherDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "teacher_average_score")

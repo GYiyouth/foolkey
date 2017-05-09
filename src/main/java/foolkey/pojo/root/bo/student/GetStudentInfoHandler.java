@@ -47,6 +47,7 @@ public class GetStudentInfoHandler extends AbstractBO {
         studentDTO1.setPassWord("");//如果是老师，则一并返回teacherDTO
         TeacherDTO teacherDTO = null;
 
+        System.out.println("获取到的个人信息是\n" + studentDTO);
         if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) != 0){
             teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
             if (teacherDTO != null)

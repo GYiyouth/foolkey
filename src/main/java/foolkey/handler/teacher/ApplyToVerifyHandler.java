@@ -72,7 +72,7 @@ public class ApplyToVerifyHandler extends AbstractBO {
             teacherDTO.setTeacherAverageScore(0.0F);
             teacherDTO.setTeachingTime(0.0F);
             teacherDTO.setTeachingNumber(0);
-            teacherInfoBO.save(teacherDTO);
+//            teacherInfoBO.save(teacherDTO);
         }else { // 否则，从数据库获取
             System.out.println("从数据库取");
             teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
