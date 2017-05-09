@@ -5,6 +5,7 @@ import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
@@ -12,6 +13,7 @@ import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseSTCDTO;
+import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
 import foolkey.tool.JSONHandler;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/order")
-public class GetOrderTeacherCourseByStudentController extends AbstractController {
+public class GetOrderCourseByStudentController extends AbstractController {
 
     @Autowired
     private OrderInfoBO orderInfoBO;
@@ -40,7 +42,7 @@ public class GetOrderTeacherCourseByStudentController extends AbstractController
     @Autowired
     private CourseTeacherBO courseTeacherBO;
 
-    @RequestMapping(value = "/getOrderTeacherCourseByStudent")
+    @RequestMapping(value = "/getOrderCourseByStudent")
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("token") String token,
@@ -50,10 +52,11 @@ public class GetOrderTeacherCourseByStudentController extends AbstractController
         String clearText = request.getParameter("clearText");
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-        String token = clearJSON.getString("token");
         String orderStateStr = clearJSON.getString("orderStateEnum");
         OrderStateEnum orderStateEnum = OrderStateEnum.valueOf(orderStateStr);
-
+        String token = clearJSON.getString("token");
+        Integer pageNo = clearJSON.getInt("pageNo");
+        Integer pageSize = clearJSON.getInt("pageSize");
 
         /**
          unPay, payed, applyRefund, agreeRefund, refundCompete,
@@ -62,32 +65,24 @@ public class GetOrderTeacherCourseByStudentController extends AbstractController
          */
         //根据token，获取当前用户的id
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-
-        // 按照订单状态分类的订单
-        List<OrderBuyCourseDTO> orderBuyCourseDTOS = new ArrayList<>();
         Long studentId = studentDTO.getId();
-        try {
-            //按照订单状态，获取该学生所有的订单
-            orderBuyCourseDTOS = orderInfoBO.getCourseOrderAsStudent(studentId, orderStateEnum);
 
-            // 给传输到客户端的课程订单信息OrderBuyCourseSTCDTO赋值
-            ArrayList<OrderBuyCourseSTCDTO> orderBuyCourseSTCDTOS = new ArrayList<>();
-            for(OrderBuyCourseDTO orderBuyCourseDTO:orderBuyCourseDTOS){
-                OrderBuyCourseSTCDTO orderBuyCourseSTCDTO = new OrderBuyCourseSTCDTO();
-                //添加订单信息
-                orderBuyCourseSTCDTO.setOrderBuyCourseDTO(orderBuyCourseDTO);
-                //获取、添加课程信息
-//                CourseTeacherDTO courseTeacherDTO = new CourseTeacherDTO();
-                CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderBuyCourseDTO.getCourseId());
-                orderBuyCourseSTCDTO.setCourseTeacherDTO(courseTeacherDTO);
-                //获取、添加老师信息
-                TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(orderBuyCourseDTO.getTeacherId());
-                orderBuyCourseSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-                //添加到arrayList中
-                orderBuyCourseSTCDTOS.add(orderBuyCourseSTCDTO);
-            }
+        try {
+            //********** 悬赏 *****************
+            //按照订单状态，该学生下面的悬赏订单
+            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Reward = orderInfoBO.getOrderBuyCourseDTOAsStudent(studentId, CourseTypeEnum.学生悬赏,orderStateEnum,pageNo,pageSize);
+            //封装悬赏订单
+            ArrayList<OrderBuyRewardSTCDTO> orderBuyRewardSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyRewardSTCDTO(orderBuyCourseDTOS_Reward);
+
+            //******** 课程 *****************
+            //按照订单状态，该学生下面的课程订单
+            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Course = orderInfoBO.getOrderBuyCourseDTOAsStudent(studentId, CourseTypeEnum.老师课程,orderStateEnum,pageNo,pageSize);
+            //封装课程订单
+            ArrayList<OrderBuyCourseSTCDTO> orderBuyCourseSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyCourseSTCDTO(orderBuyCourseDTOS_Course);
+
             //封装、传送JSON
             jsonObject.put("result", "success");
+            jsonObject.put("orderBuyRewardSTCDTOS", orderBuyRewardSTCDTOS);
             jsonObject.put("orderBuyCourseSTCDTOS", orderBuyCourseSTCDTOS);
             jsonHandler.sendJSON(jsonObject, response);
         } catch (Exception e) {
