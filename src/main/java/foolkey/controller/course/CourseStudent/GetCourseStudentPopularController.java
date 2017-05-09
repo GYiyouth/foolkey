@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by ustcg on 2017/5/6.
@@ -50,6 +51,14 @@ public class GetCourseStudentPopularController extends AbstractController{
             //获取该登陆者的信息，方便后面传参(登陆者的技术类别)
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
+            //类别为空，则随机选取一个类别
+            if(studentDTO.getTechnicTagEnum() == null){
+                Integer technicSize = TechnicTagEnum.values().length;
+                System.out.println("技术类别中的数量:"+technicSize);
+                Random random = new Random();
+                Integer temp = random.nextInt(technicSize);
+                TechnicTagEnum technicTagEnum = TechnicTagEnum.values()[temp];
+            }
 
             //获取热门的悬赏
             ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(studentDTO.getTechnicTagEnum(), pageNo, StaticVariable.pageSize);

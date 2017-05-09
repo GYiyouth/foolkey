@@ -270,4 +270,25 @@ public class CourseTeacherBO {
         }
     }
 
+    /**
+     * 把课程转变为课程-老师
+     * @param courseTeacherDTOS
+     * @return
+     * @throws Exception
+     */
+    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(ArrayList<CourseTeacherDTO> courseTeacherDTOS) throws Exception{
+
+        ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
+        for(CourseTeacherDTO courseTeacherDTO:courseTeacherDTOS){
+            CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
+            // 获取-添加老师信息
+            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
+            courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            // 课程信息赋值
+            courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
+            courseTeacherPopularDTOS.add(courseTeacherPopularDTO);
+        }
+        return courseTeacherPopularDTOS;
+    }
+
 }
