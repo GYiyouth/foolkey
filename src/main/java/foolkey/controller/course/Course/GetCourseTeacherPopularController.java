@@ -1,19 +1,17 @@
-package foolkey.controller.course.CourseTeacher;
+package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.RelationFollow.RelationFollowBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 public class GetCourseTeacherPopularController extends AbstractController{
 
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired

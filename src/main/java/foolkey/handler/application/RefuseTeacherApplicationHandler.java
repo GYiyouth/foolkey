@@ -1,10 +1,10 @@
 package foolkey.handler.application;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class RefuseTeacherApplicationHandler extends AbstractBO{
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
 
@@ -45,7 +45,7 @@ public class RefuseTeacherApplicationHandler extends AbstractBO{
         Long courseId = clearJSON.getLong("courseId");
         Long studentId = clearJSON.getLong("teacherId"); // 实际上老师id就是老师的studentId
 
-        CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(courseId);
+        RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(courseId);
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(studentId);
 
         //删除申请

@@ -1,6 +1,6 @@
-package foolkey.pojo.root.vo.cacheDTO;
+package foolkey.pojo.send_to_client;
 
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class CourseStudentPopularDTO {
 
     //悬赏内容DTO
-    private CourseStudentDTO courseStudentDTO;
+    private RewardDTO courseStudentDTO;
     //发布悬赏的学生DTO
     private StudentDTO studentDTO;
 
@@ -25,11 +25,11 @@ public class CourseStudentPopularDTO {
                 '}';
     }
 
-    public CourseStudentDTO getCourseStudentDTO() {
+    public RewardDTO getCourseStudentDTO() {
         return courseStudentDTO;
     }
 
-    public void setCourseStudentDTO(CourseStudentDTO courseStudentDTO) {
+    public void setCourseStudentDTO(RewardDTO courseStudentDTO) {
         this.courseStudentDTO = courseStudentDTO;
     }
 

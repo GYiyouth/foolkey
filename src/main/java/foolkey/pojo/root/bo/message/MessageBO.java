@@ -20,7 +20,7 @@ public class MessageBO {
     public Result sendForApplication (
             ApplicationStudentRewardDTO applicationDTO,
             StudentDTO applicantDTO,
-            CourseStudentDTO courseDTO
+            RewardDTO courseDTO
     ) throws Exception{
         String messagePayLoad = "messagePayLoad";
         String title = "有人申请了你的悬赏课程 ！";
@@ -47,7 +47,7 @@ public class MessageBO {
     public Result sendForApplication (
             ApplicationTeacherCourseDTO applicationDTO,
             StudentDTO applicantDTO,
-            CourseTeacherDTO courseDTO
+            CourseDTO courseDTO
     ) throws Exception{
         String messagePayLoad = "messagePayLoad";
         String title = "有人购买了你的课程 ！";
@@ -95,7 +95,7 @@ public class MessageBO {
     public Result sendForPayReward(
             StudentDTO studentDTO, //学生悬赏的拥有者
             StudentDTO teacher, //老师，收件人
-            CourseStudentDTO courseDTO //课程
+            RewardDTO courseDTO //课程
     )throws Exception{
         String messagePayLoad = "sendForPayReWard";
         String title = "有人同意了你的悬赏申请！";

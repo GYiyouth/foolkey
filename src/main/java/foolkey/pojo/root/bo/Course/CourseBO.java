@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo.CourseTeacher;
+package foolkey.pojo.root.bo.Course;
 
 import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
@@ -8,9 +8,9 @@ import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.BeanFactory;
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by admin on 2017/4/26.
  */
 @Service("courseTeacherBO")
-public class CourseTeacherBO {
+public class CourseBO {
 
     @Resource(name = "localCache")
     private Cache cache;
@@ -60,9 +60,9 @@ public class CourseTeacherBO {
             throw new NullPointerException("technicTagEnum/size is null");
         }else {
             try {
-                ArrayList<CourseTeacherDTO> courseTeacherDTOS = getCourseTeacherDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, size);
+                ArrayList<CourseDTO> courseTeacherDTOS = getCourseTeacherDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, size);
                 ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
-                for (CourseTeacherDTO courseTeacherDTO : courseTeacherDTOS) {
+                for (CourseDTO courseTeacherDTO : courseTeacherDTOS) {
                     TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
                     CourseTeacherPopularDTO courseTeacherPopularDTO = BeanFactory.getBean("courseTeacherPopularDTO", CourseTeacherPopularDTO.class);
                     courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
@@ -109,7 +109,7 @@ public class CourseTeacherBO {
      * 发布课程
      * @param courseTeacherDTO
      */
-    public void publishCourseTeacher(CourseTeacherDTO courseTeacherDTO){
+    public void publishCourseTeacher(CourseDTO courseTeacherDTO){
         if(courseTeacherDTO == null){
             throw new NullPointerException("课程内容为空");
         }else{
@@ -123,7 +123,7 @@ public class CourseTeacherBO {
      * @param courseDTO
      * @return
      */
-    public boolean  checkCourse(CourseTeacherDTO courseDTO){
+    public boolean  checkCourse(CourseDTO courseDTO){
         try {
             if (courseDTO.getCourseTeacherStateEnum()
                     .compareTo(CourseTeacherStateEnum.可上课) == 0){ // 课程
@@ -152,7 +152,7 @@ public class CourseTeacherBO {
      * @return
      * @throws Exception
      */
-    public CourseTeacherDTO getCourseTeacherDTOById(Long id) throws Exception{
+    public CourseDTO getCourseTeacherDTOById(Long id) throws Exception{
         if(id == null){
             throw new NullPointerException("id is null");
         }else{
@@ -161,12 +161,12 @@ public class CourseTeacherBO {
                 System.out.println("缓存有！");
                return courseTeacherPopularDTO.getCourseTeacherDTO();
             }else{
-                return getCourseTeacherDAO.get(CourseTeacherDTO.class,id);
+                return getCourseTeacherDAO.get(CourseDTO.class,id);
             }
         }
     }
 
-    public CourseTeacherDTO getCourseTeacherDTOById(String courseId) throws Exception {
+    public CourseDTO getCourseTeacherDTOById(String courseId) throws Exception {
         Long id = Long.parseLong(courseId);
         return getCourseTeacherDTOById(id);
     }
@@ -180,7 +180,7 @@ public class CourseTeacherBO {
      */
     public CourseTeacherPopularDTO getCourseTeacherPopularDTOByCourseId(Long courseId) throws Exception {
         // 首先根据课程id获取课程DTO
-        CourseTeacherDTO courseTeacherDTO = getCourseTeacherDTOById(courseId);
+        CourseDTO courseTeacherDTO = getCourseTeacherDTOById(courseId);
         // 获取所属老师的信息
         TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
         // 创建课程-老师DTO，并赋值
@@ -196,7 +196,7 @@ public class CourseTeacherBO {
      * @return
      * @throws Exception
      */
-    public void updateCourseTeacherCache(CourseTeacherDTO courseTeacherDTO) throws Exception {
+    public void updateCourseTeacherCache(CourseDTO courseTeacherDTO) throws Exception {
         if(courseTeacherDTO == null){
             throw new NullPointerException("courseTeacherDTO is null");
         }else{
@@ -234,7 +234,7 @@ public class CourseTeacherBO {
      * @param courseTeacherDTO
      * @throws Exception
      */
-    public void updateCourseTeacherDTO(CourseTeacherDTO courseTeacherDTO) throws Exception{
+    public void updateCourseTeacherDTO(CourseDTO courseTeacherDTO) throws Exception{
         if(courseTeacherDTO == null){
             throw new NullPointerException("courseTeacherDTO is null");
         }else{
@@ -277,10 +277,10 @@ public class CourseTeacherBO {
      * @return
      * @throws Exception
      */
-    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(List<CourseTeacherDTO> courseTeacherDTOS) throws Exception{
+    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(List<CourseDTO> courseTeacherDTOS) throws Exception{
 
         ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
-        for(CourseTeacherDTO courseTeacherDTO:courseTeacherDTOS){
+        for(CourseDTO courseTeacherDTO:courseTeacherDTOS){
             CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
             // 获取-添加老师信息
             TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());

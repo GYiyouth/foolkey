@@ -3,15 +3,15 @@ package foolkey.pojo.root.bo.order_course;
 import foolkey.pojo.root.DAO.order_course.GetOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.OrderBuyCourseSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
@@ -47,9 +47,9 @@ public class OrderInfoBO {
     @Autowired
     private TeacherInfoBO teacherInfoBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
 
     /**
      * 根据信息生成订单
@@ -220,7 +220,7 @@ public class OrderInfoBO {
             //获取-赋值  订单信息
             orderBuyCourseSTCDTO.setOrderBuyCourseDTO(orderBuyCourseDTO);
             //获取-赋值  悬赏的信息
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderBuyCourseDTO.getCourseId());
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderBuyCourseDTO.getCourseId());
             orderBuyCourseSTCDTO.setCourseTeacherDTO(courseTeacherDTO);
             //获取、赋值  学生信息(发布者)
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());
@@ -247,7 +247,7 @@ public class OrderInfoBO {
             //获取-赋值  订单信息
             orderBuyRewardSTCDTO.setOrderBuyCourseDTO(orderBuyCourseDTO);
             //获取-赋值  悬赏的信息
-            CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(orderBuyCourseDTO.getCourseId());
+            RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(orderBuyCourseDTO.getCourseId());
             orderBuyRewardSTCDTO.setCourseStudentDTO(courseStudentDTO);
             //获取、赋值  学生信息(发布者)
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());

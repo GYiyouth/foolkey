@@ -1,7 +1,7 @@
 package foolkey.handler.application;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
@@ -12,7 +12,7 @@ import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
@@ -37,7 +37,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
     private StudentInfoBO studentInfoBO;
 
     @Autowired
-    private CourseStudentBO courseBO;
+    private RewardBO courseBO;
 
     @Autowired
     private CouponInfoBO couponInfoBO;
@@ -74,7 +74,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         StudentDTO applicantDTO = studentInfoBO.getStudentDTO(applicantId);
         CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId + "");
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
-        CourseStudentDTO courseDTO = courseBO.getCourseStudentDTO(orderDTO.getCourseId());
+        RewardDTO courseDTO = courseBO.getCourseStudentDTO(orderDTO.getCourseId());
 
         //余额扣款
         Double needToPay = useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);

@@ -1,17 +1,15 @@
 package foolkey.controller.collectionCourse;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.collection.CollectionBO;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.root.vo.dto.CollectionCourseDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +25,7 @@ public class GetMyCollectionCourseController extends AbstractController{
     @Autowired
     private CollectionBO collectionBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
 
     @RequestMapping(value = "/getMyCollectionCourse")
     public void execute(

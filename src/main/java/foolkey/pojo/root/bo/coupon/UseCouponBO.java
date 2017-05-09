@@ -3,7 +3,7 @@ package foolkey.pojo.root.bo.coupon;
 import foolkey.pojo.root.vo.assistObject.CouponTypeEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.stereotype.Service;
@@ -58,7 +58,7 @@ public class UseCouponBO {
      * @param couponDTO
      */
     public Double userCouponForReward(
-            StudentDTO studentDTO, CourseStudentDTO courseDTO, CouponDTO couponDTO){
+            StudentDTO studentDTO, RewardDTO courseDTO, CouponDTO couponDTO){
 
         if (couponDTO == null)
             return courseDTO.getPrice();

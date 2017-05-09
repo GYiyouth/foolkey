@@ -1,4 +1,4 @@
-package foolkey.controller.course.CourseTeacher;
+package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
 import foolkey.handler.application.AcceptTeacherCourseApplicationHandler;

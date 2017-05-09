@@ -1,7 +1,7 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
@@ -36,7 +36,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
     private TeacherInfoBO teacherInfoBO;
 
     @Autowired
-    private CourseTeacherBO courseBO;
+    private CourseBO courseBO;
 
     @Autowired
     private OrderInfoBO orderInfoBO;
@@ -60,7 +60,7 @@ public class PlaceOrderTeacherCourseHandler extends AbstractBO{
 
         // 获取学生DTO，课程DTO，老师DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        CourseTeacherDTO courseDTO = courseBO.getCourseTeacherDTOById(courseId);
+        CourseDTO courseDTO = courseBO.getCourseTeacherDTOById(courseId);
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( Long.parseLong(teacherId) );
 
 

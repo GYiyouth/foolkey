@@ -1,7 +1,7 @@
 package foolkey.handler.pay;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
@@ -12,7 +12,6 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.dto.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private CouponInfoBO couponInfoBO;
     @Autowired
@@ -74,7 +73,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         StudentDTO teacher = studentInfoBO.getStudentDTO(applicationDTO.getApplicantId()); // 老师，申请人
         CouponDTO couponDTO =  (!couponId.equals(0L)) // 如果couponId为空
                 ? couponInfoBO.getCouponDTO(couponId) : null;  //则返回null
-        CourseStudentDTO courseDTO = courseStudentBO.getCourseStudentDTO(applicationDTO.getCourseId());
+        RewardDTO courseDTO = courseStudentBO.getCourseStudentDTO(applicationDTO.getCourseId());
 
         //检验优惠券付款
         Double expectedPrice = useCouponBO.userCouponForReward(studentDTO, courseDTO, couponDTO);

@@ -4,7 +4,7 @@ import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.SaveTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.UpdateTeacherDAO;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.BeanFactory;

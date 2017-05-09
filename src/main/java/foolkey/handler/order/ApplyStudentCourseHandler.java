@@ -1,17 +1,16 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
-import foolkey.tool.push_message.MessagePusher;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class ApplyStudentCourseHandler extends AbstractBO {
     @Autowired
     private TeacherInfoBO teacherInfoBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
     @Autowired
@@ -61,7 +60,7 @@ public class ApplyStudentCourseHandler extends AbstractBO {
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(studentDTO.getId());
         //获取课程信息
-        CourseStudentDTO courseDTO = courseStudentBO.getCourseStudentDTO( courseId );
+        RewardDTO courseDTO = courseStudentBO.getCourseStudentDTO( courseId );
 
         //验证资格
         //学生、认证失败的老师也不能接单

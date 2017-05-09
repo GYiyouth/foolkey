@@ -1,17 +1,14 @@
 package foolkey.cacheLoader;
 
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 
 /**
@@ -22,9 +19,9 @@ import java.util.Map;
 public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
 

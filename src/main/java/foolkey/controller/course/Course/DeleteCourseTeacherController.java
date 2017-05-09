@@ -1,8 +1,8 @@
-package foolkey.controller.course.CourseTeacher;
+package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteCourseTeacherController extends AbstractController {
 
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
 
     @Autowired
-    private CourseTeacherDTO courseTeacherDTO;
+    private CourseDTO courseDTO;
 
     @RequestMapping(value = "/deleteCourseTeacher")
     public void execute(
@@ -36,12 +36,12 @@ public class DeleteCourseTeacherController extends AbstractController {
             Long id = clearJSON.getLong("id");
 
             System.out.println("删除程信息");
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
             courseTeacherDTO.setId(id);
             courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
             courseTeacherBO.updateCourseTeacherDTO(courseTeacherDTO);
             jsonObject.put("result","success");
-            jsonObject.put("courseTeacherDTO",courseTeacherDTO);
+            jsonObject.put("courseDTO",courseTeacherDTO);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();

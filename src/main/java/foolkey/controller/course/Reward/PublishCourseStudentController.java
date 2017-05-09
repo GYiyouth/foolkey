@@ -1,17 +1,16 @@
-package foolkey.controller.course.CourseStudent;
+package foolkey.controller.course.Reward;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.Time;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 public class PublishCourseStudentController extends AbstractController {
 
     @Resource(name = "courseStudentBO")
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
 
-    @Resource(name = "courseStudentDTO")
-    private CourseStudentDTO courseStudentDTO;
+    @Resource(name = "rewardDTO")
+    private RewardDTO courseStudentDTO;
 
     @Autowired
     private StudentInfoBO studentInfoBO;

@@ -1,7 +1,7 @@
 package foolkey.handler.course.judge;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
@@ -31,7 +31,7 @@ public class EvaluateCourseHandler extends AbstractBO {
     @Autowired
     private OrderInfoBO orderInfoBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
     private EvaluationInfoBO evaluationInfoBO;
     @Autowired
@@ -58,7 +58,7 @@ public class EvaluateCourseHandler extends AbstractBO {
         //获取DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
-        CourseTeacherDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+        CourseDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
 
         //新建一个评价
         EvaluationCourseDTO evaluationDTO = new EvaluationCourseDTO();

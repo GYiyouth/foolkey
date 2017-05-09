@@ -1,13 +1,20 @@
-package foolkey.pojo.root.vo.cacheDTO;
+package foolkey.pojo.send_to_client;
+
 
 import foolkey.pojo.root.vo.assistObject.*;
+import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 /**
- * Created by ustcg on 2017/5/6.
+ * Created by GR on 2017/5/5.
  */
-public class StudentAllInfoDTO {
+@Component("teacherAllInfoDTO")
+@Scope("prototype")
+public class TeacherAllInfoDTO {
 
     private Long id;
 
@@ -76,7 +83,7 @@ public class StudentAllInfoDTO {
     private String description;
 
     //作为学生，平均分
-    private Integer studentAverageScore;
+    private Float studentAverageScore;
 
     //学习时间？
     private Float learningTime;
@@ -84,9 +91,64 @@ public class StudentAllInfoDTO {
     //学习的课程数？
     private Integer learningNumber;
 
+    /*******************老师特有部分信息*************/
+    //作为老师的平均分
+    private Float teacherAverageScore;
+
+    //已经教了多长时间
+    private Float teachingTime;
+
+    //教了多少人
+    private Integer teachingNumber;
+
+    //?
+    private VerifyStateEnum verifyState;
+
+    //关注数
+    private Integer followerNumber;
+
+
+
+    public void clone(StudentDTO studentDTO, TeacherDTO teacherDTO) {
+        if(studentDTO.getId() == teacherDTO.getId()){
+            this.setId(studentDTO.getId());
+            this.setUserName(studentDTO.getUserName());
+            this.setCash(studentDTO.getCash());
+            this.setVirtualCurrency(studentDTO.getVirtualCurrency());
+            this.setPrestige(studentDTO.getPrestige());
+            this.setName(studentDTO.getName());
+            this.setSexTagEnum(studentDTO.getSexTagEnum());
+            this.setOrganization(studentDTO.getOrganization());
+            this.setBirthday(studentDTO.getBirthday());
+            this.setTechnicTagEnum(studentDTO.getTechnicTagEnum());
+            this.setSchoolEnum(studentDTO.getSchoolEnum());
+            this.setBlogUrl(studentDTO.getBlogUrl());
+            this.setGithubUrl(studentDTO.getGithubUrl());
+            this.setOtherUrl(studentDTO.getOtherUrl());
+            this.setPhotoUrl(studentDTO.getPhotoUrl());
+            this.setNickedName(studentDTO.getNickedName());
+            this.setRoleEnum(studentDTO.getRoleEnum());
+            this.setUserStateEnum(studentDTO.getUserStateEnum());
+            this.setSlogan(studentDTO.getSlogan());
+            this.setEmail(studentDTO.getEmail());
+            this.setPhoneNumber(studentDTO.getPhoneNumber());
+            this.setDescription(studentDTO.getDescription());
+            this.setStudentAverageScore(studentDTO.getStudentAverageScore());
+            this.setLearningTime(studentDTO.getLearningTime());
+            this.setLearningNumber(studentDTO.getLearningNumber());
+
+            //老师的东西
+            this.setTeacherAverageScore(teacherDTO.getTeacherAverageScore());
+            this.setTeachingTime(teacherDTO.getTeachingTime());
+            this.setTeachingNumber(teacherDTO.getTeachingNumber());
+            this.setVerifyState(teacherDTO.getVerifyState());
+            this.setFollowerNumber(teacherDTO.getFollowerNumber());
+        }
+    }
+
     @Override
     public String toString() {
-        return "StudentAllInfoDTO{" +
+        return "TeacherAllInfoDTO{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", cash=" + cash +
@@ -112,6 +174,11 @@ public class StudentAllInfoDTO {
                 ", studentAverageScore=" + studentAverageScore +
                 ", learningTime=" + learningTime +
                 ", learningNumber=" + learningNumber +
+                ", teacherAverageScore=" + teacherAverageScore +
+                ", teachingTime=" + teachingTime +
+                ", teachingNumber=" + teachingNumber +
+                ", verifyState=" + verifyState +
+                ", followerNumber=" + followerNumber +
                 '}';
     }
 
@@ -291,11 +358,11 @@ public class StudentAllInfoDTO {
         this.description = description;
     }
 
-    public Integer getStudentAverageScore() {
+    public Float getStudentAverageScore() {
         return studentAverageScore;
     }
 
-    public void setStudentAverageScore(Integer studentAverageScore) {
+    public void setStudentAverageScore(Float studentAverageScore) {
         this.studentAverageScore = studentAverageScore;
     }
 
@@ -313,5 +380,45 @@ public class StudentAllInfoDTO {
 
     public void setLearningNumber(Integer learningNumber) {
         this.learningNumber = learningNumber;
+    }
+
+    public Float getTeacherAverageScore() {
+        return teacherAverageScore;
+    }
+
+    public void setTeacherAverageScore(Float teacherAverageScore) {
+        this.teacherAverageScore = teacherAverageScore;
+    }
+
+    public Float getTeachingTime() {
+        return teachingTime;
+    }
+
+    public void setTeachingTime(Float teachingTime) {
+        this.teachingTime = teachingTime;
+    }
+
+    public Integer getTeachingNumber() {
+        return teachingNumber;
+    }
+
+    public void setTeachingNumber(Integer teachingNumber) {
+        this.teachingNumber = teachingNumber;
+    }
+
+    public VerifyStateEnum getVerifyState() {
+        return verifyState;
+    }
+
+    public void setVerifyState(VerifyStateEnum verifyState) {
+        this.verifyState = verifyState;
+    }
+
+    public Integer getFollowerNumber() {
+        return followerNumber;
+    }
+
+    public void setFollowerNumber(Integer followerNumber) {
+        this.followerNumber = followerNumber;
     }
 }

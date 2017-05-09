@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Component
 @Entity
 @Table(name = "t_course_student")
-public class CourseStudentDTO extends CourseAbstract{
+public class RewardDTO extends CourseAbstract{
 
     // 认证老师,非认证老师,不限
     @Column(name = "teacher_requirement")

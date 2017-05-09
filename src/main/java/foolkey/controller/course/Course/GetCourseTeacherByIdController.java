@@ -1,8 +1,8 @@
-package foolkey.controller.course.CourseTeacher;
+package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GetCourseTeacherByIdController extends AbstractController {
 
     @Resource(name = "courseTeacherBO")
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
 
     @RequestMapping(value = "/getCourseTeacherById")
     public void execute(
@@ -32,7 +32,7 @@ public class GetCourseTeacherByIdController extends AbstractController {
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             Long id = clearJSON.getLong("id");
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
             jsonObject.put("result","success");
             jsonObject.put("courseTeacherDTO",courseTeacherDTO);
             jsonHandler.sendJSON(jsonObject,response);

@@ -1,18 +1,16 @@
-package foolkey.controller.course.CourseStudent;
+package foolkey.controller.course.Reward;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +25,7 @@ import java.util.Random;
 public class GetCourseStudentPopularController extends AbstractController{
 
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private StudentInfoBO studentInfoBO;
 

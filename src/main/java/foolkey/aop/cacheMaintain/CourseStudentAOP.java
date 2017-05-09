@@ -3,8 +3,8 @@ package foolkey.aop.cacheMaintain;
 import foolkey.pojo.root.CAO.CourseStudent.CourseStudentCAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -31,7 +31,7 @@ public class CourseStudentAOP {
      */
     @AfterReturning(returning = "courseStudentDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_student.*.update(..))"  )
-    public void updateCourseStudentDTO(JoinPoint jp, CourseStudentDTO courseStudentDTO){
+    public void updateCourseStudentDTO(JoinPoint jp, RewardDTO courseStudentDTO){
         if(courseStudentDTO != null){
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
             CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
@@ -49,7 +49,7 @@ public class CourseStudentAOP {
      */
     @AfterReturning(returning = "courseStudentDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO.save(..))")
-    public void addCourseTeacherDTOToCache(CourseStudentDTO courseStudentDTO){
+    public void addCourseTeacherDTOToCache(RewardDTO courseStudentDTO){
         if(courseStudentDTO != null){
 //            courseTeacherCAO.addNewCourseTeacherToCache(courseTeacherDTO);
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());

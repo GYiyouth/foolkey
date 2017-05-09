@@ -1,7 +1,7 @@
 package foolkey.handler.course.judge;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
@@ -40,7 +40,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
     @Autowired
     private OrderInfoBO orderInfoBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
     private EvaluationInfoBO evaluationInfoBO;
     @Autowired

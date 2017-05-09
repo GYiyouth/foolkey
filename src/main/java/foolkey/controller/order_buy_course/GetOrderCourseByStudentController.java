@@ -1,30 +1,24 @@
 package foolkey.controller.order_buy_course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
-import foolkey.tool.JSONHandler;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ustcg on 2017/5/6.
@@ -40,7 +34,7 @@ public class GetOrderCourseByStudentController extends AbstractController {
     @Autowired
     private TeacherInfoBO teacherInfoBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
 
     @RequestMapping(value = "/getOrderCourseByStudent")
     public void execute(

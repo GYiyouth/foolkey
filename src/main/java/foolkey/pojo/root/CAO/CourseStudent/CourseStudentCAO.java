@@ -5,8 +5,8 @@ import foolkey.pojo.root.DataStructure.DoubleLink;
 import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.tool.StaticVariable;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
@@ -222,7 +222,7 @@ public class CourseStudentCAO extends AbstractCAO {
      * @param id
      * @return
      */
-    public CourseStudentDTO getCourseStudentDTOByCourseStudentId(Long id){
+    public RewardDTO getCourseStudentDTOByCourseStudentId(Long id){
         if(id == null){
             throw new NullPointerException("id is null");
         }else {

@@ -8,8 +8,8 @@ import foolkey.pojo.root.DAO.application_teacher_course.DeleteApplicationTeacher
 import foolkey.pojo.root.DAO.application_teacher_course.GetApplicationTeacherCourseDAO;
 import foolkey.pojo.root.DAO.application_teacher_course.SaveApplicationTeacherCourseDAO;
 import foolkey.pojo.root.DAO.application_teacher_course.UpdateApplicationTeacherCourseDAO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
@@ -44,9 +44,9 @@ public class ApplicationInfoBO {
     @Autowired
     private UpdateApplicationTeacherCourseDAO updateApplicationTeacherCourseDAO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
     private OrderInfoBO orderInfoBO;
 
@@ -129,11 +129,11 @@ public class ApplicationInfoBO {
     public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType) throws Exception{
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
         if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0) {
-            CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
+            RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
             deleteApplicationStudentRewardDAO.deleteAllByCourseId(courseStudentDTO.getId());
         }
         if (courseType.compareTo(CourseTypeEnum.老师课程) == 0) {
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
             deleteApplicationTeacherCourseDAO.deleteAllByCourseId(courseTeacherDTO.getId());
         }
     }

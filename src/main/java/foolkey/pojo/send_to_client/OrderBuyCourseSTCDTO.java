@@ -1,7 +1,6 @@
 package foolkey.pojo.send_to_client;
 
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class OrderBuyCourseSTCDTO {
 
     //课程信息
-    private CourseTeacherDTO courseTeacherDTO;
+    private CourseDTO courseTeacherDTO;
 
     //老师信息
     private TeacherAllInfoDTO teacherAllInfoDTO;
@@ -34,11 +33,11 @@ public class OrderBuyCourseSTCDTO {
                 '}';
     }
 
-    public CourseTeacherDTO getCourseTeacherDTO() {
+    public CourseDTO getCourseTeacherDTO() {
         return courseTeacherDTO;
     }
 
-    public void setCourseTeacherDTO(CourseTeacherDTO courseTeacherDTO) {
+    public void setCourseTeacherDTO(CourseDTO courseTeacherDTO) {
         this.courseTeacherDTO = courseTeacherDTO;
     }
 

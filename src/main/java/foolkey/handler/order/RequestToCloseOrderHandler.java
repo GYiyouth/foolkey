@@ -1,8 +1,8 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
@@ -36,9 +36,9 @@ public class RequestToCloseOrderHandler extends AbstractBO {
     @Autowired
     private MessageBO messageBO;
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
     @Autowired
@@ -81,12 +81,12 @@ public class RequestToCloseOrderHandler extends AbstractBO {
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);
             // 向老师发送消息
-            CourseTeacherDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
             String name;
             if (courseTeacherDTO != null)
                 name = courseTeacherDTO.getTopic();
             else {
-                CourseStudentDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
+                RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
                 name = courseStudentDTO.getTopic();
             }
             messageBO.sendForRefundToTeacher(studentDTO, teacherDTO, name);

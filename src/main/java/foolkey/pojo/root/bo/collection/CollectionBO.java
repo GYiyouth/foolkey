@@ -1,9 +1,7 @@
 package foolkey.pojo.root.bo.collection;
 
 import foolkey.pojo.root.DAO.collection_course.GetCollectionCourseDAO;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
 import foolkey.pojo.root.vo.dto.CollectionCourseDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

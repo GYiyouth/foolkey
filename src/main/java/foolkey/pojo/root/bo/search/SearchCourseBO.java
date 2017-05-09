@@ -1,11 +1,11 @@
 package foolkey.pojo.root.bo.search;
 
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class SearchCourseBO {
     @Autowired
-    private CourseTeacherBO courseTeacherBO;
+    private CourseBO courseTeacherBO;
     @Autowired
     private GetCourseTeacherDAO getCourseTeacherDAO;
 
@@ -41,7 +41,7 @@ public class SearchCourseBO {
         }
         //如果，有技术关键词
         if (keyList.size() > 0){
-            List<CourseTeacherDTO> courseTeacherDTOS =  getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like ? ", pageNo, 20, "%" + keyList.get(0) + "%" );
+            List<CourseDTO> courseTeacherDTOS =  getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like ? ", pageNo, 20, "%" + keyList.get(0) + "%" );
             return courseTeacherBO.convertCourseTeacherIntoCourseTeacherPopular(courseTeacherDTOS);
         }
         return new ArrayList<>();

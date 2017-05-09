@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_course_teacher")
-public class CourseTeacherDTO extends CourseAbstract{
+public class CourseDTO extends CourseAbstract{
 
     //建议时长 0.5h/1h...
     @Column(name = "duration")

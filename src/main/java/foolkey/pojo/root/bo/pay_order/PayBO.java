@@ -3,7 +3,7 @@ package foolkey.pojo.root.bo.pay_order;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class PayBO {
         return false;
     }
 
-    public Boolean payForReward(StudentDTO studentDTO, CourseStudentDTO courseDTO, CouponDTO couponDTO){
+    public Boolean payForReward(StudentDTO studentDTO, RewardDTO courseDTO, CouponDTO couponDTO){
         Double money = studentDTO.getVirtualCurrency();
         Double totalPrice = courseDTO.getPrice();
 

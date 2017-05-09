@@ -5,9 +5,8 @@ import foolkey.pojo.root.DataStructure.DoubleLink;
 import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.tool.StaticVariable;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
@@ -410,9 +409,9 @@ public class CourseTeacherCAO extends AbstractCAO {
             if ((technicMap != null) && (technicMap.containsKey(courseTeacherToken))) {
                 DoubleLink courseTeacherPopularDoubleLink = technicMap.get(courseTeacherToken);
                 for (int i = 0; i < courseTeacherPopularDoubleLink.getLength(); i++) {
-                    CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                    CourseDTO courseTeacherDTO = (CourseDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
                     if (courseTeacherDTO.getId() == 123L) {
-                        CourseTeacherDTO courseTeacherDTO1 = (CourseTeacherDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
+                        CourseDTO courseTeacherDTO1 = (CourseDTO) courseTeacherPopularDoubleLink.getNodeByIndex(i).getData();
                         System.out.println(courseTeacherDTO1.getId() + "====");
                         System.out.println(courseTeacherDTO1.getTopic() + "=======");
                     }

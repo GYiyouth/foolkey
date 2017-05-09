@@ -1,21 +1,16 @@
-package foolkey.pojo.root.bo.CourseStudent;
+package foolkey.pojo.root.bo.Reward;
 
 import foolkey.pojo.root.CAO.CourseStudent.CourseStudentCAO;
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
-import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
-import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
+import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.tool.BeanFactory;
 import foolkey.tool.StaticVariable;
 import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +24,7 @@ import java.util.List;
  * Created by ustcg on 2017/4/30.
  */
 @Service("courseStudentBO")
-public class CourseStudentBO {
+public class RewardBO {
 
     @Resource(name = "localCache")
     private Cache cache;
@@ -59,9 +54,9 @@ public class CourseStudentBO {
         }else {
             try {
                 // 1.从数据库读取最新的size条记录
-                ArrayList<CourseStudentDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
+                ArrayList<RewardDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
                 ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
-                for (CourseStudentDTO courseStudentDTO : courseStudentDTOS) {
+                for (RewardDTO courseStudentDTO : courseStudentDTOS) {
                     StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
                     CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
                     courseStudentPopularDTO.setStudentDTO(studentDTO);
@@ -111,16 +106,16 @@ public class CourseStudentBO {
      * @return
      * @throws Exception
      */
-    public CourseStudentDTO getCourseStudentDTOById(Long id) throws Exception{
+    public RewardDTO getCourseStudentDTOById(Long id) throws Exception{
         if(id == null){
             throw new NullPointerException("id is null");
         }else{
-            CourseStudentDTO courseStudentDTO = courseStudentCAO.getCourseStudentDTOByCourseStudentId(id);
+            RewardDTO courseStudentDTO = courseStudentCAO.getCourseStudentDTOByCourseStudentId(id);
             if(courseStudentDTO != null ){
                 System.out.println("缓存有！");
                 return courseStudentDTO;
             }else{
-                return getCourseStudentDAO.get(CourseStudentDTO.class,id);
+                return getCourseStudentDAO.get(RewardDTO.class,id);
             }
         }
     }
@@ -130,7 +125,7 @@ public class CourseStudentBO {
      * 发布悬赏
      * @param courseStudentDTO
      */
-    public void publishCourseStudent(CourseStudentDTO courseStudentDTO){
+    public void publishCourseStudent(RewardDTO courseStudentDTO){
         if(courseStudentDTO == null){
             throw new NullPointerException("课程内容为空");
         }else{
@@ -143,8 +138,8 @@ public class CourseStudentBO {
      * @param id
      * @return
      */
-    public CourseStudentDTO getCourseStudentDTO(Long id){
-        return getCourseStudentDAO.get(CourseStudentDTO.class, id);
+    public RewardDTO getCourseStudentDTO(Long id){
+        return getCourseStudentDAO.get(RewardDTO.class, id);
     }
 
     /**
@@ -152,7 +147,7 @@ public class CourseStudentBO {
      * @param courseDTO
      * @return
      */
-    public CourseStudentDTO update(CourseStudentDTO courseDTO) throws Exception{
+    public RewardDTO update(RewardDTO courseDTO) throws Exception{
         updateCourseStudentDAO.update(courseDTO);
         return courseDTO;
     }
@@ -166,7 +161,7 @@ public class CourseStudentBO {
      * @return
      * @throws Exception
      */
-    public ArrayList<CourseStudentDTO> getMyCourseStudentDTO(Long studentId,Integer pageNo, Integer pageSize) throws Exception{
+    public ArrayList<RewardDTO> getMyCourseStudentDTO(Long studentId, Integer pageNo, Integer pageSize) throws Exception{
         String hql = "select cs from CourseStudentDTO cs where cs.creatorId = ? order by cs.courseStudentStateEnum desc,createTime desc";
         return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
     }
@@ -177,10 +172,10 @@ public class CourseStudentBO {
      * @return
      * @throws Exception
      */
-    public List<CourseStudentPopularDTO> convertCourseStudentIntoCourseStudentPopular(List<CourseStudentDTO> courseStudentDTOS) throws Exception{
+    public List<CourseStudentPopularDTO> convertCourseStudentIntoCourseStudentPopular(List<RewardDTO> courseStudentDTOS) throws Exception{
 
         ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
-        for(CourseStudentDTO courseStudentDTO:courseStudentDTOS){
+        for(RewardDTO courseStudentDTO:courseStudentDTOS){
             CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
             // 获取-添加学生信息
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());

@@ -1,16 +1,14 @@
-package foolkey.controller.course.CourseStudent;
+package foolkey.controller.course.Reward;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +24,7 @@ public class GetMyPublishCourseStudentController extends AbstractController{
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
-    private CourseStudentBO courseStudentBO;
+    private RewardBO courseStudentBO;
 
     @RequestMapping(value = "/getMyPublishCourseStudent")
     public void execute(
@@ -45,8 +43,8 @@ public class GetMyPublishCourseStudentController extends AbstractController{
             Long studentId = studentInfoBO.getStudentDTO(token).getId();
 
             //获取我的所有悬赏
-            ArrayList<CourseStudentDTO> courseStudentDTOS = courseStudentBO.getMyCourseStudentDTO(studentId, pageNo, StaticVariable.pageSize);
-            for (CourseStudentDTO courseStudentDTO : courseStudentDTOS) {
+            ArrayList<RewardDTO> courseStudentDTOS = courseStudentBO.getMyCourseStudentDTO(studentId, pageNo, StaticVariable.pageSize);
+            for (RewardDTO courseStudentDTO : courseStudentDTOS) {
                 System.out.println("课程：" + courseStudentDTO + "--id:" + courseStudentDTO.getId());
 
             }

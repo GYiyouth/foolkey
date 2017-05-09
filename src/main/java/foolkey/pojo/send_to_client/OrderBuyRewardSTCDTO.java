@@ -1,8 +1,6 @@
 package foolkey.pojo.send_to_client;
 
-import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
-import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
-import foolkey.pojo.root.vo.dto.CourseStudentDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.stereotype.Component;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class OrderBuyRewardSTCDTO {
 
     //悬赏
-    private CourseStudentDTO courseStudentDTO;
+    private RewardDTO courseStudentDTO;
 
     //订单信息
     private OrderBuyCourseDTO orderBuyCourseDTO;
@@ -35,11 +33,11 @@ public class OrderBuyRewardSTCDTO {
                 '}';
     }
 
-    public CourseStudentDTO getCourseStudentDTO() {
+    public RewardDTO getCourseStudentDTO() {
         return courseStudentDTO;
     }
 
-    public void setCourseStudentDTO(CourseStudentDTO courseStudentDTO) {
+    public void setCourseStudentDTO(RewardDTO courseStudentDTO) {
         this.courseStudentDTO = courseStudentDTO;
     }
 

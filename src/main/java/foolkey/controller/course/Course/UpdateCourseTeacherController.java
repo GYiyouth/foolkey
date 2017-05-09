@@ -1,42 +1,38 @@
-package foolkey.controller.course.CourseTeacher;
+package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.CourseTeacher.CourseTeacherBO;
-import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
-import foolkey.tool.Time;
-import net.sf.json.JSONObject;
+import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
+import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
+import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by ustcg on 2017/4/30.
+ * Created by ustcg on 2017/5/1.
  */
 @Controller
 @RequestMapping(value = "/courseTeacher")
-public class PublishCourseTeacherController extends AbstractController{
-
-    @Resource(name = "courseTeacherBO")
-    private CourseTeacherBO courseTeacherBO;
+public class UpdateCourseTeacherController extends AbstractController {
 
     @Autowired
-    private StudentInfoBO studentInfoBO;
+    private CourseBO courseTeacherBO;
 
-    @Resource(name = "courseTeacherDTO")
-    private CourseTeacherDTO courseTeacherDTO;
+    @Autowired
+    private CourseDTO courseTeacherDTO;
 
-    @RequestMapping(value = "/publishCourseTeacher")
+    @RequestMapping(value = "/updateCourseTeacher")
     public void execute(
             HttpServletRequest request,
+            @RequestParam("id")Long id,
             @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
-            @RequestParam("token")String token,
             @RequestParam("topic")String topic,
             @RequestParam("description")String description ,
             @RequestParam("price")Double price,
@@ -46,24 +42,28 @@ public class PublishCourseTeacherController extends AbstractController{
             HttpServletResponse response
     ) throws Exception {
         try {
-            //获取-解析明文JSON数据
+            //获取-解析JSON明文数据
 //            String clearText = request.getParameter("clearText");
 //            JSONObject clearJSON = JSONObject.fromObject(clearText);
 //
 //            String token =clearJSON.getString("token");
+//            Long id = clearJSON.getLong("id");
 //            String technicTagStr = clearJSON.getString("technicTagEnum");
-//                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
+//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
 //            String topic = clearJSON.getString("topic");
 //            String description = clearJSON.getString("description");
-//            Float price = clearJSON.getFloat("price");
+//            Double price = clearJSON.getDouble("price");
 //            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
-//                CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
+//            CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
 //            String teachMethodStr = clearJSON.getString("teachMethodEnum");
-//                TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-//            Float duration = clearJSON.getFloat("duration");
+//            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
+//            Double duration = clearJSON.getDouble("duration");
 
-            //发布课程
-//            courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
+            //根据id获取旧的悬赏信息
+            CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
+
+            System.out.println("修改课程信息");
+            courseTeacherDTO.setId(id);
             courseTeacherDTO.setCreatorId(20002L);
             courseTeacherDTO.setTechnicTagEnum(technicTagEnum);
             courseTeacherDTO.setTopic(topic);
@@ -75,8 +75,8 @@ public class PublishCourseTeacherController extends AbstractController{
             courseTeacherDTO.setDuration(duration);
             courseTeacherDTO.setSales(0);
             courseTeacherDTO.setAverageScore(0.0F);
-            courseTeacherDTO.setCreateTime(Time.getCurrentDate());
-            courseTeacherBO.publishCourseTeacher(courseTeacherDTO);
+            courseTeacherBO.updateCourseTeacherCache(courseTeacherDTO);
+            courseTeacherBO.updateCourseTeacherDTO(courseTeacherDTO);
 
             //封装-传送JSON
             jsonObject.put("result","success");

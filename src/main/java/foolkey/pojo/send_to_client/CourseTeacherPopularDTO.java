@@ -1,7 +1,6 @@
-package foolkey.pojo.root.vo.cacheDTO;
+package foolkey.pojo.send_to_client;
 
-import foolkey.pojo.root.vo.dto.CourseTeacherDTO;
-import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.pojo.root.vo.dto.CourseDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CourseTeacherPopularDTO {
     //课程
-    private CourseTeacherDTO courseTeacherDTO;
+    private CourseDTO courseTeacherDTO;
     //老师
     private TeacherAllInfoDTO teacherAllInfoDTO;
 
@@ -24,11 +23,11 @@ public class CourseTeacherPopularDTO {
                 '}';
     }
 
-    public CourseTeacherDTO getCourseTeacherDTO() {
+    public CourseDTO getCourseTeacherDTO() {
         return courseTeacherDTO;
     }
 
-    public void setCourseTeacherDTO(CourseTeacherDTO courseTeacherDTO) {
+    public void setCourseTeacherDTO(CourseDTO courseTeacherDTO) {
         this.courseTeacherDTO = courseTeacherDTO;
     }
 
