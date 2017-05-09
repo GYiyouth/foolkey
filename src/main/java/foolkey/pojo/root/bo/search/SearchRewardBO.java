@@ -21,9 +21,9 @@ public class SearchRewardBO {
     public List<CourseStudentDTO> searchRewardDTO(ArrayList<String> keyList, ArrayList<TechnicTagEnum> techList, int pageNo){
         List<CourseStudentDTO> result = new ArrayList<>();
         result = getCourseStudentDAO.findByPage("from foolkey.pojo.root.vo.dto.CourseStudentDTO course " +
-                        " where course.topic like '%?%' "
+                        " where course.topic like ? "
                 , pageNo, 10
-                , keyList.size() > 0? keyList.get(0) : "");
+                , keyList.size() > 0? "%" + keyList.get(0) + "%" : "");
 
         return result;
     }
