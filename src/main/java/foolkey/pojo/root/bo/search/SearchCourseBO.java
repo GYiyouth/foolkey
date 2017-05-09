@@ -22,7 +22,7 @@ public class SearchCourseBO {
     @Autowired
     private GetCourseTeacherDAO getCourseTeacherDAO;
 
-    public List<CourseTeacherDTO> searchCourseDTO(
+    public List<CourseTeacherPopularDTO> searchCourseDTO(
             ArrayList<String> keyList
             , ArrayList<TechnicTagEnum> techList
             , ArrayList<CourseTimeDayEnum>timeList
@@ -32,16 +32,17 @@ public class SearchCourseBO {
         //如果只有技术关键字，则从缓存中取
         if (keyList.size() == 0 && timeList.size() == 0 && techList.size() > 0) {
             ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = courseTeacherBO.getCourseTeacherPopularDTO(techList.get(0), pageNo, 20);
-            ArrayList<CourseTeacherDTO> courseTeacherDTOS = new ArrayList<>();
-            for(CourseTeacherPopularDTO courseTeacherPopularDTO:courseTeacherPopularDTOS){
-                courseTeacherDTOS.add(courseTeacherPopularDTO.getCourseTeacherDTO());
-            }
-            return courseTeacherDTOS;
-//            return courseTeacherBO.getCourseTeacherPopularDTO(techList.get(0), pageNo, 20);
+//            List<CourseTeacherDTO> courseTeacherDTOS = new ArrayList<>();
+//            for(CourseTeacherPopularDTO courseTeacherPopularDTO:courseTeacherPopularDTOS){
+//                courseTeacherDTOS.add(courseTeacherPopularDTO.getCourseTeacherDTO());
+//            }
+//            List<CourseTeacherPopularDTO> result = courseTeacherBO.convertCourseTeacherIntoCourseTeacherPopular(courseTeacherDTOS);
+            return courseTeacherPopularDTOS;
         }
         //如果，有技术关键词
         if (keyList.size() > 0){
-            return getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like ? ", pageNo, 20, "%" + keyList.get(0) + "%" );
+            List<CourseTeacherDTO> courseTeacherDTOS =  getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like ? ", pageNo, 20, "%" + keyList.get(0) + "%" );
+            return courseTeacherBO.convertCourseTeacherIntoCourseTeacherPopular(courseTeacherDTOS);
         }
         return new ArrayList<>();
     }

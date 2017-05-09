@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 2017/4/26.
@@ -276,7 +277,7 @@ public class CourseTeacherBO {
      * @return
      * @throws Exception
      */
-    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(ArrayList<CourseTeacherDTO> courseTeacherDTOS) throws Exception{
+    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(List<CourseTeacherDTO> courseTeacherDTOS) throws Exception{
 
         ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
         for(CourseTeacherDTO courseTeacherDTO:courseTeacherDTOS){

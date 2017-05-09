@@ -1,7 +1,9 @@
 package foolkey.pojo.root.bo.search;
 
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
+import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.CourseStudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,17 @@ public class SearchRewardBO {
 
     @Autowired
     private GetCourseStudentDAO getCourseStudentDAO;
+    @Autowired
+    private CourseStudentBO courseStudentBO;
 
-    public List<CourseStudentDTO> searchRewardDTO(ArrayList<String> keyList, ArrayList<TechnicTagEnum> techList, int pageNo){
-        List<CourseStudentDTO> result = new ArrayList<>();
-        result = getCourseStudentDAO.findByPage("from foolkey.pojo.root.vo.dto.CourseStudentDTO course " +
+    public List<CourseStudentPopularDTO> searchRewardDTO(ArrayList<String> keyList, ArrayList<TechnicTagEnum> techList, int pageNo) throws Exception {
+        List<CourseStudentDTO> courseStudentDTOS = new ArrayList<>();
+        courseStudentDTOS = getCourseStudentDAO.findByPage("from foolkey.pojo.root.vo.dto.CourseStudentDTO course " +
                         " where course.topic like ? "
                 , pageNo, 10
                 , keyList.size() > 0? "%" + keyList.get(0) + "%" : "");
-
+        //把悬赏封装为悬赏-学生DTO
+        List<CourseStudentPopularDTO> result = courseStudentBO.convertCourseStudentIntoCourseStudentPopular(courseStudentDTOS);
         return result;
     }
 }

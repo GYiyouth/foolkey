@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ustcg on 2017/4/30.
@@ -157,8 +158,37 @@ public class CourseStudentBO {
     }
 
 
+    /**
+     * 获取我发布的悬赏
+     * @param studentId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
     public ArrayList<CourseStudentDTO> getMyCourseStudentDTO(Long studentId,Integer pageNo, Integer pageSize) throws Exception{
         String hql = "select cs from CourseStudentDTO cs where cs.creatorId = ? order by cs.courseStudentStateEnum desc,createTime desc";
         return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
+    }
+
+    /**
+     * 把悬赏转变为悬赏-学生
+     * @param courseStudentDTOS
+     * @return
+     * @throws Exception
+     */
+    public List<CourseStudentPopularDTO> convertCourseStudentIntoCourseStudentPopular(List<CourseStudentDTO> courseStudentDTOS) throws Exception{
+
+        ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
+        for(CourseStudentDTO courseStudentDTO:courseStudentDTOS){
+            CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
+            // 获取-添加学生信息
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
+            courseStudentPopularDTO.setStudentDTO(studentDTO);
+            // 课程信息赋值
+            courseStudentPopularDTO.setCourseStudentDTO(courseStudentDTO);
+            courseStudentPopularDTOS.add(courseStudentPopularDTO);
+        }
+        return courseStudentPopularDTOS;
     }
 }
