@@ -39,7 +39,8 @@ public class CheckEvaluationForVerifyBO {
      */
     private List<EvaluationTeacherDTO> getEvaluationDTO(StudentDTO teacher){
         return getEvaluationTeacherDAO.findByPage("from foolkey.pojo.root.vo.dto.EvaluationTeacherDTO e " +
-                " where e.acceptor_id = ? order by e.id desc ", 1, 5, teacher.getId());
+                " where e.acceptor_id = ? order by e.id desc ", 1
+                , TeacherVerifyNum.VERIFY_NEED_EVALUATION_TIMES, teacher.getId());
     }
 
     /**

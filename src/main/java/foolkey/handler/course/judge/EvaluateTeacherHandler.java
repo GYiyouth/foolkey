@@ -98,6 +98,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
         //检查老师的认证状态
         if (teacher.getRoleEnum().compareTo( RoleEnum.alreadyApplied ) == 0){
             //非认证老师，需要查看过往评价，有没有5次连续好评
+            checkEvaluationForVerifyBO.execute(teacher, teacherDTO);
         }
     }
 }
