@@ -72,7 +72,7 @@ public class GetCourseStudentPopularController extends AbstractController{
 
             //封装-传送json
             jsonObject.put("result","success");
-            jsonObject.put("courseStudentDTOS",courseStudentPopularDTOS);
+            jsonObject.put("rewardCourseDTOS",courseStudentPopularDTOS);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();
