@@ -94,10 +94,7 @@ public class ApplyStudentCourseHandler extends AbstractBO {
                         courseDTO.getCreatorId()//处理人
         );
         applicationInfoBO.save(application);
-        MessagePusher.sendToUserAccount(
-                courseDTO.getCreatorId() + "", "messagePayLoad"
-                , "title", "description"
-        );
+
         messageBO.sendForApplication(application, studentDTO, courseDTO);
 
 

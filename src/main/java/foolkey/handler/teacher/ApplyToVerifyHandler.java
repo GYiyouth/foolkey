@@ -45,7 +45,8 @@ public class ApplyToVerifyHandler extends AbstractBO {
         // 获取信息，验证role
         String clearText = request.getParameter("clearText");
         JSONObject clearJSON = JSONObject.fromObject(clearText);
-
+        System.out.println(clearText);
+        System.out.println(clearJSON);
         String token = clearJSON.getString("token");
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
@@ -57,16 +58,20 @@ public class ApplyToVerifyHandler extends AbstractBO {
             return;
         }
 
+        System.out.println( studentDTO.getRoleEnum().compareTo(RoleEnum.student) );
 
         // 如果role为student 新建teacher角色
         if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0){
+            System.out.println("新建");
             teacherDTO = new TeacherDTO();
             teacherDTO.setId( studentDTO.getId() );
             teacherDTO.setFollowerNumber(0);
             teacherDTO.setTeacherAverageScore(0.0F);
             teacherDTO.setTeachingTime(0.0F);
-            teacherDTO.setTeachingTime(0.0F);
+            teacherDTO.setTeachingNumber(0);
+            teacherInfoBO.save(teacherDTO);
         }else { // 否则，从数据库获取
+            System.out.println("从数据库取");
             teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
         }
 

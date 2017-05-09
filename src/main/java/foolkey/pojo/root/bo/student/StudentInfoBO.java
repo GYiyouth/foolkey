@@ -63,8 +63,10 @@ public class StudentInfoBO {
      */
     public StudentDTO getStudentDTO(String token){
         //根据token问缓存
-        if (userCAO.containStudentDTO(token))
+        if (userCAO.containStudentDTO(token)) {
+            System.out.println("缓存里有用户的缓存区");
             return userCAO.getStudentDTO(token);
+        }
         else {//缓存中没有这个人的信息，让它重新登录吧，仅知道token的情况下，无法从数据库取
             return null;
         }

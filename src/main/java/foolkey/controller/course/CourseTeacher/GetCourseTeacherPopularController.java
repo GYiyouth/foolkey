@@ -42,7 +42,7 @@ public class GetCourseTeacherPopularController extends AbstractController{
             ){
         try {
             //获取并解析JSON明文数据
-            String clearText = request.getParameter("clearText");
+            String clearText = request.getParameter("clearText").toString();
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             String token =clearJSON.getString("token");
@@ -51,7 +51,10 @@ public class GetCourseTeacherPopularController extends AbstractController{
             TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
 //            获取学生的id
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+
+            System.out.println("获取流行课程的studnet\n" + studentDTO);
             Long studentId = studentDTO.getId();
+
 
 //            Long studentId = 20003L;
 
@@ -59,8 +62,8 @@ public class GetCourseTeacherPopularController extends AbstractController{
             ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = courseTeacherBO.getCourseTeacherPopularDTO(technicTagEnum, pageNo, 10);
             ArrayList<Boolean> followFlag = new ArrayList<>();
             for (CourseTeacherPopularDTO courseTeacherPopularDTO : courseTeacherPopularDTOS) {
-                System.out.println("热门课程：" + courseTeacherPopularDTO.getCourseTeacherDTO() + "--id:" + courseTeacherPopularDTO.getCourseTeacherDTO().getId());
-                System.out.println("所属老师："+courseTeacherPopularDTO.getTeacherAllInfoDTO()+"---id:"+courseTeacherPopularDTO.getTeacherAllInfoDTO().getId());
+//                System.out.println("热门课程：" + courseTeacherPopularDTO.getCourseTeacherDTO() + "--id:" + courseTeacherPopularDTO.getCourseTeacherDTO().getId());
+//                System.out.println("所属老师："+courseTeacherPopularDTO.getTeacherAllInfoDTO()+"---id:"+courseTeacherPopularDTO.getTeacherAllInfoDTO().getId());
                 boolean flag = relationFollowBO.isFollower(courseTeacherPopularDTO.getTeacherAllInfoDTO().getId(),studentId);
                 followFlag.add(flag);
             }

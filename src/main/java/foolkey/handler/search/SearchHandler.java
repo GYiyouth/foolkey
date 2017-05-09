@@ -97,6 +97,9 @@ public class SearchHandler extends AbstractBO{
             }
         }
 
+        jsonObject.put("result", "success");
+        jsonObject.put("list", result);
+        jsonHandler.sendJSON(jsonObject, response);
 
     }
 }

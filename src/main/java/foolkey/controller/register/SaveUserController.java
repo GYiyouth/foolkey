@@ -9,6 +9,7 @@ import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.assistObject.SexTagEnum;
 import foolkey.pojo.root.vo.assistObject.UserStateEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.TokenCreator;
 import foolkey.tool.cache.Cache;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class SaveUserController extends AbstractController {
             //密码进行加密
 //            passWord = sha1KeyBO.encrypt(passWord); 这一步移交给了 app，或者由AOP来做
             //生成token
-            String token = userName + passWord;
+            String token = TokenCreator.createToken(userName, passWord);
 
             boolean flag = userRegisterBO.checkStudentByUserName(userName);
             boolean tokenFlag = userRegisterBO.checkStudentToken(token);
@@ -67,9 +68,12 @@ public class SaveUserController extends AbstractController {
                 userRegisterBO.saveStudent(studentDTO);
                 userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
+
                 //返回AES加密后的用户token
-                String tokenCipher = aesKeyBO.encrypt(token, aesKey);
-                jsonObject.put("tokenCipher", tokenCipher);
+//                String tokenCipher = aesKeyBO.encrypt(token, aesKey);
+//                System.out.println("token加密前 " + token);
+//                System.out.println("token加密后 " + tokenCipher);
+                jsonObject.put("tokenCipher", token);
                 jsonObject.put("id", studentDTO.getId());
                 jsonObject.put("result", "success");
             }else {

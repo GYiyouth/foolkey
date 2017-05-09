@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.teacher;
 
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
+import foolkey.pojo.root.DAO.teacher.SaveTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.UpdateTeacherDAO;
 import foolkey.pojo.root.vo.cacheDTO.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -24,6 +25,8 @@ public class TeacherInfoBO {
     private GetStudentDAO getStudentDAO;
     @Autowired
     private UpdateTeacherDAO updateTeacherDAO;
+    @Autowired
+    private SaveTeacherDAO saveTeacherDAO;
 
     public TeacherDTO getTeacherDTO(String id){
         return getTeacherDAO.getTeacherDTO( Long.parseLong(id) );
@@ -44,5 +47,10 @@ public class TeacherInfoBO {
         TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
         teacherAllInfoDTO.clone(studentDTO,teacherDTO);
         return teacherAllInfoDTO;
+    }
+
+    public TeacherDTO save(TeacherDTO teacherDTO){
+        saveTeacherDAO.save(teacherDTO);
+        return teacherDTO;
     }
 }
