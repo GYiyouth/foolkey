@@ -13,14 +13,14 @@ import foolkey.pojo.root.DAO.evaluation_teacher.DeleteEvaluationTeacherDAO;
 import foolkey.pojo.root.DAO.evaluation_teacher.GetEvaluationTeacherDAO;
 import foolkey.pojo.root.DAO.evaluation_teacher.SaveEvaluationTeacherDAO;
 import foolkey.pojo.root.DAO.evaluation_teacher.UpdateEvaluationTeacherDAO;
-import foolkey.pojo.root.vo.dto.EvaluationAbstract;
-import foolkey.pojo.root.vo.dto.EvaluationCourseDTO;
-import foolkey.pojo.root.vo.dto.EvaluationStudentDTO;
-import foolkey.pojo.root.vo.dto.EvaluationTeacherDTO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.dto.*;
+import foolkey.pojo.send_to_client.EvaluationCourseSTCDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by geyao on 2017/5/6.
@@ -54,6 +54,9 @@ public class EvaluationInfoBO {
     private DeleteEvaluationStudentDAO deleteEvaluationStudentDAO;
     @Autowired
     private DeleteEvaluationTeacherDAO deleteEvaluationTeacherDAO;
+
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
 
     public void save(EvaluationCourseDTO evaluation){
@@ -116,5 +119,25 @@ public class EvaluationInfoBO {
     public ArrayList<EvaluationStudentDTO> getEvaluationStudentDTOByStudentId(Long studentId, Integer pageNo, Integer pageSize) throws Exception{
         String hql = "select es from EvaluationStudentDTO es where es.acceptor_id = ?";
         return getEvaluationStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
+    }
+
+
+    /**
+     * 把评价信息封装为评价-评价人DTO
+     * @param evaluationCourseDTOS
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<EvaluationCourseSTCDTO> convertEvaluationCourseDTOIntoEvaluationCourseSTCDTO(List<EvaluationCourseDTO> evaluationCourseDTOS) throws Exception{
+        ArrayList<EvaluationCourseSTCDTO> evaluationCourseSTCDTOS = new ArrayList<>();
+        for(EvaluationCourseDTO evaluationCourseDTO:evaluationCourseDTOS){
+            EvaluationCourseSTCDTO evaluationCourseSTCDTO = new EvaluationCourseSTCDTO();
+            //获取评价人的信息
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(evaluationCourseDTO.getCreatorId());
+            evaluationCourseSTCDTO.setStudentDTO(studentDTO);
+            evaluationCourseSTCDTO.setEvaluationCourseDTO(evaluationCourseDTO);
+            evaluationCourseSTCDTOS.add(evaluationCourseSTCDTO);
+        }
+        return evaluationCourseSTCDTOS;
     }
 }

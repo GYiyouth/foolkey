@@ -3,6 +3,7 @@ package foolkey.controller.Evaluation.EvaluationCourse;
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.vo.dto.EvaluationCourseDTO;
+import foolkey.pojo.send_to_client.EvaluationCourseSTCDTO;
 import foolkey.tool.StaticVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,9 +43,12 @@ public class GetEvaluationCourseController extends AbstractController{
             //获取评论
             ArrayList<EvaluationCourseDTO> evaluationCourseDTOS = evaluationInfoBO.getEvaluationCourseDTOByCourseTeacherId(courseId,pageNo, StaticVariable.pageSize);
 
+            //封装成评价-评价人
+            ArrayList<EvaluationCourseSTCDTO> evaluationCourseSTCDTOS = evaluationInfoBO.convertEvaluationCourseDTOIntoEvaluationCourseSTCDTO(evaluationCourseDTOS);
+
             //封装-传送jsonObject
             jsonObject.put("result","success");
-            jsonObject.put("evaluationCourseDTOS",evaluationCourseDTOS);
+            jsonObject.put("evaluationCourseSTCDTO",evaluationCourseSTCDTOS);
             jsonHandler.sendJSON(jsonObject,response);
 
 
