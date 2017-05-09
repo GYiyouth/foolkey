@@ -85,7 +85,6 @@ public class GetOrderCourseByStudentController extends AbstractController {
             jsonObject.put("orderBuyRewardSTCDTOS", orderBuyRewardSTCDTOS);
             jsonObject.put("orderBuyCourseSTCDTOS", orderBuyCourseSTCDTOS);
             jsonHandler.sendJSON(jsonObject, response);
-
         } catch (Exception e) {
             e.printStackTrace();
             jsonHandler.sendFailJSON(response);
