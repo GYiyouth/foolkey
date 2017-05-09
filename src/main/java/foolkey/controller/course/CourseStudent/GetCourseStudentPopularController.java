@@ -2,9 +2,11 @@ package foolkey.controller.course.CourseStudent;
 
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.CourseStudent.CourseStudentBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.cacheDTO.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.cacheDTO.CourseTeacherPopularDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class GetCourseStudentPopularController extends AbstractController{
 
     @Autowired
     private CourseStudentBO courseStudentBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
 
 
@@ -41,11 +45,14 @@ public class GetCourseStudentPopularController extends AbstractController{
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             Integer pageNo = clearJSON.getInt("pageNo");
-            String technicTag = clearJSON.getString("technicTagEnum");
-            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+            String token =clearJSON.getString("token");
+
+            //获取该登陆者的信息，方便后面传参(登陆者的技术类别)
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+
 
             //获取热门的悬赏
-            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
+            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(studentDTO.getTechnicTagEnum(), pageNo, StaticVariable.pageSize);
             for (CourseStudentPopularDTO courseStudentPopularDTO : courseStudentPopularDTOS) {
                 System.out.println("热门悬赏：" + courseStudentPopularDTO.getCourseStudentDTO() + "--id:" + courseStudentPopularDTO.getCourseStudentDTO().getId());
                 System.out.println("所属学生："+courseStudentPopularDTO.getStudentDTO()+"---id:"+courseStudentPopularDTO.getStudentDTO().getId());
