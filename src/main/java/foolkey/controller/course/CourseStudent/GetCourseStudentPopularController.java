@@ -52,16 +52,19 @@ public class GetCourseStudentPopularController extends AbstractController{
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
             //类别为空，则随机选取一个类别
+            TechnicTagEnum technicTagEnum = null;
             if(studentDTO.getTechnicTagEnum() == null){
                 Integer technicSize = TechnicTagEnum.values().length;
                 System.out.println("技术类别中的数量:"+technicSize);
                 Random random = new Random();
                 Integer temp = random.nextInt(technicSize);
-                TechnicTagEnum technicTagEnum = TechnicTagEnum.values()[temp];
+                technicTagEnum = TechnicTagEnum.values()[temp];
+            }else{
+                technicTagEnum = studentDTO.getTechnicTagEnum();
             }
 
             //获取热门的悬赏
-            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(studentDTO.getTechnicTagEnum(), pageNo, StaticVariable.pageSize);
+            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
             for (CourseStudentPopularDTO courseStudentPopularDTO : courseStudentPopularDTOS) {
                 System.out.println("热门悬赏：" + courseStudentPopularDTO.getCourseStudentDTO() + "--id:" + courseStudentPopularDTO.getCourseStudentDTO().getId());
                 System.out.println("所属学生："+courseStudentPopularDTO.getStudentDTO()+"---id:"+courseStudentPopularDTO.getStudentDTO().getId());
