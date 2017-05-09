@@ -3,7 +3,10 @@ package foolkey.pojo.root.bo.student;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.security.AESKeyBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 @Transactional(readOnly = true)
 public class GetStudentInfoHandler extends AbstractBO {
-    @Autowired
-    private AESKeyBO aesKeyBO;
-    @Autowired
-    private UserCAO userCAO;
-
-
 
     @Autowired
     private StudentInfoBO studentInfoBO;
+    @Autowired
+    private TeacherInfoBO teacherInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -45,7 +44,14 @@ public class GetStudentInfoHandler extends AbstractBO {
         //新建一个用于传输的DTO，密码设置为""
         StudentDTO studentDTO1 = new StudentDTO();
         studentDTO1.myClone(studentDTO1, studentDTO);
-        studentDTO1.setPassWord("");
+        studentDTO1.setPassWord("");//如果是老师，则一并返回teacherDTO
+        TeacherDTO teacherDTO = null;
+
+        if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) != 0){
+            teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
+            if (teacherDTO != null)
+                jsonObject.put("teacherDTO", teacherDTO);
+        }
 
         jsonObject.put("studentDTO", studentDTO1);
         jsonObject.put("result", "success");

@@ -69,13 +69,13 @@ public class LoginController extends AbstractController {
             userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
             //如果是老师，则一并返回teacherDTO
-            TeacherDTO teacherDTO = null;
-            if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) != 0){
-                teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
-                if (teacherDTO != null)
-                    jsonObject.put("teacherDTO", teacherDTO);
-            }
-            jsonObject.put("studentDTO", studentDTO);
+//            TeacherDTO teacherDTO = null;
+//            if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) != 0){
+//                teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
+//                if (teacherDTO != null)
+//                    jsonObject.put("teacherDTO", teacherDTO);
+//            }
+//            jsonObject.put("studentDTO", studentDTO);
             jsonObject.put("id", studentDTO.getId());
             jsonObject.put("token", token);
             jsonObject.put("result", "success");
