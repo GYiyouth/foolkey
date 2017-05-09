@@ -70,12 +70,12 @@ public class SaveUserController extends AbstractController {
                 userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
 
-                //返回AES加密后的用户token
+                //返回AES加密后的用户token，目前由bug，只能返明文
 //                String tokenCipher = aesKeyBO.encrypt(token, aesKey);
 //                System.out.println("token加密前 " + token);
 //                System.out.println("token加密后 " + tokenCipher);
                 jsonObject.put("tokenCipher", token);
-                jsonObject.put("id", studentDTO.getId());
+                jsonObject.put("student", studentDTO);
                 jsonObject.put("result", "success");
             }else {
 

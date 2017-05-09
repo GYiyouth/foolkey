@@ -3,9 +3,13 @@ package foolkey.controller.logIn;
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.TokenCreator;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,6 +39,8 @@ public class LoginController extends AbstractController {
     private UserRegisterBO userRegisterBO;
     @Resource(name = "studentInfoBO")
     private StudentInfoBO studentInfoBO;
+    @Autowired
+    private TeacherInfoBO teacherInfoBO;
 
     @RequestMapping
     public void execute(
@@ -61,7 +67,15 @@ public class LoginController extends AbstractController {
             String token = TokenCreator.createToken(userName, passWord);
             //保存用户的aesKey
             userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
-            jsonObject.put("id", studentDTO.getId());
+
+            //如果是老师，则一并返回teacherDTO
+            TeacherDTO teacherDTO = null;
+            if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) != 0){
+                teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
+                if (teacherDTO != null)
+                    jsonObject.put("teacherDTO", teacherDTO);
+            }
+            jsonObject.put("studentDTO", studentDTO);
             jsonObject.put("token", token);
             jsonObject.put("result", "success");
             jsonHandler.sendJSON(jsonObject, response);

@@ -43,6 +43,6 @@ public class SearchCourseBO {
         if (keyList.size() > 0){
             return getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like'%?%' ", pageNo, 20, keyList.get(0));
         }
-        return null;
+        return new ArrayList<>();
     }
 }
