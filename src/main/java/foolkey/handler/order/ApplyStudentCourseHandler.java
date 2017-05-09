@@ -82,6 +82,9 @@ public class ApplyStudentCourseHandler extends AbstractBO {
         if (courseDTO.getCourseStudentStateEnum().compareTo(CourseStudentStateEnum.已解决) == 0)
             jsonHandler.sendJSON(jsonObject, response);
 
+        //如果已经申请了，则不应再申请，交由AOP来做
+
+
         //发送给课程创始人
         StudentDTO sendStudentDTO = new StudentDTO();
         sendStudentDTO.myClone(sendStudentDTO, studentDTO);
@@ -93,13 +96,20 @@ public class ApplyStudentCourseHandler extends AbstractBO {
                         null,               //messageId
                         courseDTO.getCreatorId()//处理人
         );
-        applicationInfoBO.save(application);
+        //这里会被AOP，如果已经有了，则会返回null
+        ApplicationStudentRewardDTO applicationStudentRewardDTO =
+                applicationInfoBO.save(application);
 
-        messageBO.sendForApplication(application, studentDTO, courseDTO);
+        if(applicationStudentRewardDTO != null) {
+            messageBO.sendForApplication(application, studentDTO, courseDTO);
+            //返回正常的结果
+            jsonObject.put("result", "success");
+        }else {
+            //已经有了重复的申请
+            jsonObject.put("result", "wrong");
+        }
 
 
-        //返回
-        jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
     }
 }

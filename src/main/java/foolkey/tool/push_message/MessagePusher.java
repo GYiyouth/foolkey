@@ -39,7 +39,7 @@ public class MessagePusher {
                 .restrictedPackageName(packageName)
                 .notifyType(1)     // 使用默认提示音提示
                 .build();
-        Result result = sender.sendToUserAccount(message, 20007 + "", 10);
+        Result result = sender.sendToUserAccount(message, 20012 + "", 10);
         System.out.println(result);
     }
 

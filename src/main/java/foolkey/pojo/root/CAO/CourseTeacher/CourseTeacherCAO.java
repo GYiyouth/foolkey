@@ -298,7 +298,7 @@ public class CourseTeacherCAO extends AbstractCAO {
 //            for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
 //                Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name() + "Reserve");
 //                if ((technicMap != null) && (technicMap.containsKey(courseTeacherToken))) {
-//                    DoubleLink courseTeacherReserveDoubleLink = technicMap.get(courseTeacherToken);
+//                    DoubleLink courseTeacherReserveDoubleLink = technicMap.getRewardApplicationDTo(courseTeacherToken);
 //                    for (int i = 0; i < courseTeacherReserveDoubleLink.getLength(); i++) {
 //                        CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherReserveDoubleLink.getNodeByIndex(i).getData();
 //                        if (courseTeacherDTO.getId() == aimCourseTeacherDTO.getId()) {
@@ -350,7 +350,7 @@ public class CourseTeacherCAO extends AbstractCAO {
 //            for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
 //                Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name()+"Reserve");
 //                if ((technicMap != null) && (technicMap.containsKey(courseTeacherToken))) {
-//                    DoubleLink courseTeacherReserveDoubleLink = technicMap.get(courseTeacherToken);
+//                    DoubleLink courseTeacherReserveDoubleLink = technicMap.getRewardApplicationDTo(courseTeacherToken);
 //                    for (int i = 0; i < courseTeacherReserveDoubleLink.getLength(); i++) {
 //                        CourseTeacherDTO courseTeacherDTO = (CourseTeacherDTO) courseTeacherReserveDoubleLink.getNodeByIndex(i).getData();
 //                        if (courseTeacherDTO.getId() == aimCourseTeacherDTO.getId()) {
