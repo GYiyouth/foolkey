@@ -66,6 +66,7 @@ public class SaveUserController extends AbstractController {
                 studentDTO.setSexTagEnum(SexTagEnum.Male);
                 studentDTO.setUserStateEnum(UserStateEnum.unverified);
                 userRegisterBO.saveStudent(studentDTO);
+
                 userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
 
