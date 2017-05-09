@@ -177,7 +177,7 @@ public class CourseTeacherBO {
      * @return
      * @throws Exception
      */
-    public CourseTeacherPopularDTO getCourseTeacherDTOByCourseId(Long courseId) throws Exception {
+    public CourseTeacherPopularDTO getCourseTeacherPopularDTOByCourseId(Long courseId) throws Exception {
         // 首先根据课程id获取课程DTO
         CourseTeacherDTO courseTeacherDTO = getCourseTeacherDTOById(courseId);
         // 获取所属老师的信息
