@@ -19,6 +19,7 @@ public class SearchController extends AbstractController{
     @Autowired
     private SearchHandler handler;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response

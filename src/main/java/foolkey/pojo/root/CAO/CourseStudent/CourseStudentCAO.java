@@ -157,7 +157,7 @@ public class CourseStudentCAO extends AbstractCAO {
         if ((pageNo * pageSize) > StaticVariable.cacheSize) {
             return false;
         }
-        System.out.println("技术类别：" + technicTagEnum.name());
+//        System.out.println("技术类别：" + technicTagEnum.name());
         Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
         //有这个标签的东西，而且包含热门课程
         if ((technicMap != null) && (technicMap.containsKey(courseStudentToken))) {

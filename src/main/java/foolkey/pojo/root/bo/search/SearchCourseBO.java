@@ -41,7 +41,7 @@ public class SearchCourseBO {
         }
         //如果，有技术关键词
         if (keyList.size() > 0){
-            return getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like'%?%' ", pageNo, 20, keyList.get(0));
+            return getCourseTeacherDAO.findByPage("from CourseTeacherDTO ct where ct.topic like ? ", pageNo, 20, "%" + keyList.get(0) + "%" );
         }
         return new ArrayList<>();
     }
