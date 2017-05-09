@@ -11,13 +11,18 @@ import foolkey.pojo.root.DAO.application_teacher_course.UpdateApplicationTeacher
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.*;
+import foolkey.pojo.send_to_client.ApplicationStudentRewardSTCDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,11 +49,15 @@ public class ApplicationInfoBO {
     @Autowired
     private UpdateApplicationTeacherCourseDAO updateApplicationTeacherCourseDAO;
     @Autowired
-    private RewardBO courseStudentBO;
+    private RewardBO rewardBO;
     @Autowired
     private CourseBO courseTeacherBO;
     @Autowired
     private OrderInfoBO orderInfoBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
+    @Autowired
+    private TeacherInfoBO teacherInfoBO;
 
     /**
      * 生成对老师课程的申请消息，并存储
@@ -129,7 +138,7 @@ public class ApplicationInfoBO {
     public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType) throws Exception{
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
         if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0) {
-            RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
+            RewardDTO courseStudentDTO = rewardBO.getCourseStudentDTO(orderDTO.getCourseId());
             deleteApplicationStudentRewardDAO.deleteAllByCourseId(courseStudentDTO.getId());
         }
         if (courseType.compareTo(CourseTypeEnum.老师课程) == 0) {
@@ -199,5 +208,54 @@ public class ApplicationInfoBO {
     public ApplicationTeacherCourseDTO update(ApplicationTeacherCourseDTO applicationTeacherCourseDTO){
         updateApplicationTeacherCourseDAO.update(applicationTeacherCourseDTO);
         return applicationTeacherCourseDTO;
+    }
+
+    /**
+     * LG
+     * 学生某个悬赏下，所有的申请信息
+     * @param studentId
+     * @param courseId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long studentId, Long courseId, Integer pageNo, Integer pageSize){
+//        List<ApplicationStudentRewardDTO> list =
+//                getApplicationStudentRewardDAO.findByPage(
+//                        "from ApplicationStudentRewardDTO asr where asr.applicantId = ? " +
+//                                " and asr.studentId = ? and asr.courseId = ?", 1, 20
+//                        , teacherId, studentId, courseId
+//                );
+//        return list;
+        String hql = "from ApplicationStudentRewardDTO asr where asr.studentId = ? and asr.courseId = ? order by asr.applyTime desc group by asr.applicantId";
+        return getApplicationStudentRewardDAO.findByPage(hql,pageNo,pageSize,studentId,courseId);
+    }
+
+
+    /**
+     * 把悬赏申请信息封装
+     * @param applicationStudentRewardDTOS
+     * @return
+     * @throws Exception
+     */
+    public List<ApplicationStudentRewardSTCDTO> converApplicationStudentRewardDTOInToApplicationStudentRewardSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception{
+        ArrayList<ApplicationStudentRewardSTCDTO> applicationStudentRewardSTCDTOS = new ArrayList<>();
+        for(ApplicationStudentRewardDTO applicationStudentRewardDTO:applicationStudentRewardDTOS){
+
+            ApplicationStudentRewardSTCDTO applicationStudentRewardSTCDTO = new ApplicationStudentRewardSTCDTO();
+            //      添加   申请信息
+            applicationStudentRewardSTCDTO.setApplicationStudentRewardDTO(applicationStudentRewardDTO);
+            //获取、添加   学生(悬赏创建者)信息
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(applicationStudentRewardDTO.getStudentId());
+            applicationStudentRewardSTCDTO.setStudentDTO(studentDTO);
+            //获取、添加   老师(悬赏申请者)信息
+            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(applicationStudentRewardDTO.getApplicantId());
+            applicationStudentRewardSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            //获取、添加   悬赏的信息
+            RewardDTO rewardDTO = rewardBO.getCourseStudentDTO(applicationStudentRewardDTO.getCourseId());
+            applicationStudentRewardSTCDTO.setRewardDTO(rewardDTO);
+            applicationStudentRewardSTCDTOS.add(applicationStudentRewardSTCDTO);
+        }
+        return applicationStudentRewardSTCDTOS;
     }
 }

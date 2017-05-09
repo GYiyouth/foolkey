@@ -19,8 +19,8 @@ public class ApplicationStudentRewardDTO extends ApplicationAbstract{
     @Column(name = "student_id")
     private Long studentId;
 
-    //课程的id
-    @Column(name = "order_id")
+    //悬赏的id
+    @Column(name = "reward_id")
     private Long courseId;
 
     @Override
