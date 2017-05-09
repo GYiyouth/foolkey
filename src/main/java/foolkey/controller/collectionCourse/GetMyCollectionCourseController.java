@@ -51,7 +51,7 @@ public class GetMyCollectionCourseController extends AbstractController{
             //遍历获取到课程-老师DTO
             ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
             for(CollectionCourseDTO collectionCourseDTO:collectionCourseDTOS){
-                CourseTeacherPopularDTO courseTeacherPopularDTO = courseTeacherBO.getCourseTeacherDTOByCourseId(collectionCourseDTO.getCourseId());
+                CourseTeacherPopularDTO courseTeacherPopularDTO = courseTeacherBO.getCourseTeacherPopularDTOByCourseId(collectionCourseDTO.getCourseId());
                 courseTeacherPopularDTOS.add(courseTeacherPopularDTO);
             }
 
