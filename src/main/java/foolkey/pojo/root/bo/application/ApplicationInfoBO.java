@@ -16,7 +16,7 @@ import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.ApplicationStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.*;
-import foolkey.pojo.send_to_client.ApplicationStudentRewardSTCDTO;
+import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -212,50 +212,79 @@ public class ApplicationInfoBO {
 
     /**
      * LG
-     * 学生某个悬赏下，所有的申请信息
-     * @param studentId
-     * @param courseId
+     * 分页显示学生某个悬赏下，所有的申请信息
+     * @param rewardId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long studentId, Long courseId, Integer pageNo, Integer pageSize){
-//        List<ApplicationStudentRewardDTO> list =
-//                getApplicationStudentRewardDAO.findByPage(
-//                        "from ApplicationStudentRewardDTO asr where asr.applicantId = ? " +
-//                                " and asr.studentId = ? and asr.courseId = ?", 1, 20
-//                        , teacherId, studentId, courseId
-//                );
-//        return list;
-        String hql = "from ApplicationStudentRewardDTO asr where asr.studentId = ? and asr.courseId = ? order by asr.applyTime desc group by asr.applicantId";
-        return getApplicationStudentRewardDAO.findByPage(hql,pageNo,pageSize,studentId,courseId);
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId, Integer pageNo, Integer pageSize){
+        String hql = "from ApplicationStudentRewardDTO asr where asr.rewardId = ? order by asr.applyTime desc group by asr.applicantId";
+        return getApplicationStudentRewardDAO.findByPage(hql,pageNo,pageSize,rewardId);
     }
+
+    /**
+     * LG
+     * 显示学生某个悬赏下，所有的申请信息，不分页
+     * @param rewardId
+     * @return
+     */
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId){
+        String hql = "from ApplicationStudentRewardDTO asr where asr.rewardId = ? order by asr.applyTime desc group by asr.applicantId";
+        return getApplicationStudentRewardDAO.find(hql,rewardId);
+    }
+
+//    public List<ApplicationRewardWithTeacherSTCDTO> getApplicationRewardWithTeacherSTCDTO(Long rewardId) throws Exception{
+//        List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = new ArrayList<>();
+//
+//    }
+
+//    /**
+//     * 把悬赏申请信息封装
+//     * @param applicationStudentRewardDTOS
+//     * @return
+//     * @throws Exception
+//     */
+//    public List<ApplicationStudentRewardSTCDTO> converApplicationStudentRewardDTOInToApplicationStudentRewardSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception{
+//        ArrayList<ApplicationStudentRewardSTCDTO> applicationStudentRewardSTCDTOS = new ArrayList<>();
+//        for(ApplicationStudentRewardDTO applicationStudentRewardDTO:applicationStudentRewardDTOS){
+//
+//            ApplicationStudentRewardSTCDTO applicationStudentRewardSTCDTO = new ApplicationStudentRewardSTCDTO();
+//            //      添加   申请信息
+//            applicationStudentRewardSTCDTO.setApplicationStudentRewardDTO(applicationStudentRewardDTO);
+//            //获取、添加   学生(悬赏创建者)信息
+//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(applicationStudentRewardDTO.getStudentId());
+//            applicationStudentRewardSTCDTO.setStudentDTO(studentDTO);
+//            //获取、添加   老师(悬赏申请者)信息
+//            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(applicationStudentRewardDTO.getApplicantId());
+//            applicationStudentRewardSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+//            //获取、添加   悬赏的信息
+//            RewardDTO rewardDTO = rewardBO.getCourseStudentDTO(applicationStudentRewardDTO.getCourseId());
+//            applicationStudentRewardSTCDTO.setRewardDTO(rewardDTO);
+//            applicationStudentRewardSTCDTOS.add(applicationStudentRewardSTCDTO);
+//        }
+//        return applicationStudentRewardSTCDTOS;
+//    }\
 
 
     /**
-     * 把悬赏申请信息封装
+     * 把悬赏的申请封装成悬赏-老师DTO
      * @param applicationStudentRewardDTOS
      * @return
      * @throws Exception
      */
-    public List<ApplicationStudentRewardSTCDTO> converApplicationStudentRewardDTOInToApplicationStudentRewardSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception{
-        ArrayList<ApplicationStudentRewardSTCDTO> applicationStudentRewardSTCDTOS = new ArrayList<>();
+    public List<ApplicationRewardWithTeacherSTCDTO> convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception{
+        List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = new ArrayList<>();
         for(ApplicationStudentRewardDTO applicationStudentRewardDTO:applicationStudentRewardDTOS){
 
-            ApplicationStudentRewardSTCDTO applicationStudentRewardSTCDTO = new ApplicationStudentRewardSTCDTO();
+            ApplicationRewardWithTeacherSTCDTO applicationRewardWithTeacherSTCDTO = new ApplicationRewardWithTeacherSTCDTO();
             //      添加   申请信息
-            applicationStudentRewardSTCDTO.setApplicationStudentRewardDTO(applicationStudentRewardDTO);
-            //获取、添加   学生(悬赏创建者)信息
-            StudentDTO studentDTO = studentInfoBO.getStudentDTO(applicationStudentRewardDTO.getStudentId());
-            applicationStudentRewardSTCDTO.setStudentDTO(studentDTO);
+            applicationRewardWithTeacherSTCDTO.setApplicationStudentRewardDTO(applicationStudentRewardDTO);
             //获取、添加   老师(悬赏申请者)信息
             TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(applicationStudentRewardDTO.getApplicantId());
-            applicationStudentRewardSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-            //获取、添加   悬赏的信息
-            RewardDTO rewardDTO = rewardBO.getCourseStudentDTO(applicationStudentRewardDTO.getCourseId());
-            applicationStudentRewardSTCDTO.setRewardDTO(rewardDTO);
-            applicationStudentRewardSTCDTOS.add(applicationStudentRewardSTCDTO);
+            applicationRewardWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            applicationRewardWithTeacherSTCDTOS.add(applicationRewardWithTeacherSTCDTO);
         }
-        return applicationStudentRewardSTCDTOS;
+        return applicationRewardWithTeacherSTCDTOS;
     }
 }

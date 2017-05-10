@@ -1,9 +1,12 @@
 package foolkey.controller.application;
 
 import foolkey.controller.AbstractController;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
-import foolkey.pojo.send_to_client.ApplicationStudentRewardSTCDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
+import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
+import foolkey.pojo.send_to_client.ApplicationStudentRewardAsStuentSTCDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class GetApplicationStudentRewardAsStudentController extends AbstractCont
 
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
+    @Autowired
+    private RewardBO rewardBO;
 
     @RequestMapping(value = "/getApplicationStudentRewardAsStudentController")
     public void execute(
@@ -39,18 +44,29 @@ public class GetApplicationStudentRewardAsStudentController extends AbstractCont
             Integer pageNo = clearJSON.getInt("pageNo");
             //学生id
             Long studentId = clearJSON.getLong("studentId");
-            //悬赏id
-            Long courseId = clearJSON.getLong("courseId");
 
-            //首先获取到申请我的悬赏的申请DTO
-            List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(studentId,courseId,pageNo, StaticVariable.pageSize);
+            //首先获取到我发布的悬赏DTO
+            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.pageSize);
 
-            //封装申请DTO
-            List<ApplicationStudentRewardSTCDTO> applicationStudentRewardSTCDTOS = applicationInfoBO.converApplicationStudentRewardDTOInToApplicationStudentRewardSTCDTO(applicationStudentRewardDTOS);
+            List<ApplicationStudentRewardAsStuentSTCDTO> applicationStudentRewardAsStudentSTCDTOS = new ArrayList<>();
+            //每一个悬赏对应一个DTO
+            //里面有   悬赏DTO-老师申请DTOS
+            for (RewardDTO rewardDTO:rewardDTOS){
+                ApplicationStudentRewardAsStuentSTCDTO applicationStudentRewardAsStuentSTCDTO = new ApplicationStudentRewardAsStuentSTCDTO();
+                //悬赏DTO
+                applicationStudentRewardAsStuentSTCDTO.setRewardDTO(rewardDTO);
+                //老师申请DTOS
+                //首先根据悬赏获取该悬赏下，所有老师申请
+                List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardDTO.getId());
+                List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = applicationInfoBO.convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(applicationStudentRewardDTOS);
+                applicationStudentRewardAsStuentSTCDTO.setApplicationRewardWithTeacherSTCDTOS(applicationRewardWithTeacherSTCDTOS);
+
+                applicationStudentRewardAsStudentSTCDTOS.add(applicationStudentRewardAsStuentSTCDTO);
+            }
 
             //封装-传送jsonObject
             jsonObject.put("result","success");
-            jsonObject.put("applicationStudentRewardSTCDTOS",applicationStudentRewardSTCDTOS);
+            jsonObject.put("applicationStudentRewardAsStudntSTCDTOS",applicationStudentRewardAsStudentSTCDTOS);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();

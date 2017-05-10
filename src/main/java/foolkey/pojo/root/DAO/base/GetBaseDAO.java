@@ -131,4 +131,28 @@ public class GetBaseDAO<T> {
     }
 
 
+    /**
+     * 不分页，根据条件查询结果
+     * @param hql
+     * @param params
+     * @return
+     */
+    public ArrayList<T> find(final String hql, final Object... params) {
+        List<T> list = hibernateTemplate.execute(new HibernateCallback<List<T>>() {
+            @Override
+            public List<T> doInHibernate(Session session) throws HibernateException {
+                //执行Hibernate分页查询
+                Query query = session.createQuery(hql);
+                //为包含占位符的HQL语句设置参数
+                for (int i = 0, len = params.length; i < len; i++) {
+                    query.setParameter(i , params[i]);
+                }
+                List<T> result = query.list();
+                return result;
+            }
+        });
+        return (ArrayList<T>) list;
+    }
+
+
 }
