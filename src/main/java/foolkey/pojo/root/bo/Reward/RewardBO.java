@@ -162,7 +162,7 @@ public class RewardBO {
      * @throws Exception
      */
     public ArrayList<RewardDTO> getMyCourseStudentDTO(Long studentId, Integer pageNo, Integer pageSize) throws Exception{
-        String hql = "select cs from CourseStudentDTO cs where cs.creatorId = ? order by cs.courseStudentStateEnum desc,createTime desc";
+        String hql = "select cs from RewardDTO cs where cs.creatorId = ? order by cs.courseStudentStateEnum desc,createTime desc";
         return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId);
     }
 
