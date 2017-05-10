@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
+ * 学生获得订单信息
+ * 暂时只有课程、悬赏
  * Created by ustcg on 2017/5/6.
  */
 @Controller

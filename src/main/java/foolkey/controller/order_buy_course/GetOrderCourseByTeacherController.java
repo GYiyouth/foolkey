@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 老师获取自己有关的订单
+ * 目前只有课程、悬赏
  * Created by ustcg on 2017/5/9.
  */
 @Controller

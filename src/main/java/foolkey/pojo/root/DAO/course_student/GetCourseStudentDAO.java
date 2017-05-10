@@ -22,7 +22,7 @@ public class GetCourseStudentDAO extends GetBaseDAO<RewardDTO>{
      */
     public ArrayList<RewardDTO> findByTechnicTagEnumAndResultSize(TechnicTagEnum technicTagEnum, CourseStudentStateEnum courseStudentStateEnum, Integer resultSize){
         ArrayList<RewardDTO> courseStudentDTOS = new ArrayList<>();
-        String hql = "select cs from CourseStudentDTO cs where cs.technicTagEnum = ? and cs.courseStudentStateEnum = ? order by cs.createTime desc";
+        String hql = "select cs from RewardDTO cs where cs.technicTagEnum = ? and cs.courseStudentStateEnum = ? order by cs.createTime desc";
         courseStudentDTOS = findByPage(hql,1,resultSize,technicTagEnum,courseStudentStateEnum);
         return courseStudentDTOS;
     }

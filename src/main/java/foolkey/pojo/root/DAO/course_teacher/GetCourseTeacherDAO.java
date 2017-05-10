@@ -26,7 +26,7 @@ public class GetCourseTeacherDAO extends GetBaseDAO<CourseDTO>{
      */
     public ArrayList<CourseDTO> findByTechnicTagEnumAndResultSize(TechnicTagEnum technicTagEnum, Integer resultSize){
         ArrayList<CourseDTO> courseTeacherDTOS = new ArrayList<>();
-        String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
+        String hql = "select ct from CourseDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
         courseTeacherDTOS = findByPage(hql,1,resultSize,technicTagEnum);
         return courseTeacherDTOS;
     }
@@ -41,8 +41,8 @@ public class GetCourseTeacherDAO extends GetBaseDAO<CourseDTO>{
      */
     public ArrayList<CourseDTO> findCourseTeacherByPageLessCache(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize){
         ArrayList<CourseDTO> courseTeacherDTOS = new ArrayList<CourseDTO>();
-//        String hql = "select ct from CourseTeacherDTO ct where ct.creatorId = t.id and ct.technicTagEnum = ? order by t.teacherAverageScore desc,ct.averageScore desc";
-        String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
+//        String hql = "select ct from CourseDTO ct where ct.creatorId = t.id and ct.technicTagEnum = ? order by t.teacherAverageScore desc,ct.averageScore desc";
+        String hql = "select ct from CourseDTO ct where ct.technicTagEnum = ? order by ct.sales desc,ct.averageScore desc";
         courseTeacherDTOS = findByPage(hql,pageNo,pageSize,technicTagEnum);
         for(CourseDTO courseTeacherDTO:courseTeacherDTOS){
             System.out.println(courseTeacherDTO);
@@ -60,7 +60,7 @@ public class GetCourseTeacherDAO extends GetBaseDAO<CourseDTO>{
      */
     public ArrayList<CourseDTO> findCourseTeacherByPageMoreCache(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize){
         ArrayList<CourseDTO> courseTeacherDTOS = new ArrayList<>();
-        String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc, ct.averageScore desc";
+        String hql = "select ct from CourseDTO ct where ct.technicTagEnum = ? order by ct.sales desc, ct.averageScore desc";
         courseTeacherDTOS = findByPage(hql,pageNo,pageSize,technicTagEnum);
         for(CourseDTO courseTeacherDTO:courseTeacherDTOS){
             System.out.println(courseTeacherDTO);
@@ -77,7 +77,7 @@ public class GetCourseTeacherDAO extends GetBaseDAO<CourseDTO>{
     public ArrayList<CourseDTO> autoAddCourseTeacherDTOToCache(TechnicTagEnum technicTagEnum){
         System.out.println("?");
         ArrayList<CourseDTO> courseTeacherDTOS = new ArrayList<>();
-        String hql = "select ct from CourseTeacherDTO ct where ct.technicTagEnum = ? order by ct.sales desc, ct.averageScore desc";
+        String hql = "select ct from CourseDTO ct where ct.technicTagEnum = ? order by ct.sales desc, ct.averageScore desc";
         courseTeacherDTOS = findByPage(hql,1,3,technicTagEnum);
         for(CourseDTO courseTeacherDTO:courseTeacherDTOS){
             System.out.println(courseTeacherDTO);

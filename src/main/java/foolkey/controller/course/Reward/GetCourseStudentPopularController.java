@@ -56,7 +56,8 @@ public class GetCourseStudentPopularController extends AbstractController{
                 System.out.println("技术类别中的数量:"+technicSize);
                 Random random = new Random();
                 Integer temp = random.nextInt(technicSize);
-                technicTagEnum = TechnicTagEnum.values()[temp];
+                technicTagEnum = TechnicTagEnum.values()[0];
+                System.out.println(temp + "   "  + technicTagEnum);
             }else{
                 technicTagEnum = studentDTO.getTechnicTagEnum();
             }
