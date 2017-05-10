@@ -230,7 +230,7 @@ public class ApplicationInfoBO {
      * @return
      */
     public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId){
-        String hql = "from ApplicationStudentRewardDTO asr where asr.rewardId = ? order by asr.applyTime desc group by asr.applicantId";
+        String hql = "from (select asrIn from ApplicationStudentRewardDTO asrIn order by asrIn.applyTime desc) asr where asr.rewardId = ? group by asr.applicantId";
         return getApplicationStudentRewardDAO.find(hql,rewardId);
     }
 
