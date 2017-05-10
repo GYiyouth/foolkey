@@ -21,13 +21,13 @@ public class ApplicationStudentRewardDTO extends ApplicationAbstract{
 
     //悬赏的id
     @Column(name = "reward_id")
-    private Long courseId;
+    private Long rewardId;
 
     @Override
     public String toString() {
         return "ApplicationStudentRewardDTO{" +
                 "studentId=" + studentId +
-                ", orderId=" + courseId +
+                ", orderId=" + rewardId +
                 "} " + super.toString();
     }
 
@@ -39,11 +39,11 @@ public class ApplicationStudentRewardDTO extends ApplicationAbstract{
         this.studentId = studentId;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public Long getRewardId() {
+        return rewardId;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setRewardId(Long rewardId) {
+        this.rewardId = rewardId;
     }
 }

@@ -38,7 +38,7 @@ public class ApplicationMaintainAOP {
         List applicationList = applicationInfoBO.getRewardApplicationDTo(
                 applicationStudentRewardDTO.getApplicantId()
                 , applicationStudentRewardDTO.getStudentId()
-                , applicationStudentRewardDTO.getCourseId()
+                , applicationStudentRewardDTO.getRewardId()
         );
         if (applicationList == null || applicationList.size() == 0){
             // 当前没有申请

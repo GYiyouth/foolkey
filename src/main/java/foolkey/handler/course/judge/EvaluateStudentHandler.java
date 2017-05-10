@@ -50,7 +50,7 @@ public class EvaluateStudentHandler extends AbstractBO {
         //获取DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
-//        CourseTeacherDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+//        CourseTeacherDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getRewardId());
         StudentDTO student = studentInfoBO.getStudentDTO( orderDTO.getUserId() );
 
 

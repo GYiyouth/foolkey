@@ -73,7 +73,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         StudentDTO teacher = studentInfoBO.getStudentDTO(applicationDTO.getApplicantId()); // 老师，申请人
         CouponDTO couponDTO =  (!couponId.equals(0L)) // 如果couponId为空
                 ? couponInfoBO.getCouponDTO(couponId) : null;  //则返回null
-        RewardDTO courseDTO = courseStudentBO.getCourseStudentDTO(applicationDTO.getCourseId());
+        RewardDTO courseDTO = courseStudentBO.getCourseStudentDTO(applicationDTO.getRewardId());
 
         //检验优惠券付款
         Double expectedPrice = useCouponBO.userCouponForReward(studentDTO, courseDTO, couponDTO);

@@ -18,6 +18,7 @@ import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
+import foolkey.tool.constant_values.RewardLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,7 +88,7 @@ public class ApplicationInfoBO {
     ){
         ApplicationStudentRewardDTO application = new ApplicationStudentRewardDTO();
         application.setApplicantId(applicantId);
-        application.setCourseId(courseId);
+        application.setRewardId(courseId);
         application.setMessageId(messageId);
         application.setStudentId(studentId);
         application.setApplyTime(new Date());
@@ -226,12 +227,13 @@ public class ApplicationInfoBO {
     /**
      * LG
      * 显示学生某个悬赏下，所有的申请信息，不分页
+     * 一次性获取的数目，目前是16
      * @param rewardId
      * @return
      */
     public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId){
-        String hql = "from (select asrIn from ApplicationStudentRewardDTO asrIn order by asrIn.applyTime desc) asr where asr.rewardId = ? group by asr.applicantId";
-        return getApplicationStudentRewardDAO.find(hql,rewardId);
+        String hql = "from  ApplicationStudentRewardDTO asr  where asr.rewardId = ? ";
+        return getApplicationStudentRewardDAO.findByPage(hql,1, RewardLimit.REWARD_APPLICATION_SHOW_NUMBER, rewardId);
     }
 
 //    public List<ApplicationRewardWithTeacherSTCDTO> getApplicationRewardWithTeacherSTCDTO(Long rewardId) throws Exception{
