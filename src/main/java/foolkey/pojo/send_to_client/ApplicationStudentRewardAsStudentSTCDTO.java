@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Created by ustcg on 2017/5/9.
  */
-@Component("applicationStudentRewardSTCDTO")
-public class ApplicationStudentRewardAsStuentSTCDTO {
+@Component("applicationStudentRewardAsStudentSTCDTO")
+public class ApplicationStudentRewardAsStudentSTCDTO {
 
     //悬赏DTO
     private RewardDTO rewardDTO;

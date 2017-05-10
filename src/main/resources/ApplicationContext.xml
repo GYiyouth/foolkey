@@ -24,7 +24,7 @@
     <import resource="springPojoVO.xml"/>
     <!--<import resource="springCache.xml"/>-->
     <!--Ehcache缓存机制，默认关闭-->
-    <!--<import resource="springCache.xml"/>-->
+    <import resource="springCache.xml"/>
     <import resource="springAOP.xml"/>
 
     <context:component-scan base-package="foolkey.cacheLoader"/>
