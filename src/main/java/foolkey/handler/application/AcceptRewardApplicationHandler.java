@@ -65,6 +65,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
 
         //从json里获取原始数据
         String token = clearJSON.getString("token");
+
         Long applicationId = clearJSON.getLong("applicationId");
 //        Long orderId = clearJSON.getLong("orderId");
         Long rewardId = clearJSON.getLong("rewardId");

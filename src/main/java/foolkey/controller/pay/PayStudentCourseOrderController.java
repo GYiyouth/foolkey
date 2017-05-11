@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/6.
  */
-@Controller
-@RequestMapping("/aes/payStudentCourseOrder")
+//@Controller
+//@RequestMapping("/aes/payStudentCourseOrder")
 public class PayStudentCourseOrderController extends AbstractController {
 
     @Autowired
