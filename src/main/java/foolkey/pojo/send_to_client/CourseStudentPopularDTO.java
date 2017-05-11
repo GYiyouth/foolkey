@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
+ * 悬赏-学生 DTO
  * Created by ustcg on 2017/5/6.
  */
 @Component("courseStudentPopularDTO")
