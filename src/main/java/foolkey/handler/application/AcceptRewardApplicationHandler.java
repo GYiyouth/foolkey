@@ -5,16 +5,14 @@ import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.RewardDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * aes加密
@@ -53,28 +52,59 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
 
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getAttribute("clearText").toString();
+        String clearText = request.getParameter("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //从json里获取原始数据
         String token = clearJSON.getString("token");
-        Long applicantId = clearJSON.getLong("applicantId");
-        Long orderId = clearJSON.getLong("orderId");
-        Long couponId = clearJSON.getLong("couponId");
+        Long applicationId = clearJSON.getLong("applicationId");
+//        Long orderId = clearJSON.getLong("orderId");
+        Long rewardId = clearJSON.getLong("rewardId");
+        String couponStr = clearJSON.get("couponId").toString();
+        Long couponId = null;
+        CouponDTO couponDTO = null;
+        if ( couponStr != null && !couponStr.equals("")) {
+            couponId = Long.parseLong(couponStr);
+            couponDTO = couponInfoBO.getCouponDTO(couponId + "");
+        }else {
+
+        }
         Double price = clearJSON.getDouble("price");
 
         //获取各种DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        StudentDTO applicantDTO = studentInfoBO.getStudentDTO(applicantId);
-        CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId + "");
-        OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
-        RewardDTO courseDTO = courseBO.getCourseStudentDTO(orderDTO.getCourseId());
+        ApplicationStudentRewardDTO applicationDTO = applicationInfoBO.getRewardApplicationDTO(applicationId);
+
+//        Long orderId = applicantDTO.get
+//        OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(applicationDTO.getRewardId() + "");
+        RewardDTO rewardDTO = courseBO.getCourseStudentDTO( rewardId );
+
+        //新建Order
+        OrderBuyCourseDTO orderDTO = new OrderBuyCourseDTO();
+        orderDTO.setUserId( studentDTO.getId() );
+        orderDTO.setCourseId( rewardId );
+        orderDTO.setAmount( rewardDTO.getPrice() );
+        orderDTO.setCreatedTime( new Date() );
+
+        orderDTO.setPayTime( new Date() );
+        orderDTO.setCouponId( couponId );
+        orderDTO.setCourseTypeEnum( CourseTypeEnum.学生悬赏 );
+        orderDTO.setCutOffPercent( 1.0 );
+        orderDTO.setNumber( 1.0 );
+        orderDTO.setTeachMethodEnum( rewardDTO.getTeachMethodEnum() );
+        System.out.println("申请DTO："+applicationDTO);
+        orderDTO.setTeacherId( applicationDTO.getApplicantId() );
+
+        orderInfoBO.save( orderDTO );
+
 
         //余额扣款
         Double needToPay = useCouponBO.userCoupon(studentDTO, orderDTO, couponDTO);
@@ -94,9 +124,12 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
             return;
         }
 
+        orderDTO.setExistingTime( new Date() );
+        orderDTO.setOrderStateEnum( OrderStateEnum.payed );
+
         //课程状态更改
-        courseDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
-        courseBO.update(courseDTO);
+        rewardDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
+        courseBO.update(rewardDTO);
 
         //订单状态更改
         orderDTO.setOrderStateEnum(OrderStateEnum.payed);
@@ -107,8 +140,14 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         studentInfoBO.updateStudent(studentDTO);
 
         //删除其他人的申请
-        applicationInfoBO.deleteAllApplicationByOrderId(orderId, CourseTypeEnum.学生悬赏);
+        applicationInfoBO.deleteAllApplicationByOrderId(orderDTO.getId(), CourseTypeEnum.学生悬赏);
+
+
+        jsonObject.put("result", "success");
+        jsonHandler.sendJSON(jsonObject, response);
 
         //发送消息
+        StudentDTO teacher = studentInfoBO.getStudentDTO( applicationDTO.getApplicantId() );
+        messageBO.sendForPayReward(studentDTO, teacher, rewardDTO);
     }
 }

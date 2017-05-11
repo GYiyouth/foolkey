@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by admin on 2017/4/25.
  */
@@ -19,15 +21,18 @@ public class DeleteApplicationStudentRewardDAO extends DeleteBaseDAO<Application
      * @param studentId 处理的学生Id
      */
     public void delete(Long teacherId, Long studentId){
-        SessionFactory sessionFactory = BeanFactory.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
+//        SessionFactory sessionFactory = BeanFactory.getSessionFactory();
+//        Session session = sessionFactory.getCurrentSession();
 
-        String hql = "delete from foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO asr " +
-                "where asr.applicantId =:applicantId  AND asr.studentId = :studentId ";
-        session.createQuery(hql)
-                .setParameter("applicantId", teacherId)
-                .setParameter("studentId", studentId)
-                .executeUpdate();
+        String hql = " from foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO asr " +
+                "where asr.applicantId = ?  AND asr.studentId = ? ";
+//        session.createQuery(hql)
+//                .setParameter("applicantId", teacherId)
+//                .setParameter("studentId", studentId)
+//                .executeUpdate();
+        List<ApplicationStudentRewardDTO> list = (List<ApplicationStudentRewardDTO>)
+                hibernateTemplate.find(hql, teacherId, studentId);
+        hibernateTemplate.deleteAll( list );
 
     }
 
@@ -36,15 +41,19 @@ public class DeleteApplicationStudentRewardDAO extends DeleteBaseDAO<Application
      * @param courseId 悬赏orderId
      */
     public void deleteAllByCourseId(Long courseId){
-        SessionFactory sessionFactory = BeanFactory.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
+//        SessionFactory sessionFactory = BeanFactory.getSessionFactory();
+//        Session session = sessionFactory.getCurrentSession();
 
-        String hql = "delete from ApplicationStudentRewardDTO  asr " +
-                "where asr.courseId = ?";
+        String hql = "from ApplicationStudentRewardDTO  asr " +
+                "where asr.rewardId = ?";
+//
+//        session.createQuery(hql)
+//                .setParameter(0,courseId)
+//                .;
 
-        session.createQuery(hql)
-                .setParameter(0,courseId)
-                .executeUpdate();
+        List<ApplicationStudentRewardDTO> list = (List<ApplicationStudentRewardDTO>)
+                hibernateTemplate.find(hql, courseId);
+        hibernateTemplate.deleteAll( list );
     }
 
 }

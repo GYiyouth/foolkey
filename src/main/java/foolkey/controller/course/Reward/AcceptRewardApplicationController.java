@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/4.
  */
 @Controller
-@RequestMapping("/aes/acceptRewardApplication")
+@RequestMapping("/acceptRewardApplication")
 public class AcceptRewardApplicationController extends AbstractController{
 
     @Autowired
