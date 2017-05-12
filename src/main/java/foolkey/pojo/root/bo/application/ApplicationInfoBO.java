@@ -153,9 +153,13 @@ public class ApplicationInfoBO {
      * @param applicationId
      * @return
      */
-    public ApplicationStudentRewardDTO getRewardApplicationDTO(Long applicationId) {
-        return getRewardApplicationDTO(applicationId);
+    public ApplicationStudentRewardDTO getRewardApplicationDTO(Long applicationId) throws Exception{
+        return getApplicationStudentRewardDAO.get(ApplicationStudentRewardDTO.class, applicationId);
     }
+
+
+//    public ApplicationStudentRewardDTO getReward
+
 
     /**
      * 获取 学生悬赏 的申请
@@ -168,7 +172,7 @@ public class ApplicationInfoBO {
         List<ApplicationStudentRewardDTO> list =
                 getApplicationStudentRewardDAO.findByPage(
                         "from ApplicationStudentRewardDTO asr where asr.applicantId = ? " +
-                                " and asr.studentId = ? and asr.courseId = ?", 1, 20
+                                " and asr.studentId = ? and asr.rewardId = ?", 1, 20
                         , teacherId, studentId, courseId
                 );
         return list;
