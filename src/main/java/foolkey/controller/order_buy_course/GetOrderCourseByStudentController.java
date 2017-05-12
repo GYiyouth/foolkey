@@ -9,7 +9,7 @@ import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.send_to_client.OrderBuyCourseSTCDTO;
+import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +74,12 @@ public class GetOrderCourseByStudentController extends AbstractController {
             //按照订单状态，该学生下面的课程订单
             ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Course = orderInfoBO.getOrderBuyCourseDTOAsStudent(studentId, CourseTypeEnum.老师课程,orderStateEnum,pageNo,pageSize);
             //封装课程订单
-            ArrayList<OrderBuyCourseSTCDTO> orderBuyCourseSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyCourseSTCDTO(orderBuyCourseDTOS_Course);
+            ArrayList<OrderBuyCourseAsTeacherSTCDTO> orderBuyCourseAsTeacherSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyCourseSTCDTO(orderBuyCourseDTOS_Course);
 
             //封装、传送JSON
             jsonObject.put("result", "success");
             jsonObject.put("orderBuyRewardSTCDTOS", orderBuyRewardSTCDTOS);
-            jsonObject.put("orderBuyCourseSTCDTOS", orderBuyCourseSTCDTOS);
+            jsonObject.put("orderBuyCourseAsTeacherSTCDTOS", orderBuyCourseAsTeacherSTCDTOS);
             jsonHandler.sendJSON(jsonObject, response);
         } catch (Exception e) {
             e.printStackTrace();

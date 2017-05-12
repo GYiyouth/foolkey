@@ -7,8 +7,9 @@ import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.send_to_client.OrderBuyCourseSTCDTO;
+import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
+import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 老师获取自己有关的订单
@@ -48,7 +48,7 @@ public class GetOrderCourseByTeacherController extends AbstractController {
         OrderStateEnum orderStateEnum = OrderStateEnum.valueOf(orderStateStr);
         String token = clearJSON.getString("token");
         Integer pageNo = clearJSON.getInt("pageNo");
-        Integer pageSize = clearJSON.getInt("pageSize");
+//        Integer pageSize = clearJSON.getInt("pageSize");
 
         /**
          unPay, payed, applyRefund, agreeRefund, refundCompete,
@@ -60,25 +60,25 @@ public class GetOrderCourseByTeacherController extends AbstractController {
 
 //        // 按照订单状态分类的订单
 //        List<OrderBuyCourseDTO> orderBuyCourseDTOS = new ArrayList<>();
-        Long studentId = studentDTO.getId();
+        Long teacherId = studentDTO.getId();
         try {
             //********** 悬赏 *****************
             //按照订单状态，该老师下面的悬赏订单
-            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Reward = orderInfoBO.getOrderBuyCourseDTOAsTeacher(studentId, CourseTypeEnum.学生悬赏,orderStateEnum,pageNo,pageSize);
+            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Reward = orderInfoBO.getOrderBuyCourseDTOAsTeacher(teacherId, CourseTypeEnum.学生悬赏,orderStateEnum,pageNo, StaticVariable.pageSize);
             //封装悬赏订单
             ArrayList<OrderBuyRewardSTCDTO> orderBuyRewardSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyRewardSTCDTO(orderBuyCourseDTOS_Reward);
 
             //******** 课程 *****************
             //按照订单状态，该老师下面的课程订单
-            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Course = orderInfoBO.getOrderBuyCourseDTOAsTeacher(studentId, CourseTypeEnum.老师课程,orderStateEnum,pageNo,pageSize);
+            ArrayList<OrderBuyCourseDTO> orderBuyCourseDTOS_Course = orderInfoBO.getOrderBuyCourseDTOAsTeacher(teacherId, CourseTypeEnum.老师课程,orderStateEnum,pageNo,StaticVariable.pageSize);
             //封装课程订单
-            ArrayList<OrderBuyCourseSTCDTO> orderBuyCourseSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyCourseSTCDTO(orderBuyCourseDTOS_Course);
+            ArrayList<OrderBuyCourseAsTeacherSTCDTO> orderBuyCourseAsTeacherSTCDTOS = orderInfoBO.convertOrderBuyCourseDTOIntoOrderBuyCourseSTCDTO(orderBuyCourseDTOS_Course);
 
 
             //封装、传送JSON
             jsonObject.put("result", "success");
             jsonObject.put("orderBuyRewardSTCDTOS", orderBuyRewardSTCDTOS);
-            jsonObject.put("orderBuyCourseSTCDTOS", orderBuyCourseSTCDTOS);
+            jsonObject.put("orderBuyCourseAsTeacherSTCDTOS", orderBuyCourseAsTeacherSTCDTOS);
             jsonHandler.sendJSON(jsonObject, response);
         } catch (Exception e) {
             e.printStackTrace();
