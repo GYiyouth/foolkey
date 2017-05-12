@@ -7,9 +7,11 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.CourseDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.tool.StaticVariable;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,15 +41,15 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
     @RequestMapping
     public void execute(
             HttpServletRequest request,
-            @RequestParam("pageNo") Integer pageNo,
+//            @RequestParam("pageNo") Integer pageNo,
             HttpServletResponse response
     ) {
         //获取-解析明文JSON数据
-//        String clearText = request.getParameter("clearText");
-//        JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//        String token = clearJSON.getString("token");
-//        Integer pageNo = clearJSON.getInt("pageNo");
+        String clearText = request.getParameter("clearText");
+        JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+        String token = clearJSON.getString("token");
+        Integer pageNo = clearJSON.getInt("pageNo");
 
         /**
          unPay, payed, applyRefund, agreeRefund, refundCompete,
@@ -55,11 +57,11 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
          judged
          */
         //根据token，获取当前用户的id(因为后面用到的信息在“学生”部分就可以获得，因此暂时使用学生DTO)
-//        StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+        StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
 //        // 按照订单状态分类的订单
-//        Long teacherId = studentDTO.getId();
-        Long teacherId = 20001L;
+        Long teacherId = studentDTO.getId();
+//        Long teacherId = 20001L;
 
         //最后返回的东西
         List<OrderBuyCourseAsTeacherSTCDTO> orderBuyCourseAsTeacherSTCDTOS = new ArrayList<>();
