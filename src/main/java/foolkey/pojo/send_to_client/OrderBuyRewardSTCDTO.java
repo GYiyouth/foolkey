@@ -6,6 +6,7 @@ import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.springframework.stereotype.Component;
 
 /**
+ * 悬赏订单的DTO
  * Created by ustcg on 2017/5/9.
  */
 @Component("orderBuyRewardSTCDTO")

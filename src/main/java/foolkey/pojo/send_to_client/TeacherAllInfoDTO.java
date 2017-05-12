@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * 老师信息DTO  不含密码
  * Created by GR on 2017/5/5.
  */
 @Component("teacherAllInfoDTO")
@@ -101,7 +102,7 @@ public class TeacherAllInfoDTO {
     //教了多少人
     private Integer teachingNumber;
 
-    //?
+    //
     private VerifyStateEnum verifyState;
 
     //关注数

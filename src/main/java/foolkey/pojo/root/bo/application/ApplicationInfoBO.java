@@ -224,7 +224,7 @@ public class ApplicationInfoBO {
      * @return
      */
     public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId, Integer pageNo, Integer pageSize){
-        String hql = "from ApplicationStudentRewardDTO asr where asr.rewardId = ? order by asr.applyTime desc group by asr.applicantId";
+        String hql = "from  ApplicationStudentRewardDTO asr  where asr.rewardId = ? ";
         return getApplicationStudentRewardDAO.findByPage(hql,pageNo,pageSize,rewardId);
     }
 

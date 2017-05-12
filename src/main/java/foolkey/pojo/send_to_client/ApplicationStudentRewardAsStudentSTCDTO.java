@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * 悬赏-以及下面所有的悬赏的DTO
  * Created by ustcg on 2017/5/9.
  */
 @Component("applicationStudentRewardAsStudentSTCDTO")

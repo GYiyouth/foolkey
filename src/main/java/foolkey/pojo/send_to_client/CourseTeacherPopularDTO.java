@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
+ * 课程-老师信息  DTO
  * Created by GR on 2017/5/3.
  */
 @Component("courseTeacherPopularDTO")

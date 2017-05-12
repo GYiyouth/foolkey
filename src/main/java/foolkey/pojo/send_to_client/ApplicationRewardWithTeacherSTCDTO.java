@@ -4,6 +4,7 @@ import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import org.springframework.stereotype.Component;
 
 /**
+ * 老师-申请 封装的DTO
  * Created by ustcg on 2017/5/10.
  */
 @Component
