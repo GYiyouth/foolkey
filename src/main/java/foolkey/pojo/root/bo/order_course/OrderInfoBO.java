@@ -15,6 +15,7 @@ import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
+import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.root.vo.dto.*;
@@ -355,6 +356,44 @@ public class OrderInfoBO {
             orderBuyCourseWithStudentAsTeacherSTCDTOS.add(orderBuyCourseWithStudentAsTeacherSTCDTO);
         }
         return  orderBuyCourseWithStudentAsTeacherSTCDTOS;
+    }
+
+
+    /**
+     * 获取课程订单来进行评价
+     * @param studentDTO
+     * @return
+     */
+    public List<OrderBuyCourseAsStudentDTO> getOrderBuyCourseToJudge(StudentDTO studentDTO) throws Exception{
+        List<OrderBuyCourseAsStudentDTO> result = new ArrayList<>();
+        List<OrderBuyCourseDTO> orderList = null;
+        //获取结束上课状态的订单
+        orderList = getOrderCourseDAO.getCourseOrderAsStudent(studentDTO.getId(), OrderStateEnum.结束上课);
+
+        //遍历该 list，获取课程信息、个人信息
+        for (OrderBuyCourseDTO orderDTO : orderList){
+            OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
+            StudentDTO teacher = studentInfoBO.getStudentDTO( orderDTO.getTeacherId() );
+            TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( orderDTO.getId() );
+            orderBuyCourseAsStudentDTO.setStudentDTO( teacher );
+            orderBuyCourseAsStudentDTO.setTeacherDTO( teacherDTO );
+            //获取课程
+            switch ( orderDTO.getCourseTypeEnum() ){
+                case 学生悬赏:{
+                    RewardDTO rewardDTO = courseStudentBO.getCourseStudentDTO( orderDTO.getCourseId() );
+                    orderBuyCourseAsStudentDTO.setCourse( rewardDTO );
+                }break;
+                case 老师课程:{
+                    CourseDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById( orderDTO.getCourseId() );
+                    orderBuyCourseAsStudentDTO.setCourse( courseDTO );
+                }break;
+                default:throw new Exception("类型错误");
+            }
+            result.add( orderBuyCourseAsStudentDTO);
+        }
+
+        //返回
+        return result;
     }
 
 }

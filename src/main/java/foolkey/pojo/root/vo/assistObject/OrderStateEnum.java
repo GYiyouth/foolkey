@@ -6,11 +6,11 @@ package foolkey.pojo.root.vo.assistObject;
 public enum OrderStateEnum {
     未付款, 已付款, 申请退款, 同意退款, 退款完成,
     取消课程, 同意上课, 上课中, 结束上课,
-    上课完成
+    已评价
 }
 
 /**
  * 未付款 已付款 申请退款 同意退款 退款完成
  * 课取消 同意上课 在上课 结束上课
- * 上课完成
+ * 已评价
  */
