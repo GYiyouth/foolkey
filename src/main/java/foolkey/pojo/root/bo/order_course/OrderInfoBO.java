@@ -1,8 +1,12 @@
 package foolkey.pojo.root.bo.order_course;
 
+import foolkey.pojo.root.DAO.order_ask_question.GetOrderAskQuestionDAO;
+import foolkey.pojo.root.DAO.order_buy_answer.GetOrderBuyAnswerDAO;
+import foolkey.pojo.root.DAO.order_buy_key.GetOrderBuyKeyDAO;
 import foolkey.pojo.root.DAO.order_course.GetOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
+import foolkey.pojo.root.DAO.order_refound.GetOrderRefoundDAO;
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
@@ -32,10 +36,8 @@ public class OrderInfoBO {
 
     @Autowired
     private GetOrderCourseDAO getOrderCourseDAO;
-
     @Autowired
     private SaveOrderCourseDAO saveOrderCourseDAO;
-
     @Autowired
     private UpdateOrderCourseDAO updateOrderCourseDAO;
     @Autowired
@@ -50,6 +52,60 @@ public class OrderInfoBO {
     private RewardBO courseStudentBO;
     @Autowired
     private CourseBO courseTeacherBO;
+    @Autowired
+    private GetOrderBuyKeyDAO getOrderBuyKeyDAO;
+    @Autowired
+    private GetOrderBuyAnswerDAO getOrderBuyAnswerDAO;
+    @Autowired
+    private GetOrderAskQuestionDAO getOrderAskQuestionDAO;
+    @Autowired
+    private GetOrderRefoundDAO getOrderRefoundDAO;
+
+    /**
+     * 根据orderId获取买课订单信息
+     * @param orderId
+     * @return
+     */
+    public OrderBuyCourseDTO getOrderBuyCourseDTOByOrderId(Long orderId){
+        return getOrderCourseDAO.get(OrderBuyCourseDTO.class,orderId);
+    }
+
+    /**
+     * 根据orderId获取买Key信息
+     * @param orderId
+     * @return
+     */
+    public OrderBuyKeyDTO getOrderBuyKeyDTOByOrderId(Long orderId){
+        return getOrderBuyKeyDAO.get(OrderBuyKeyDTO.class,orderId);
+    }
+
+    /**
+     * 根据orderId获取回答的订单信息
+     * @param orderId
+     * @return
+     */
+    public OrderBuyAnswerDTO getOrderBuyAnswerDTOByOrderId(Long orderId){
+        return getOrderBuyAnswerDAO.get(OrderBuyAnswerDTO.class,orderId);
+    }
+
+    /**
+     * 根据orderId获取提问订单信息
+     * @param orderId
+     * @return
+     */
+    public OrderAskQuestionDTO getOrderAskQuestionDTOByOrderId(Long orderId){
+        return getOrderAskQuestionDAO.get(OrderAskQuestionDTO.class,orderId);
+    }
+
+    /**
+     * 根据orderId获取订单信息
+     * @param orderId
+     * @return
+     */
+    public OrderRefundDTO getOrderRefundDTOByOrderId(Long orderId){
+        return getOrderRefoundDAO.get(OrderRefundDTO.class,orderId);
+    }
+
 
     /**
      * 根据信息生成订单
