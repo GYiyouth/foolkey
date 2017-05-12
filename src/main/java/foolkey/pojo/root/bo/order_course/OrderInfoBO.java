@@ -15,7 +15,7 @@ import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.*;
-import foolkey.pojo.send_to_client.OrderBuyRewardSTCDTO;
+import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -219,6 +219,7 @@ public class OrderInfoBO {
      * @throws Exception
      */
     public List<Long> getOrderBuyCourseDTOAsTeacherByOrderStates(Long teacherId, CourseTypeEnum courseTypeEnum, Integer pageNo, Integer pageSize, Object... params)throws Exception{
+        System.out.println(courseTypeEnum+"：课程种类");
         return getOrderCourseDAO.findCourseIdByArbitraryStateCondition(teacherId,courseTypeEnum,pageNo,pageSize,params);
     }
 
@@ -255,25 +256,25 @@ public class OrderInfoBO {
      * @return
      * @throws Exception
      */
-    public ArrayList<OrderBuyRewardSTCDTO> convertOrderBuyCourseDTOIntoOrderBuyRewardSTCDTO(List<OrderBuyCourseDTO> orderBuyCourseDTOS) throws Exception{
-        ArrayList<OrderBuyRewardSTCDTO> orderBuyRewardSTCDTOS = new ArrayList<>();
-        for(OrderBuyCourseDTO orderBuyCourseDTO:orderBuyCourseDTOS){
-            OrderBuyRewardSTCDTO orderBuyRewardSTCDTO = new OrderBuyRewardSTCDTO();
-            //获取-赋值  订单信息
-            orderBuyRewardSTCDTO.setOrderBuyCourseDTO(orderBuyCourseDTO);
-            //获取-赋值  悬赏的信息
-            RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(orderBuyCourseDTO.getCourseId());
-            orderBuyRewardSTCDTO.setCourseStudentDTO(courseStudentDTO);
-            //获取、赋值  学生信息(发布者)
-            StudentDTO studentDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());
-            orderBuyRewardSTCDTO.setStudentDTO(studentDTO);
-            //获取、赋值   老师信息(接悬赏)
-            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(orderBuyCourseDTO.getTeacherId());
-            orderBuyRewardSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-
-            orderBuyRewardSTCDTOS.add(orderBuyRewardSTCDTO);
-        }
-        return orderBuyRewardSTCDTOS;
+    public ArrayList<OrderBuyRewardAsTeacherSTCDTO> convertOrderBuyCourseDTOIntoOrderBuyRewardSTCDTO(List<OrderBuyCourseDTO> orderBuyCourseDTOS) throws Exception{
+        ArrayList<OrderBuyRewardAsTeacherSTCDTO> orderBuyRewardAsTeacherSTCDTOS = new ArrayList<>();
+//        for(OrderBuyCourseDTO orderBuyCourseDTO:orderBuyCourseDTOS){
+//            OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();
+//            //获取-赋值  订单信息
+//            orderBuyRewardAsTeacherSTCDTO.setOrderBuyCourseDTO(orderBuyCourseDTO);
+//            //获取-赋值  悬赏的信息
+//            RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(orderBuyCourseDTO.getCourseId());
+//            orderBuyRewardAsTeacherSTCDTO.setCourseStudentDTO(courseStudentDTO);
+//            //获取、赋值  学生信息(发布者)
+//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());
+//            orderBuyRewardAsTeacherSTCDTO.setStudentDTO(studentDTO);
+//            //获取、赋值   老师信息(接悬赏)
+//            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(orderBuyCourseDTO.getTeacherId());
+//            orderBuyRewardAsTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+//
+//            orderBuyRewardAsTeacherSTCDTOS.add(orderBuyRewardAsTeacherSTCDTO);
+//        }
+        return orderBuyRewardAsTeacherSTCDTOS;
     }
 
 
@@ -286,10 +287,8 @@ public class OrderInfoBO {
      * @return
      * @throws Exception
      */
-    public List<OrderBuyCourseWithStudentAsTeacherSTCDTO> getOrderBuyCourseWithStudentAsTeacher(Long courseId, Integer pageNo, Integer pageSize,Object... params)throws Exception{
-        List<OrderBuyCourseDTO> orderBuyCourseDTOS = getOrderCourseDAO.getOrderBuyCourseDTO(courseId,pageNo,pageSize,params);
-        System.out.println(orderBuyCourseDTOS.size()+"查询到的orderBuyCourseDTOS大小");
-        System.out.println(orderBuyCourseDTOS.get(0));
+    public List<OrderBuyCourseWithStudentAsTeacherSTCDTO> getOrderBuyCourseWithStudentAsTeacher(Long courseId, CourseTypeEnum courseTypeEnum, Integer pageNo, Integer pageSize,Object... params)throws Exception{
+        List<OrderBuyCourseDTO> orderBuyCourseDTOS = getOrderCourseDAO.getOrderBuyCourseDTO(courseId,courseTypeEnum,pageNo,pageSize,params);
         List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = new ArrayList<>();
         for(OrderBuyCourseDTO orderBuyCourseDTO:orderBuyCourseDTOS){
             OrderBuyCourseWithStudentAsTeacherSTCDTO orderBuyCourseWithStudentAsTeacherSTCDTO = new OrderBuyCourseWithStudentAsTeacherSTCDTO();
