@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 申请关闭交易，aes加密
- * 由学生提出，订单状态改为 applyRefund
+ * 由学生提出，订单状态改为 申请退款
  * 需要token，orderId
  * 如果此时订单还没有被老师查看同意，则立刻退款
  * 否则需要老师申请
@@ -64,7 +64,7 @@ public class RequestToCloseOrderHandler extends AbstractBO {
         if (orderDTO.getUserId().equals( studentDTO.getId() ))
             jsonHandler.sendFailJSON(response);
         //如果此时订单还没有被老师查看同意，则立刻退款
-        if (orderDTO.getOrderStateEnum().compareTo( OrderStateEnum.payed) == 0){
+        if (orderDTO.getOrderStateEnum().compareTo( OrderStateEnum.已付款) == 0){
             //退款，同时删除优惠券
             orderInfoBO.courseRefund(orderDTO, studentDTO);
             //发送
@@ -74,8 +74,8 @@ public class RequestToCloseOrderHandler extends AbstractBO {
         }
 
         //否则需要老师申请，此时需要订单状态在agreed
-        if (orderDTO.getOrderStateEnum().compareTo( OrderStateEnum.agreed) == 0) {
-            orderDTO.setOrderStateEnum(OrderStateEnum.applyRefund);
+        if (orderDTO.getOrderStateEnum().compareTo( OrderStateEnum.同意上课) == 0) {
+            orderDTO.setOrderStateEnum(OrderStateEnum.申请退款);
             orderInfoBO.update(orderDTO);
 
             jsonObject.put("result", "success");

@@ -34,7 +34,7 @@ public class StartClassHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getAttribute("clearText").toString();
+        String clearText = request.getParameter("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
         //获取原始数据
         String token = clearJSON.getString("token");
@@ -47,7 +47,12 @@ public class StartClassHandler extends AbstractBO {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
 
         //修改订单状态
-        orderDTO.setOrderStateEnum(OrderStateEnum.onClass);
+        if (orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.同意上课) != 0
+                || orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.上课中) !=0 ){
+            jsonHandler.sendFailJSON(response);
+            return;
+        }
+        orderDTO.setOrderStateEnum(OrderStateEnum.上课中);
         orderInfoBO.update(orderDTO);
 
         jsonObject.put("result", "success");

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/6.
  */
 @Controller
-@RequestMapping("/aes/endClass")
+@RequestMapping("/endClass")
 public class EndClassController extends AbstractController{
     @Autowired
     private EndClassHandler handler;

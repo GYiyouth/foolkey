@@ -15,7 +15,6 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 老师获取已经付款且未评价的课程订单(agreed, onClass)
+ * 老师获取已经付款且未评价的课程订单(同意上课, 上课中)
  * Created by GR on 2017/5/12.
  */
 @Controller
@@ -52,9 +51,9 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
         Integer pageNo = clearJSON.getInt("pageNo");
 
         /**
-         unPay, payed, applyRefund, agreeRefund, refundCompete,
-         cancel, agreed, onClass, endClass,
-         judged
+         未付款, 已付款, 申请退款, 同意退款, 退款完成,
+         取消课程, 同意上课, 上课中, 结束上课,
+         上课完成
          */
         //根据token，获取当前用户的id(因为后面用到的信息在“学生”部分就可以获得，因此暂时使用学生DTO)
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
@@ -69,7 +68,7 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
         try {
             //********** 课程 *****************
             //1. 获得该老师下面哪些课程订单处于规定状态
-            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo,StaticVariable.pageSize, OrderStateEnum.agreed, OrderStateEnum.onClass);
+            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo,StaticVariable.pageSize, OrderStateEnum.同意上课, OrderStateEnum.上课中);
             //2. 上面每个课程，获取下面的学生-订单信息
             for(Long courseId:courseIdS){
                 OrderBuyCourseAsTeacherSTCDTO orderBuyCourseAsTeacherSTCDTO = new OrderBuyCourseAsTeacherSTCDTO();
@@ -77,7 +76,7 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
                 CourseDTO courseDTO = courseBO.getCourseTeacherDTOById(courseId);
                 orderBuyCourseAsTeacherSTCDTO.setCourseDTO(courseDTO);
                 //      2.2由课程id获取申请-学生DTOS
-                List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(courseId, CourseTypeEnum.老师课程,1,4, OrderStateEnum.agreed, OrderStateEnum.onClass);
+                List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(courseId, CourseTypeEnum.老师课程,1,4, OrderStateEnum.同意上课, OrderStateEnum.上课中);
                 orderBuyCourseAsTeacherSTCDTO.setOrderBuyCourseWithStudentAsTeacherSTCDTOS(orderBuyCourseWithStudentAsTeacherSTCDTOS);
                 orderBuyCourseAsTeacherSTCDTOS.add(orderBuyCourseAsTeacherSTCDTO);
             }

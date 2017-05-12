@@ -55,9 +55,9 @@ public class GetOrderCourseByStudentController extends AbstractController {
         Integer pageSize = clearJSON.getInt("pageSize");
 
         /**
-         unPay, payed, applyRefund, agreeRefund, refundCompete,
-         cancel, agreed, onClass, endClass,
-         judged
+         未付款, 已付款, 申请退款, 同意退款, 退款完成,
+         取消课程, 同意上课, 上课中, 结束上课,
+         上课完成
          */
         //根据token，获取当前用户的id
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);

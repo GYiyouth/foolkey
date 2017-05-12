@@ -13,7 +13,6 @@ import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
-import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class OrderInfoBO {
         order.setCourseTypeEnum(courseType);
 
         order.setCreatedTime(new Date());
-        order.setOrderStateEnum(OrderStateEnum.unPay);
+        order.setOrderStateEnum(OrderStateEnum.未付款);
 
 //        saveOrderCourseDAO.save(order);
 
@@ -91,7 +90,7 @@ public class OrderInfoBO {
     }
 
     public void updateOrderSateAfterPay(OrderBuyCourseDTO order){
-        order.setOrderStateEnum(OrderStateEnum.payed);
+        order.setOrderStateEnum(OrderStateEnum.已付款);
         update(order);
     }
 
@@ -152,7 +151,7 @@ public class OrderInfoBO {
      */
     public boolean courseRefund(OrderBuyCourseDTO orderDTO, StudentDTO studentDTO) throws Exception{
         //修改订单状态
-        orderDTO.setOrderStateEnum(OrderStateEnum.agreeRefund);
+        orderDTO.setOrderStateEnum(OrderStateEnum.同意退款);
         //获取退款价格
         Double price = orderDTO.getAmount();
         Long couponId = orderDTO.getCouponId();
@@ -171,7 +170,7 @@ public class OrderInfoBO {
         //更新学生余额
         studentInfoBO.updateStudent(studentDTO);
         //再次修改订单状态
-        orderDTO.setOrderStateEnum( OrderStateEnum.refundCompete);
+        orderDTO.setOrderStateEnum( OrderStateEnum.退款完成);
         //更新订单状态
         orderInfoBO.update(orderDTO);
         return true;

@@ -54,7 +54,7 @@ public class AcceptTeacherCourseApplicationHandler extends AbstractBO {
         StudentDTO applicantDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());
 
         //处理各种状态
-        orderBuyCourseDTO.setOrderStateEnum(OrderStateEnum.agreed);
+        orderBuyCourseDTO.setOrderStateEnum(OrderStateEnum.同意上课);
         orderBO.update(orderBuyCourseDTO);
 
         //返回json数据

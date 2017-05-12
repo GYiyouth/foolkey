@@ -48,7 +48,7 @@ public class EndClassHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getAttribute("clearText").toString();
+        String clearText = request.getParameter("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //获取原始数据
@@ -69,7 +69,7 @@ public class EndClassHandler extends AbstractBO {
 
 
         //修改订单状态
-        orderDTO.setOrderStateEnum(OrderStateEnum.endClass);
+        orderDTO.setOrderStateEnum(OrderStateEnum.结束上课);
         //修改学生状态
         student.setLearningNumber( student.getLearningNumber() + 1);
         student.setLearningTime( student.getLearningTime() + hourNum );

@@ -31,7 +31,7 @@ public class ApplicationAbstract {
     @Column(name = "apply_time")
     private Date applyTime;
 
-    //状态 agree, refuse, expired, cancel, processing
+    //状态 agree, refuse, expired, 取消课程, processing
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private ApplicationStateEnum state;

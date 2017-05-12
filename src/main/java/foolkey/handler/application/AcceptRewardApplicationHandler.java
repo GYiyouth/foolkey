@@ -126,14 +126,14 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         }
 
         orderDTO.setExistingTime( new Date() );
-        orderDTO.setOrderStateEnum( OrderStateEnum.payed );
+        orderDTO.setOrderStateEnum( OrderStateEnum.已付款);
 
         //课程状态更改
         rewardDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
         courseBO.update(rewardDTO);
 
         //订单状态更改
-        orderDTO.setOrderStateEnum(OrderStateEnum.agreed);
+        orderDTO.setOrderStateEnum(OrderStateEnum.同意上课);
         orderInfoBO.update(orderDTO);
 
         //个人扣款

@@ -43,8 +43,11 @@ public class TeacherInfoBO {
 
     public TeacherAllInfoDTO getTeacherAllInfoDTO(Long id) {
         StudentDTO studentDTO = getStudentDAO.get(StudentDTO.class,id);
+        System.out.println("学生:"+studentDTO);
         TeacherDTO teacherDTO = getTeacherDAO.get(TeacherDTO.class,id);
-        TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
+        System.out.println("老师："+teacherDTO);
+//        TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
+        TeacherAllInfoDTO teacherAllInfoDTO = new TeacherAllInfoDTO();
         teacherAllInfoDTO.clone(studentDTO,teacherDTO);
         return teacherAllInfoDTO;
     }

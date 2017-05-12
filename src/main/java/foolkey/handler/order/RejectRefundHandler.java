@@ -48,7 +48,7 @@ public class RejectRefundHandler extends AbstractBO {
         StudentDTO student = studentInfoBO.getStudentDTO(orderDTO.getUserId());
 
         //修改订单状态
-        orderDTO.setOrderStateEnum(OrderStateEnum.agreed);
+        orderDTO.setOrderStateEnum(OrderStateEnum.同意上课);
         orderInfoBO.update( orderDTO );
 
         //返回消息

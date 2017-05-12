@@ -94,7 +94,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         //课程的状态改为 已解决，
         courseDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
         courseStudentBO.update(courseDTO);
-        //生成订单，orderState设置为 agreed
+        //生成订单，orderState设置为 同意上课
         OrderBuyCourseDTO order =
             orderInfoBO.createOrder(
                     expectedPrice,
@@ -106,7 +106,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
                     courseDTO.getTeachMethodEnum(), // 授课方法
                     CourseTypeEnum.学生悬赏 // 课程种类
             );
-        order.setOrderStateEnum(OrderStateEnum.agreed);
+        order.setOrderStateEnum(OrderStateEnum.同意上课);
         order.setCouponId(couponId);
         order.setPayTime(new Date());
 

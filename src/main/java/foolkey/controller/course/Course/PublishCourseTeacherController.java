@@ -6,6 +6,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.tool.Time;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,40 +35,40 @@ public class PublishCourseTeacherController extends AbstractController{
     @RequestMapping(value = "/publishCourseTeacher")
     public void execute(
             HttpServletRequest request,
-            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
-            @RequestParam("token")String token,
-            @RequestParam("topic")String topic,
-            @RequestParam("description")String description ,
-            @RequestParam("price")Double price,
-            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
-            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-            @RequestParam("duration")Float duration,
+//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+//            @RequestParam("token")String token,
+//            @RequestParam("topic")String topic,
+//            @RequestParam("description")String description ,
+//            @RequestParam("price")Double price,
+//            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
+//            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
+//            @RequestParam("duration")Float duration,
             HttpServletResponse response
     ) throws Exception {
         try {
             //获取-解析明文JSON数据
-//            String clearText = request.getParameter("clearText");
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//            String token =clearJSON.getString("token");
-//            String technicTagStr = clearJSON.getString("technicTagEnum");
-//                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
-//            String topic = clearJSON.getString("topic");
-//            String description = clearJSON.getString("description");
-//            Float price = clearJSON.getFloat("price");
-//            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
-//                CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
-//            String teachMethodStr = clearJSON.getString("teachMethodEnum");
-//                TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-//            Float duration = clearJSON.getFloat("duration");
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+            String token =clearJSON.getString("token");
+            String technicTagStr = clearJSON.getString("technicTagEnum");
+                TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
+            String topic = clearJSON.getString("topic");
+            String description = clearJSON.getString("description");
+            Float price = Float.parseFloat( clearJSON.getString("price") );
+            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
+                CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
+            String teachMethodStr = clearJSON.getString("teachMethodEnum");
+                TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
+            Float duration = Float.parseFloat( clearJSON.getString("duration") );
 
             //发布课程
-//            courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
-            courseTeacherDTO.setCreatorId(20002L);
+            courseTeacherDTO.setCreatorId(studentInfoBO.getStudentDTO(token).getId());
+//            courseTeacherDTO.setCreatorId(20002L);
             courseTeacherDTO.setTechnicTagEnum(technicTagEnum);
             courseTeacherDTO.setTopic(topic);
             courseTeacherDTO.setDescription(description);
-            courseTeacherDTO.setPrice(price);
+            courseTeacherDTO.setPrice( price + 0.0 );
             courseTeacherDTO.setCourseTimeDayEnum(courseTimeDayEnum);
             courseTeacherDTO.setTeachMethodEnum(teachMethodEnum);
             courseTeacherDTO.setCourseTeacherStateEnum(CourseTeacherStateEnum.可上课);

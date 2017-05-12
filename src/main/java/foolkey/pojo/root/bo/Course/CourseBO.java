@@ -127,15 +127,18 @@ public class CourseBO {
         try {
             if (courseDTO.getCourseTeacherStateEnum()
                     .compareTo(CourseTeacherStateEnum.可上课) == 0){ // 课程
+                System.out.println("课程ok " + courseDTO.getCreatorId());
                 Long teacherId = courseDTO.getCreatorId();
                 TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(teacherId);
                 if (teacherDTO.getVerifyState()
                         .compareTo(VerifyStateEnum.verified) == 0){ // 老师是否认证
+                    System.out.println("老师认证ok");
                     StudentDTO studentDTO = studentInfoBO.getStudentDTO(teacherId);
                     if (studentDTO.getUserStateEnum()
                             .compareTo(UserStateEnum.normal) == 0 // 老师是否北封禁
                             && studentDTO.getRoleEnum()
                             .compareTo( RoleEnum.teacher) == 0){ // 学生是否是老师
+                        System.out.println("老师状态ok");
                         return true;
                     }
                 }
