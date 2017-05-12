@@ -133,7 +133,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         courseBO.update(rewardDTO);
 
         //订单状态更改
-        orderDTO.setOrderStateEnum(OrderStateEnum.payed);
+        orderDTO.setOrderStateEnum(OrderStateEnum.agreed);
         orderInfoBO.update(orderDTO);
 
         //个人扣款
