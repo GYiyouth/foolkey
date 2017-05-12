@@ -28,7 +28,7 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
     public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderState){
         List<OrderBuyCourseDTO> list = (List<OrderBuyCourseDTO>)
                 hibernateTemplate.find("from foolkey.pojo.root.vo.dto.OrderBuyCourseDTO t " +
-                        "where t.userId = ? and t.orderStateEnum = ?", studentId, orderState);
+                        "where t.userId = ? and t.orderStateEnum = ? order by t.createdTime desc ", studentId, orderState);
         return list;
     }
 

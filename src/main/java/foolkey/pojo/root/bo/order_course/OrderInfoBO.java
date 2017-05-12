@@ -364,19 +364,22 @@ public class OrderInfoBO {
      * @param studentDTO
      * @return
      */
-    public List<OrderBuyCourseAsStudentDTO> getOrderBuyCourseToJudge(StudentDTO studentDTO) throws Exception{
+    public List<OrderBuyCourseAsStudentDTO> getOrderBuyCourseToJudge(StudentDTO studentDTO, Integer pageNo) throws Exception{
         List<OrderBuyCourseAsStudentDTO> result = new ArrayList<>();
-        List<OrderBuyCourseDTO> orderList = null;
+        List<OrderBuyCourseDTO> orderList ;
         //获取结束上课状态的订单
-        orderList = getOrderCourseDAO.getCourseOrderAsStudent(studentDTO.getId(), OrderStateEnum.结束上课);
+        String hql = "from foolkey.pojo.root.vo.dto.OrderBuyCourseDTO t " +
+                "where t.userId = ? and t.orderStateEnum = ? order by t.createdTime desc ";
+        orderList = getOrderCourseDAO.findByPage( hql, pageNo, 10, studentDTO.getId(), OrderStateEnum.结束上课);
 
         //遍历该 list，获取课程信息、个人信息
         for (OrderBuyCourseDTO orderDTO : orderList){
             OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
             StudentDTO teacher = studentInfoBO.getStudentDTO( orderDTO.getTeacherId() );
-            TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( orderDTO.getId() );
+            TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( orderDTO.getTeacherId() );
             orderBuyCourseAsStudentDTO.setStudentDTO( teacher );
             orderBuyCourseAsStudentDTO.setTeacherDTO( teacherDTO );
+            orderBuyCourseAsStudentDTO.setOrderDTO( orderDTO );
             //获取课程
             switch ( orderDTO.getCourseTypeEnum() ){
                 case 学生悬赏:{
