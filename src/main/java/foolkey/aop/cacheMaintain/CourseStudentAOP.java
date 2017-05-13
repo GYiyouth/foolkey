@@ -48,7 +48,7 @@ public class CourseStudentAOP {
      * @param courseStudentDTO
      */
     @AfterReturning(returning = "courseStudentDTO",
-            pointcut = "execution(* foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO.save(..))")
+            pointcut = "execution(* foolkey.pojo.root.DAO.course_student.*.save(..))")
     public void addCourseTeacherDTOToCache(RewardDTO courseStudentDTO){
         if(courseStudentDTO != null){
 //            courseTeacherCAO.addNewCourseTeacherToCache(courseTeacherDTO);

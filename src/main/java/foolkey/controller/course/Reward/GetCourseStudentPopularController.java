@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ import java.util.Random;
  * Created by ustcg on 2017/5/6.
  */
 @Controller
-@RequestMapping(value = "/courseStudent")
+@RequestMapping(value = "/courseStudent/getRewardCoursePopular")
 public class GetCourseStudentPopularController extends AbstractController{
 
     @Autowired
@@ -31,7 +32,7 @@ public class GetCourseStudentPopularController extends AbstractController{
 
 
 
-    @RequestMapping(value = "/getRewardCoursePopular")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("pageNo") Integer pageNo,
@@ -61,6 +62,8 @@ public class GetCourseStudentPopularController extends AbstractController{
             }else{
                 technicTagEnum = studentDTO.getTechnicTagEnum();
             }
+
+
 
             //获取热门的悬赏
             ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);

@@ -33,11 +33,11 @@ public class UpdateCourseStudentController extends AbstractController{
             @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             @RequestParam("topic")String topic,
             @RequestParam("description")String description ,
-            @RequestParam("price")Double price,
-            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
-            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
-            @RequestParam("teacherRequirementEnum")TeacherRequirementEnum teacherRequirementEnum,
-            @RequestParam("studentBaseEnum")StudentBaseEnum studentBaseEnum,
+//            @RequestParam("price")Double price,
+//            @RequestParam("courseTimeDayEnum")CourseTimeDayEnum courseTimeDayEnum,
+//            @RequestParam("teachMethodEnum")TeachMethodEnum teachMethodEnum,
+//            @RequestParam("teacherRequirementEnum")TeacherRequirementEnum teacherRequirementEnum,
+//            @RequestParam("studentBaseEnum")StudentBaseEnum studentBaseEnum,
             HttpServletResponse response
     ) throws Exception {
         try {
@@ -75,11 +75,11 @@ public class UpdateCourseStudentController extends AbstractController{
             courseStudentDTO.setTechnicTagEnum(technicTagEnum);
             courseStudentDTO.setTopic(topic);
             courseStudentDTO.setDescription(description);
-            courseStudentDTO.setPrice(price);
-            courseStudentDTO.setCourseTimeDayEnum(courseTimeDayEnum);
-            courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
-            courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
-            courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
+//            courseStudentDTO.setPrice(price);
+//            courseStudentDTO.setCourseTimeDayEnum(courseTimeDayEnum);
+//            courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
+//            courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
+//            courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
 
             //封装-传送JSON
             jsonObject.put("result","success");

@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ustcg on 2017/4/30.
  */
 @Controller
-@RequestMapping(value = "/courseStudent")
+@RequestMapping(value = "/courseStudent/publishRewardCourse")
 public class PublishCourseStudentController extends AbstractController {
 
     @Resource(name = "courseStudentBO")
@@ -32,7 +33,7 @@ public class PublishCourseStudentController extends AbstractController {
     @Autowired
     private StudentInfoBO studentInfoBO;
 
-    @RequestMapping(value = "/publishRewardCourse")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("token") String token,
