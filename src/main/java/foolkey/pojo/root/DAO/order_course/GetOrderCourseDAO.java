@@ -67,7 +67,7 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
      * @param params
      * @return
      */
-    public List<Long> findCourseIdByArbitraryStateCondition(Long teacherId, CourseTypeEnum courseTypeEnum,Integer pageNo, Integer pageSize, final Object... params){
+    public List<Long> findCourseIdAsTeacherByArbitraryStateCondition(Long teacherId, CourseTypeEnum courseTypeEnum,Integer pageNo, Integer pageSize, final Object... params){
         System.out.println("课程种类："+courseTypeEnum);
         List<Long> list = hibernateTemplate.execute(new HibernateCallback<List<Long>>() {
             @Override
@@ -88,6 +88,52 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
                 //执行Hibernate分页查询
                 Query query = session.createQuery(hql);
                 query.setParameter(0,teacherId);
+                query.setParameter(1,courseTypeEnum);
+                //为包含占位符的HQL语句设置参数
+                //注意是从第三个参数开始的
+                for (int i = 0, len = params.length; i < len; i++) {
+                    query.setParameter((i+2) , params[i]);
+                }
+                List<Long> result = query.setFirstResult((pageNo - 1) * pageSize)
+                        .setMaxResults(pageSize)
+                        .list();
+                return result;
+            }
+        });
+        return list;
+    }
+
+
+    /**
+     * 获取学生下面哪些课程处于规定的状态
+     * @param studentId
+     * @param courseTypeEnum
+     * @param pageNo
+     * @param pageSize
+     * @param params
+     * @return
+     */
+    public List<Long> findCourseIdAsStudentByArbitraryStateCondition(Long studentId, CourseTypeEnum courseTypeEnum,Integer pageNo, Integer pageSize, final Object... params){
+        System.out.println("课程种类："+courseTypeEnum);
+        List<Long> list = hibernateTemplate.execute(new HibernateCallback<List<Long>>() {
+            @Override
+            public List<Long> doInHibernate(Session session) throws HibernateException {
+                String hql = "select obc.courseId from OrderBuyCourseDTO obc where obc.userId = ? and obc.courseTypeEnum = ? ";
+                for( int i = 0 ,len =  params.length ; i<len;i++){
+                    if(i==0) {
+                        //第一个需要时and关键字
+                        hql += "and (obc.orderStateEnum = ? ";
+                    }else{
+                        //后面的都是or关键字
+                        hql += "or obc.orderStateEnum = ?";
+                    }
+                }
+                //最后排序，把相同状态的放一起
+                hql += ") group by obc.courseId";
+
+                //执行Hibernate分页查询
+                Query query = session.createQuery(hql);
+                query.setParameter(0,studentId);
                 query.setParameter(1,courseTypeEnum);
                 //为包含占位符的HQL语句设置参数
                 //注意是从第三个参数开始的
