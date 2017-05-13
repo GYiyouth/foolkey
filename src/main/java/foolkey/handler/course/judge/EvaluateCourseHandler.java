@@ -42,13 +42,13 @@ public class EvaluateCourseHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getAttribute("clearText").toString();
+        String clearText = request.getParameter("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //获取原始数据
         String token = clearJSON.getString("token");
         Long orderId = clearJSON.getLong("orderId");
-        Double score = clearJSON.getDouble("score");
+        Double score = Double.parseDouble( clearJSON.getString("score") );
         String content = clearJSON.getString("content");
         String pic1Path = clearJSON.getString("pic1Path");
         String pic2Path = clearJSON.getString("pic2Path");

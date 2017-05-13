@@ -41,13 +41,7 @@ public class JudgeController extends AbstractController{
         evaluateStudentHandler.execute(request, response, jsonObject);
     }
 
-    @RequestMapping("/teacher")
-    public void teacher(
-            HttpServletRequest request,
-            HttpServletResponse response
-    )throws Exception{
-        evaluateTeacherHandler.execute(request, response, jsonObject);
-    }
+
 
 
 
