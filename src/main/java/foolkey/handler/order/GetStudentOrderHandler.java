@@ -1,10 +1,13 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.dto.CourseAbstract;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
@@ -33,6 +36,10 @@ public class GetStudentOrderHandler extends AbstractBO{
     private StudentInfoBO studentInfoBO;
     @Autowired
     private TeacherInfoBO teacherInfoBO;
+    @Autowired
+    private CourseBO courseBO;
+    @Autowired
+    private RewardBO rewardBO;
 
     public void execute(
             HttpServletRequest request,
@@ -54,6 +61,7 @@ public class GetStudentOrderHandler extends AbstractBO{
         //便利上面的那个列表，获取老师的信息
         List<StudentDTO> t1 = new ArrayList<>();
         List<TeacherDTO> t2 = new ArrayList<>();
+        List<CourseAbstract> courseList = new ArrayList<>();
 
         for (OrderBuyCourseDTO order : list){
             Long tid = order.getTeacherId();
@@ -68,11 +76,20 @@ public class GetStudentOrderHandler extends AbstractBO{
 
             t1.add(studentDTO1);
             t2.add(teacherDTO);
+            switch ( order.getCourseTypeEnum() ){
+                case 老师课程:{
+                    courseList.add( courseBO.getCourseTeacherDTOById(order.getCourseId()) );
+                }break;
+                case 学生悬赏:{
+                    courseList.add( rewardBO.getCourseStudentDTO( order.getCourseId()) );
+                }break;
+            }
         }
 
         jsonObject.put("orderList", list);
-        jsonObject.put("teacherInfo1", t1);
-        jsonObject.put("teacherInfo2", t2);
+        jsonObject.put("studentList", t1);
+        jsonObject.put("teacherList", t2);
+        jsonObject.put("courseList", courseList);
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
     }
