@@ -141,6 +141,8 @@ public class CourseBO {
                         System.out.println("老师状态ok");
                         return true;
                     }
+                }else {
+                    System.out.println("老师认证不对 " + teacherDTO.getVerifyState());
                 }
             }
         }catch (Exception e){

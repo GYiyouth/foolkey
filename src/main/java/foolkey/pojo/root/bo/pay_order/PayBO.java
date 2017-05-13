@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.pay_order;
 
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
@@ -36,6 +37,7 @@ public class PayBO {
         if (money > totalPrice){
             money = money - totalPrice;
             studentDTO.setVirtualCurrency(money);
+            order.setOrderStateEnum( OrderStateEnum.同意上课 );
             return true;
         }
         return false;

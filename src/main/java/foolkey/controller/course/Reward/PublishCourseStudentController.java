@@ -48,7 +48,6 @@ public class PublishCourseStudentController extends AbstractController {
             HttpServletResponse response
     ) throws Exception {
         try {
-            System.out.println("00000");
             // 获取-分析JSON传递的明文信息
             String clearText = request.getParameter("clearText");
             JSONObject clearJSON = JSONObject.fromObject(clearText);
@@ -90,6 +89,7 @@ public class PublishCourseStudentController extends AbstractController {
             jsonObject.put("result", "success");
             jsonObject.put("courseStudentDTO", courseStudentDTO);
             jsonHandler.sendJSON(jsonObject, response);
+            System.out.println("学生密码是 " + studentDTO.getPassWord());
         } catch (Exception e) {
             e.printStackTrace();
             jsonHandler.sendFailJSON(response);

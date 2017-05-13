@@ -50,12 +50,12 @@ public class CourseStudentCAO extends AbstractCAO {
             //缓存里面有此类的标签 例如Java
             if (technicMap.containsKey(courseStudentToken)) {
                 //已经有了“悬赏”项
-                System.out.println("有了悬赏项");
+                System.out.println( "有了悬赏项" );
                 DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
                 //重置
 //                courseTeacherPopularDoubleLink.InitMyDoubleLink();
                 System.out.println("链表长度：" + courseStudentPopularDoubleLink.getLength());
-                if(directionEnum==DirectionEnum.head){
+                if(directionEnum == DirectionEnum.head){
                     courseStudentPopularDoubleLink.addHead(courseStudentPopularDTO);
                 }else {
                     courseStudentPopularDoubleLink.addTail(courseStudentPopularDTO);
@@ -66,7 +66,7 @@ public class CourseStudentCAO extends AbstractCAO {
                 //创建悬赏项
                 System.out.println("没有悬赏项");
                 DoubleLink courseStudentPopularDoubleLink = new DoubleLink();
-                if(directionEnum==DirectionEnum.head){
+                if(directionEnum == DirectionEnum.head){
                     courseStudentPopularDoubleLink.addHead(courseStudentPopularDTO);
                 }else {
                     courseStudentPopularDoubleLink.addTail(courseStudentPopularDTO);

@@ -39,8 +39,6 @@ public class CourseStudentPopularDTO {
     }
 
     public void setStudentDTO(StudentDTO studentDTO) {
-        //把密码置为空
-        studentDTO.setPassWord("");
         this.studentDTO = studentDTO;
     }
 }
