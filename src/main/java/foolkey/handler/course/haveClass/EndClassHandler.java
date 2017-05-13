@@ -2,7 +2,9 @@ package foolkey.handler.course.haveClass;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
@@ -42,6 +44,12 @@ public class EndClassHandler extends AbstractBO {
     private CouponInfoBO couponInfoBO;
     @Autowired
     private CourseBO courseTeacherBO;
+    @Autowired
+    private MessageBO messageBO;
+    @Autowired
+    private CourseBO courseBO;
+    @Autowired
+    private RewardBO rewardBO;
 
     public void execute(
             HttpServletRequest request,
@@ -90,5 +98,18 @@ public class EndClassHandler extends AbstractBO {
 
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
+
+        //发送消息
+        CourseAbstract courseAbstract = null;
+        switch ( orderDTO.getCourseTypeEnum() ){
+            case 老师课程:{
+                courseAbstract = courseBO.getCourseTeacherDTOById( orderDTO.getCourseId() );
+            }break;
+            case 学生悬赏:{
+                courseAbstract = rewardBO.getCourseStudentDTO( orderDTO.getCourseId() );
+            }break;
+        }
+
+        messageBO.sendForEndClass( student, courseAbstract );
     }
 }

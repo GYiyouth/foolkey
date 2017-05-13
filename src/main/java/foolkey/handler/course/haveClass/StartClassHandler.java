@@ -1,10 +1,15 @@
 package foolkey.handler.course.haveClass;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.dto.CourseAbstract;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +32,12 @@ public class StartClassHandler extends AbstractBO {
     private StudentInfoBO studentInfoBO;
     @Autowired
     private OrderInfoBO orderInfoBO;
-
+    @Autowired
+    private MessageBO messageBO;
+    @Autowired
+    private CourseBO courseBO;
+    @Autowired
+    private RewardBO rewardBO;
 
     public void execute(
             HttpServletRequest request,
@@ -57,5 +67,19 @@ public class StartClassHandler extends AbstractBO {
 
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);
+
+        //发送消息
+        CourseAbstract courseAbstract = null;
+        StudentDTO student = studentInfoBO.getStudentDTO(studentId);
+        switch ( orderDTO.getCourseTypeEnum() ){
+            case 老师课程:{
+                courseAbstract = courseBO.getCourseTeacherDTOById( orderDTO.getCourseId() );
+            }break;
+            case 学生悬赏:{
+                courseAbstract = rewardBO.getCourseStudentDTO( orderDTO.getCourseId() );
+            }break;
+        }
+
+        messageBO.sendForStartClass( student, courseAbstract );
     }
 }

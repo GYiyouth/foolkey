@@ -4,6 +4,7 @@ import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.CheckEvaluationForVerifyBO;
@@ -47,7 +48,8 @@ public class EvaluateTeacherHandler extends AbstractBO{
     private GiveMoneyToTeacherBO giveMoneyToTeacherBO;
     @Autowired
     private CheckEvaluationForVerifyBO checkEvaluationForVerifyBO;
-
+    @Autowired
+    private MessageBO messageBO;
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -100,5 +102,8 @@ public class EvaluateTeacherHandler extends AbstractBO{
             //非认证老师，需要查看过往评价，有没有5次连续好评
             checkEvaluationForVerifyBO.execute(teacher, teacherDTO);
         }
+
+        //发送消息
+        messageBO.sendForEvaluation(teacher);
     }
 }

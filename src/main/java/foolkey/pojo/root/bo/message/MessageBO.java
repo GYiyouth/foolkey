@@ -198,4 +198,61 @@ public class MessageBO {
                         student.getId() + "", messagePayLoad, title, description
                 );
     }
+
+    /**
+     * 开始上课后，给学生发消息
+     * @param studentDTO
+     * @return
+     * @throws Exception
+     */
+    public Result sendForStartClass(
+            StudentDTO studentDTO,
+            CourseAbstract courseAbstract
+    )throws Exception{
+        String messagePayLoad = "sendForStartClass";
+        String title = "开始上课啦！";
+        String description = courseAbstract.getTopic() + " 开始上课啦";
+        return
+                MessagePusher.sendToUserAccount(
+                        studentDTO.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 下课后，给学生发送消息
+     * @param studentDTO
+     * @param courseAbstract
+     * @return
+     * @throws Exception
+     */
+    public Result sendForEndClass(
+            StudentDTO studentDTO,
+            CourseAbstract courseAbstract
+    )throws Exception{
+        String messagePayLoad = "sendForEndClass";
+        String title = "已下课，请尽快评价";
+        String description = courseAbstract.getTopic() + "已经下课，请尽快给老师反馈";
+        return
+                MessagePusher.sendToUserAccount(
+                        studentDTO.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 学生评价老师后，给老师发送消息
+     * @param teacher
+     * @return
+     * @throws Exception
+     */
+    public Result sendForEvaluation(
+            StudentDTO teacher
+    )throws Exception{
+        String messagePayLoad = "sendForEvaluation";
+        String title = "学生已经对您进行了评价";
+        String description =  "请切换老师后，在个人中心查询余额变化";
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
 }
