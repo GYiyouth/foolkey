@@ -5,6 +5,7 @@ import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyAnswerDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static foolkey.pojo.root.vo.assistObject.CourseTypeEnum.学生悬赏;
+import static foolkey.pojo.root.vo.assistObject.CourseTypeEnum.老师课程;
 
 /**
  * Created by admin on 2017/4/25.
@@ -202,13 +206,39 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
 
     }
 
+    /**
+     * 老师获取课程订单
+     * @param studentDTO
+     * @param orderDTO
+     * @return
+     */
+//    public List getOrderToJudgeAsTeacher(StudentDTO studentDTO, OrderStateEnum orderState){
+//        StringBuffer hql = new StringBuffer("select new list (student, order, course ) from StudentDTO  student, OrderBuyCourseDTO  order," );
+//        switch (orderDTO.getCourseTypeEnum()){
+//            case 老师课程:{
+//                hql.append(" CourseDTO course ");
+//            }break;
+//            case 学生悬赏:{
+//                hql.append( " RewardDTO course ");
+//            }break;
+//        }
+//        hql.append("where order.orderState = ? and order.teacherId = ? and order.id = ? " +
+//                " and order.courseId = course.id");
+//
+//
+//        List list = hibernateTemplate.find(hql.toString(), orderState, studentDTO.getId(), orderDTO.getId());
+//        return list;
+//    }
 
+    //测试
     public List getOrderAllInfo(OrderBuyCourseDTO orderDTO){
-        String hql = "select new map (order, student) from OrderBuyCourseDTO  order , StudentDTO  student " +
+        String hql = "select new list (order, student) from OrderBuyCourseDTO  order , StudentDTO  student " +
                 " where order.id = ? and order.userId = student.id ";
         List list = hibernateTemplate.find(hql, 1L);
         return list;
     }
+
+
 
 
 }

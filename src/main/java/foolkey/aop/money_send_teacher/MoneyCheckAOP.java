@@ -19,13 +19,13 @@ public class MoneyCheckAOP {
     /**
      * 评价老师时会转账，此时要判定，如果就此账单已经转过一次账了，则不能再转账
      * @param joinPoint
-     * @param teacher
-     * @param orderDTO
      * @return
      */
-    @Around(value = "execution(* foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO(..))" +
-            " && args(teacher, orderDTO)")
-    public Object preventSendMoneyTwice(ProceedingJoinPoint joinPoint, StudentDTO teacher, OrderBuyCourseDTO orderDTO) throws Throwable{
+    @Around(value = "execution(* foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO.giveMoneyToTeacher(..))" )
+    public Object preventSendMoneyTwice(ProceedingJoinPoint joinPoint) throws Throwable{
+        Object[]args = joinPoint.getArgs();
+        StudentDTO teacher = (StudentDTO) args[0];
+        OrderBuyCourseDTO orderDTO = (OrderBuyCourseDTO) args[1];
         if (transactionInfoBO.isTeacherEarndMoney(teacher, orderDTO)){
             //已经转过账了
             return null;

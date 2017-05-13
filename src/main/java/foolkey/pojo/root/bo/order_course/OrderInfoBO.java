@@ -14,6 +14,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
@@ -24,9 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by geyao on 2017/5/1.
@@ -311,46 +310,78 @@ public class OrderInfoBO {
 
 
     /**
-     * 获取课程订单来进行评价
+     * 获取课程订单来进行评价,作为学生
      * @param studentDTO
      * @return
      */
     public List<OrderBuyCourseAsStudentDTO> getOrderBuyCourseToJudge(StudentDTO studentDTO, Integer pageNo) throws Exception{
+
+        return getOrderBuyCourseToJudge(studentDTO, pageNo, RoleEnum.student);
+    }
+
+    /**
+     * 老师获取待评价的课程订单
+     * @param teacher
+     * @return
+     */
+    public  List<OrderBuyCourseAsStudentDTO> getOrderToJudgeAsTeacher(StudentDTO teacher, Integer pageNo) throws Exception{
+        return getOrderBuyCourseToJudge(teacher, pageNo, RoleEnum.teacher);
+    }
+
+    /**
+     * 获取课程订单来进行评价,角色可选
+     * @param studentDTO
+     * @return
+     */
+    public List<OrderBuyCourseAsStudentDTO> getOrderBuyCourseToJudge(StudentDTO studentDTO, Integer pageNo, RoleEnum roleEnum) throws Exception {
         List<OrderBuyCourseAsStudentDTO> result = new ArrayList<>();
-        List<OrderBuyCourseDTO> orderList ;
+        List<OrderBuyCourseDTO> orderList;
         //获取结束上课状态的订单
+        String role = "";
+        //获取身份
+        switch (roleEnum) {
+            case student: {
+                role = "userId";
+            }
+            break;
+            case teacher: {
+                role = "teacherId";
+            }
+            break;
+        }
         String hql = "from foolkey.pojo.root.vo.dto.OrderBuyCourseDTO t " +
-                "where t.userId = ? and t.orderStateEnum = ? order by t.createdTime desc ";
-        orderList = getOrderCourseDAO.findByPage( hql, pageNo, 10, studentDTO.getId(), OrderStateEnum.结束上课);
+                "where t." + role + " = ? and t.orderStateEnum = ? order by t.createdTime desc ";
+        orderList = getOrderCourseDAO.findByPage(hql, pageNo, 10, studentDTO.getId(), OrderStateEnum.结束上课);
 
         //遍历该 list，获取课程信息、个人信息
-        for (OrderBuyCourseDTO orderDTO : orderList){
+        for (OrderBuyCourseDTO orderDTO : orderList) {
             OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
-            StudentDTO teacher = studentInfoBO.getStudentDTO( orderDTO.getTeacherId() );
-            TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( orderDTO.getTeacherId() );
-            orderBuyCourseAsStudentDTO.setStudentDTO( teacher );
-            orderBuyCourseAsStudentDTO.setTeacherDTO( teacherDTO );
-            orderBuyCourseAsStudentDTO.setOrderDTO( orderDTO );
+            StudentDTO teacher = studentInfoBO.getStudentDTO(orderDTO.getTeacherId());
+            TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(orderDTO.getTeacherId());
+            orderBuyCourseAsStudentDTO.setStudentDTO(teacher);
+            orderBuyCourseAsStudentDTO.setTeacherDTO(teacherDTO);
+            orderBuyCourseAsStudentDTO.setOrderDTO(orderDTO);
             //获取课程
-            switch ( orderDTO.getCourseTypeEnum() ){
-                case 学生悬赏:{
-                    RewardDTO rewardDTO = courseStudentBO.getCourseStudentDTO( orderDTO.getCourseId() );
-                    orderBuyCourseAsStudentDTO.setCourse( rewardDTO );
-                }break;
-                case 老师课程:{
-                    CourseDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById( orderDTO.getCourseId() );
-                    orderBuyCourseAsStudentDTO.setCourse( courseDTO );
-                }break;
-                default:throw new Exception("类型错误");
+            switch (orderDTO.getCourseTypeEnum()) {
+                case 学生悬赏: {
+                    RewardDTO rewardDTO = courseStudentBO.getCourseStudentDTO(orderDTO.getCourseId());
+                    orderBuyCourseAsStudentDTO.setCourse(rewardDTO);
+                }
+                break;
+                case 老师课程: {
+                    CourseDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getCourseId());
+                    orderBuyCourseAsStudentDTO.setCourse(courseDTO);
+                }
+                break;
+                default:
+                    throw new Exception("类型错误");
             }
-            result.add( orderBuyCourseAsStudentDTO);
+            result.add(orderBuyCourseAsStudentDTO);
         }
-
-        //返回
         return result;
     }
 
-    public List test(){
+        public List test(){
         return getOrderCourseDAO.getOrderAllInfo( null );
     }
 
