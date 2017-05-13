@@ -57,8 +57,7 @@ public class StartClassHandler extends AbstractBO {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
 
         //修改订单状态
-        if (orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.同意上课) != 0
-                || orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.上课中) !=0 ){
+        if (orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.同意上课) != 0 ){
             jsonHandler.sendFailJSON(response);
             return;
         }

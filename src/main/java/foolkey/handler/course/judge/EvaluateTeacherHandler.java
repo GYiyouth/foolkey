@@ -9,7 +9,9 @@ import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.CheckEvaluationForVerifyBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
+import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.EvaluationTeacherDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
@@ -82,6 +84,14 @@ public class EvaluateTeacherHandler extends AbstractBO{
         //保存
         teacherInfoBO.updateTeacherDTO(teacherDTO);
         studentInfoBO.updateStudent(teacher);
+
+        //学生课程的话，要同时修改课程状态
+        System.out.println(orderDTO);
+        if (orderDTO.getCourseTypeEnum().compareTo( CourseTypeEnum.学生悬赏) == 0 ){
+            orderDTO.setOrderStateEnum( OrderStateEnum.已评价 );
+            orderInfoBO.update( orderDTO );
+            System.out.println("订单状态已修改 " + orderDTO.getCourseTypeEnum());
+        }
 
 
         //返回
