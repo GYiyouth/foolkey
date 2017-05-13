@@ -37,9 +37,9 @@ public class PublishCourseStudentController extends AbstractController {
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("token") String token,
-            @RequestParam("technicTagEnum") TechnicTagEnum technicTagEnum,
-            @RequestParam("topic") String topic,
-            @RequestParam("description") String description,
+//            @RequestParam("technicTagEnum") TechnicTagEnum technicTagEnum,
+//            @RequestParam("topic") String topic,
+//            @RequestParam("description") String description,
 //            @RequestParam("price") Double price,
 //            @RequestParam("courseTimeDayEnum") CourseTimeDayEnum courseTimeDayEnum,
 //            @RequestParam("teachMethodEnum") TeachMethodEnum teachMethodEnum,
@@ -49,38 +49,38 @@ public class PublishCourseStudentController extends AbstractController {
     ) throws Exception {
         try {
             // 获取-分析JSON传递的明文信息
-//            String clearText = request.getParameter("clearText");
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//            String token = clearJSON.getString("token");
-//            String technicTagStr = clearJSON.getString("technicTagEnum");
-//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
-//            String topic = clearJSON.getString("topic");
-//            String description = clearJSON.getString("description");
-//            Double price = clearJSON.getDouble("price");
-//            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
-//            CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
-//            String teachMethodStr = clearJSON.getString("teachMethodEnum");
-//            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
-//            String teacherRequirementStr = clearJSON.getString("teachRequirementEnum");
-//            TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
-//            String studentBase = clearJSON.getString("studentBaseEnum");
-//            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+            String token = clearJSON.getString("token");
+            String technicTagStr = clearJSON.getString("technicTagEnum");
+            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
+            String topic = clearJSON.getString("topic");
+            String description = clearJSON.getString("description");
+            Double price = clearJSON.getDouble("price");
+            String courseTimeDayStr = clearJSON.getString("courseTimeDayEnum");
+            CourseTimeDayEnum courseTimeDayEnum = CourseTimeDayEnum.valueOf(courseTimeDayStr);
+            String teachMethodStr = clearJSON.getString("teachMethodEnum");
+            TeachMethodEnum teachMethodEnum = TeachMethodEnum.valueOf(teachMethodStr);
+            String teacherRequirementStr = clearJSON.getString("teachRequirementEnum");
+            TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
+            String studentBase = clearJSON.getString("studentBaseEnum");
+            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBase);
 
             // 创建一个curseStudentDTO(悬赏)，并赋值
-//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-//            courseStudentDTO.setCreatorId(studentDTO.getId());
-//
-            courseStudentDTO.setCreatorId(20001L);
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+            courseStudentDTO.setCreatorId(studentDTO.getId());
+
+//            courseStudentDTO.setCreatorId(20001L);
 
             courseStudentDTO.setTechnicTagEnum(technicTagEnum);
             courseStudentDTO.setTopic(topic);
             courseStudentDTO.setDescription(description);
-//            courseStudentDTO.setPrice(price);
-//            courseStudentDTO.setCourseTimeDayEnum(courseTimeDayEnum);
-//            courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
-//            courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
-//            courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
+            courseStudentDTO.setPrice(price);
+            courseStudentDTO.setCourseTimeDayEnum(courseTimeDayEnum);
+            courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
+            courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
+            courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
             courseStudentDTO.setCourseStudentStateEnum(CourseStudentStateEnum.待接单);
             courseStudentDTO.setCreateTime(Time.getCurrentDate());
 
