@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/6.
  */
 @Controller
-@RequestMapping("/aes/judge")
+@RequestMapping("/judge")
 public class JudgeController extends AbstractController{
     @Autowired
     private EvaluateCourseHandler evaluateCourseHandler;
