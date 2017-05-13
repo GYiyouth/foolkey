@@ -5,11 +5,16 @@ import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+
 /**
  * 学生获取订单，传给app时包括的信息，订单本身，课程DTO，老师的学生DTO，teacherDTO
  * Created by geyao on 2017/5/12.
  */
+
 public class OrderBuyCourseAsStudentDTO {
+
 
     private OrderBuyCourseDTO orderDTO;
 

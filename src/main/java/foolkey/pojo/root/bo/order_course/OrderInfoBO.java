@@ -350,4 +350,8 @@ public class OrderInfoBO {
         return result;
     }
 
+    public List test(){
+        return getOrderCourseDAO.getOrderAllInfo( null );
+    }
+
 }

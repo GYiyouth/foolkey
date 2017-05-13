@@ -201,4 +201,14 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO>{
         return list;
 
     }
+
+
+    public List getOrderAllInfo(OrderBuyCourseDTO orderDTO){
+        String hql = "select new map (order, student) from OrderBuyCourseDTO  order , StudentDTO  student " +
+                " where order.id = ? and order.userId = student.id ";
+        List list = hibernateTemplate.find(hql, 1L);
+        return list;
+    }
+
+
 }
