@@ -5,6 +5,7 @@ import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.security.AESKeyBO;
 import foolkey.pojo.root.bo.security.SHA1KeyBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.assistObject.SexTagEnum;
 import foolkey.pojo.root.vo.assistObject.UserStateEnum;
@@ -12,6 +13,7 @@ import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.TokenCreator;
 import foolkey.tool.cache.Cache;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,6 +34,8 @@ public class SaveUserController extends AbstractController {
     private AESKeyBO aesKeyBO;
     @Resource(name = "sha1KeyBO")
     private SHA1KeyBO sha1KeyBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
     @RequestMapping
     public void execute(
@@ -65,7 +69,9 @@ public class SaveUserController extends AbstractController {
                 studentDTO.setPrestige(0);
                 studentDTO.setSexTagEnum(SexTagEnum.Male);
                 studentDTO.setUserStateEnum(UserStateEnum.unverified);
+
                 userRegisterBO.saveStudent(studentDTO);
+                studentDTO.setNickedName("愚猿" + studentDTO.getId() + "号用户");
 
                 userRegisterBO.saveStudentToCache(token, studentDTO, aesKey);
 
@@ -78,6 +84,7 @@ public class SaveUserController extends AbstractController {
 //                jsonObject.put("studentDTO", studentDTO);
                 jsonObject.put("id", studentDTO.getId());
                 jsonObject.put("result", "success");
+                studentInfoBO.updateStudent(studentDTO);
             }else {
 
             }
