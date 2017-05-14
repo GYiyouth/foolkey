@@ -87,6 +87,7 @@ public class GetStudentOrderHandler extends AbstractBO{
             //封装进DTO里，方便传输
             orderBuyCourseAsStudentDTO.setStudentDTO( studentDTO1 );
             orderBuyCourseAsStudentDTO.setTeacherDTO( teacherDTO );
+            orderBuyCourseAsStudentDTO.setOrderDTO( order );
 
             //获取课程
             CourseAbstract courseAbstract = null;
