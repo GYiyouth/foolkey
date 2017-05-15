@@ -20,13 +20,13 @@ public class Test {
     @Autowired
     private OrderInfoBO orderInfoBO;
 
-    @RequestMapping
-    public void execute(HttpServletResponse response){
-        JSONHandler jsonHandler = new JSONHandler();
-        JSONObject jsonObject = new JSONObject();
-        Long time1 = System.currentTimeMillis();
-        List list = orderInfoBO.test();
-        jsonObject.put("1", orderInfoBO.test());
-        jsonHandler.sendJSON(jsonObject, response);
-    }
+//    @RequestMapping
+//    public void execute(HttpServletResponse response){
+//        JSONHandler jsonHandler = new JSONHandler();
+//        JSONObject jsonObject = new JSONObject();
+//        Long time1 = System.currentTimeMillis();
+//        List list = orderInfoBO.test();
+//        jsonObject.put("1", orderInfoBO.test());
+//        jsonHandler.sendJSON(jsonObject, response);
+//    }
 }

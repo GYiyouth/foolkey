@@ -1,5 +1,6 @@
 package foolkey.tool.cache;
 
+import com.danga.MemCached.MemCachedClient;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 @Component
 public interface Cache {
 
-    Map getCache();
+    MemCachedClient getCache();
 
     boolean isContainToken(String token);
 

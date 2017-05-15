@@ -1,9 +1,11 @@
 package foolkey.controller.GR_test;
 
 import foolkey.controller.AbstractController;
+import foolkey.pojo.Test;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,16 @@ public class GetAllCourseTeacherPopular extends AbstractController{
             e.printStackTrace();
             jsonHandler.sendFailJSON(response);
         }
+    }
+
+
+    @RequestMapping
+    public void execute(
+            HttpServletResponse response
+    )throws Exception{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", Test.foo());
+        jsonHandler.sendJSON(jsonObject, response);
     }
 
 }
