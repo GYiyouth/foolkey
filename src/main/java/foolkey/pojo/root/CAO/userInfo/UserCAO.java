@@ -107,7 +107,7 @@ public class UserCAO extends AbstractCAO{
      * @param token
      */
     public void removeUserCache(String token){
-        cache.getCache().remove(token);
+        cache.remove(token);
     }
 
     /**
