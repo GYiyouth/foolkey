@@ -321,7 +321,7 @@
                   <username>admin</username>
                   <password>password</password>
                   <update>true</update>
-                  <path>/grngrui</path>
+                  <path>/</path>
               </configuration>
 
           </plugin>
