@@ -285,7 +285,21 @@
             <version>1.46</version>
         </dependency>
 
+        <dependency>
+            <groupId>MiPush_SDK_Server</groupId>
+            <artifactId>mi_push</artifactId>
+            <version>2_2_18</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/MiPush_SDK_Server_2_2_18.jar</systemPath>
+        </dependency>
 
+        <dependency>
+            <groupId>json-simple</groupId>
+            <artifactId>mi_push_json</artifactId>
+            <version>1.1.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/json-simple-1.1.1.jar</systemPath>
+        </dependency>
 
 
 
@@ -295,26 +309,42 @@
   <build>
     <finalName>${appName}</finalName>
 
-      <!--<plugins>-->
-          <!--<plugin>-->
-
-              <!--<groupId>org.apache.tomcat.maven</groupId>-->
-              <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-              <!--<version>2.2</version>-->
-              <!--<configuration>-->
-
-                  <!--<url>http://localhost:8080/manager/text</url>-->
-                  <!--<server>tomcat7</server>-->
+      <plugins>
+          <plugin>
+              <groupId>org.apache.tomcat.maven</groupId>
+              <artifactId>tomcat7-maven-plugin</artifactId>
+              <version>2.2</version>
+              <configuration>
+                  <url>http://115.159.5.195:8080</url>
+                  <server>tomcat7</server>
                   <!--下面这俩是根据你的tomcat配置决定的,仅当你需要远程部署时使用-->
-                  <!--<username></username>-->
-                  <!--<password></password>-->
-                  <!--<update>true</update>-->
-                  <!--<path>/</path>-->
+                  <username></username>
+                  <password></password>
+                  <update>true</update>
+                  <path>/grngrui</path>
+              </configuration>
 
-              <!--</configuration>-->
+          </plugin>
 
-          <!--</plugin>-->
-      <!--</plugins>-->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <version>2.10</version>
+              <executions>
+                  <execution>
+                      <id>copy-dependencies</id>
+                      <phase>compile</phase>
+                      <goals>
+                          <goal>copy-dependencies</goal>
+                      </goals>
+                      <configuration>
+                          <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+                          <includeScope>system</includeScope>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
 
   </build>
 </project>
