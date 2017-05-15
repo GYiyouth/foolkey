@@ -295,26 +295,26 @@
   <build>
     <finalName>${appName}</finalName>
 
-      <!--<plugins>-->
-          <!--<plugin>-->
+      <plugins>
+          <plugin>
 
-              <!--<groupId>org.apache.tomcat.maven</groupId>-->
-              <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-              <!--<version>2.2</version>-->
-              <!--<configuration>-->
+              <groupId>org.apache.tomcat.maven</groupId>
+              <artifactId>tomcat7-maven-plugin</artifactId>
+              <version>2.2</version>
+              <configuration>
 
-                  <!--<url>http://localhost:8080/manager/text</url>-->
-                  <!--<server>tomcat7</server>-->
+                  <url>http://115.159.5.195:8080/manager/text</url>
+                  <server>tomcat7</server>
                   <!--下面这俩是根据你的tomcat配置决定的,仅当你需要远程部署时使用-->
-                  <!--<username></username>-->
-                  <!--<password></password>-->
-                  <!--<update>true</update>-->
-                  <!--<path>/</path>-->
+                  <username>admin</username>
+                  <password>password</password>
+                  <update>true</update>
+                  <path>/</path>
 
-              <!--</configuration>-->
+              </configuration>
 
-          <!--</plugin>-->
-      <!--</plugins>-->
+          </plugin>
+      </plugins>
 
   </build>
 </project>
