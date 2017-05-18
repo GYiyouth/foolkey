@@ -56,7 +56,7 @@ public class GetAllCourseTeacherPopular extends AbstractController{
             HttpServletResponse response
     )throws Exception{
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result", Test.foo());
+//        jsonObject.put("result", Test.foo());
         jsonHandler.sendJSON(jsonObject, response);
     }
 

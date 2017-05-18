@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/4/28.
  */
 @Controller
-@RequestMapping("/aes/logOut")
+@RequestMapping("/logOut")
 public class LogOutController extends AbstractController {
     @Resource(name = "logOutBO")
     private LogOutBO logOutBO;
@@ -27,7 +27,7 @@ public class LogOutController extends AbstractController {
             HttpServletResponse response
     ) throws Exception{
         //获取clearJSON，这是个JSON对象，再获取token
-        String clearText = request.getAttribute("clearText").toString();
+        String clearText = request.getParameter("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(
                 clearText
         );

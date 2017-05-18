@@ -43,9 +43,9 @@ public abstract class AbstractInterceptor implements HandlerInterceptor{
     protected String cipherPreHandler(String cipherText){
         if (cipherText == null || cipherText.equals(""))
             return "";
-        cipherText = cipherText.replaceFirst("愚","\n");
-        cipherText = cipherText.replaceFirst("愚","\n");
+        cipherText = cipherText.replaceAll("\\?\\?\\?", "愚");
         cipherText = cipherText.substring(0, cipherText.length() -1 );
+        cipherText = cipherText.replaceAll("愚","\n");
         return cipherText;
     }
 

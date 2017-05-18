@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="foolkey.war">
       <element id="artifact" artifact-name="foolkey:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="MiPush_SDK_Server_2_2_18" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

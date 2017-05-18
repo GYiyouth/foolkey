@@ -43,7 +43,7 @@ public class ScheduleAutoUpdateCacheBO {
     /**
      * 每2分钟发送一次请求，维护缓存连接
      */
-    @Scheduled(cron = "0 0/2 *")
+    @Scheduled(cron = "0 0/2 * * * ? ")
     public void cacheMaintain(){
         cache.getMap("");
     }
