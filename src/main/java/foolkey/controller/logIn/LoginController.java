@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/4/28.
  */
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/rsa/login")
 public class LoginController extends AbstractController {
 
     @Resource(name = "userRegisterBO")
@@ -49,9 +49,9 @@ public class LoginController extends AbstractController {
     ){
         try {
             //request中获取JSONObject，拿取三项信息
-            String userName = request.getParameter("userName").toString();
-            String passWord = request.getParameter("passWord").toString();
-            String aesKey = request.getParameter("AESKey").toString();
+            String userName = request.getAttribute("userName").toString();
+            String passWord = request.getAttribute("passWord").toString();
+            String aesKey = request.getAttribute("AESKey").toString();
 
             //在缓存、数据库中验证用户 用户名、密码
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(userName, passWord);

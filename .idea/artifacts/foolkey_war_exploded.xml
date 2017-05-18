@@ -60,7 +60,9 @@
           <element id="library" level="project" name="Maven: org.json:json:20140107" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.2" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15:1.46" />
-          <element id="library" level="project" name="MiPush_SDK_Server_2_2_18" />
+          <element id="library" level="module" name="Maven: MiPush_SDK_Server:mi_push:2_2_18" module-name="foolkey" />
+          <element id="library" level="project" name="sdk" />
+          <element id="library" level="module" name="Maven: json-simple:mi_push_json:1.1.1" module-name="foolkey" />
         </element>
       </element>
       <element id="directory" name="META-INF">

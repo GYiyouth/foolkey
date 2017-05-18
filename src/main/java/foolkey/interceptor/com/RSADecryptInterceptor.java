@@ -29,7 +29,7 @@ public class RSADecryptInterceptor extends AbstractInterceptor {
             request.setCharacterEncoding("UTF-8");
 
             //获取JSON
-            String cipherText = request.getParameter("cipherText");
+            String cipherText = request.getParameter("clearText");
 
             //需要前端提供以下字段，分别加密
             JSONObject jsonObject = JSONObject.fromObject(cipherText);
@@ -48,14 +48,9 @@ public class RSADecryptInterceptor extends AbstractInterceptor {
                 //对密文进行预处理
 //                rawCipher = cipherPreHandler(rawCipher);
                 //解密，获取明文
-                System.out.println("cipherText\'s size is --  " + rawCipher.length() );
                 String clearText = rsaKeyBO.decryptBase64StrByPri(rawCipher, priKeyStr);
                 //放置在request里
                 request.setAttribute(key, clearText);
-                System.out.println("RSA解密的key,明,密文 ");
-                System.out.println("key: " + key);
-                System.out.println("密文: " + rawCipher);
-                System.out.println("明文: " + clearText);
             }
 
 

@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 使用aes加密的后，提交到三个name
- * clearText:JSON格式，明文，必须包含token
- * validation:由clearText 对称加密得来
- * cipherText:一些保密数据，密文
- *
+ * 使用aes加密的后，提交到clearText
+    JSON格式，里面包含三个部分 clearText，validation，cipherText
+    clearText里必须包含token
  * request.setAttribute("clearText", clearText);
  * request.setAttribute("cipherText", cipherText);
    并不在意这两者是什么格式，不会转换
@@ -33,33 +31,38 @@ public class AESDecryptInterceptor extends AbstractInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         try {
             request.setCharacterEncoding("UTF-8");
-            String clearText = request.getParameter("clearText");
+            //获取发送来的消息
+            String content = request.getParameter("clearText");
+            JSONObject jsonObject = JSONObject.fromObject( content );
+
+            //获取明文JSON，以及从明文中获取JSON
             JSONObject clearJSON = JSONObject
-                    .fromObject(clearText);
+                    .fromObject( jsonObject.getString("clearText") );
             String token = clearJSON.getString("token");
 
             //获取缓存中，用户的对称密钥
             String aesKey = aesKeyBO.getKeybase64Str(token);
+            System.out.println("\n取到用户密钥为 --  " + aesKey);
 
             //解密验证字段，并和1做比较
-            String validationCipherStr = request.getParameter("validation");
+            String validationCipherStr = jsonObject.getString("validation");
             //预处理
-            validationCipherStr = validationCipherStr.substring(0, validationCipherStr.length() -1);
-            validationCipherStr = validationCipherStr.replaceAll("愚", "\n");
+//            validationCipherStr = validationCipherStr.substring(0, validationCipherStr.length() -1);
+//            validationCipherStr = validationCipherStr.replaceAll("愚", "\n");
 //            System.out.println(validationCipherStr);
             //解密
             String validationClearStr = aesKeyBO.decrypt(validationCipherStr, aesKey);
 
-            JSONObject validation = JSONObject
-                    .fromObject(validationClearStr);
+//            JSONObject validation = JSONObject
+//                    .fromObject(validationClearStr);
             //匹配率小于0.8，则说明不相等
-            if (StringMatchRate.getMatchRate(validationClearStr, clearText) < 0.8) {
+            if (StringMatchRate.getMatchRate(validationClearStr, clearJSON.toString()) < 0.8) {
                 System.out.println("明密文不相等");
                 System.out.println(validationClearStr);
                 return false;
             }
             //获取第三部分，密文，并解密
-            String cipherStr = request.getParameter("cipherText");;
+            String cipherStr = jsonObject.getString( "cipherText" );
 
             //如果第三部分为空，则处理一下，预防抛出异常
             if (cipherStr == null || cipherStr.equals(""))
