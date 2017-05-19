@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_article")
-public class ArticleDTO {
+public class ArticleDTO extends AbstractDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

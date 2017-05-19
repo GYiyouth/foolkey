@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TransactionStateEnum;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_transaction_user_take_money")
-public class TransactionUserTakeMoneyDTO {
+public class TransactionUserTakeMoneyDTO  extends AbstractDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

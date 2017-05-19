@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.VerifyStateEnum;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Component
 @Table(name = "t_teacher")
-public class TeacherDTO {
+public class TeacherDTO  extends AbstractDTO {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

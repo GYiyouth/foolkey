@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Component
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class EvaluationAbstract {
+public class EvaluationAbstract  extends AbstractDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

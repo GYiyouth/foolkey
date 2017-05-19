@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.*;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_student")
 @Component
-public class StudentDTO {
+public class StudentDTO  extends AbstractDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,5 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.CouponTypeEnum;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.util.Date;
 @Component
 @Entity
 @Table(name = "t_coupon")
-public class CouponDTO {
+public class CouponDTO  extends AbstractDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -42,7 +42,7 @@ public class LocalCache implements Cache{
         pool.initialize();
 
         memcachedClient = new MemCachedClient();
-        //测试用，刷新整个缓存区
+//        测试用，刷新整个缓存区
         memcachedClient.flushAll();
 
         for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){

@@ -1,4 +1,4 @@
-package foolkey.cacheLoader;
+package foolkey.initialize;
 
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.Course.CourseBO;

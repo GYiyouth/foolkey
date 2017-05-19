@@ -1,6 +1,12 @@
 package foolkey.controller;
 
+import com.alibaba.fastjson.JSON;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.vo.assistObject.RoleEnum;
+import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.tool.ConverterB20X;
 import foolkey.tool.ConverterByteBase64;
 import foolkey.tool.JSONHandler;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,17 +41,28 @@ public class Test {
 //    }
 
     public static void main(String[] args) throws Exception{
-        System.out.println(
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setNickedName("昵称");
+        studentDTO.setRoleEnum(RoleEnum.student);
+        studentDTO.setBirthday(new Date());
+        String jsonString = JSON.toJSONString(studentDTO);
+        com.alibaba.fastjson.JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
+        jsonObject.put("student", studentDTO);
+        System.out.println(jsonObject);
+        System.out.println(jsonString);
 
-                ConverterByteBase64.base642Byte("PqLblN1r\\/KpHWoFlddshZ9\\/UOOo65PJbJeqBFUOxl8XPqHolNfn9dKxyat49ndEy7xuj9Iky02bjæ\u0084\u009A80+4kNzAQc6m\\/MKXktki1tE8nDpM5szfo2xEfw9rI+i\\/e6VMZduWqcz\\/3LXaIAJn2kRccvrahNYvæ\u0084\u009AqY6PmvvE8xvmF+KTc1k=k"
-                    ).length + "\n" + ConverterByteBase64.base642Byte("PqLblN1r/KpHWoFlddshZ9/UOOo65PJbJeqBFUOxl8XPqHolNfn9dKxyat49ndEy7xuj9Iky02bj愚80+4kNzAQc6m/MKXktki1tE8nDpM5szfo2xEfw9rI+i/e6VMZduWqcz/3LXaIAJn2kRccvrahNYv愚qY6PmvvE8xvmF+KTc1k=愚").length
+        StudentDTO studentDTO1 = JSON.parseObject( jsonString, StudentDTO.class);
+        System.out.println(studentDTO1);
+        studentDTO1.setBirthday(new Date() );
+        System.out.println(studentDTO1);
+        System.out.println();
 
-        );
-        String cipherText = "\n123\n213\n";
-        cipherText = URLEncoder.encode(cipherText, "UTF-8");
-        System.out.println(cipherText);
-        System.out.println( URLEncoder.encode(cipherText));
-
-        System.out.println(URLDecoder.decode(cipherText));
+        OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
+        orderBuyCourseAsStudentDTO.setStudentDTO(studentDTO);
+        orderBuyCourseAsStudentDTO.setTeacherDTO(new TeacherDTO());
+        String orderStr = JSON.toJSONString(orderBuyCourseAsStudentDTO);
+        System.out.println(orderBuyCourseAsStudentDTO);
+        System.out.println(orderStr);
+        System.out.println( JSON.parseObject(orderStr, OrderBuyCourseAsStudentDTO.class));
     }
 }

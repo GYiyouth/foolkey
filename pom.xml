@@ -285,6 +285,13 @@
             <version>1.46</version>
         </dependency>
 
+        <!--阿里的json转换工具-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.32</version>
+        </dependency>
+
 
 
 

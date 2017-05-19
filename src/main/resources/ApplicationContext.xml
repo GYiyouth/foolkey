@@ -27,6 +27,6 @@
     <import resource="springCache.xml"/>
     <import resource="springAOP.xml"/>
 
-    <context:component-scan base-package="foolkey.cacheLoader"/>
+    <context:component-scan base-package="foolkey.initialize"/>
 
 </beans>

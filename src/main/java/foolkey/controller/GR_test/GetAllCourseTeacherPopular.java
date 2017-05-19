@@ -5,9 +5,11 @@ import foolkey.pojo.Test;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.tool.cache.Cache;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping(value = "/test")
 public class GetAllCourseTeacherPopular extends AbstractController{
+    @Resource(name = "localCache")
+    private Cache cache;
 
     @Resource(name = "courseTeacherBO")
     private CourseBO courseTeacherBO;
@@ -51,12 +55,13 @@ public class GetAllCourseTeacherPopular extends AbstractController{
     }
 
 
-    @RequestMapping
+    @RequestMapping("/cache/{key}")
     public void execute(
-            HttpServletResponse response
-    )throws Exception{
+            HttpServletResponse response,
+            @PathVariable("key") String key)throws Exception{
         JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("result", Test.foo());
+        jsonObject.put("cache", cache.getCache().get(key) );
         jsonHandler.sendJSON(jsonObject, response);
     }
 

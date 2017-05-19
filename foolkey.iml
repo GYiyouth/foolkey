@@ -90,23 +90,6 @@
     <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15:1.46" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: MiPush_SDK_Server:mi_push:2_2_18">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/MiPush_SDK_Server_2_2_18.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Maven: json-simple:mi_push_json:1.1.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/json-simple-1.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.32" level="project" />
   </component>
 </module>
