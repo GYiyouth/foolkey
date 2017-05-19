@@ -29,7 +29,7 @@ public class CourseStudentCAO extends AbstractCAO {
      */
     public void addCourseStudentPopularDTOToCache(TechnicTagEnum technicTagEnum, CourseStudentPopularDTO courseStudentPopularDTO, DirectionEnum directionEnum) {
 
-        Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+        Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
 
         if (technicMap == null) {
             //创建此标签的缓存
@@ -45,7 +45,7 @@ public class CourseStudentCAO extends AbstractCAO {
             //2. 把悬赏的链表添加到map中
             technicCourseTeacherMap.put(courseStudentToken, courseStudentPopularDoubleLink);
             //3. 把map添加到缓存的标签token里面
-            cache.put(technicTagEnum.name(), technicCourseTeacherMap);
+            cache.set(technicTagEnum.name(), technicCourseTeacherMap);
         } else {
             //缓存里面有此类的标签 例如Java
             if (technicMap.containsKey(courseStudentToken)) {
@@ -89,7 +89,7 @@ public class CourseStudentCAO extends AbstractCAO {
             throw new NullPointerException("technicTagEnum/courseStudentPopularDTOS/directionEnum is null");
         }else{
             System.out.println("类别："+technicTagEnum.name());
-            Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+            Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
             if (technicMap == null) {
                 //缓存还没有这类标签的所有缓存
                 //创建此标签的缓存
@@ -108,7 +108,7 @@ public class CourseStudentCAO extends AbstractCAO {
                 //3. 把悬赏的链表添加到map中
                 technicCourseStudentMap.put(courseStudentToken, courseStudentPopularDoubleLink);
                 //4. 把map添加到缓存的标签token里面
-                cache.put(technicTagEnum.name(), technicCourseStudentMap);
+                cache.set(technicTagEnum.name(), technicCourseStudentMap);
                 System.out.println("1.缓存有了"+courseStudentPopularDoubleLink.getLength() + "个");
             } else {
                 //缓存里面有此类的标签 例如Java
@@ -158,7 +158,7 @@ public class CourseStudentCAO extends AbstractCAO {
             return false;
         }
 //        System.out.println("技术类别：" + technicTagEnum.name());
-        Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+        Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
         //有这个标签的东西，而且包含热门课程
         if ((technicMap != null) && (technicMap.containsKey(courseStudentToken))) {
             DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
@@ -180,7 +180,7 @@ public class CourseStudentCAO extends AbstractCAO {
      */
     public ArrayList<CourseStudentPopularDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) {
         ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
-        Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+        Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
         //有这个标签的东西，而且包含悬赏
         DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
         ArrayList<Object> tempList = courseStudentPopularDoubleLink.getNode((pageNo - 1) * pageSize, pageNo * pageSize - 1);
@@ -202,7 +202,7 @@ public class CourseStudentCAO extends AbstractCAO {
             throw new NullPointerException("id is null");
         }else {
             for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
-                Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+                Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
                 if ((technicMap != null) && (technicMap.containsKey(courseStudentToken))) {
                     DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
                     for (int i = 0; i < courseStudentPopularDoubleLink.getLength(); i++) {
@@ -277,7 +277,7 @@ public class CourseStudentCAO extends AbstractCAO {
             throw new NullPointerException("id is null");
         } else {
             for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
-                Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+                Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
                 if ((technicMap != null) && (technicMap.containsKey(courseStudentToken))) {
                     DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
                     for (int i = 0; i < courseStudentPopularDoubleLink.getLength(); i++) {
@@ -302,7 +302,7 @@ public class CourseStudentCAO extends AbstractCAO {
             throw new NullPointerException("aimCourseStudentPopularDTO is null");
         } else {
             for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
-                Map<String, DoubleLink> technicMap = cache.getMap(technicTagEnum.name());
+                Map<String, DoubleLink> technicMap = cache.getString(technicTagEnum.name());
                 if ((technicMap != null) && (technicMap.containsKey(courseStudentToken))) {
                     DoubleLink courseStudentPopularDoubleLink = technicMap.get(courseStudentToken);
                     for (int i = 0; i < courseStudentPopularDoubleLink.getLength(); i++) {

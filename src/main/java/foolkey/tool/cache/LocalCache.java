@@ -1,5 +1,6 @@
 package foolkey.tool.cache;
 
+import com.alibaba.fastjson.JSON;
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
@@ -66,33 +67,25 @@ public class LocalCache implements Cache{
     }
 
     @Override
-    public Map getMap(String token) {
-        Map map = (Map) memcachedClient.get(token);
-        return map;
+    public String getString(String token) {
+        return memcachedClient.get(token).toString();
     }
 
-    @Override
-    public void replaceToken(String oldToken, String newToken) {
-        memcachedClient.set( newToken, getMap( oldToken) );
-        memcachedClient.delete( oldToken );
-//        cache1.put(newToken, getMap(oldToken));
-//        cache1.remove(oldToken);
-    }
+
 
     @Override
     public void remove(String token) {
         memcachedClient.delete(token);
     }
 
+
     @Override
-    public MemCachedClient getCache() {
-        return memcachedClient;
+    public void set(String token, String content) {
+        memcachedClient.set(token, content);
     }
 
     @Override
-    public void put(String token, Map map) {
-        memcachedClient.set(token, map);
-//        System.out.println("缓存添加了" + token + " - " + map);
-//        System.out.println(cache1.containsKey(token));
+    public void add(String key, String value) {
+        memcachedClient.add( key, value );
     }
 }

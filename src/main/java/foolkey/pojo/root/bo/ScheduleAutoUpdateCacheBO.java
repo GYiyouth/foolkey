@@ -1,15 +1,10 @@
 package foolkey.pojo.root.bo;
 
-import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
-import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.cache.Cache;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 自动任务
@@ -45,6 +40,6 @@ public class ScheduleAutoUpdateCacheBO {
      */
     @Scheduled(cron = "0 0/2 * * * ? ")
     public void cacheMaintain(){
-        cache.getMap("");
+        cache.getString("");
     }
 }

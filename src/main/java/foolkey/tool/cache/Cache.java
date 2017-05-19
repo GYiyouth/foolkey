@@ -1,5 +1,6 @@
 package foolkey.tool.cache;
 
+import com.alibaba.fastjson.JSON;
 import com.danga.MemCached.MemCachedClient;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +15,16 @@ public interface Cache {
     //不同级别key之间的分隔符
     public static final String separator = "_YY_";
 
-    MemCachedClient getCache();
 
-    boolean isContainToken(String token);
+    boolean isContainToken(String key);
 
-    Map getMap(String token);
+    String getString(String key);
 
-    void replaceToken(String oldToken, String newToken);
 
-    void remove(String token);
 
-    void put(String token, Map map);
+    void remove(String key);
+
+    void set(String key, String value);
+
+    void add(String key, String value);
 }

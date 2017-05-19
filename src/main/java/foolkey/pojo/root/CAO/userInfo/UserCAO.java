@@ -1,16 +1,12 @@
 package foolkey.pojo.root.CAO.userInfo;
 
 import foolkey.pojo.root.CAO.base.AbstractCAO;
-import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
-import foolkey.tool.cache.Cache;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -32,7 +28,7 @@ public class UserCAO extends AbstractCAO{
         userMap.put(keyToken, keyMap);
         userMap.put(blackListToken, blackListMap);
 
-        cache.put(token, userMap);
+        cache.set(token, userMap);
     }
 
     /**
@@ -44,7 +40,7 @@ public class UserCAO extends AbstractCAO{
         saveIdToken(token, studentDTO.getId());
         Map map = getUserMap(token);
         map.put(userInfoToken, studentDTO);
-        cache.put(token, map);
+        cache.set(token, map);
     }
 
     /**
@@ -87,7 +83,7 @@ public class UserCAO extends AbstractCAO{
      * @return
      */
     public Map getUserMap(String token){
-        return cache.getMap(token);
+        return cache.getString(token);
     }
 
     /**
@@ -96,7 +92,7 @@ public class UserCAO extends AbstractCAO{
      * @param AESKey
      */
     public void saveStudentAESKey(String token, String AESKey){
-        Map userMap = cache.getMap(token);
+        Map userMap = cache.getString(token);
         Map keyMap = new HashMap();
         keyMap.put(aesKeyToken, AESKey);
         userMap.put(keyToken, keyMap);
@@ -115,7 +111,7 @@ public class UserCAO extends AbstractCAO{
      * @param id
      */
     public String getUserToken(Long id){
-        Map idTokenMap = cache.getMap(studentId_token);
+        Map idTokenMap = cache.getString(studentId_token);
         return idTokenMap.get(id).toString();
     }
 
@@ -125,7 +121,7 @@ public class UserCAO extends AbstractCAO{
      * @return
      */
     public Long getUserId(String token){
-        Map tokenIdMap = cache.getMap(studentToken_id);
+        Map tokenIdMap = cache.getString(studentToken_id);
         return (Long) tokenIdMap.get(token);
     }
 
@@ -136,8 +132,8 @@ public class UserCAO extends AbstractCAO{
      * @return
      */
     public void saveIdToken(String token, Long id){
-        Map id_tokenMap = cache.getMap(studentId_token);
-        Map token_idMap = cache.getMap(studentToken_id);
+        Map id_tokenMap = cache.getString(studentId_token);
+        Map token_idMap = cache.getString(studentToken_id);
         id_tokenMap.put(id, token);
         token_idMap.put(token, id);
     }
@@ -145,6 +141,6 @@ public class UserCAO extends AbstractCAO{
     public void saveTeacherDTO(String token, TeacherDTO teacherDTO){
         Map map = getUserMap(token);
         map.put(teacherInfoToken, teacherDTO);
-        cache.put(token, map);
+        cache.set(token, map);
     }
 }

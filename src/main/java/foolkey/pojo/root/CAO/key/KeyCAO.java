@@ -22,7 +22,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public boolean containsServerRSAKey() {
-        Map keyMap = cache.getMap(keyToken);
+        Map keyMap = cache.getString(keyToken);
         return keyMap != null && keyMap.containsKey(rsaKeyDTOToken);
     }
 
@@ -31,7 +31,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public RSAKeyDTO getServerRSAKey(){
-        Map keyMap = cache.getMap(keyToken);
+        Map keyMap = cache.getString(keyToken);
         return (RSAKeyDTO) keyMap.get(rsaKeyDTOToken);
     }
 
@@ -42,7 +42,7 @@ public class KeyCAO extends AbstractCAO{
      */
     public boolean containsAESKey(String userToken){
         if (cache.isContainToken(userToken)) {
-            Map userMap = cache.getMap(userToken);
+            Map userMap = cache.getString(userToken);
             Map keyMap = (Map) userMap.get(keyToken);
             return keyMap != null && keyMap.containsKey(aesKeyToken);
         }else{
@@ -58,7 +58,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     private boolean containsRSAKey(String userToken){
-        Map userMap = cache.getMap(userToken);
+        Map userMap = cache.getString(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         return keyMap != null && keyMap.containsKey(rsaKeyDTOToken);
     }
@@ -69,7 +69,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     private RSAKeyDTO getUserRSAKeyDTO(String userToken){
-        Map userMap = cache.getMap(userToken);
+        Map userMap = cache.getString(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         if (keyMap != null)
             return (RSAKeyDTO) keyMap.get(rsaKeyDTOToken);
@@ -82,7 +82,7 @@ public class KeyCAO extends AbstractCAO{
      * @return base64 格式
      */
     public String getUserAESKeyDTO(String userToken){
-        Map userMap = cache.getMap(userToken);
+        Map userMap = cache.getString(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         if (keyMap != null)
             return (String) keyMap.get(aesKeyToken);
@@ -101,7 +101,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public RSAKeyDTO updateServerRSAKeyDTO(RSAKeyDTO newRSAKeyDTO){
-        Map keyMap = cache.getMap(keyToken);
+        Map keyMap = cache.getString(keyToken);
         keyMap.put(rsaKeyDTOToken, newRSAKeyDTO);
         return newRSAKeyDTO;
     }
@@ -113,7 +113,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     private RSAKeyDTO updateUserRSAKeyDTO(RSAKeyDTO newRSAKeyDTO, String userToken){
-        Map userMap = cache.getMap(userToken);
+        Map userMap = cache.getString(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         keyMap.put(rsaKeyDTOToken, newRSAKeyDTO);
         return newRSAKeyDTO;
@@ -126,7 +126,7 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public String updateUserAESKey(String newAESKey, String userToken){
-        Map userMap = cache.getMap(userToken);
+        Map userMap = cache.getString(userToken);
         Map keyMap = (Map) userMap.get(keyToken);
         keyMap.put(aesKeyToken, newAESKey);
         return newAESKey;
