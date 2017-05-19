@@ -154,3 +154,5 @@
     采用腾讯云的Memcached，之间设置的key-value要改，不同级的key之间用分隔符链接
         比如，之前可以根据key A先拿到一个map，再对map做操作，根据key B拿到值；
         现在 A_B 直接拿数据
+
+    缓存里加了teacherDTO，和studentDTO类似

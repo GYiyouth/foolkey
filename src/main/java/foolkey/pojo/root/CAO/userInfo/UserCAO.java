@@ -1,8 +1,11 @@
 package foolkey.pojo.root.CAO.userInfo;
 
+import com.alibaba.fastjson.JSON;
 import foolkey.pojo.root.CAO.base.AbstractCAO;
+import foolkey.pojo.root.CAO.key.KeyCAO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.tool.cache.Cache;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
 
@@ -15,41 +18,61 @@ import java.util.Map;
 @Component(value = "userCAO")
 public class UserCAO extends AbstractCAO{
 
+    //获取用户的aesKey在缓存中的地址
+    public static String getUserAESKeyAddress(String token){
+        return KeyCAO.getUserAESKeyAddress( token );
+    }
+
+    //获取用户的StudentDTO地址
+    public static String getUserStudentDTOAddress(String token){
+        return token + Cache.separator + userInfoToken;
+    }
+
+    //获取用户的TeacherDTO地址
+    public static String getUserTeacherDTOAddress(String token){
+        return token + Cache.separator + teacherInfoToken;
+    }
+
+    //获取用户黑名单在缓存中的地址
+    public static String getUserBlackListAddress(String token){
+        return token + Cache.separator + blackListToken;
+    }
+
+    //根据id获取token所在的地址
+    public static String getUserTokenAddress( Long id ){
+        return id + Cache.separator + tokenToken;
+    }
+
 
     /**
      * 在缓存中开辟一个新的用户缓存区
      * @param token
      */
     public void initUserCache(String token){
-        Map userMap = new HashedMap();
-        Map keyMap = new HashedMap();
-        Map blackListMap = new HashedMap();
-
-        userMap.put(keyToken, keyMap);
-        userMap.put(blackListToken, blackListMap);
-
-        cache.set(token, userMap);
+        //目前什么都不用做
     }
 
     /**
-     * 把用户信息存储在缓存中，同时更新id_token的对称关系
+     * 把用户信息存储在缓存中，不会更新id_token的对称关系
      * @param token
      * @param studentDTO
      */
     public void saveStudentDTO(String token, StudentDTO studentDTO){
-        saveIdToken(token, studentDTO.getId());
-        Map map = getUserMap(token);
-        map.put(userInfoToken, studentDTO);
-        cache.set(token, map);
+        String key = getUserStudentDTOAddress( token );
+        String value = JSON.toJSONString( studentDTO );
+        cache.set( key, value );
     }
 
     /**
      * 判断缓存中有无该用户的缓存
+     * AES和studentDTO缺一不可
      * @param token
      * @return
      */
     public boolean containsUser(String token){
-        return cache.isContainToken(token);
+        boolean aesFlag = cache.isContainToken( getUserAESKeyAddress( token ) );
+        boolean studentFlag = cache.isContainToken( getUserStudentDTOAddress( token ) );
+        return aesFlag && studentFlag;
     }
 
     /**
@@ -60,11 +83,8 @@ public class UserCAO extends AbstractCAO{
      * @return
      */
     public boolean containStudentDTO(String token){
-        if ( containsUser(token)) {
-            Map userMap = getUserMap(token);
-            return (userMap.containsKey(userInfoToken));
-        }
-        return false;
+        String key = getUserStudentDTOAddress( token );
+        return cache.isContainToken( key );
     }
 
     /**
@@ -73,18 +93,11 @@ public class UserCAO extends AbstractCAO{
      * @return
      */
     public StudentDTO getStudentDTO(String token){
-        Map userMap = getUserMap(token);
-        return  (StudentDTO) (userMap.get(userInfoToken));
+        String key = getUserStudentDTOAddress( token );
+        String value = cache.getString( key );
+        return JSON.parseObject( value, StudentDTO.class );
     }
 
-    /**
-     * 从缓存中获取用户缓存区
-     * @param token
-     * @return
-     */
-    public Map getUserMap(String token){
-        return cache.getString(token);
-    }
 
     /**
      * 存储用户的对称密钥
@@ -92,10 +105,8 @@ public class UserCAO extends AbstractCAO{
      * @param AESKey
      */
     public void saveStudentAESKey(String token, String AESKey){
-        Map userMap = cache.getString(token);
-        Map keyMap = new HashMap();
-        keyMap.put(aesKeyToken, AESKey);
-        userMap.put(keyToken, keyMap);
+        String key = getUserAESKeyAddress( token );
+        cache.set( key, aesKeyToken );
     }
 
     /**
@@ -103,7 +114,10 @@ public class UserCAO extends AbstractCAO{
      * @param token
      */
     public void removeUserCache(String token){
-        cache.remove(token);
+        cache.remove( getUserAESKeyAddress( token) );
+        cache.remove( getUserStudentDTOAddress( token ));
+        cache.remove( getUserTeacherDTOAddress( token ));
+        cache.remove( getUserBlackListAddress( token ));
     }
 
     /**
@@ -111,36 +125,27 @@ public class UserCAO extends AbstractCAO{
      * @param id
      */
     public String getUserToken(Long id){
-        Map idTokenMap = cache.getString(studentId_token);
-        return idTokenMap.get(id).toString();
+        String key = getUserTokenAddress( id );
+        return cache.getString( key );
     }
 
-    /**
-     * 根据token获取id
-     * @param token
-     * @return
-     */
-    public Long getUserId(String token){
-        Map tokenIdMap = cache.getString(studentToken_id);
-        return (Long) tokenIdMap.get(token);
-    }
+
 
     /**
      * 在缓存中保存id与token的对应关系
+     * 只需要维护从id-token的索引关系
      * @param token
      * @param id
      * @return
      */
     public void saveIdToken(String token, Long id){
-        Map id_tokenMap = cache.getString(studentId_token);
-        Map token_idMap = cache.getString(studentToken_id);
-        id_tokenMap.put(id, token);
-        token_idMap.put(token, id);
+        String key = getUserTokenAddress( id );
+        cache.set( key, token );
     }
 
     public void saveTeacherDTO(String token, TeacherDTO teacherDTO){
-        Map map = getUserMap(token);
-        map.put(teacherInfoToken, teacherDTO);
-        cache.set(token, map);
+        String key = getUserTeacherDTOAddress( token );
+        String value = JSON.toJSONString( teacherDTO );
+        cache.set( key, value);
     }
 }

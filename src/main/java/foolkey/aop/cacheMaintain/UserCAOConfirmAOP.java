@@ -18,11 +18,14 @@ public class UserCAOConfirmAOP {
 
     /**
      * 向用户缓存区 放置StudentDTO前，要保证 该缓存区存在
+     *
+     * 使用Memcached以后，不再需要
+     *
      * @param joinPoint
      * @return
      * @throws Throwable
      */
-    @Around("execution(* foolkey.pojo.root.CAO.userInfo.UserCAO.saveStudentDTO(..))")
+//    @Around("execution(* foolkey.pojo.root.CAO.userInfo.UserCAO.saveStudentDTO(..))")
     public Object confirmSaveStudentDTO(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
         String token = args[0].toString();
