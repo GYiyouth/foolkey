@@ -11,6 +11,9 @@ import java.util.Map;
 @Component
 public interface Cache {
 
+    //不同级别key之间的分隔符
+    public static final String separator = "_YY_";
+
     MemCachedClient getCache();
 
     boolean isContainToken(String token);
