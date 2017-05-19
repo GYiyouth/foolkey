@@ -46,7 +46,7 @@ public class StudentInfoBO {
         //对密码进行 SHA1加密
             //让APP来做
         //生成token
-        String token = userName + passWord;
+        String token = TokenCreator.createToken(userName, passWord);
         //根据token问缓存
         if (userCAO.containStudentDTO(token))
             return userCAO.getStudentDTO(token);
@@ -58,18 +58,27 @@ public class StudentInfoBO {
 
     /**
      * 获取学生信息，直接根据token
+     * 目前只问缓存
      * @param token
      * @return
      */
     public StudentDTO getStudentDTO(String token){
         //根据token问缓存
         if (userCAO.containStudentDTO(token)) {
-            System.out.println("缓存里有用户的缓存区");
             return userCAO.getStudentDTO(token);
         }
-        else {//缓存中没有这个人的信息，让它重新登录吧，仅知道token的情况下，无法从数据库取
+        else {//缓存中没有这个人的信息，让它重新登录吧，仅知道token的情况下，无法从缓存中取
             return null;
         }
+    }
+
+    /**
+     * 强制从数据库取某个学生的信息
+     * @param id
+     * @return
+     */
+    public StudentDTO getStudnetDTOFromDB(Long id){
+        return getStudentDAO.get(StudentDTO.class, id);
     }
 
     /**
@@ -78,7 +87,14 @@ public class StudentInfoBO {
      * @return
      */
     public StudentDTO getStudentDTO(Long id){
-        return getStudentDAO.get(StudentDTO.class, id);
+        String token = userCAO.getUserToken( id );
+        StudentDTO studentDTO = getStudentDTO( token );
+        //如果缓存有，直接返回，如果没有，则从数据库取
+        if (studentDTO != null)
+            return studentDTO;
+        else {
+            return getStudentDAO.get(StudentDTO.class, id);
+        }
     }
 
     /**
@@ -105,12 +121,11 @@ public class StudentInfoBO {
             userCAO.saveStudentDTO(token,studentDTO);
 
             //判断是老师，存储老师信息
-            if(studentDTO.getRoleEnum()== RoleEnum.teacher) {
+            if(studentDTO.getRoleEnum().compareTo( RoleEnum.teacher ) == 0) {
                 TeacherDTO teacherDTO = getTeacherDAO.getTeacherDTO(studentDTO.getId());
                 userCAO.saveTeacherDTO(token, teacherDTO);
             }
-            System.out.println("token:"+token);
-
+            System.out.println("预热存储学生信息 token:"+token);
         }
     }
 

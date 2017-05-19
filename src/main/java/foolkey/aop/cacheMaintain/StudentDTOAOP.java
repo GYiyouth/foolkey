@@ -25,7 +25,7 @@ public class StudentDTOAOP {
     @Around(value = "execution(* foolkey.pojo.root.DAO.student.GetStudentDAO.getStudentDTO(..)) ")
     public Object updateStudentDTO(ProceedingJoinPoint joinPoint) throws Throwable{
         Object[] args = joinPoint.getArgs();
-        System.out.println(this.getClass());
+        System.out.println(this.getClass() + "切入了从数据库读取用户信息的函数");
         System.out.println("用户名：" + args[0]);
         System.out.println("密码：" + args[1]);
         String token = TokenCreator.createToken(args[0].toString(), args[1].toString());

@@ -5,7 +5,7 @@ package foolkey.tool;
  */
 public class TokenCreator {
 
-    public static String createToken(String str1, String str2){
-        return str1 + str2;
+    public static String createToken(String userName, String passWord){
+        return userName + passWord;
     }
 }
