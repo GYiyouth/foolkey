@@ -19,15 +19,13 @@
 
 
                      - studentDTO StudentDTO
+                     - teacherDTO TeacherDTO
                      - blackList Map
                                      - < token (String), Map >
                                         这里后面其实是指针，指向别的用户，不会new HashMap
 
-4，id_token - Map
-                     - key ：学生的id，Long类型
-                     - value：学生的token，String
 
 
-5，token_id - Map
-                     - key : 学生的token，String
-                     - value : 学生的id，Long
+
+4，{userId}+分隔符+token
+                     放置用户token

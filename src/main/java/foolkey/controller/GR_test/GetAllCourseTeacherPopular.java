@@ -61,7 +61,7 @@ public class GetAllCourseTeacherPopular extends AbstractController{
             @PathVariable("key") String key)throws Exception{
         JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("result", Test.foo());
-        jsonObject.put("cache", cache.getCache().get(key) );
+        jsonObject.put("cache", cache.getString(key) );
         jsonHandler.sendJSON(jsonObject, response);
     }
 

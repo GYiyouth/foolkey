@@ -151,11 +151,8 @@
     登录恢复RSA
     AES和RSA和不加密一样，统一传一个JSON到clearText。目前的问题就是缓存了
 
-
-
     采用腾讯云的Memcached，之间设置的key-value要改，不同级的key之间用分隔符链接
         比如，之前可以根据key A先拿到一个map，再对map做操作，根据key B拿到值；
         现在 A_B 直接拿数据
 
-耿：
-    测试了一下缓存  set与cas操作的性能差别。各执行10_000次。测试结果，性能差别不大，基本都在6秒左右完成10_000存储。
+    缓存里加了teacherDTO，和studentDTO类似
