@@ -1,10 +1,13 @@
 package foolkey.pojo.root.CAO.key;
 
+import com.alibaba.fastjson.JSON;
 import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
+import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 /**
@@ -17,13 +20,15 @@ public class KeyCAO extends AbstractCAO{
     @Autowired
     private UserCAO userCAO;
 
+    //直接对应缓存中的RSAKeyDTO
+    private String rsaKey = keyToken + Cache.separator + rsaKeyDTOToken;
+
     /**
      * 判断是否含服务器 RSA key
      * @return
      */
     public boolean containsServerRSAKey() {
-        Map keyMap = cache.getString(keyToken);
-        return keyMap != null && keyMap.containsKey(rsaKeyDTOToken);
+        return cache.isContainToken( rsaKey );
     }
 
     /**
@@ -31,8 +36,9 @@ public class KeyCAO extends AbstractCAO{
      * @return
      */
     public RSAKeyDTO getServerRSAKey(){
-        Map keyMap = cache.getString(keyToken);
-        return (RSAKeyDTO) keyMap.get(rsaKeyDTOToken);
+        String value = cache.getString(rsaKey);
+        RSAKeyDTO rsaKeyDTO = JSON.parseObject( value, RSAKeyDTO.class);
+        return rsaKeyDTO;
     }
 
     /**

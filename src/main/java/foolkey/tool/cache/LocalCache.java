@@ -63,7 +63,8 @@ public class LocalCache implements Cache{
 
     @Override
     public boolean isContainToken(String token) {
-        return memcachedClient.get(token) != null;
+        Object obj =  memcachedClient.get(token);
+        return obj != null && !obj.toString().equals("");
     }
 
     @Override
