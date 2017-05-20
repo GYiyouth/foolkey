@@ -28,11 +28,11 @@ public class RewardCAO extends AbstractCAO {
      * @return
      */
     public String getRewardSearchKeyOfTechnicTagEnum(TechnicTagEnum technicTagEnum) {
-        return technicTagEnum.name() + Cache.separator + rewardPopularToken;
+        return technicTagEnum.toString() + Cache.separator + rewardPopularToken;
     }
 
     /**
-     * 由悬赏DTO，拼接成一个存储悬赏对象的key
+     * 由悬赏id，拼接成一个存储悬赏对象的key
      *
      * @param rewardId
      * @return
@@ -293,8 +293,6 @@ public class RewardCAO extends AbstractCAO {
      * @param aimRewardWithStudentSTCDTO
      */
     public void deleteRewardWithStudent(RewardWithStudentSTCDTO aimRewardWithStudentSTCDTO) {
-
-
     }
 
 

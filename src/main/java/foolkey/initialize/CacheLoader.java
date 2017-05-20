@@ -33,19 +33,22 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 //        if (contextRefreshedEvent.getApplicationContext().getParent() != null)//root application context 没有parent，他就是老大.
         if(contextRefreshedEvent.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")) {
+
+            //1.    添加学生-老师信息到缓存
+            System.out.println("预热程序，学生-老师信息：");
+            studentInfoBO.fillStudentDTOToCache();
+            //2.    添加token_id,id_token
+            studentInfoBO.fillTokenIdAndIdToken();
+
+
             for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
-                //1.添加热门课程到缓存中
+                //3.    添加热门课程到缓存中
                 System.out.println("预热程序，热门课程类别：" + technicTagEnum);
                 courseTeacherBO.fillCourseTeacherPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
-                //2.添加最新的、未解决的悬赏到缓存中
+                //4.    添加最新的、未解决的悬赏到缓存中
                 System.out.println("预热程序，悬赏类别：" + technicTagEnum);
                 courseStudentBO.fillCourseStudentPopularDTOToCache(technicTagEnum, StaticVariable.cacheSize);
             }
-            //3.添加学生-老师信息到缓存
-            System.out.println("预热程序，学生-老师信息：");
-            studentInfoBO.fillStudentDTOToCache();
-            //4.添加token_id,id_token
-            studentInfoBO.fillTokenIdAndIdToken();
         }
     }
 }

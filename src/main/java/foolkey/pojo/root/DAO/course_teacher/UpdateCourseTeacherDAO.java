@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UpdateCourseTeacherDAO extends UpdateBaseDAO<CourseDTO>{
 
 
-    public CourseDTO update(TechnicTagEnum technicTagEnum, CourseDTO entity) {
-        return super.update(entity);
+    public CourseDTO update(TechnicTagEnum technicTagEnum, CourseDTO courseDTO) {
+        return super.update(courseDTO);
     }
 }

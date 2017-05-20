@@ -12,6 +12,12 @@
                     - article Map
                     - course Map
                     - question Map
+2. 课程
+            (String)technicTagEnum_YY_coursePopular(technicTagEnum是技术类别具体的内容) -- (List<String>)coursePopular_YY_id (其中id是某个课程的courseId)
+                    (String)coursePopular_YY_id -- (CourseWithTeacherSTCDTO)courseWithTeacherSTCDTO
+   悬赏
+            (String)technicTagEnum_YY_rewardPopular(technicTagEnum是技术类别具体的内容) -- (List<String>)rewardPopular_YY_id (其中id是某个悬赏的rewardId)
+                    (String)rewardPopular_YY_id -- (CourseWithTeacherSTCDTO)courseWithTeacherSTCDTO
 
 3，{userToken} - Map
                      - key - Map

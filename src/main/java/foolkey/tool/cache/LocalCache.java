@@ -24,8 +24,8 @@ public class LocalCache implements Cache{
     static {
         //管理中心，点击“NoSQL高速存储”，在NoSQL高速存储“管理视图”，可以看到系统分配的IP:Port
         //需要在内网IP上访问, 不需要账号密码
-        final String ip = "10.66.238.185";
-        final String port = "9101";
+        final String ip = "127.0.0.1";
+        final String port = "11211";
 
         String[] servers = {ip + ":" + port};
 
@@ -44,18 +44,18 @@ public class LocalCache implements Cache{
 
         memcachedClient = new MemCachedClient();
 //        测试用，刷新整个缓存区
-        memcachedClient.flushAll();
+//        memcachedClient.flushAll();
 
-        for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){
-            Map map = new HashedMap();
-            Map mapReserve = new HashMap();
-            memcachedClient.set(technicTagEnum.toString(), map);
-            memcachedClient.set(technicTagEnum.toString()+"Reserve",mapReserve);
-        }
-        String[] keys = {"key", "id_token", "token_id"};
-        for (String key : keys){
-            memcachedClient.set(key, new HashedMap());
-        }
+//        for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){
+//            Map map = new HashedMap();
+//            Map mapReserve = new HashMap();
+//            memcachedClient.set(technicTagEnum.toString(), map);
+//            memcachedClient.set(technicTagEnum.toString()+"Reserve",mapReserve);
+//        }
+//        String[] keys = {"key", "id_token", "token_id"};
+//        for (String key : keys){
+//            memcachedClient.set(key, new HashedMap());
+//        }
 
     }
 
@@ -69,7 +69,8 @@ public class LocalCache implements Cache{
 
     @Override
     public String getString(String token) {
-        return memcachedClient.get(token).toString();
+        Object result = memcachedClient.get(token);
+        return result == null?"" : result.toString();
     }
 
 

@@ -118,14 +118,16 @@ public class StudentInfoBO {
             //生成token
             String token = TokenCreator.createToken(studentDTO.getUserName(),studentDTO.getPassWord());
             //缓存存储学生信息
+            System.out.println("预热存储学生信息 token:"+token);
             userCAO.saveStudentDTO(token,studentDTO);
 
             //判断是老师，存储老师信息
             if(studentDTO.getRoleEnum().compareTo( RoleEnum.teacher ) == 0) {
+                System.out.println("预热存储老师信息 token:"+token);
                 TeacherDTO teacherDTO = getTeacherDAO.getTeacherDTO(studentDTO.getId());
                 userCAO.saveTeacherDTO(token, teacherDTO);
             }
-            System.out.println("预热存储学生信息 token:"+token);
+
         }
     }
 

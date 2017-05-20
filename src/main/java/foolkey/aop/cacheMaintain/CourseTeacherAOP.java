@@ -1,11 +1,12 @@
 package foolkey.aop.cacheMaintain;
 
-import foolkey.pojo.root.CAO.CourseTeacher.CourseTeacherCAO;
+import foolkey.pojo.root.CAO.Course.CourseCAO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
+import foolkey.pojo.send_to_client.course.CourseWithTeacherSTCDTO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CourseTeacherAOP {
 
     @Autowired
-    private CourseTeacherCAO courseTeacherCAO;
+    private CourseCAO courseCAO;
     @Autowired
     private TeacherInfoBO teacherInfoBO;
 
@@ -28,15 +29,15 @@ public class CourseTeacherAOP {
      * @param jp
      * @param courseTeacherDTO
      */
-    @AfterReturning(returning = "courseTeacherDTO",
+    @AfterReturning(returning = "courseDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.update(..))"  )
-    public void updateCourseTeacherDTO(JoinPoint jp, CourseDTO courseTeacherDTO){
-        if(courseTeacherDTO != null){
-            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
-            CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
-            courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-            courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
-            courseTeacherCAO.updateCourseTeacherDTO(courseTeacherDTO.getTechnicTagEnum(), courseTeacherPopularDTO);
+    public void updateCourseTeacherDTO(JoinPoint jp, CourseDTO courseDTO){
+        if(courseDTO != null){
+            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
+            CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
+            courseWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            courseWithTeacherSTCDTO.setCourseDTO(courseDTO);
+            courseCAO.updateCourseWithTeacher(courseDTO.getTechnicTagEnum(), courseWithTeacherSTCDTO);
         }
 
         System.out.println("更新课程之后，完成对缓存的更新");
@@ -44,18 +45,18 @@ public class CourseTeacherAOP {
 
     /**
      * 创建课程
-     * @param courseTeacherDTO
+     * @param courseDTO
      */
-    @AfterReturning(returning = "courseTeacherDTO",
+    @AfterReturning(returning = "courseDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO.save(..))")
-    public void addCourseTeacherDTOToCache(CourseDTO courseTeacherDTO){
-        if(courseTeacherDTO != null){
-//            courseTeacherCAO.addNewCourseTeacherToCache(courseTeacherDTO);
-            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
-            CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
-            courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-            courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
-            courseTeacherCAO.addCourseTeacherPopularDTOToCache(courseTeacherPopularDTO,courseTeacherDTO.getTechnicTagEnum(), DirectionEnum.head);
+    public void addCourseTeacherDTOToCache(CourseDTO courseDTO){
+        if(courseDTO != null){
+//            courseCAO.addNewCourseTeacherToCache(courseTeacherDTO);
+            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
+            CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
+            courseWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            courseWithTeacherSTCDTO.setCourseDTO(courseDTO);
+            courseCAO.addCourseWithTeacherToCache(courseDTO.getTechnicTagEnum(), courseWithTeacherSTCDTO, DirectionEnum.head);
         }
         System.out.println("添加课程之后，完成对缓存的更新");
     }
