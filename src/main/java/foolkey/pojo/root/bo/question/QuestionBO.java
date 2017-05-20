@@ -4,10 +4,14 @@ import foolkey.pojo.root.DAO.question_answer.GetQuestionAnswerDAO;
 import foolkey.pojo.root.DAO.question_answer.SaveQuestionAnswerDAO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by GR on 2017/5/20.
  */
+@Service
+@Transactional
 public class QuestionBO {
 
     @Autowired
@@ -16,13 +20,12 @@ public class QuestionBO {
     private GetQuestionAnswerDAO getQuestionAnswerDAO;
 
     /**
-     * 创建问题
+     * 创建问题、回答问题都可以用这个
      * @param questionAnswerDTO
      */
-    public void createQuestion(QuestionAnswerDTO questionAnswerDTO){
-        if(questionAnswerDTO != null){
-            saveQuestionAnswerDAO.save(questionAnswerDTO);
-        }
+    public QuestionAnswerDTO createQuestionAnswer(QuestionAnswerDTO questionAnswerDTO){
+        saveQuestionAnswerDAO.save(questionAnswerDTO);
+        return questionAnswerDTO;
     }
 
 

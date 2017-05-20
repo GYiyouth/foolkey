@@ -1,6 +1,7 @@
 package foolkey.pojo.root.bo.order_course;
 
 import foolkey.pojo.root.DAO.order_ask_question.GetOrderAskQuestionDAO;
+import foolkey.pojo.root.DAO.order_ask_question.SaveOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_ask_question.UpdateOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_buy_answer.GetOrderBuyAnswerDAO;
 import foolkey.pojo.root.DAO.order_buy_key.GetOrderBuyKeyDAO;
@@ -64,6 +65,8 @@ public class OrderInfoBO {
     private GetOrderRefoundDAO getOrderRefoundDAO;
     @Autowired
     private UpdateOrderAskQuestionDAO updateOrderAskQuestionDAO;
+    @Autowired
+    private SaveOrderAskQuestionDAO saveOrderAskQuestionDAO;
 
     /**
      * 根据orderId获取买课订单信息
@@ -428,5 +431,35 @@ public class OrderInfoBO {
         //设置回答存活期
         orderAskQuestionDTO.setExistingTime(Time.getPermanentDate());
         updateOrderAskQuestionDAO.update(orderAskQuestionDTO);
+    }
+
+    /**
+     * 回答者回答之后，修改提问订单信息
+     * @param orderAskQuestionDTO
+     */
+    public void updateOrderSateAfterAnswerAsAnswer(OrderAskQuestionDTO orderAskQuestionDTO) throws Exception {
+        orderAskQuestionDTO.setOrderStateEnum(OrderStateEnum.已回答);
+        updateOrderAskQuestionDAO.update(orderAskQuestionDTO);
+    }
+
+    /**
+     * 创建提问问题的订单DTO
+     * @param studentDTO 提问者的DTO
+     * @param questionAnswerDTO 问题DTO
+     */
+    public OrderAskQuestionDTO createOrderAsk(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO) throws Exception {
+        //生成一个订单对象
+        OrderAskQuestionDTO orderAskQuestionDTO = new OrderAskQuestionDTO();
+        //各种对订单赋值
+        orderAskQuestionDTO.setUserId(studentDTO.getId());
+        orderAskQuestionDTO.setQuestionId(questionAnswerDTO.getId());
+        orderAskQuestionDTO.setAmount(questionAnswerDTO.getPrice());
+        orderAskQuestionDTO.setCreatedTime(Time.getCurrentDate());
+        orderAskQuestionDTO.setExistingTime(Time.getOrderAskQuestionExistingDate());
+        orderAskQuestionDTO.setOrderStateEnum(OrderStateEnum.未付款);
+        orderAskQuestionDTO.setReceiverId(questionAnswerDTO.getAnswerId());
+        //保存这个订单
+        saveOrderAskQuestionDAO.save(orderAskQuestionDTO);
+        return orderAskQuestionDTO;
     }
 }

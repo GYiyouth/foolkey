@@ -16,15 +16,12 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * 提问的handler
- * 1. 存储问题DTO
- * 2. 存储订单DTO
- * Created by GR on 2017/5/20.
+ * 回答问题
+ * Created by GR on 2017/5/21.
  */
 @Service
-public class CreateQuestionHandler extends AbstractBO {
+public class CreateAnswerHandler extends AbstractBO {
 
     @Autowired
     private QuestionBO questionBO;
@@ -48,27 +45,27 @@ public class CreateQuestionHandler extends AbstractBO {
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         Long askerId = studentDTO.getId();
 
-        Long answerId = clearJSON.getLong("answerId");
-        Double price = clearJSON.getDouble("price");
-        String title = clearJSON.getString("title");
-        String questionContent = clearJSON.getString("questionContent");
+        //问题id
+        Long questionId = clearJSON.getLong("questionId");
+        //提问订单id
+        Long orderAskQuestionId = clearJSON.getLong("orderAskQuestionId");
+        String answerContent = clearJSON.getString("answerContent");
 
         //创建一个问题DTO
-        QuestionAnswerDTO questionAnswerDTO = new QuestionAnswerDTO();
-        questionAnswerDTO.setAskerId(askerId);
-        questionAnswerDTO.setAnswerId(answerId);
-        questionAnswerDTO.setCreatedTime(Time.getCurrentDate());
-        questionAnswerDTO.setInvalidTime(Time.getAskQuestioninValidDate());
+        QuestionAnswerDTO questionAnswerDTO = questionBO.getQuestionAnswerDTOByQuestionAnswerId(questionId);
+        questionAnswerDTO.setAnswerContent(answerContent);
+        questionAnswerDTO.setAnswerTime(Time.getCurrentDate());
         questionAnswerDTO.setLastUpdateTime(Time.getCurrentDate());
-        questionAnswerDTO.setOnlookerNumber(0);
-        questionAnswerDTO.setPrice(price);
-        questionAnswerDTO.setQuestionContent(questionContent);
-        questionAnswerDTO.setTitle(title);
-        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.未回答);
-        //  1. 存储问题DTO
+        questionAnswerDTO.setInvalidTime(Time.getPermanentDate());
+        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.已回答);
+        //  1. 存储问题-回答DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
-        //  2.存储订单DTO
-        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.createOrderAsk(studentDTO, questionAnswerDTO);
+        //  2.修改订单DTO
+        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.getOrderAskQuestionDTOByOrderAskQuestionId(orderAskQuestionId);
+        orderInfoBO.updateOrderSateAfterAnswerAsAnswer(orderAskQuestionDTO);
+        //  3.给回答者赚钱
+        /***********  暂时没写   ******************************/
+
         //返回result
         jsonObject.put("result", "success");
         jsonObject.put("questionAnswerDTO", questionAnswerDTO);
