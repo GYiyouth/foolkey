@@ -5,7 +5,9 @@ import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.RelationFollow.RelationFollowBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.course.CourseWithTeacherSTCDTO;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,27 +36,27 @@ public class GetCourseTeacherPopularController extends AbstractController{
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("token") String token,
-            @RequestParam("pageNo") Integer pageNo,
-            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
+//            @RequestParam("pageNo") Integer pageNo,
+//            @RequestParam("technicTagEnum")TechnicTagEnum technicTagEnum,
             HttpServletResponse response
             ){
         try {
             //获取并解析JSON明文数据
-//            String clearText = request.getParameter("clearText").toString();
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
+            String clearText = request.getParameter("clearText").toString();
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-//            String token =clearJSON.getString("token");
-//            Integer pageNo = clearJSON.getInt("pageNo");
-//            String technicTag = clearJSON.getString("technicTagEnum");
-//            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
+            String token =clearJSON.getString("token");
+            Integer pageNo = clearJSON.getInt("pageNo");
+            String technicTag = clearJSON.getString("technicTagEnum");
+            TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTag);
 //            获取学生的id
-//            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 
-//            System.out.println("获取流行课程的studnet\n" + studentDTO);
-//            Long studentId = studentDTO.getId();
+            System.out.println("获取流行课程的studnet\n" + studentDTO);
+            Long studentId = studentDTO.getId();
 
 
-            Long studentId = 20003L;
+//            Long studentId = 20003L;
 
             //获取热门的课程
             List<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = courseTeacherBO.getCourseWithTeacherSTCDTO(technicTagEnum, pageNo, 10);
