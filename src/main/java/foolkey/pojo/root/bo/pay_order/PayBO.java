@@ -3,10 +3,8 @@ package foolkey.pojo.root.bo.pay_order;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.dto.CouponDTO;
-import foolkey.pojo.root.vo.dto.RewardDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.root.vo.dto.*;
+import foolkey.tool.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +53,28 @@ public class PayBO {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 提问者：对自己的提问付钱
+     * @param studentDTO
+     * @param questionAnswerDTO
+     * @return
+     */
+    public boolean payForQuestionAsAsker(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO ) throws Exception {
+        //余额
+        Double money = studentDTO.getVirtualCurrency();
+        //提问价格
+        Double cost = questionAnswerDTO.getPrice();
+        if(money.compareTo(cost) < 0 ){
+            return false;
+        }else{
+            money -= cost;
+            //更新学生余额信息
+            studentDTO.setVirtualCurrency(money);
+            studentInfoBO.updateStudent(studentDTO);
+            return true;
+        }
+
     }
 }

@@ -22,7 +22,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     @Column(name = "asker_id")
     private Long askerId;
 
-    //回答的Id
+    //回答者的Id
     @Column(name = "answer_id")
     private Long answerId;
 

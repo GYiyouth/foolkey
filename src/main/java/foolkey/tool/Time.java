@@ -1,7 +1,13 @@
 package foolkey.tool;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static foolkey.tool.StaticVariable.askQuestionin_ValidDay;
+import static foolkey.tool.StaticVariable.orderAskQuestion_ExistDay;
+import static foolkey.tool.StaticVariable.permanentDate;
 
 /**
  * Created by GR on 2017/2/27.
@@ -26,6 +32,50 @@ public class Time {
     public static Date getCurrentDate() throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.parse(getCurrentTime());
+    }
+
+    /**
+     * 获取提问订单的有效期
+     * @return
+     * @throws Exception
+     */
+    public static Date getOrderAskQuestionExistingDate() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c = new GregorianCalendar();
+        Date date = new Date();
+        c.setTime(date);//设置参数时间
+        c.add(Calendar.DATE, orderAskQuestion_ExistDay);//把日期往后增加。负数往前移动
+        date=c.getTime();
+        String str = sdf.format(date);
+        return sdf.parse(str);
+    }
+
+
+    /**
+     * 获取提问订单的有效期
+     * @return
+     * @throws Exception
+     */
+    public static Date getAskQuestioninValidDate() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c = new GregorianCalendar();
+        Date date = new Date();
+        c.setTime(date);//设置参数时间
+        c.add(Calendar.DATE, askQuestionin_ValidDay);//把日期往后增加1天。负数往前移动
+        date=c.getTime(); //这个时间就是日期往后推一天的结果
+        String str = sdf.format(date);
+        return sdf.parse(str);
+    }
+
+    /**
+     * 获得永久有效时间
+     *
+     * @return
+     * @throws Exception
+     */
+    public static Date getPermanentDate()throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.parse(permanentDate);
     }
 
     public static String getYear(){
