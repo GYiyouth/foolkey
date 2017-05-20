@@ -57,16 +57,16 @@ public class GetCourseTeacherPopularController extends AbstractController{
 //            Long studentId = studentDTO.getId();
 
 
-//            Long studentId = 20003L;
+            Long studentId = 20003L;
 
             //获取热门的课程
             List<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = courseTeacherBO.getCourseTeacherPopularDTO(technicTagEnum, pageNo, 10);
             ArrayList<Boolean> followFlag = new ArrayList<>();
             for (CourseWithTeacherSTCDTO courseWithTeacherSTCDTO : courseWithTeacherSTCDTOS) {
-//                System.out.println("热门课程：" + courseTeacherPopularDTO.getCourseTeacherDTO() + "--id:" + courseTeacherPopularDTO.getCourseTeacherDTO().getId());
-//                System.out.println("所属老师："+courseTeacherPopularDTO.getTeacherAllInfoDTO()+"---id:"+courseTeacherPopularDTO.getTeacherAllInfoDTO().getId());
-//                boolean flag = relationFollowBO.isFollower(courseTeacherPopularDTO.getTeacherAllInfoDTO().getId(),studentId);
-//                followFlag.add(flag);
+                System.out.println("热门课程：" + courseWithTeacherSTCDTO.getCourseDTO() + "--id:" + courseWithTeacherSTCDTO.getCourseDTO().getId());
+                System.out.println("所属老师："+courseWithTeacherSTCDTO.getTeacherAllInfoDTO()+"---id:"+courseWithTeacherSTCDTO.getTeacherAllInfoDTO().getId());
+                boolean flag = relationFollowBO.isFollower(courseWithTeacherSTCDTO.getTeacherAllInfoDTO().getId(),studentId);
+                followFlag.add(flag);
             }
 
             //封装-传送json
