@@ -17,12 +17,14 @@ public class PrinterInterceptor extends AbstractInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("请求的控制器Contrller是 ");
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+
+        System.out.println( "\n" + "请求的控制器Contrller是 " + "\n");
         HandlerMethod handlerMethod = (HandlerMethod) o;
         System.out.println( handlerMethod.getBean().getClass() );
-        Iterator iterator = httpServletRequest.getParameterMap().keySet().iterator();
-        while (iterator.hasNext()){
-            String key = iterator.next().toString();
+        for (Object o1 : httpServletRequest.getParameterMap().keySet()) {
+            String key = o1.toString();
             System.out.println(" key : value -----   " + key + " : " + httpServletRequest.getParameter(key));
         }
 

@@ -2,9 +2,6 @@ package foolkey.pojo.root.bo.security;
 
 import foolkey.pojo.root.CAO.key.KeyCAO;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
-import foolkey.tool.ConverterByteBase64;
-import foolkey.tool.cache.Cache;
-import foolkey.tool.security.AESCoder;
 import foolkey.tool.security.AESOperator;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +18,11 @@ public class AESKeyBO {
     private static final String token1 = "key";
     private static final String token2 = "aesKey";
 
-    @Resource(name = "aesCoder")
-    private AESCoder aesCoder;
-    @Resource(name = "localCache")
-    private Cache cache;
     @Resource(name = "keyCAO")
     private KeyCAO keyCAO;
     @Resource(name = "userCAO")
     private UserCAO userCAO;
 
-    private String base64key;
 
     @Resource(name = "aesOperator")
     private AESOperator aesOperator;
@@ -40,10 +32,7 @@ public class AESKeyBO {
      * @return base64编码的key
      */
     public String getKeybase64Str(String userToken) throws Exception{
-        if (keyCAO.containsAESKey(userToken))
-            return keyCAO.getUserAESKeyDTO(userToken);
-        System.out.println("缓存中无该用户的缓存区");
-        return null;
+        return keyCAO.getUserAESKeyBase64( userToken );
     }
 
     /**

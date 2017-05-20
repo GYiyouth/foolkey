@@ -117,7 +117,7 @@ public class UserCAO extends AbstractCAO{
      */
     public void saveStudentAESKey(String token, String AESKey){
         String key = getUserAESKeyAddress( token );
-        cache.set( key, aesKeyToken );
+        cache.set( key, AESKey );
     }
 
     /**
