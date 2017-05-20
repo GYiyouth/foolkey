@@ -19,6 +19,17 @@ import java.util.List;
 @Component("courseCAO")
 public class CourseCAO extends AbstractCAO {
 
+
+    /**
+     * c初始化，缓存中创建每个类别课程的空间
+     */
+    public void initCourseCache(){
+        for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
+            List<String> list = new ArrayList<>();
+            cache.set(getCourseSearchKeyOfTechnicTagEnum(technicTagEnum), JSON.toJSONString(list));
+        }
+    }
+
     /**
      * 根据技术关键字，拼接成搜索该类别课程的key
      *
@@ -26,7 +37,6 @@ public class CourseCAO extends AbstractCAO {
      * @return
      */
     public String getCourseSearchKeyOfTechnicTagEnum(TechnicTagEnum technicTagEnum) {
-        System.out.println("jjj:"+technicTagEnum.toString() + Cache.separator + coursePopularToken);
         return technicTagEnum.toString() + Cache.separator + coursePopularToken;
     }
 
@@ -127,7 +137,11 @@ public class CourseCAO extends AbstractCAO {
             createRewardCache(technicTagEnum, courseWithTeacherSTCDTO);
         } else {
             //缓存有了这个类别的课程
-            List<String> list = JSON.parseArray(result, String.class);
+            if(result.equals("")){
+                result+="[]";
+                System.out.println(result);
+            }
+            List<String> list = JSON.parseObject(result, ArrayList.class);
             //判断缓存有没有满
             if (list.size() < StaticVariable.cacheSize) {
                 //没有满
@@ -162,7 +176,7 @@ public class CourseCAO extends AbstractCAO {
     public boolean isContainCourseWithTeacher(TechnicTagEnum technicTagEnum) {
         //根据课程类别搜索key，获取缓存中的对应值
         String result = cache.getString(getCourseSearchKeyOfTechnicTagEnum(technicTagEnum));
-        if (result != null) {
+        if (result != null ) {
             return true;
         }
         return false;
@@ -188,7 +202,7 @@ public class CourseCAO extends AbstractCAO {
             //去缓存中热门课程列表
             List<String> list = JSON.parseArray(result, String.class);
             //如果缓存中数目大于请求的数目
-            if (list.size() >= ((pageNo - 1) * pageSize)) {
+            if (list.size() > ((pageNo - 1) * pageSize)) {
                 return true;
             }
         }
@@ -212,7 +226,7 @@ public class CourseCAO extends AbstractCAO {
             String result = cache.getString(getCourseSearchKeyOfTechnicTagEnum(technicTagEnum));
             //去缓存中热门课程列表
             List<String> list = JSON.parseArray(result, String.class);
-            for (int i = (pageNo - 1) * pageSize; i < pageSize; i++) {
+            for (int i = (pageNo - 1) * pageSize; i < pageNo * pageSize && i < list.size(); i++) {
                 //首先根据课程列表的值，找到缓存中对应的value
                 String courseWithTeacherSTCDTOStr = cache.getString(list.get(i));
                 CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = JSON.parseObject(courseWithTeacherSTCDTOStr, CourseWithTeacherSTCDTO.class);

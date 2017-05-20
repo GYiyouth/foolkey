@@ -33,6 +33,10 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 //        if (contextRefreshedEvent.getApplicationContext().getParent() != null)//root application context 没有parent，他就是老大.
         if(contextRefreshedEvent.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")) {
+            //初始化
+            //事先在缓存分配空间给悬赏、课程
+            courseTeacherBO.initCourseCache();
+            courseStudentBO.initRewardCache();
 
             //1.    添加学生-老师信息到缓存
             System.out.println("预热程序，学生-老师信息：");

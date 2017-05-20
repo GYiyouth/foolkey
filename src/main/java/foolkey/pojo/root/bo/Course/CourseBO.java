@@ -52,6 +52,14 @@ public class CourseBO {
 
 
     /**
+     * 初始化，缓存中创建每个类别课程的空间
+     */
+    public void initCourseCache(){
+        courseCAO.initCourseCache();
+    }
+
+
+    /**
      * 添加热门课程到缓存
      * @param technicTagEnum
      * @param size

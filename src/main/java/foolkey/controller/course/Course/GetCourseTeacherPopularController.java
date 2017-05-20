@@ -23,7 +23,7 @@ import java.util.List;
  * Created by admin on 2017/4/28.
  */
 @Controller
-@RequestMapping(value = "/courseTeacher")
+@RequestMapping(value = "/courseTeacher/getCourseTeacherPopular")
 public class GetCourseTeacherPopularController extends AbstractController{
 
     @Autowired
@@ -33,7 +33,7 @@ public class GetCourseTeacherPopularController extends AbstractController{
     @Autowired
     private RelationFollowBO relationFollowBO;
 
-    @RequestMapping(value = "/getCourseTeacherPopular")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("token") String token,

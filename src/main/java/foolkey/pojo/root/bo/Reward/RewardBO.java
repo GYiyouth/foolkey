@@ -42,7 +42,12 @@ public class RewardBO {
     private RewardCAO rewardCAO;
 
 
-
+    /**
+     * 初始化，缓存中创建每个类别悬赏的空间
+     */
+    public void initRewardCache(){
+        rewardCAO.initRewardCache();
+    }
 
     /**
      * 添加最新的悬赏到缓存

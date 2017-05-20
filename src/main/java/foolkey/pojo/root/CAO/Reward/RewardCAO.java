@@ -22,6 +22,16 @@ public class RewardCAO extends AbstractCAO {
 
 
     /**
+     * c初始化，缓存中创建每个类别悬赏的空间
+     */
+    public void initRewardCache(){
+        for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
+            List<String> list = new ArrayList<>();
+            cache.set(getRewardSearchKeyOfTechnicTagEnum(technicTagEnum), JSON.toJSONString(list));
+        }
+    }
+
+    /**
      * 根据技术关键字，拼接成搜索该类别悬赏的key
      *
      * @param technicTagEnum
@@ -127,6 +137,9 @@ public class RewardCAO extends AbstractCAO {
             //缓存中没有这个类别的悬赏
             createRewardCache(technicTagEnum, rewardWithStudentSTCDTO);
         } else {
+            if(result.equals("")){
+                result += "[]";
+            }
             //缓存有了这个类别的悬赏
             List<String> list = JSON.parseArray(result, String.class);
             //判断缓存有没有满
