@@ -61,7 +61,7 @@ public class KeyCAO extends AbstractCAO{
      * @param userToken
      * @return base64 格式
      */
-    public String getUserAESKeyDTO(String userToken){
+    public String getUserAESKeyBase64(String userToken){
         String key = getUserAESKeyAddress( userToken );
         return cache.getString( key );
     }
