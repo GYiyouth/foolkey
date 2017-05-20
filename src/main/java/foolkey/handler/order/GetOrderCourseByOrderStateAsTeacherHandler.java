@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 获取某个状态的悬赏、课程订单
+ * 获取某个状态的课程订单
  * Created by GR on 2017/5/12.
  */
 @Service
@@ -66,7 +66,7 @@ public class GetOrderCourseByOrderStateAsTeacherHandler extends AbstractBO{
 
         //最后返回的东西
         List<OrderBuyCourseAsTeacherSTCDTO> orderBuyCourseAsTeacherSTCDTOS = new ArrayList<>();
-        List<OrderBuyRewardAsTeacherSTCDTO> orderBuyRewardAsTeacherSTCDTOS = new ArrayList<>();
+//        List<OrderBuyRewardAsTeacherSTCDTO> orderBuyRewardAsTeacherSTCDTOS = new ArrayList<>();
 
         try {
             //********** 课程 *****************
@@ -84,25 +84,25 @@ public class GetOrderCourseByOrderStateAsTeacherHandler extends AbstractBO{
                 orderBuyCourseAsTeacherSTCDTOS.add(orderBuyCourseAsTeacherSTCDTO);
             }
 
-            //********** 悬赏 *****************
-            //1. 获得该老师下面哪些悬赏订单处于规定状态
-            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.pageSize, orderStateEnum);
-            //2. 上面每个悬赏，获取下面的学生-订单信息
-            for(Long rewardId:rewardIdS){
-                OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();
-                //      2.1获取悬赏DTO
-                RewardDTO rewardDTO = rewardBO.getCourseStudentDTO(rewardId);
-                orderBuyRewardAsTeacherSTCDTO.setRewardDTO(rewardDTO);
-                //      2.2由悬赏id获取订单-学生DTOS
-                List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(rewardId, CourseTypeEnum.学生悬赏,1,4, orderStateEnum);
-                orderBuyRewardAsTeacherSTCDTO.setOrderBuyCourseWithStudentAsTeacherSTCDTOS(orderBuyCourseWithStudentAsTeacherSTCDTOS);
-                orderBuyRewardAsTeacherSTCDTOS.add(orderBuyRewardAsTeacherSTCDTO);
-            }
+//            //********** 悬赏 *****************
+//            //1. 获得该老师下面哪些悬赏订单处于规定状态
+//            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.pageSize, orderStateEnum);
+//            //2. 上面每个悬赏，获取下面的学生-订单信息
+//            for(Long rewardId:rewardIdS){
+//                OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();
+//                //      2.1获取悬赏DTO
+//                RewardDTO rewardDTO = rewardBO.getCourseStudentDTO(rewardId);
+//                orderBuyRewardAsTeacherSTCDTO.setRewardDTO(rewardDTO);
+//                //      2.2由悬赏id获取订单-学生DTOS
+//                List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(rewardId, CourseTypeEnum.学生悬赏,1,4, orderStateEnum);
+//                orderBuyRewardAsTeacherSTCDTO.setOrderBuyCourseWithStudentAsTeacherSTCDTOS(orderBuyCourseWithStudentAsTeacherSTCDTOS);
+//                orderBuyRewardAsTeacherSTCDTOS.add(orderBuyRewardAsTeacherSTCDTO);
+//            }
 
             //封装、传送JSON
             jsonObject.put("result", "success");
             jsonObject.put("orderBuyCourseAsTeacherSTCDTOS", orderBuyCourseAsTeacherSTCDTOS);
-            jsonObject.put("orderBuyRewardAsTeacherSTCDTOS", orderBuyRewardAsTeacherSTCDTOS);
+//            jsonObject.put("orderBuyRewardAsTeacherSTCDTOS", orderBuyRewardAsTeacherSTCDTOS);
             jsonHandler.sendJSON(jsonObject, response);
         } catch (Exception e) {
             e.printStackTrace();

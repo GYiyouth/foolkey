@@ -3,7 +3,6 @@ package foolkey.aop.cacheMaintain;
 import foolkey.pojo.root.CAO.Reward.RewardCAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
-import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO;

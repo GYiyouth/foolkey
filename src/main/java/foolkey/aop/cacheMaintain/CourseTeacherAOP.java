@@ -3,7 +3,6 @@ package foolkey.aop.cacheMaintain;
 import foolkey.pojo.root.CAO.Course.CourseCAO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
-import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.send_to_client.course.CourseWithTeacherSTCDTO;
@@ -27,7 +26,7 @@ public class CourseTeacherAOP {
     /**
      * 更新课程信息之后的操作
      * @param jp
-     * @param courseTeacherDTO
+     * @param courseDTO
      */
     @AfterReturning(returning = "courseDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.update(..))"  )

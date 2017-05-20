@@ -3,8 +3,8 @@ package foolkey.controller.collectionCourse;
 import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.collection.CollectionBO;
-import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.root.vo.dto.CollectionCourseDTO;
+import foolkey.pojo.send_to_client.course.CourseWithTeacherSTCDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +47,15 @@ public class GetMyCollectionCourseController extends AbstractController{
             ArrayList<CollectionCourseDTO> collectionCourseDTOS = collectionBO.getMyCollectionCourseDTOS(studentId, pageNo, StaticVariable.pageSize);
 
             //遍历获取到课程-老师DTO
-            ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
+            ArrayList<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = new ArrayList<>();
             for(CollectionCourseDTO collectionCourseDTO:collectionCourseDTOS){
-                CourseTeacherPopularDTO courseTeacherPopularDTO = courseTeacherBO.getCourseTeacherPopularDTOByCourseId(collectionCourseDTO.getCourseId());
-                courseTeacherPopularDTOS.add(courseTeacherPopularDTO);
+                CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = courseTeacherBO.getCourseWithTeacherSTCDTOByCourseId(collectionCourseDTO.getCourseId());
+                courseWithTeacherSTCDTOS.add(courseWithTeacherSTCDTO);
             }
 
             //封装-传送jsonObject
             jsonObject.put("result","success");
-            jsonObject.put("courseTeacherDTOS",courseTeacherPopularDTOS);
+            jsonObject.put("courseTeacherDTOS",courseWithTeacherSTCDTOS);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();

@@ -5,10 +5,7 @@ import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.RelationFollow.RelationFollowBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.course.CourseWithTeacherSTCDTO;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +57,7 @@ public class GetCourseTeacherPopularController extends AbstractController{
             Long studentId = 20003L;
 
             //获取热门的课程
-            List<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = courseTeacherBO.getCourseTeacherPopularDTO(technicTagEnum, pageNo, 10);
+            List<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = courseTeacherBO.getCourseWithTeacherSTCDTO(technicTagEnum, pageNo, 10);
             ArrayList<Boolean> followFlag = new ArrayList<>();
             for (CourseWithTeacherSTCDTO courseWithTeacherSTCDTO : courseWithTeacherSTCDTOS) {
                 System.out.println("热门课程：" + courseWithTeacherSTCDTO.getCourseDTO() + "--id:" + courseWithTeacherSTCDTO.getCourseDTO().getId());

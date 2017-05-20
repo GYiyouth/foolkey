@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import foolkey.pojo.root.CAO.base.AbstractCAO;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO;
 import foolkey.tool.StaticVariable;

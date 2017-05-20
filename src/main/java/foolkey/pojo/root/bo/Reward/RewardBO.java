@@ -8,7 +8,6 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
-import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO;
@@ -54,17 +53,17 @@ public class RewardBO {
      * @param technicTagEnum
      * @param size
      */
-    public void fillCourseStudentPopularDTOToCache(TechnicTagEnum technicTagEnum, Integer size){
+    public void fillRewardWithStudentDTOToCache(TechnicTagEnum technicTagEnum, Integer size){
         if(technicTagEnum == null || size == null || size == 0){
             throw new NullPointerException("technicTagEnum/ size is null");
         }else {
             try {
                 // 1.从数据库读取最新的size条记录
                 ArrayList<RewardDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
-                ArrayList<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = new ArrayList<>();
+                ArrayList<foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = new ArrayList<>();
                 for (RewardDTO rewardDTO : courseStudentDTOS) {
                     StudentDTO studentDTO = studentInfoBO.getStudentDTO(rewardDTO.getCreatorId());
-                    RewardWithStudentSTCDTO rewardWithStudentSTCDTO = new RewardWithStudentSTCDTO();
+                    foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO rewardWithStudentSTCDTO = new foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO();
                     rewardWithStudentSTCDTO.setStudentDTO(studentDTO);
                     rewardWithStudentSTCDTO.setRewardDTO(rewardDTO);
                     rewardWithStudentSTCDTOS.add(rewardWithStudentSTCDTO);
@@ -88,7 +87,7 @@ public class RewardBO {
      * @return
      * @throws Exception
      */
-    public List<RewardWithStudentSTCDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
+    public List<foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
         //请求的内容超过内存大小
         //暂时不允许超过内存大小
         if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
@@ -178,18 +177,18 @@ public class RewardBO {
      * @return
      * @throws Exception
      */
-    public List<CourseStudentPopularDTO> convertCourseStudentIntoCourseStudentPopular(List<RewardDTO> courseStudentDTOS) throws Exception{
+    public List<RewardWithStudentSTCDTO> convertRewardDTOIntoRewardWithStudentDTO(List<RewardDTO> courseStudentDTOS) throws Exception{
 
-        ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
-        for(RewardDTO courseStudentDTO:courseStudentDTOS){
-            CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
+        ArrayList<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = new ArrayList<>();
+        for(RewardDTO rewardDTO:courseStudentDTOS){
+            RewardWithStudentSTCDTO rewardWithStudentSTCDTO = new RewardWithStudentSTCDTO();
             // 获取-添加学生信息
-            StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
-            courseStudentPopularDTO.setStudentDTO(studentDTO);
+            StudentDTO studentDTO = studentInfoBO.getStudentDTO(rewardDTO.getCreatorId());
+            rewardWithStudentSTCDTO.setStudentDTO(studentDTO);
             // 课程信息赋值
-            courseStudentPopularDTO.setCourseStudentDTO(courseStudentDTO);
-            courseStudentPopularDTOS.add(courseStudentPopularDTO);
+            rewardWithStudentSTCDTO.setRewardDTO(rewardDTO);
+            rewardWithStudentSTCDTOS.add(rewardWithStudentSTCDTO);
         }
-        return courseStudentPopularDTOS;
+        return rewardWithStudentSTCDTOS;
     }
 }

@@ -4,11 +4,9 @@ import foolkey.pojo.root.CAO.Course.CourseCAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.UpdateCourseTeacherDAO;
-import foolkey.pojo.root.DataStructure.Node;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.send_to_client.CourseTeacherPopularDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -20,7 +18,6 @@ import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +61,7 @@ public class CourseBO {
      * @param technicTagEnum
      * @param size
      */
-    public void fillCourseTeacherPopularDTOToCache(TechnicTagEnum technicTagEnum, Integer size){
+    public void fillCourseWithTeacherSTCDTOToCache(TechnicTagEnum technicTagEnum, Integer size){
         if(technicTagEnum == null || size == null || size == 0){
             throw new NullPointerException("technicTagEnum/size is null");
         }else {
@@ -98,7 +95,7 @@ public class CourseBO {
      * @return
      * @throws Exception
      */
-    public List<CourseWithTeacherSTCDTO> getCourseTeacherPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
+    public List<CourseWithTeacherSTCDTO> getCourseWithTeacherSTCDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
         //请求的内容超过内存大小
         //暂时不允许超过内存大小
         if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
@@ -110,13 +107,13 @@ public class CourseBO {
 
     /**
      * 发布课程
-     * @param courseTeacherDTO
+     * @param courseDTO
      */
-    public void publishCourseTeacher(CourseDTO courseTeacherDTO){
-        if(courseTeacherDTO == null){
+    public void publishCourseTeacher(CourseDTO courseDTO){
+        if(courseDTO == null){
             throw new NullPointerException("课程内容为空");
         }else{
-            saveCourseTeacherDAO.save(courseTeacherDTO);
+            saveCourseTeacherDAO.save(courseDTO);
         }
     }
 
@@ -186,16 +183,16 @@ public class CourseBO {
      * @return
      * @throws Exception
      */
-    public CourseTeacherPopularDTO getCourseTeacherPopularDTOByCourseId(Long courseId) throws Exception {
+    public CourseWithTeacherSTCDTO getCourseWithTeacherSTCDTOByCourseId(Long courseId) throws Exception {
         // 首先根据课程id获取课程DTO
-        CourseDTO courseTeacherDTO = getCourseTeacherDTOById(courseId);
+        CourseDTO courseDTO = getCourseTeacherDTOById(courseId);
         // 获取所属老师的信息
-        TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
+        TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
         // 创建课程-老师DTO，并赋值
-        CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
-        courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
-        courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
-        return courseTeacherPopularDTO;
+        CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
+        courseWithTeacherSTCDTO.setCourseDTO(courseDTO);
+        courseWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+        return courseWithTeacherSTCDTO;
     }
 
     /**
@@ -206,7 +203,7 @@ public class CourseBO {
      */
     public void updateCourseTeacherCache(CourseDTO courseDTO) throws Exception {
         if(courseDTO == null){
-            throw new NullPointerException("courseTeacherDTO is null");
+            throw new NullPointerException("courseDTO is null");
         }else{
             //获取老师的所有信息
             TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
@@ -222,16 +219,16 @@ public class CourseBO {
 //            //获取要修改的课程所在的节点
 //            Node node = courseCAO.getCourseTeacherPopularNodeByCourseTeacherDTOId(courseDTO.getId());
 //            if(node != null) {
-//                CourseTeacherPopularDTO oldCourseTeacherPopularDTO = (CourseTeacherPopularDTO) node.getData();
+//                CourseWithTeacherSTCDTO oldCourseWithTeacherSTCDTO = (CourseWithTeacherSTCDTO) node.getData();
 //                //判断是否修改了类别
-//                if(oldCourseTeacherPopularDTO.getCourseTeacherDTO().getTechnicTagEnum() == courseDTO.getTechnicTagEnum()){
+//                if(oldCourseWithTeacherSTCDTO.getCourseTeacherDTO().getTechnicTagEnum() == courseDTO.getTechnicTagEnum()){
 //                    System.out.println("没有修改技术类别---");
-//                    node.setData(courseTeacherPopularDTO);
+//                    node.setData(courseWithTeacherSTCDTO);
 //                    System.out.println("秀秀秀");
 //                }else{
 //                    // 1. 删除当前类别的当前节点
-//                    courseCAO.deleteCourseTeacherNode(courseTeacherPopularDTO);
-//                    courseCAO.addCourseWithTeacherToCache(courseDTO.getTechnicTagEnum(),courseTeacherPopularDTO,DirectionEnum.head);
+//                    courseCAO.deleteCourseTeacherNode(courseWithTeacherSTCDTO);
+//                    courseCAO.addCourseWithTeacherToCache(courseDTO.getTechnicTagEnum(),courseWithTeacherSTCDTO,DirectionEnum.head);
 //                }
 //
 //            }
@@ -241,30 +238,30 @@ public class CourseBO {
 
     /**
      * 更新数据库的内容
-     * @param courseTeacherDTO
+     * @param courseDTO
      * @throws Exception
      */
-    public void updateCourseTeacherDTO(CourseDTO courseTeacherDTO) throws Exception{
-        if(courseTeacherDTO == null){
-            throw new NullPointerException("courseTeacherDTO is null");
+    public void updateCourseTeacherDTO(CourseDTO courseDTO) throws Exception{
+        if(courseDTO == null){
+            throw new NullPointerException("courseDTO is null");
         }else{
-            updateCourseTeacherDAO.update(courseTeacherDTO);
+            updateCourseTeacherDAO.update(courseDTO);
         }
     }
 
     /**
      * 把一门课程从缓存的缓冲区添加到缓存的热门去
-     * @param courseTeacherPopularDTO
+     * @param courseWithTeacherSTCDTO
      */
-//    public void addCourseTeacherFromReserveToCache(CourseTeacherPopularDTO courseTeacherPopularDTO){
-//        if(courseTeacherPopularDTO == null){
-//            throw new NullPointerException("courseTeacherPopularDTO id null");
+//    public void addCourseTeacherFromReserveToCache(CourseWithTeacherSTCDTO courseWithTeacherSTCDTO){
+//        if(courseWithTeacherSTCDTO == null){
+//            throw new NullPointerException("courseWithTeacherSTCDTO id null");
 //        }else{
 //            //1. 获取热门缓冲区的节点  删除
-//            Node delNode = courseCAO.getCourseTeacherNodeInReserve(courseTeacherDTO);
-//            courseCAO.deleteCourseTeacherNodeInReserve(courseTeacherDTO);
+//            Node delNode = courseCAO.getCourseTeacherNodeInReserve(courseDTO);
+//            courseCAO.deleteCourseTeacherNodeInReserve(courseDTO);
 //            //2.添加节点到热门区
-//            courseCAO.addCourseTeacherToCache(courseTeacherDTO);
+//            courseCAO.addCourseTeacherToCache(courseDTO);
 //        }
 //    }
 
@@ -273,7 +270,7 @@ public class CourseBO {
      * 展示所有的热门课程
      * @param technicTagEnum
      */
-    public List<CourseWithTeacherSTCDTO> getAllCourseTeacherPopularDTO(TechnicTagEnum technicTagEnum){
+    public List<CourseWithTeacherSTCDTO> getAllCourseWithTeacherSTCDTO(TechnicTagEnum technicTagEnum){
         if(technicTagEnum == null){
             throw new NullPointerException("technicTagEnum is null");
         }else{
@@ -283,23 +280,23 @@ public class CourseBO {
 
     /**
      * 把课程转变为课程-老师
-     * @param courseTeacherDTOS
+     * @param courseDTOS
      * @return
      * @throws Exception
      */
-    public ArrayList convertCourseTeacherIntoCourseTeacherPopular(List<CourseDTO> courseTeacherDTOS) throws Exception{
+    public ArrayList convertCourseDTOIntoCourseWithTeacherDTO(List<CourseDTO> courseDTOS) throws Exception{
 
-        ArrayList<CourseTeacherPopularDTO> courseTeacherPopularDTOS = new ArrayList<>();
-        for(CourseDTO courseTeacherDTO:courseTeacherDTOS){
-            CourseTeacherPopularDTO courseTeacherPopularDTO = new CourseTeacherPopularDTO();
+        ArrayList<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = new ArrayList<>();
+        for(CourseDTO courseDTO:courseDTOS){
+            CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
             // 获取-添加老师信息
-            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseTeacherDTO.getCreatorId());
-            courseTeacherPopularDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
+            TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
+            courseWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
             // 课程信息赋值
-            courseTeacherPopularDTO.setCourseTeacherDTO(courseTeacherDTO);
-            courseTeacherPopularDTOS.add(courseTeacherPopularDTO);
+            courseWithTeacherSTCDTO.setCourseDTO(courseDTO);
+            courseWithTeacherSTCDTOS.add(courseWithTeacherSTCDTO);
         }
-        return courseTeacherPopularDTOS;
+        return courseWithTeacherSTCDTOS;
     }
 
 }

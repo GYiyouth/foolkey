@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 import sun.applet.Main;
 
 import java.net.InetSocketAddress;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.Future;
 //import net.spy.memcached.MemcachedClient;
 
@@ -77,77 +74,13 @@ public class TestG3 {
         }
 
     public static void main(String[] args) {
-//        boolean fo =  memcachedClient.set("runoob", "Free Education");
-//        System.out.println(memcachedClient.get("runoob"));
-//
-//        StudentDTO studentDTO = new StudentDTO();
-//        studentDTO.setName("ge");
-//        studentDTO.setBirthday(new Date());
-
-//        boolean fo =  memcachedClient.set("object", "Free Education");
-//        MemcachedItem memcachedItem = memcachedClient.gets("object");
-//        long token = memcachedItem.getCasUnique();
-//        System.out.println("token" + token);
-//
-//        memcachedClient.set("object","gegegeg");
-//        System.out.println("更了一下" + memcachedClient.get("object"));
-//
-//        System.out.println( memcachedItem.getValue().toString() );
-//
-//        System.out.println( memcachedClient.cas("object", "hahaha",token) );
-////        System.out.println(memcachedClient.gets("runoob").toString());
-//
-//        System.out.println("cas存储之后的" + memcachedClient.get("object"));
-////        System.out.println(memcachedItem.getCasUnique());
-
-        for(int j = 0 ; j < 10 ; j++) {
-            Long beginTime1 = System.currentTimeMillis();
-            //get set 修改10_000
-            for (int i = 0; i < 10_000; i++) {
-                String temp = i + "";
-                memcachedClient.set(temp, i);
-                memcachedClient.get(temp);
-            }
-            Long endTime1 = System.currentTimeMillis();
-            System.out.println("set时间：" + (endTime1 - beginTime1));
-
-
-            Long beginTime2 = System.currentTimeMillis();
-            // cas 修改
-            for (int i = 0; i < 10_000; i++) {
-                String temp = i + "";
-                memcachedClient.cas(temp, i + 1, memcachedClient.gets(temp).getCasUnique());
-
-            }
-            Long endTime2 = System.currentTimeMillis();
-            System.out.println("cas时间：" + (endTime2 - beginTime2));
-
-
-            beginTime2 = System.currentTimeMillis();
-            // cas 修改
-            for (int i = 0; i < 10_000; i++) {
-                String temp = i + "";
-                long t = memcachedClient.gets(temp).getCasUnique();
-                memcachedClient.cas(temp, i + 2, t);
-
-            }
-            endTime2 = System.currentTimeMillis();
-            System.out.println("cas分开时间：" + (endTime2 - beginTime2));
-        }
-
-
-
-
-
-
-//        Long time1 = System.currentTimeMillis();
-//        for ( int i = 0; i < 10_000; i ++ ) {
-//            String studentDTOStr =  memcachedClient.get("object").toString();
-//            StudentDTO studentDTO1 = JSON.parseObject(studentDTOStr, StudentDTO.class);
-//            System.out.println(studentDTO1); 8658
-//        }
-//        Long time2 = System.currentTimeMillis();
-//        System.out.println(time2 - time1);
+        List<String> list = new ArrayList<>();
+//        list.add("test1");
+//        list.add("test2");
+//        list.add("test3");
+        memcachedClient.set("test",JSON.toJSONString(list));
+        String result = memcachedClient.get("test").toString();
+        System.out.println(result);
     }
 
 }
