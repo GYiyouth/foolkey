@@ -9,4 +9,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("updateCourseStudentDAO")
 public class UpdateCourseStudentDAO extends UpdateBaseDAO<RewardDTO>{
+
+    @Override
+    public RewardDTO update(RewardDTO entity) {
+        return super.update(entity);
+    }
 }

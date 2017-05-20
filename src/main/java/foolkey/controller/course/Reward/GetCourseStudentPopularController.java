@@ -6,6 +6,7 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -66,15 +68,15 @@ public class GetCourseStudentPopularController extends AbstractController{
 
 
             //获取热门的悬赏
-            ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
-            for (CourseStudentPopularDTO courseStudentPopularDTO : courseStudentPopularDTOS) {
-                System.out.println("热门悬赏：" + courseStudentPopularDTO.getCourseStudentDTO() + "--id:" + courseStudentPopularDTO.getCourseStudentDTO().getId());
-                System.out.println("所属学生："+courseStudentPopularDTO.getStudentDTO()+"---id:"+courseStudentPopularDTO.getStudentDTO().getId());
+            List<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
+            for (RewardWithStudentSTCDTO RewardWithStudentSTCDTO : rewardWithStudentSTCDTOS) {
+                System.out.println("热门悬赏：" + RewardWithStudentSTCDTO.getRewardDTO() + "--id:" + RewardWithStudentSTCDTO.getRewardDTO().getId());
+                System.out.println("所属学生："+RewardWithStudentSTCDTO.getStudentDTO()+"---id:"+RewardWithStudentSTCDTO.getStudentDTO().getId());
             }
 
             //封装-传送json
             jsonObject.put("result","success");
-            jsonObject.put("rewardCourseDTOS",courseStudentPopularDTOS);
+            jsonObject.put("rewardCourseDTOS",rewardWithStudentSTCDTOS);
             jsonHandler.sendJSON(jsonObject,response);
         }catch (Exception e){
             e.printStackTrace();

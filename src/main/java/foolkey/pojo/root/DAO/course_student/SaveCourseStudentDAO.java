@@ -14,12 +14,12 @@ public class SaveCourseStudentDAO extends SaveBaseDAO<RewardDTO>{
 
     /**
      * 重写方法，为了能够顺利通过AOP
-     * @param courseStudentDTO
+     * @param rewardDTO
      * @return
      */
     @Override
-    public RewardDTO save(RewardDTO courseStudentDTO) {
-        super.save(courseStudentDTO);
-        return courseStudentDTO;
+    public RewardDTO save(RewardDTO rewardDTO) {
+        super.save(rewardDTO);
+        return rewardDTO;
     }
 }

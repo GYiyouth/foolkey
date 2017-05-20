@@ -1,6 +1,6 @@
 package foolkey.pojo.root.bo.Reward;
 
-import foolkey.pojo.root.CAO.CourseStudent.CourseStudentCAO;
+import foolkey.pojo.root.CAO.Reward.RewardCAO;
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
@@ -11,6 +11,7 @@ import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.send_to_client.CourseStudentPopularDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO;
 import foolkey.tool.StaticVariable;
 import foolkey.tool.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class RewardBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
     @Autowired
-    private CourseStudentCAO courseStudentCAO;
+    private RewardCAO rewardCAO;
 
 
 
@@ -55,18 +56,18 @@ public class RewardBO {
             try {
                 // 1.从数据库读取最新的size条记录
                 ArrayList<RewardDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
-                ArrayList<CourseStudentPopularDTO> courseStudentPopularDTOS = new ArrayList<>();
-                for (RewardDTO courseStudentDTO : courseStudentDTOS) {
-                    StudentDTO studentDTO = studentInfoBO.getStudentDTO(courseStudentDTO.getCreatorId());
-                    CourseStudentPopularDTO courseStudentPopularDTO = new CourseStudentPopularDTO();
-                    courseStudentPopularDTO.setStudentDTO(studentDTO);
-                    courseStudentPopularDTO.setCourseStudentDTO(courseStudentDTO);
-                    courseStudentPopularDTOS.add(courseStudentPopularDTO);
+                ArrayList<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = new ArrayList<>();
+                for (RewardDTO rewardDTO : courseStudentDTOS) {
+                    StudentDTO studentDTO = studentInfoBO.getStudentDTO(rewardDTO.getCreatorId());
+                    RewardWithStudentSTCDTO rewardWithStudentSTCDTO = new RewardWithStudentSTCDTO();
+                    rewardWithStudentSTCDTO.setStudentDTO(studentDTO);
+                    rewardWithStudentSTCDTO.setRewardDTO(rewardDTO);
+                    rewardWithStudentSTCDTOS.add(rewardWithStudentSTCDTO);
                 }
                 //添加到缓存中
                 //尾插
-                if(courseStudentPopularDTOS.size()!=0) {
-                    courseStudentCAO.addCourseStudentPopularDTOSToCache(technicTagEnum, courseStudentPopularDTOS, DirectionEnum.tail);
+                if(rewardWithStudentSTCDTOS.size()!=0) {
+                    rewardCAO.addRewardWithStudentSToCache(technicTagEnum, rewardWithStudentSTCDTOS, DirectionEnum.tail);
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -82,15 +83,15 @@ public class RewardBO {
      * @return
      * @throws Exception
      */
-    public ArrayList<CourseStudentPopularDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
+    public List<RewardWithStudentSTCDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
         //请求的内容超过内存大小
         //暂时不允许超过内存大小
         if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
             return new ArrayList<>();
         }else{
-            if (courseStudentCAO.containsCourseStudent(technicTagEnum, pageNo, pageSize)) {
+            if (rewardCAO.isContainRewardWithStudentS(technicTagEnum, pageNo, pageSize)) {
                 System.out.println("缓存有！");
-                return courseStudentCAO.getCourseStudentPopularDTO(technicTagEnum, pageNo, pageSize);
+                return rewardCAO.getRewardWithStudentPopularFromCache(technicTagEnum, pageNo, pageSize);
             }else {
                 //缓存没有则数据库彻底没了
                 System.out.println("缓存没有");
@@ -101,7 +102,7 @@ public class RewardBO {
 
 
     /**
-     * 根据课程id获取悬赏信息
+     * 根据悬赏id获取悬赏信息
      * @param id
      * @return
      * @throws Exception
@@ -110,7 +111,7 @@ public class RewardBO {
         if(id == null){
             throw new NullPointerException("id is null");
         }else{
-            RewardDTO courseStudentDTO = courseStudentCAO.getCourseStudentDTOByCourseStudentId(id);
+            RewardDTO courseStudentDTO = rewardCAO.getRewardDTOByRewardId(id);
             if(courseStudentDTO != null ){
                 System.out.println("缓存有！");
                 return courseStudentDTO;
