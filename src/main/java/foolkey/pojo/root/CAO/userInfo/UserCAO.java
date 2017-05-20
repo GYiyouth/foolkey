@@ -98,6 +98,17 @@ public class UserCAO extends AbstractCAO{
         return JSON.parseObject( value, StudentDTO.class );
     }
 
+    /**
+     * 根据token获取用户的teacherDTO
+     * @param token
+     * @return
+     */
+    public TeacherDTO getTeacherDTO(String token){
+        String key = getUserTeacherDTOAddress( token );
+        String value = cache.getString( key );
+        return JSON.parseObject( value, TeacherDTO.class );
+    }
+
 
     /**
      * 存储用户的对称密钥

@@ -1,13 +1,14 @@
 package foolkey.pojo.root.bo.teacher;
 
+import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.SaveTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.UpdateTeacherDAO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
-import foolkey.tool.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,38 +23,68 @@ public class TeacherInfoBO {
     @Autowired
     private GetTeacherDAO getTeacherDAO;
     @Autowired
-    private GetStudentDAO getStudentDAO;
-    @Autowired
     private UpdateTeacherDAO updateTeacherDAO;
     @Autowired
     private SaveTeacherDAO saveTeacherDAO;
+    @Autowired
+    private UserCAO userCAO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
+    /**
+     * 获取老师信息，先问缓存，再问数据库
+     * @param id
+     * @return
+     */
     public TeacherDTO getTeacherDTO(String id){
-        return getTeacherDAO.getTeacherDTO( Long.parseLong(id) );
+        return getTeacherDTO( Long.parseLong( id ) );
     }
-
     public TeacherDTO getTeacherDTO(Long id){
-        return getTeacherDAO.getTeacherDTO( id );
+        String token = userCAO.getUserToken( id );
+        TeacherDTO teacherDTO = userCAO.getTeacherDTO( token );
+        if (teacherDTO != null)
+            return teacherDTO;
+        else {
+            //缓存没有，从数据库取
+            return getTeacherDAO.getTeacherDTO( id );
+        }
     }
 
-    public TeacherDTO updateTeacherDTO(TeacherDTO teacherDTO) throws Exception{
+    /**
+     * 更新用户信息
+     * 先更数据库，再更缓存
+     * @param teacherDTO
+     * @return
+     * @throws Exception
+     */
+    public void updateTeacherDTO(TeacherDTO teacherDTO) throws Exception{
         updateTeacherDAO.update(teacherDTO);
-        return teacherDTO;
+        userCAO.saveTeacherDTO( userCAO.getUserToken( teacherDTO.getId()),
+                    teacherDTO
+                );
     }
 
     public TeacherAllInfoDTO getTeacherAllInfoDTO(Long id) {
-        StudentDTO studentDTO = getStudentDAO.get(StudentDTO.class,id);
+        StudentDTO studentDTO = studentInfoBO.getStudentDTO( id );
         System.out.println("学生:"+studentDTO);
-        TeacherDTO teacherDTO = getTeacherDAO.get(TeacherDTO.class,id);
-        System.out.println("老师："+teacherDTO);
+        TeacherDTO teacherDTO = getTeacherDTO( id );
+        System.out.println("老师:"+teacherDTO);
 //        TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
         TeacherAllInfoDTO teacherAllInfoDTO = new TeacherAllInfoDTO();
         teacherAllInfoDTO.clone(studentDTO,teacherDTO);
         return teacherAllInfoDTO;
     }
 
+    /**
+     * 保存用户信息，先存数据库，再存缓存
+     * @param teacherDTO
+     * @return
+     */
     public TeacherDTO save(TeacherDTO teacherDTO){
         saveTeacherDAO.save(teacherDTO);
+        userCAO.saveTeacherDTO( userCAO.getUserToken( teacherDTO.getId()),
+                teacherDTO
+        );
         return teacherDTO;
     }
 }
