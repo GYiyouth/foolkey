@@ -122,7 +122,7 @@ public class StudentInfoBO {
             userCAO.saveStudentDTO(token,studentDTO);
 
             //判断是老师，存储老师信息
-            if(studentDTO.getRoleEnum().compareTo( RoleEnum.teacher ) == 0) {
+            if(studentDTO.getRoleEnum().compareTo( RoleEnum.student ) != 0) {
                 System.out.println("预热存储老师信息 token:"+token);
                 TeacherDTO teacherDTO = getTeacherDAO.getTeacherDTO(studentDTO.getId());
                 userCAO.saveTeacherDTO(token, teacherDTO);

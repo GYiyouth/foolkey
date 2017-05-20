@@ -31,7 +31,7 @@ public class CourseTeacherAOP {
      */
     @AfterReturning(returning = "courseDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.*.update(..))"  )
-    public void updateCourseTeacherDTO(JoinPoint jp, CourseDTO courseDTO){
+    public void updateCourseTeacherDTO(JoinPoint jp, CourseDTO courseDTO) throws Exception{
         if(courseDTO != null){
             TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
             CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
@@ -49,7 +49,7 @@ public class CourseTeacherAOP {
      */
     @AfterReturning(returning = "courseDTO",
             pointcut = "execution(* foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO.save(..))")
-    public void addCourseTeacherDTOToCache(CourseDTO courseDTO){
+    public void addCourseTeacherDTOToCache(CourseDTO courseDTO)throws Exception{
         if(courseDTO != null){
 //            courseCAO.addNewCourseTeacherToCache(courseTeacherDTO);
             TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());

@@ -6,6 +6,7 @@ import foolkey.pojo.root.DAO.teacher.GetTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.SaveTeacherDAO;
 import foolkey.pojo.root.DAO.teacher.UpdateTeacherDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
@@ -64,14 +65,14 @@ public class TeacherInfoBO {
                 );
     }
 
-    public TeacherAllInfoDTO getTeacherAllInfoDTO(Long id) {
+    public TeacherAllInfoDTO getTeacherAllInfoDTO(Long id) throws Exception{
         StudentDTO studentDTO = studentInfoBO.getStudentDTO( id );
         System.out.println("学生:"+studentDTO);
         TeacherDTO teacherDTO = getTeacherDTO( id );
         System.out.println("老师:"+teacherDTO);
 //        TeacherAllInfoDTO teacherAllInfoDTO = BeanFactory.getBean("teacherAllInfoDTO",TeacherAllInfoDTO.class);
         TeacherAllInfoDTO teacherAllInfoDTO = new TeacherAllInfoDTO();
-        teacherAllInfoDTO.clone(studentDTO,teacherDTO);
+        teacherAllInfoDTO.clone(studentDTO, teacherDTO);
         return teacherAllInfoDTO;
     }
 

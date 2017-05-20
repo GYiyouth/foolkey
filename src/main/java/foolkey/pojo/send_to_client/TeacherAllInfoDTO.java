@@ -1,6 +1,7 @@
 package foolkey.pojo.send_to_client;
 
 
+import foolkey.pojo.root.vo.AbstractDTO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 老师信息DTO  不含密码
@@ -15,7 +17,7 @@ import java.util.Date;
  */
 @Component("teacherAllInfoDTO")
 @Scope("prototype")
-public class TeacherAllInfoDTO {
+public class TeacherAllInfoDTO extends AbstractDTO{
 
     private Long id;
 
@@ -111,7 +113,7 @@ public class TeacherAllInfoDTO {
 
 
     public void clone(StudentDTO studentDTO, TeacherDTO teacherDTO) {
-        if(studentDTO.getId() == teacherDTO.getId()){
+        if(Objects.equals(studentDTO.getId(), teacherDTO.getId())){
             this.setId(studentDTO.getId());
             this.setUserName(studentDTO.getUserName());
             this.setCash(studentDTO.getCash());

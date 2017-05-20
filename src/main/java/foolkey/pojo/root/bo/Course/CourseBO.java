@@ -73,6 +73,8 @@ public class CourseBO {
                 List<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = new ArrayList<>();
                 for (CourseDTO courseDTO : courseDTOS) {
                     TeacherAllInfoDTO teacherAllInfoDTO = teacherInfoBO.getTeacherAllInfoDTO(courseDTO.getCreatorId());
+                    System.out.println("老师的id"+courseDTO.getCreatorId());
+                    System.out.println("老师的信息："+teacherAllInfoDTO);
                     CourseWithTeacherSTCDTO courseWithTeacherSTCDTO = new CourseWithTeacherSTCDTO();
                     courseWithTeacherSTCDTO.setCourseDTO(courseDTO);
                     courseWithTeacherSTCDTO.setTeacherAllInfoDTO(teacherAllInfoDTO);
