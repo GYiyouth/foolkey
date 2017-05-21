@@ -448,7 +448,7 @@ public class OrderInfoBO {
      * @param studentDTO 提问者的DTO
      * @param questionAnswerDTO 问题DTO
      */
-    public OrderAskQuestionDTO createOrderAsk(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO) throws Exception {
+    public OrderAskQuestionDTO createOrderAsk(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO, Long couponId) throws Exception {
         //生成一个订单对象
         OrderAskQuestionDTO orderAskQuestionDTO = new OrderAskQuestionDTO();
         //各种对订单赋值
@@ -459,6 +459,7 @@ public class OrderInfoBO {
         orderAskQuestionDTO.setExistingTime(Time.getOrderAskQuestionExistingDate());
         orderAskQuestionDTO.setOrderStateEnum(OrderStateEnum.未付款);
         orderAskQuestionDTO.setReceiverId(questionAnswerDTO.getAnswerId());
+        orderAskQuestionDTO.setCouponId(couponId);
         //保存这个订单
         saveOrderAskQuestionDAO.save(orderAskQuestionDTO);
         return orderAskQuestionDTO;

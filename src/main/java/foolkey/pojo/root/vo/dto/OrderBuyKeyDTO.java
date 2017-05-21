@@ -18,8 +18,16 @@ public class OrderBuyKeyDTO extends OrderAbstract {
     @Enumerated(EnumType.ORDINAL)
     private PaymentEnum paymentEnum;
 
-    public OrderBuyKeyDTO() {
-        super();
+    //优惠券的id
+    @Column(name = "coupon_id")
+    private Long couponId;
+
+    @Override
+    public String toString() {
+        return "OrderBuyKeyDTO{" +
+                "paymentEnum=" + paymentEnum +
+                ", couponId=" + couponId +
+                '}';
     }
 
     public PaymentEnum getPaymentEnum() {
@@ -28,5 +36,13 @@ public class OrderBuyKeyDTO extends OrderAbstract {
 
     public void setPaymentEnum(PaymentEnum paymentEnum) {
         this.paymentEnum = paymentEnum;
+    }
+
+    public Long getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(Long couponId) {
+        this.couponId = couponId;
     }
 }

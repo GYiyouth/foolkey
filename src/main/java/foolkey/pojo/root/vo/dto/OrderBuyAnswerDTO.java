@@ -15,6 +15,10 @@ public class OrderBuyAnswerDTO extends OrderAbstract{
     @Column(name = "question_answer_id")
     private Long questionId;
 
+    //优惠券的id
+    @Column(name = "coupon_id")
+    private Long couponId;
+
     public OrderBuyAnswerDTO() {
         super();
     }
