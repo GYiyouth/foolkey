@@ -71,6 +71,13 @@ public class EndClassHandler extends AbstractBO {
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
 
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
+
+        //只有在上课的课程，可以下课
+        if (orderDTO.getOrderStateEnum().compareTo(OrderStateEnum.上课中) != 0){
+            jsonHandler.sendFailJSON(response);
+            return;
+        }
+
         //学生
         StudentDTO student = studentInfoBO.getStudentDTO( orderDTO.getUserId() );
         //订单
