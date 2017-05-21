@@ -48,7 +48,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     @Column(name = "invalid_time")
     private Date invalidTime;
 
-    //问题的状态 未回答, 待回答, 已回答, 已过期
+    //问题的状态 待付款, 待回答, 已回答, 已过期
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private QuestionStateEnum questionStateEnum;

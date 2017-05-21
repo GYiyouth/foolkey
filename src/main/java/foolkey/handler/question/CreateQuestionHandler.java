@@ -65,7 +65,7 @@ public class CreateQuestionHandler extends AbstractBO {
         questionAnswerDTO.setPrice(price);
         questionAnswerDTO.setQuestionContent(questionContent);
         questionAnswerDTO.setTitle(title);
-        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.未回答);
+        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.待付款);
         //  1. 存储问题DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
         //  2.存储订单DTO
