@@ -64,13 +64,15 @@ public class EvaluateTeacherHandler extends AbstractBO{
         String token = clearJSON.getString("token");
         Long orderId = clearJSON.getLong("orderId");
         Float score = Float.parseFloat( clearJSON.get("score").toString() );
-        Long teacherId = clearJSON.getLong( "teacherId" );
+
 
         //获取各种DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(teacherId);
-        StudentDTO teacher = studentInfoBO.getStudentDTO(teacherId);
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder( orderId + "" );
+
+        TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(orderDTO.getTeacherId());
+        StudentDTO teacher = studentInfoBO.getStudentDTO(orderDTO.getTeacherId());
+
 
         //teacherDTO修改
         Float totalScore = teacherDTO.getTeacherAverageScore() * teacherDTO.getFollowerNumber();
@@ -101,7 +103,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
         //生成评价
         EvaluationTeacherDTO evaluationTeacherDTO = new EvaluationTeacherDTO();
         evaluationTeacherDTO.setCreatorId( studentDTO.getId() );
-        evaluationTeacherDTO.setAcceptor_id( teacherId );
+        evaluationTeacherDTO.setAcceptor_id( orderDTO.getTeacherId() );
         evaluationTeacherDTO.setEvaluationStateEnum( EvaluationStateEnum.done );
         evaluationTeacherDTO.setOrderId( orderId );
         evaluationTeacherDTO.setScore( Double.parseDouble(score + "") );

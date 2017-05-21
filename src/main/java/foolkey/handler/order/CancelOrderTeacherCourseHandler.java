@@ -2,8 +2,10 @@ package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 取消订单，仅适用于未付款订单，对老师课程、悬赏均适用
+ * 尽可以学生申请
  * 需要提交订单号
  * AES加密，将订单的状态改变为cancel、
  * Created by geyao on 2017/5/1.
@@ -24,6 +27,8 @@ public class CancelOrderTeacherCourseHandler extends AbstractBO{
 
     @Autowired
     private OrderInfoBO orderInfoBO;
+    @Autowired
+    private StudentInfoBO studentInfoBO;
 
     public void execute(
             HttpServletRequest request,
@@ -37,7 +42,12 @@ public class CancelOrderTeacherCourseHandler extends AbstractBO{
         String orderid = clearJSON.getString("orderId");
 
         OrderBuyCourseDTO order = orderInfoBO.getCourseOrder(orderid);
-        if (order.getOrderStateEnum().compareTo(OrderStateEnum.未付款) == 0){
+        StudentDTO studentDTO = studentInfoBO.getStudentDTO( token );
+
+        if (order.getOrderStateEnum().compareTo(OrderStateEnum.未付款) == 0
+                && order.getUserId().equals( studentDTO.getId() )
+                ){
+            //申请人必须是订单的UserId
             //仅当处于未付款的时候，可以使用
             order.setOrderStateEnum(OrderStateEnum.取消课程);
             orderInfoBO.update(order);

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/13.
  */
-@RequestMapping("/judge")
+@RequestMapping("/aes/judge")
 @Controller
 public class JudgeTeacherController extends AbstractController{
 

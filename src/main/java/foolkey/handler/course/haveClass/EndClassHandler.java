@@ -56,23 +56,24 @@ public class EndClassHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //获取原始数据
         String token = clearJSON.getString("token");
         Long orderId = clearJSON.getLong("orderId");
-        Long studentId = clearJSON.getLong("studentId");
+//        Long studentId = clearJSON.getLong("studentId");
 //        Float hourNum = Float.parseFloat( clearJSON.getString("hourNum") );
 
         //获取DTO
             //老师
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
-            //学生
-        StudentDTO student = studentInfoBO.getStudentDTO(studentId);
-            //订单
+
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
+        //学生
+        StudentDTO student = studentInfoBO.getStudentDTO( orderDTO.getUserId() );
+        //订单
         CouponDTO couponDTO = couponInfoBO.getCouponDTO(orderDTO.getCouponId());
 
         //积累小时，是以订单上的数量，而非实际的数目

@@ -297,12 +297,10 @@ public class OrderInfoBO {
      * @throws Exception
      */
     public List<Long> getOrderBuyCourseDTOAsTeacherByOrderStates(Long teacherId, CourseTypeEnum courseTypeEnum, Integer pageNo, Integer pageSize, Object... params) throws Exception {
-        System.out.println(courseTypeEnum + "：课程种类");
         return getOrderCourseDAO.findCourseIdAsTeacherByArbitraryStateCondition(teacherId, courseTypeEnum, pageNo, pageSize, params);
     }
 
     public List<Long> getOrderBuyCourseDTOAsStudentByOrderStates(Long studentId, CourseTypeEnum courseTypeEnum, Integer pageNo, Integer pageSize, Object... params) throws Exception {
-        System.out.println(courseTypeEnum + "：课程种类");
         return getOrderCourseDAO.findCourseIdAsStudentByArbitraryStateCondition(studentId, courseTypeEnum, pageNo, pageSize, params);
     }
 

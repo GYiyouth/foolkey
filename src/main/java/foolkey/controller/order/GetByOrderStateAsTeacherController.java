@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/order/getOrderBuyCourseInfoByOrderStateAsTeacher")
-public class GetOrderBuyCourseInfoByOrderStateAsTeacherController extends AbstractController{
+public class GetByOrderStateAsTeacherController extends AbstractController{
 
 
     @Autowired
