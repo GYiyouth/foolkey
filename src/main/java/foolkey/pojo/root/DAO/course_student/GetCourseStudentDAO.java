@@ -1,7 +1,7 @@
 package foolkey.pojo.root.DAO.course_student;
 
 import foolkey.pojo.root.DAO.base.GetBaseDAO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import org.springframework.stereotype.Repository;
@@ -20,10 +20,10 @@ public class GetCourseStudentDAO extends GetBaseDAO<RewardDTO>{
      * @param resultSize
      * @return
      */
-    public ArrayList<RewardDTO> findByTechnicTagEnumAndResultSize(TechnicTagEnum technicTagEnum, CourseStudentStateEnum courseStudentStateEnum, Integer resultSize){
+    public ArrayList<RewardDTO> findByTechnicTagEnumAndResultSize(TechnicTagEnum technicTagEnum, RewardStateEnum rewardStateEnum, Integer resultSize){
         ArrayList<RewardDTO> courseStudentDTOS = new ArrayList<>();
-        String hql = "select cs from RewardDTO cs where cs.technicTagEnum = ? and cs.courseStudentStateEnum = ? order by cs.createTime desc";
-        courseStudentDTOS = findByPage(hql,1,resultSize,technicTagEnum,courseStudentStateEnum);
+        String hql = "select cs from RewardDTO cs where cs.technicTagEnum = ? and cs.rewardStateEnum = ? order by cs.createTime desc";
+        courseStudentDTOS = findByPage(hql,1,resultSize,technicTagEnum, rewardStateEnum);
         return courseStudentDTOS;
     }
 }

@@ -9,7 +9,7 @@ import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.*;
@@ -92,7 +92,7 @@ public class PayStudentCourseOrderHandler extends AbstractBO {
         }
 
         //课程的状态改为 已解决，
-        courseDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
+        courseDTO.setRewardStateEnum(RewardStateEnum.解决中);
         courseStudentBO.update(courseDTO);
         //生成订单，orderState设置为 同意上课
         OrderBuyCourseDTO order =

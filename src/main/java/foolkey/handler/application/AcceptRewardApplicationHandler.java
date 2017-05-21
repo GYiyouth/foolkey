@@ -9,7 +9,7 @@ import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.*;
@@ -129,7 +129,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         orderDTO.setOrderStateEnum( OrderStateEnum.已付款);
 
         //课程状态更改
-        rewardDTO.setCourseStudentStateEnum(CourseStudentStateEnum.已解决);
+        rewardDTO.setRewardStateEnum(RewardStateEnum.已解决);
         courseBO.update(rewardDTO);
 
         //订单状态更改

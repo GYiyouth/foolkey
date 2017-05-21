@@ -5,7 +5,7 @@ import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.assistObject.DirectionEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.RewardDTO;
@@ -59,7 +59,7 @@ public class RewardBO {
         }else {
             try {
                 // 1.从数据库读取最新的size条记录
-                ArrayList<RewardDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, CourseStudentStateEnum.待接单, size);
+                ArrayList<RewardDTO> courseStudentDTOS = getCourseStudentDAO.findByTechnicTagEnumAndResultSize(technicTagEnum, RewardStateEnum.待接单, size);
                 ArrayList<foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = new ArrayList<>();
                 for (RewardDTO rewardDTO : courseStudentDTOS) {
                     StudentDTO studentDTO = studentInfoBO.getStudentDTO(rewardDTO.getCreatorId());
@@ -180,7 +180,7 @@ public class RewardBO {
      * @return
      * @throws Exception
      */
-    public ArrayList<RewardDTO> getMyCourseStudentDTO(Long studentId, Integer pageNo, Integer pageSize, CourseStudentStateEnum state) throws Exception{
+    public ArrayList<RewardDTO> getMyCourseStudentDTO(Long studentId, Integer pageNo, Integer pageSize, RewardStateEnum state) throws Exception{
         String hql = "select cs from RewardDTO cs where cs.creatorId = ? and cs.courseStudentStateEnum = ? order by cs.courseStudentStateEnum desc,createTime desc";
         return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId, state);
     }
