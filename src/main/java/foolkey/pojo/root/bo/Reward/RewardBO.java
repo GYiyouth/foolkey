@@ -205,4 +205,21 @@ public class RewardBO {
         }
         return rewardWithStudentSTCDTOS;
     }
+
+    /**
+     * 把悬赏从缓存中删除
+     * @param rewardDTO
+     */
+    public void deleteRewardFromCache(RewardDTO rewardDTO){
+        RewardWithStudentSTCDTO rewardWithStudentSTCDTO = new RewardWithStudentSTCDTO();
+        // 获取-添加学生信息
+        StudentDTO studentDTO = studentInfoBO.getStudentDTO(rewardDTO.getCreatorId());
+        rewardWithStudentSTCDTO.setStudentDTO(studentDTO);
+        // 课程信息赋值
+        rewardWithStudentSTCDTO.setRewardDTO(rewardDTO);
+
+        rewardCAO.deleteRewardWithStudent(rewardWithStudentSTCDTO);
+
+    }
+
 }

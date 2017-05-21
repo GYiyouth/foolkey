@@ -54,6 +54,8 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
     private ApplicationInfoBO applicationInfoBO;
     @Autowired
     private MessageBO messageBO;
+    @Autowired
+    private RewardBO rewardBO;
 
     public void execute(
             HttpServletRequest request,
@@ -146,5 +148,8 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         //发送消息
         StudentDTO teacher = studentInfoBO.getStudentDTO( applicationDTO.getApplicantId() );
         messageBO.sendForPayReward(studentDTO, teacher, rewardDTO);
+
+        //缓存中删除这个热门悬赏
+        rewardBO.deleteRewardFromCache(rewardDTO);
     }
 }
