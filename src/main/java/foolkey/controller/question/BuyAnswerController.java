@@ -10,6 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 围观
+ *
+ * 参数：
+ * token：用户标识：String
+ * questionId：问题id：Long
+ * couponId：优惠券的id：Long
+ * <p>
+ * 返回：
+ * questionAnswerDTO：问题DTO：QuestionAnswerDTO
  * Created by GR on 2017/5/21.
  */
 @Controller

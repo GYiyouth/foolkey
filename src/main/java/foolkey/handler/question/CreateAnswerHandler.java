@@ -24,6 +24,16 @@ import static foolkey.tool.constant_values.MoneyRate.VIRTUAL_REAL_RATE;
 
 /**
  * 已认证老师回答问题
+ * <p>
+ * 参数：
+ * token：用户标识：String
+ * questionId：问题的id：Long
+ * answerContent：回答的内容：String
+ * <p>
+ * 返回：
+ * questionAnswerDTO：问题的DTO：QuestionAnswerDTO
+ * orderAskQuestionDTO：订单DTO：OrderAskQuestionDTO
+ *
  * Created by GR on 2017/5/21.
  */
 @Service
@@ -56,11 +66,10 @@ public class CreateAnswerHandler extends AbstractBO {
 
         //问题id
         Long questionId = clearJSON.getLong("questionId");
-        //提问订单id
-        Long orderAskQuestionId = clearJSON.getLong("orderAskQuestionId");
+        //回答内容
         String answerContent = clearJSON.getString("answerContent");
 
-        //创建一个问题DTO
+        //获取到问题的DTO
         QuestionAnswerDTO questionAnswerDTO = questionBO.getQuestionAnswerDTOByQuestionAnswerId(questionId);
         questionAnswerDTO.setAnswerContent(answerContent);
         questionAnswerDTO.setAnswerTime(Time.getCurrentDate());
@@ -71,14 +80,15 @@ public class CreateAnswerHandler extends AbstractBO {
         //  1. 存储问题-回答DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
 
+
         //  2.修改订单DTO
-        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.getOrderAskQuestionDTOByOrderAskQuestionId(orderAskQuestionId);
+        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.getByQuestionAndAnswer(questionAnswerDTO, answererDTO);
         orderInfoBO.updateOrderSateAfterAnswerAsAnswer(orderAskQuestionDTO);
 
         //  3.给回答者转钱，因为是认证老师，直接赚钱
         //      3.1老师虚拟币扣税之后收益
         Double gainsVirtualCurrency = orderAskQuestionDTO.getAmount() * TEACHER_GET_MONEY_RATE;
-        Double gainsCash = gainsVirtualCurrency/VIRTUAL_REAL_RATE;
+        Double gainsCash = gainsVirtualCurrency / VIRTUAL_REAL_RATE;
         answererDTO.setCash(answererDTO.getCash() + gainsCash);
         //      3.2更新余额信息
         studentInfoBO.updateStudent(answererDTO);

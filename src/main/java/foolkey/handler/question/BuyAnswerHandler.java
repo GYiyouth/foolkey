@@ -20,6 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 去围观问题
+ * <p>
+ * 参数：
+ * token：用户标识：String
+ * questionId：问题id：Long
+ * couponId：优惠券的id：Long
+ * <p>
+ * 返回：
+ * questionAnswerDTO：问题DTO：QuestionAnswerDTO
+ * <p>
  * Created by GR on 2017/5/21.
  */
 @Service
@@ -59,15 +68,21 @@ public class BuyAnswerHandler extends AbstractBO {
         QuestionAnswerDTO questionAnswerDTO = questionBO.getQuestionAnswerDTOByQuestionAnswerId(questionId);
         CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId);
 
+        //获取回答者、提问者DTO
         StudentDTO answererDTO = studentInfoBO.getStudentDTO(questionAnswerDTO.getAnswerId());
         StudentDTO askerDTO = studentInfoBO.getStudentDTO(questionAnswerDTO.getAskerId());
 
-        //完成订单
+        //完成围观付钱订单
         PayResultEnum payResultEnum = payBO.payForAnswerAsOnlooker(onlookerDTO, askerDTO, answererDTO, couponDTO);
         jsonObject.put("result", payResultEnum.toString());
+
         if (payResultEnum.equals(PayResultEnum.success)) {
-            //付款成功，添加到订单中
+            //付款成功，围观订单要添加到数据库
             orderInfoBO.createOrderBuyAnswerDTO(onlookerDTO, couponDTO, questionAnswerDTO);
+            //修改课程的围观人数+1
+            questionAnswerDTO.setOnlookerNumber(questionAnswerDTO.getOnlookerNumber()+1);
+            questionBO.updateQuestionAnswerDTO(questionAnswerDTO);
+
             jsonObject.put("questionAnswerDTO", questionAnswerDTO);
             jsonHandler.sendJSON(jsonObject, response);
         } else {
@@ -78,7 +93,6 @@ public class BuyAnswerHandler extends AbstractBO {
             jsonHandler.sendJSON(jsonObject, response);
             questionAnswerDTO.setAnswerContent(answerContent);
         }
-
         //发消息给提问者有人围观了
         messageBO.sendToAskerOfOnlook(askerDTO);
         //发消息给回答者有人围观了

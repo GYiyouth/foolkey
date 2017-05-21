@@ -496,7 +496,17 @@ public class OrderInfoBO {
         //保存这个订单
         saveOrderBuyAnswerDAO.save(orderBuyAnswerDTO);
         return orderBuyAnswerDTO;
+    }
 
 
+    /**
+     * 根据回答者、问题获取到订单
+     * @param questionAnswerDTO
+     * @param answererDTO
+     * @return
+     * @throws Exception
+     */
+    public OrderAskQuestionDTO getByQuestionAndAnswer(QuestionAnswerDTO questionAnswerDTO, StudentDTO answererDTO) throws Exception {
+        return getOrderAskQuestionDAO.getByQuestionAndAnswer(questionAnswerDTO, answererDTO);
     }
 }

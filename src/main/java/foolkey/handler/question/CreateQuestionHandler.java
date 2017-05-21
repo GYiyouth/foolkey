@@ -21,6 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 提问的handler
+ * <p>
+ * 参数：
+ * token：用户标识：String
+ * answerId：回答者的id：Long
+ * price：设置的这个问题的价格：Double
+ * title：问题的主题：String
+ * questionContent：问题的内容：String
+ * couponId：优惠券的id：Long
+ * technicTagEnum：问题所属的技术类别：String
+ * <p>
+ * 返回：
+ * result：结果：success、fail(String)
+ * questionAnswerDTO：问题的DTO：QuestionAnswerDTO
+ * orderAskQuestionDTO：提问的订单DTO：OrderAskQuestionDTO
+ * <p>
+ * 步骤：
  * 1. 存储问题DTO
  * 2. 存储订单DTO
  * 3. 给回答者发消息

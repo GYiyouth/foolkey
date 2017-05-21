@@ -11,7 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 回答问题
+ * 已认证老师回答问题
+ * <p>
+ * 参数：
+ * token：用户标识：String
+ * questionId：问题的id：Long
+ * answerContent：回答的内容：String
+ * <p>
+ * 返回：
+ * questionAnswerDTO：问题的DTO：QuestionAnswerDTO
+ * orderAskQuestionDTO：订单DTO：OrderAskQuestionDTO
+ * <p>
  * Created by GR on 2017/5/21.
  */
 @Controller
