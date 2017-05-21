@@ -20,6 +20,10 @@ public class OrderAskQuestionDTO extends OrderAbstract{
     @Column(name = "question_answer_id")
     private Long questionId;
 
+    //优惠券的id
+    @Column(name = "coupon_id")
+    private Long couponId;
+
     public OrderAskQuestionDTO() {
         super();
     }
@@ -29,7 +33,8 @@ public class OrderAskQuestionDTO extends OrderAbstract{
         return "OrderAskQuestionDTO{" +
                 "receiverId=" + receiverId +
                 ", questionId=" + questionId +
-                "} " + super.toString();
+                ", couponId=" + couponId +
+                '}';
     }
 
     public Long getReceiverId() {
@@ -46,5 +51,13 @@ public class OrderAskQuestionDTO extends OrderAbstract{
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public Long getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(Long couponId) {
+        this.couponId = couponId;
     }
 }

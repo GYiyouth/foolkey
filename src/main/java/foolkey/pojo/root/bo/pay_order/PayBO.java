@@ -1,8 +1,11 @@
 package foolkey.pojo.root.bo.pay_order;
 
+import foolkey.pojo.root.bo.coupon.CouponInfoBO;
+import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.assistObject.PayResultEnum;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.tool.Time;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class PayBO {
     @Autowired
     private StudentInfoBO studentInfoBO;
+//    @Autowired
+//    private OrderInfoBO orderBO;
     @Autowired
-    private OrderInfoBO orderBO;
+    private CouponInfoBO couponInfoBO;
+    @Autowired
+    private UseCouponBO useCouponBO;
 
     public Boolean pay(StudentDTO studentDTO, OrderBuyCourseDTO order, CouponDTO couponDTO, Double expectPrice){
         Double money = studentDTO.getVirtualCurrency();
@@ -57,23 +64,38 @@ public class PayBO {
 
     /**
      * 提问者：对自己的提问付钱
+     *  1. 判断券能用否
+     *  2. 判断够不够用的级别
+     *  3. 判断余额够不够
      * @param studentDTO
-     * @param questionAnswerDTO
+     * @param orderAskQuestionDTO
      * @return
      */
-    public boolean payForQuestionAsAsker(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO ) throws Exception {
+    public PayResultEnum payForQuestionAsAsker(StudentDTO studentDTO, OrderAskQuestionDTO orderAskQuestionDTO, CouponDTO couponDTO) throws Exception {
         //余额
         Double money = studentDTO.getVirtualCurrency();
         //提问价格
-        Double cost = questionAnswerDTO.getPrice();
+        Double cost = orderAskQuestionDTO.getAmount();
+
+        //用了券
+        if (couponDTO != null ){
+            //判断券是否可用
+            if(useCouponBO.userCouponForQuestion(studentDTO, orderAskQuestionDTO, couponDTO) == null){
+                return PayResultEnum.notUseCoupon;
+            }else{
+                cost = cost - couponDTO.getValue();
+            }
+        }
+
+        //余额不足
         if(money.compareTo(cost) < 0 ){
-            return false;
+            return PayResultEnum.notEnoughBalance;
         }else{
             money -= cost;
             //更新学生余额信息
             studentDTO.setVirtualCurrency(money);
             studentInfoBO.updateStudent(studentDTO);
-            return true;
+            return PayResultEnum.success;
         }
 
     }

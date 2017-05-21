@@ -2,6 +2,7 @@ package foolkey.pojo.root.bo.message;
 
 //import com.xiaomi.xmpush.server.Result;
 import com.xiaomi.xmpush.server.Result;
+import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.tool.push_message.MessagePusher;
 import org.springframework.stereotype.Service;
@@ -253,6 +254,25 @@ public class MessageBO {
         return
                 MessagePusher.sendToUserAccount(
                         teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+
+    /**
+     * 通知提问者问题被回答
+     * @param asker
+     * @return
+     * @throws Exception
+     */
+    public Result sendForAnsweredOfQuestion(
+            StudentDTO asker
+    ) throws Exception {
+        String messagePayLoad = "sendForAnsweredOfQuestion";
+        String title = "学生已经对您进行了评价";
+        String description =  "请切换老师后，在个人中心查询余额变化";
+        return
+                MessagePusher.sendToUserAccount(
+                        asker.getId() + "", messagePayLoad, title, description
                 );
     }
 }

@@ -52,6 +52,7 @@ public class CreateQuestionHandler extends AbstractBO {
         Double price = clearJSON.getDouble("price");
         String title = clearJSON.getString("title");
         String questionContent = clearJSON.getString("questionContent");
+        Long couponId = clearJSON.getLong("couponId");
 
         //创建一个问题DTO
         QuestionAnswerDTO questionAnswerDTO = new QuestionAnswerDTO();
@@ -68,7 +69,7 @@ public class CreateQuestionHandler extends AbstractBO {
         //  1. 存储问题DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
         //  2.存储订单DTO
-        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.createOrderAsk(studentDTO, questionAnswerDTO);
+        OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.createOrderAsk(studentDTO, questionAnswerDTO, couponId);
         //返回result
         jsonObject.put("result", "success");
         jsonObject.put("questionAnswerDTO", questionAnswerDTO);

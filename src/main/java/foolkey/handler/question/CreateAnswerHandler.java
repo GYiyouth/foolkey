@@ -1,13 +1,16 @@
 package foolkey.handler.question;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
 import foolkey.pojo.root.vo.dto.OrderAskQuestionDTO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.tool.Time;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +19,11 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static foolkey.tool.constant_values.MoneyRate.TEACHER_GET_MONEY_RATE;
+import static foolkey.tool.constant_values.MoneyRate.VIRTUAL_REAL_RATE;
+
 /**
- * 回答问题
+ * 已认证老师回答问题
  * Created by GR on 2017/5/21.
  */
 @Service
@@ -29,6 +35,8 @@ public class CreateAnswerHandler extends AbstractBO {
     private StudentInfoBO studentInfoBO;
     @Autowired
     private OrderInfoBO orderInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
@@ -42,8 +50,9 @@ public class CreateAnswerHandler extends AbstractBO {
         //获取原始信息
         String token = clearJSON.getString("token");
 
-        StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
-        Long askerId = studentDTO.getId();
+        //用不到老师那部分信息，所以只需取用学生那个表的信息
+        StudentDTO answererDTO = studentInfoBO.getStudentDTO(token);
+//        Long answerId = studentDTO.getId();
 
         //问题id
         Long questionId = clearJSON.getLong("questionId");
@@ -58,13 +67,28 @@ public class CreateAnswerHandler extends AbstractBO {
         questionAnswerDTO.setLastUpdateTime(Time.getCurrentDate());
         questionAnswerDTO.setInvalidTime(Time.getPermanentDate());
         questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.已回答);
+
         //  1. 存储问题-回答DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
+
         //  2.修改订单DTO
         OrderAskQuestionDTO orderAskQuestionDTO = orderInfoBO.getOrderAskQuestionDTOByOrderAskQuestionId(orderAskQuestionId);
         orderInfoBO.updateOrderSateAfterAnswerAsAnswer(orderAskQuestionDTO);
-        //  3.给回答者赚钱
-        /***********  暂时没写   ******************************/
+
+        //  3.给回答者转钱，因为是认证老师，直接赚钱
+        //      3.1老师虚拟币扣税之后收益
+        Double gainsVirtualCurrency = orderAskQuestionDTO.getAmount() * TEACHER_GET_MONEY_RATE;
+        Double gainsCash = gainsVirtualCurrency/VIRTUAL_REAL_RATE;
+        answererDTO.setCash(answererDTO.getCash() + gainsCash);
+        //      3.2更新余额信息
+        studentInfoBO.updateStudent(answererDTO);
+
+        // 4.发消息给提问者
+        //      4.1获取到提问者DTO
+        StudentDTO askerDTO = studentInfoBO.getStudentDTO(orderAskQuestionDTO.getUserId());
+        //      4.2发送消息
+        messageBO.sendForAnsweredOfQuestion(askerDTO);
+
 
         //返回result
         jsonObject.put("result", "success");
