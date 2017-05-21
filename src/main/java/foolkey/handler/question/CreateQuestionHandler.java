@@ -1,6 +1,7 @@
 package foolkey.handler.question;
 
 import foolkey.pojo.root.bo.AbstractBO;
+import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * 提问的handler
  * 1. 存储问题DTO
  * 2. 存储订单DTO
+ * 3. 给回答者发消息
  * Created by GR on 2017/5/20.
  */
 @Service
@@ -33,6 +35,8 @@ public class CreateQuestionHandler extends AbstractBO {
     private StudentInfoBO studentInfoBO;
     @Autowired
     private OrderInfoBO orderInfoBO;
+    @Autowired
+    private MessageBO messageBO;
 
     public void execute(
             HttpServletRequest request,
@@ -81,6 +85,9 @@ public class CreateQuestionHandler extends AbstractBO {
         jsonObject.put("questionAnswerDTO", questionAnswerDTO);
         jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
         jsonHandler.sendJSON(jsonObject, response);
+        //  3.给回答者发消息，有人提了问题
+        StudentDTO answererDTO = studentInfoBO.getStudentDTO(answerId);
+        messageBO.sendToAnswererOfAsk(answererDTO);
     }
 
 }

@@ -76,24 +76,11 @@ public class PayAskQuestionOrderAsAskerHandler extends AbstractBO {
             orderInfoBO.updateOrderSateAfterPayAsAsker(orderAskQuestionDTO);
             //成功后删除使用过的券
             couponInfoBO.delete(couponDTO);
-
-            //返回result
-            jsonObject.put("result", "success");
-            jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-        } else if (payResult.equals(PayResultEnum.notEnoughBalance)) {
-            //余额不足
-            jsonObject.put("result", "notEnoughBalance");
-            jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-        } else if (payResult.equals(PayResultEnum.notUseCoupon)) {
-            //券不可用
-            jsonObject.put("result", "notUseCoupon");
-            jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-        } else {
-            jsonHandler.sendFailJSON(response);
         }
+        //返回result
+        jsonObject.put("result", payResult.toString());
+        jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
+        jsonHandler.sendJSON(jsonObject, response);
 
 
     }

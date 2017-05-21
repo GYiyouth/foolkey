@@ -4,6 +4,7 @@ import foolkey.pojo.root.DAO.order_ask_question.GetOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_ask_question.SaveOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_ask_question.UpdateOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_buy_answer.GetOrderBuyAnswerDAO;
+import foolkey.pojo.root.DAO.order_buy_answer.SaveOrderBuyAnswerDAO;
 import foolkey.pojo.root.DAO.order_buy_key.GetOrderBuyKeyDAO;
 import foolkey.pojo.root.DAO.order_course.GetOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
@@ -23,6 +24,7 @@ import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
+import foolkey.tool.StaticVariable;
 import foolkey.tool.constant_values.RewardLimit;
 import foolkey.tool.Time;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +70,8 @@ public class OrderInfoBO {
     private UpdateOrderAskQuestionDAO updateOrderAskQuestionDAO;
     @Autowired
     private SaveOrderAskQuestionDAO saveOrderAskQuestionDAO;
+    @Autowired
+    private SaveOrderBuyAnswerDAO saveOrderBuyAnswerDAO;
 
     /**
      * 根据orderId获取买课订单信息
@@ -235,7 +239,7 @@ public class OrderInfoBO {
             //如果使用了优惠券，则把这个价格去除
             CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId);
             price = price - couponDTO.getValue();
-            if (price < 0){
+            if (price < 0) {
                 throw new Exception("价格出错");
             }
             //删除优惠券
@@ -413,6 +417,7 @@ public class OrderInfoBO {
 
     /**
      * 根绝问题订单的id，获取提问订单的DTO
+     *
      * @param orderAskQuestionId
      * @return
      */
@@ -423,6 +428,7 @@ public class OrderInfoBO {
 
     /**
      * 提问者付款之后，修改提问订单信息
+     *
      * @param orderAskQuestionDTO
      */
     public void updateOrderSateAfterPayAsAsker(OrderAskQuestionDTO orderAskQuestionDTO) throws Exception {
@@ -434,6 +440,7 @@ public class OrderInfoBO {
 
     /**
      * 回答者回答之后，修改提问订单信息
+     *
      * @param orderAskQuestionDTO
      */
     public void updateOrderSateAfterAnswerAsAnswer(OrderAskQuestionDTO orderAskQuestionDTO) throws Exception {
@@ -443,7 +450,8 @@ public class OrderInfoBO {
 
     /**
      * 创建提问问题的订单DTO
-     * @param studentDTO 提问者的DTO
+     *
+     * @param studentDTO        提问者的DTO
      * @param questionAnswerDTO 问题DTO
      */
     public OrderAskQuestionDTO createOrderAsk(StudentDTO studentDTO, QuestionAnswerDTO questionAnswerDTO, Long couponId) throws Exception {
@@ -461,5 +469,34 @@ public class OrderInfoBO {
         //保存这个订单
         saveOrderAskQuestionDAO.save(orderAskQuestionDTO);
         return orderAskQuestionDTO;
+    }
+
+
+    /**
+     * 保存一个围观的订单
+     *
+     * @param onlookerDTO
+     * @param couponDTO
+     * @param questionAnswerDTO
+     * @return
+     * @throws Exception
+     */
+    public OrderBuyAnswerDTO createOrderBuyAnswerDTO(StudentDTO onlookerDTO, CouponDTO couponDTO, QuestionAnswerDTO questionAnswerDTO) throws Exception {
+        //生成一个订单对象
+        OrderBuyAnswerDTO orderBuyAnswerDTO = new OrderBuyAnswerDTO();
+        //各种对订单赋值
+        orderBuyAnswerDTO.setUserId(onlookerDTO.getId());
+        orderBuyAnswerDTO.setQuestionId(questionAnswerDTO.getId());
+        orderBuyAnswerDTO.setAmount(StaticVariable.ONLOOK_VIRTUAL_PRICE);
+        orderBuyAnswerDTO.setCreatedTime(Time.getCurrentDate());
+        orderBuyAnswerDTO.setExistingTime(Time.getPermanentDate());
+        orderBuyAnswerDTO.setOrderStateEnum(OrderStateEnum.已付款);
+        orderBuyAnswerDTO.setPayTime(Time.getCurrentDate());
+        orderBuyAnswerDTO.setCouponId(couponDTO.getId());
+        //保存这个订单
+        saveOrderBuyAnswerDAO.save(orderBuyAnswerDTO);
+        return orderBuyAnswerDTO;
+
+
     }
 }
