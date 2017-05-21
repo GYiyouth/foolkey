@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
+ * 老师获取已经付款且未评价的悬赏订单(同意上课, 上课中)
  * Created by GR on 2017/5/12.
  */
 @Controller

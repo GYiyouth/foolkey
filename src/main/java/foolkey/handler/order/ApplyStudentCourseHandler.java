@@ -54,7 +54,7 @@ public class ApplyStudentCourseHandler extends AbstractBO {
 
         //获取token,courseId
         String token = clearJSON.getString("token");
-        Long courseId = clearJSON.getLong("courseId");
+        Long courseId = clearJSON.getLong("rewardId");
 
         //获取个人信息
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);

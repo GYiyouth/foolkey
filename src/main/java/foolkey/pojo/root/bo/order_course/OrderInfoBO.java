@@ -21,6 +21,7 @@ import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
+import foolkey.tool.constant_values.RewardLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -170,13 +171,17 @@ public class OrderInfoBO {
     }
 
     /**
-     * 获取学生角色的未付款课程订单
+     * 获取学生角色特定状态的悬赏、课程订单
      * @param studentId
      * @return
      * @throws Exception
      */
-    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderStateEnum) throws Exception{
-        return getOrderCourseDAO.getCourseOrderAsStudent(studentId, orderStateEnum);
+    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderStateEnum, Integer pageNo) throws Exception{
+        return (List<OrderBuyCourseDTO>)
+                getOrderCourseDAO.findByPage( "from foolkey.pojo.root.vo.dto.OrderBuyCourseDTO t " +
+                " where t.userId = ? and t.orderStateEnum = ? order by t.createdTime desc",
+                        pageNo, RewardLimit.DEFAULT_PAGESIZE, studentId, orderStateEnum);
+//        return getOrderCourseDAO.getCourseOrderAsStudent(studentId, orderStateEnum);
     }
 
     /**

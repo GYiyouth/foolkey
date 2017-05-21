@@ -61,7 +61,7 @@ public class GetApplicationStudentRewardAsStudentController extends AbstractCont
                 //悬赏DTO
                 applicationStudentRewardAsStudentSTCDTO.setRewardDTO(rewardDTO);
                 //老师申请DTOS
-                //首先根据悬赏获取该悬赏下，所有老师申请
+                //首先根据悬赏获取该悬赏下，一定数目的申请老师，具体数值在 RewardLimit类下
                 List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardDTO.getId());
                 List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = applicationInfoBO.convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(applicationStudentRewardDTOS);
                 applicationStudentRewardAsStudentSTCDTO.setApplicationRewardWithTeacherSTCDTOS(applicationRewardWithTeacherSTCDTOS);

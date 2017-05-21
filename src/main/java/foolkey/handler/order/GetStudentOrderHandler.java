@@ -52,13 +52,14 @@ public class GetStudentOrderHandler extends AbstractBO{
 
         String token = clearJSON.getString("token");
         String orderStateStr = clearJSON.getString("orderState");
+        Integer pageNo = clearJSON.getInt( "pageNo" );
 
         OrderStateEnum orderState = OrderStateEnum.valueOf(orderStateStr);
 
         //学生信息
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         //取所有课程订单，包括course reward
-        List<OrderBuyCourseDTO> list = orderInfoBO.getCourseOrderAsStudent(studentDTO.getId(), orderState);
+        List<OrderBuyCourseDTO> list = orderInfoBO.getCourseOrderAsStudent(studentDTO.getId(), orderState, pageNo);
 
         //便利上面的那个列表，获取老师的信息
 //        List<StudentDTO> t1 = new ArrayList<>();
