@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/aes/course/delete")
-public class DeleteCourseTeacherController extends AbstractController {
+public class DeleteController extends AbstractController {
 
     @Autowired
     private CourseBO courseTeacherBO;

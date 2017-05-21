@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ustcg on 2017/5/1.
  */
 @Controller
-@RequestMapping(value = "/courseTeacher")
-public class GetCourseTeacherByIdController extends AbstractController {
+@RequestMapping(value = "/course/getById")
+public class GetByIdController extends AbstractController {
 
     @Resource(name = "courseTeacherBO")
     private CourseBO courseTeacherBO;
 
-    @RequestMapping(value = "/getCourseTeacherById")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("id")Long id,
@@ -31,7 +31,7 @@ public class GetCourseTeacherByIdController extends AbstractController {
             String clearText = request.getParameter("clearText");
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
-            Long id = clearJSON.getLong("id");
+            Long id = clearJSON.getLong("courseId");
             CourseDTO courseTeacherDTO = courseTeacherBO.getCourseTeacherDTOById(id);
             jsonObject.put("result","success");
             jsonObject.put("courseTeacherDTO",courseTeacherDTO);

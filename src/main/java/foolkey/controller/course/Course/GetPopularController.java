@@ -22,8 +22,8 @@ import java.util.List;
  * Created by admin on 2017/4/28.
  */
 @Controller
-@RequestMapping(value = "/courseTeacher/getCourseTeacherPopular")
-public class GetCourseTeacherPopularController extends AbstractController{
+@RequestMapping(value = "/course/popular")
+public class GetPopularController extends AbstractController{
 
     @Autowired
     private CourseBO courseTeacherBO;

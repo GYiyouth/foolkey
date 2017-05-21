@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/4.
  */
 @Controller
-@RequestMapping("/aes/acceptTeacherCourseApplication")
-public class AcceptTeacherCourseApplicationController extends AbstractController{
+@RequestMapping("/aes/course/accept")
+public class AcceptController extends AbstractController{
 
     @Autowired
     private AcceptTeacherCourseApplicationHandler handler;

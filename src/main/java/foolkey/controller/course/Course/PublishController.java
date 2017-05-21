@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/courseTeacher")
-public class PublishCourseTeacherController extends AbstractController{
+public class PublishController extends AbstractController{
 
     @Autowired
     private CourseBO courseTeacherBO;

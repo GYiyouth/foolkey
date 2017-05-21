@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping(value = "/aes/courseTeacher/updateCourseTeacher")
-public class UpdateCourseTeacherController extends AbstractController {
+public class UpdateController extends AbstractController {
 
     @Autowired
     private CourseBO courseTeacherBO;
