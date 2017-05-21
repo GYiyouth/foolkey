@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/courseTeacher")
 public class PublishCourseTeacherController extends AbstractController{
 
-    @Resource(name = "courseTeacherBO")
+    @Autowired
     private CourseBO courseTeacherBO;
 
     @Autowired
