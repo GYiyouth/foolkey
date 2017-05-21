@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/6.
  */
 @Controller
-@RequestMapping("/startClass")
+@RequestMapping("/aes/startClass")
 public class StartClassController extends AbstractController{
     @Autowired
     private StartClassHandler handler;

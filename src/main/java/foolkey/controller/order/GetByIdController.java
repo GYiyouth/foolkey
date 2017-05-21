@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by GR on 2017/5/12.
  */
-@Controller
-@RequestMapping(value = "/order/getOrderBuyCourseInfoByOrderIdController")
-public class GetOrderBuyCourseInfoByOrderIdController extends AbstractController{
+@Controller(value = "OrderGetByIdController")
+@RequestMapping(value = "/aes/order/getById")
+public class GetByIdController extends AbstractController{
 
     @Autowired
     private GetOrderBuyCourseInfoByOrderIdHandler getOrderBuyCourseInfoByOrderIdHandler;
