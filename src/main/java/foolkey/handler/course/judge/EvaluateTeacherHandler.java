@@ -2,6 +2,7 @@ package foolkey.handler.course.judge;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.bo.give_money_to_user.GiveMoneyToTeacherBO;
 import foolkey.pojo.root.bo.message.MessageBO;
@@ -9,14 +10,8 @@ import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.CheckEvaluationForVerifyBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
-import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
-import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
-import foolkey.pojo.root.vo.assistObject.RoleEnum;
-import foolkey.pojo.root.vo.dto.EvaluationTeacherDTO;
-import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.pojo.root.vo.assistObject.*;
+import foolkey.pojo.root.vo.dto.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +40,8 @@ public class EvaluateTeacherHandler extends AbstractBO{
     @Autowired
     private CourseBO courseTeacherBO;
     @Autowired
+    private RewardBO rewardBO;
+    @Autowired
     private EvaluationInfoBO evaluationInfoBO;
     @Autowired
     private GiveMoneyToTeacherBO giveMoneyToTeacherBO;
@@ -57,7 +54,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //获取原始数据
@@ -69,6 +66,12 @@ public class EvaluateTeacherHandler extends AbstractBO{
         //获取各种DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder( orderId + "" );
+
+        //订单状态不对
+        if(orderDTO.getOrderStateEnum().compareTo( OrderStateEnum.结束上课) != 0){
+            jsonHandler.sendFailJSON(response);
+            return;
+        }
 
         TeacherDTO teacherDTO = teacherInfoBO.getTeacherDTO(orderDTO.getTeacherId());
         StudentDTO teacher = studentInfoBO.getStudentDTO(orderDTO.getTeacherId());
@@ -90,10 +93,13 @@ public class EvaluateTeacherHandler extends AbstractBO{
         //学生课程的话，要同时修改课程状态
         System.out.println(orderDTO);
         if (orderDTO.getCourseTypeEnum().compareTo( CourseTypeEnum.学生悬赏) == 0 ){
-            orderDTO.setOrderStateEnum( OrderStateEnum.已评价 );
-            orderInfoBO.update( orderDTO );
-            System.out.println("订单状态已修改 " + orderDTO.getCourseTypeEnum());
+            RewardDTO rewardDTO = rewardBO.getCourseStudentDTOById(orderDTO.getCourseId());
+            rewardDTO.setRewardStateEnum( RewardStateEnum.已解决 );
+            rewardBO.update( rewardDTO );
         }
+
+        orderDTO.setOrderStateEnum( OrderStateEnum.已评价 );
+        orderInfoBO.update( orderDTO );
 
 
         //返回

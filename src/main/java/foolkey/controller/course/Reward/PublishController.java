@@ -11,7 +11,6 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +80,7 @@ public class PublishController extends AbstractController {
             courseStudentDTO.setTeachMethodEnum(teachMethodEnum);
             courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
             courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
-            courseStudentDTO.setCourseStudentStateEnum(CourseStudentStateEnum.待接单);
+            courseStudentDTO.setRewardStateEnum(RewardStateEnum.待接单);
             courseStudentDTO.setCreateTime(Time.getCurrentDate());
 
             //发布悬赏

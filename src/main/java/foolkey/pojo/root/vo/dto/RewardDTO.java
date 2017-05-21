@@ -1,6 +1,6 @@
 package foolkey.pojo.root.vo.dto;
 
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.assistObject.SexTagEnum;
 import foolkey.pojo.root.vo.assistObject.StudentBaseEnum;
 import foolkey.pojo.root.vo.assistObject.TeacherRequirementEnum;
@@ -25,7 +25,7 @@ public class RewardDTO extends CourseAbstract{
 
     // 悬赏状态 待接单,已解决
     @Column(name = "course_student_state")
-    private CourseStudentStateEnum courseStudentStateEnum;
+    private RewardStateEnum rewardStateEnum;
 
     // 学生基础
     @Column(name = "student_base")
@@ -39,7 +39,7 @@ public class RewardDTO extends CourseAbstract{
     public String toString() {
         return "CourseStudentDTO{" +
                 "teacherRequirementEnum=" + teacherRequirementEnum +
-                ", courseStudentStateEnum=" + courseStudentStateEnum +
+                ", rewardStateEnum=" + rewardStateEnum +
                 ", studentBaseEnum=" + studentBaseEnum +
                 ", sexTagEnum=" + sexTagEnum +
                 '}';
@@ -53,12 +53,12 @@ public class RewardDTO extends CourseAbstract{
         this.teacherRequirementEnum = teacherRequirementEnum;
     }
 
-    public CourseStudentStateEnum getCourseStudentStateEnum() {
-        return courseStudentStateEnum;
+    public RewardStateEnum getRewardStateEnum() {
+        return rewardStateEnum;
     }
 
-    public void setCourseStudentStateEnum(CourseStudentStateEnum courseStudentStateEnum) {
-        this.courseStudentStateEnum = courseStudentStateEnum;
+    public void setRewardStateEnum(RewardStateEnum rewardStateEnum) {
+        this.rewardStateEnum = rewardStateEnum;
     }
 
     public StudentBaseEnum getStudentBaseEnum() {

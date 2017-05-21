@@ -40,13 +40,12 @@
         <bean class="foolkey.interceptor.com.PrinterInterceptor"/>
 
         <mvc:interceptor>
-            <mvc:mapping path="/rsa/register"/>
-            <mvc:mapping path="/rsa/login"/>
+            <mvc:mapping path="/rsa/**"/>
             <bean class="foolkey.interceptor.com.RSADecryptInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/aes/*"/>
+            <mvc:mapping path="/aes/**"/>
             <bean class="foolkey.interceptor.com.AESDecryptInterceptor"/>
         </mvc:interceptor>
 

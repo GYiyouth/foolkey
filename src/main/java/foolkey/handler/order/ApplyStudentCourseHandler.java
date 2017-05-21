@@ -78,7 +78,7 @@ public class ApplyStudentCourseHandler extends AbstractBO {
         }
 
         //验证课程状态
-        if (courseDTO.getCourseStudentStateEnum().compareTo(CourseStudentStateEnum.已解决) == 0)
+        if (courseDTO.getRewardStateEnum().compareTo(RewardStateEnum.已解决) == 0)
             jsonHandler.sendJSON(jsonObject, response);
 
         //如果已经申请了，则不应再申请，交由AOP来做

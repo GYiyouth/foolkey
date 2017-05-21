@@ -4,7 +4,7 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
+import foolkey.pojo.root.vo.assistObject.RewardStateEnum;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
@@ -54,7 +54,7 @@ public class GetRewardApplicationController extends AbstractController{
             Long studentId = studentInfoBO.getStudentDTO(token).getId();
 
             //首先获取到我发布的悬赏DTO
-            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.PAGE_SIZE, CourseStudentStateEnum.待接单);
+            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.PAGE_SIZE, RewardStateEnum.待接单);
 
             List < ApplicationStudentRewardAsStudentSTCDTO > applicationStudentRewardAsStudentSTCDTOS = new ArrayList<>();
             //每一个悬赏对应一个DTO
