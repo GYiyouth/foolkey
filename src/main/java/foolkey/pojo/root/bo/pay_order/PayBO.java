@@ -43,6 +43,9 @@ public class PayBO {
         totalPrice = totalPrice * order.getCutOffPercent();
         if (money > totalPrice) {
             money = money - totalPrice;
+            if (money < 0)
+                //钱不够
+                return false;
             studentDTO.setVirtualCurrency(money);
             order.setOrderStateEnum(OrderStateEnum.同意上课);
             return true;

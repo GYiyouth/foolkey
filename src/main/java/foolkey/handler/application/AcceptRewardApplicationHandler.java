@@ -84,9 +84,6 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         ApplicationStudentRewardDTO applicationDTO = applicationInfoBO.getRewardApplicationDTO(applicationId);
         Long rewardId = applicationDTO.getRewardId();
-
-//        Long orderId = applicantDTO.get
-//        OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(applicationDTO.getRewardId() + "");
         RewardDTO rewardDTO = courseBO.getCourseStudentDTO( rewardId );
 
         //新建Order
@@ -137,7 +134,6 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         orderInfoBO.update(orderDTO);
 
         //个人扣款
-        studentDTO.setVirtualCurrency( studentDTO.getVirtualCurrency() - needToPay);
         studentInfoBO.updateStudent(studentDTO);
 
         //删除其他人的申请
