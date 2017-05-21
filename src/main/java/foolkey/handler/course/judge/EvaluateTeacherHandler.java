@@ -57,7 +57,7 @@ public class EvaluateTeacherHandler extends AbstractBO{
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //获取原始数据
