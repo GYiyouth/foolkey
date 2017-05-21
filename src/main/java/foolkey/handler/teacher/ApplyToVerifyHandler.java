@@ -48,8 +48,6 @@ public class ApplyToVerifyHandler extends AbstractBO {
         // 获取信息，验证role
         String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
-        System.out.println(clearText);
-        System.out.println(clearJSON);
         String token = clearJSON.getString("token");
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
@@ -61,8 +59,6 @@ public class ApplyToVerifyHandler extends AbstractBO {
             return;
         }
 
-        System.out.println( studentDTO.getRoleEnum().compareTo(RoleEnum.student) );
-
         // 如果role为student 新建teacher角色
         if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0){
             teacherDTO = new TeacherDTO();
@@ -71,18 +67,22 @@ public class ApplyToVerifyHandler extends AbstractBO {
             teacherDTO.setTeacherAverageScore(0.0F);
             teacherDTO.setTeachingTime(0.0F);
             teacherDTO.setTeachingNumber(0);
-//            teacherInfoBO.save(teacherDTO);
+            teacherInfoBO.save(teacherDTO);
+            //verified置为processing
+            teacherDTO.setVerifyState(VerifyStateEnum.processing);
+            teacherInfoBO.save( teacherDTO );
         }else { // 否则，从数据库获取
             teacherDTO = teacherInfoBO.getTeacherDTO( studentDTO.getId() );
+            teacherDTO.setVerifyState(VerifyStateEnum.processing);
+            teacherInfoBO.updateTeacherDTO(teacherDTO);
         }
 
-        //verified置为processing，role置为alreadyApplied
-        teacherDTO.setVerifyState(VerifyStateEnum.processing);
+        //role置为alreadyApplied
         studentDTO.setRoleEnum(RoleEnum.alreadyApplied);
 
         //保存用户信息
         studentInfoBO.updateStudent(studentDTO);
-        teacherInfoBO.updateTeacherDTO(teacherDTO);
+
 
         //用新的dto，抹去密码，明文传输
         StudentDTO sendStudent = new StudentDTO();
