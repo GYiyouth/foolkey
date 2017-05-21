@@ -264,15 +264,70 @@ public class MessageBO {
      * @return
      * @throws Exception
      */
-    public Result sendForAnsweredOfQuestion(
+    public Result sendToAskerOfAnswer(
             StudentDTO asker
     ) throws Exception {
-        String messagePayLoad = "sendForAnsweredOfQuestion";
-        String title = "学生已经对您进行了评价";
-        String description =  "请切换老师后，在个人中心查询余额变化";
+        String messagePayLoad = "sendToAskerOfAnswer";
+        String title = "你的问题已经回答了";
+        String description =  "去查看一下吧！";
         return
                 MessagePusher.sendToUserAccount(
                         asker.getId() + "", messagePayLoad, title, description
                 );
     }
+
+    /**
+     * 通知回答者有人提了一个问题
+     * @param answerer
+     * @return
+     * @throws Exception
+     */
+    public Result sendToAnswererOfAsk(
+            StudentDTO answerer
+    ) throws Exception {
+        String messagePayLoad = "sendToAnswererOfAsk";
+        String title = "有人向你提了一个问题";
+        String description =  "去查看一下吧！";
+        return
+                MessagePusher.sendToUserAccount(
+                        answerer.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 通知提问者有人围观了
+     * @param asker
+     * @return
+     * @throws Exception
+     */
+    public Result sendToAskerOfOnlook(
+            StudentDTO asker
+    ) throws Exception {
+        String messagePayLoad = "sendToAskerOfOnlook";
+        String title = "有人围观了你提问的问题";
+        String description =  "去查看一下吧！";
+        return
+                MessagePusher.sendToUserAccount(
+                        asker.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 通知回答者有人围观了
+     * @param answerer
+     * @return
+     * @throws Exception
+     */
+    public Result sendToAnswererOfOnlook(
+            StudentDTO answerer
+    ) throws Exception {
+        String messagePayLoad = "sendToAnswererOfOnlook";
+        String title = "有人围观了你回答的问题";
+        String description =  "去查看一下吧！";
+        return
+                MessagePusher.sendToUserAccount(
+                        answerer.getId() + "", messagePayLoad, title, description
+                );
+    }
+
 }

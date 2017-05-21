@@ -1,11 +1,14 @@
 package foolkey.pojo.root.bo.question;
 
+import foolkey.pojo.root.DAO.order_buy_answer.GetOrderBuyAnswerDAO;
 import foolkey.pojo.root.DAO.question_answer.GetQuestionAnswerDAO;
 import foolkey.pojo.root.DAO.question_answer.SaveQuestionAnswerDAO;
 import foolkey.pojo.root.DAO.question_answer.UpdateQuestionAnswerDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.dto.OrderBuyAnswerDTO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
@@ -34,12 +37,15 @@ public class QuestionBO {
     private StudentInfoBO studentInfoBO;
     @Autowired
     private TeacherInfoBO teacherInfoBO;
+    @Autowired
+    private GetOrderBuyAnswerDAO getOrderBuyAnswerDAO;
 
     /**
      * 创建问题、回答问题都可以用这个
+     *
      * @param questionAnswerDTO
      */
-    public QuestionAnswerDTO createQuestionAnswer(QuestionAnswerDTO questionAnswerDTO){
+    public QuestionAnswerDTO createQuestionAnswer(QuestionAnswerDTO questionAnswerDTO) {
         saveQuestionAnswerDAO.save(questionAnswerDTO);
         return questionAnswerDTO;
     }
@@ -47,48 +53,53 @@ public class QuestionBO {
 
     /**
      * 根据问题-回答id，获取DTO
+     *
      * @param questionAnswerId
      * @return
      */
-    public QuestionAnswerDTO getQuestionAnswerDTOByQuestionAnswerId(Long questionAnswerId){
+    public QuestionAnswerDTO getQuestionAnswerDTOByQuestionAnswerId(Long questionAnswerId) {
         return getQuestionAnswerDAO.get(QuestionAnswerDTO.class, questionAnswerId);
     }
 
     /**
      * 修改提问的DTO
+     *
      * @param questionAnswerDTO
      * @return
      */
-    public QuestionAnswerDTO updateQuestionAnswerDTO(QuestionAnswerDTO questionAnswerDTO){
+    public QuestionAnswerDTO updateQuestionAnswerDTO(QuestionAnswerDTO questionAnswerDTO) {
         updateQuestionAnswerDAO.update(questionAnswerDTO);
         return questionAnswerDTO;
     }
 
     /**
      * 根据问题状态，分页获取的我回答的问题（待回答、已回答）
+     *
      * @param answererDTO
      * @param questionStateEnum
      * @param pageNo
      * @return
      */
-    public List<QuestionAnswerDTO> getQuestionAsAnswer(StudentDTO answererDTO, QuestionStateEnum questionStateEnum, Integer pageNo){
+    public List<QuestionAnswerDTO> getQuestionAsAnswer(StudentDTO answererDTO, QuestionStateEnum questionStateEnum, Integer pageNo) {
         return getQuestionAnswerDAO.getQuestionAsAnswer(answererDTO, questionStateEnum, pageNo);
     }
 
     /**
      * 根据问题状态，分页获取的我提出的问题（待回答、已回答）
+     *
      * @param askerDTO
      * @param questionStateEnum 问题状态（待回答、已回答）
      * @param pageNo
      * @return
      */
-    public List<QuestionAnswerDTO> getQuestionAsAsker(StudentDTO askerDTO, QuestionStateEnum questionStateEnum, Integer pageNo){
+    public List<QuestionAnswerDTO> getQuestionAsAsker(StudentDTO askerDTO, QuestionStateEnum questionStateEnum, Integer pageNo) {
         return getQuestionAnswerDAO.getQuestionAsAsker(askerDTO, questionStateEnum, pageNo);
     }
 
 
     /**
      * 问题DTO封装成问题-提问者-回答者DTO
+     *
      * @param questionAnswerDTOS
      * @return
      */
@@ -96,7 +107,7 @@ public class QuestionBO {
 
         List<QuestionAskerAnswerSTCDTO> questionAskerAnswerSTCDTOS = new ArrayList<>();
 
-        for(QuestionAnswerDTO questionAnswerDTO:questionAnswerDTOS){
+        for (QuestionAnswerDTO questionAnswerDTO : questionAnswerDTOS) {
             //封装成的对象
             QuestionAskerAnswerSTCDTO questionAskerAnswerSTCDTO = new QuestionAskerAnswerSTCDTO();
 
@@ -108,7 +119,37 @@ public class QuestionBO {
             questionAskerAnswerSTCDTO.setQuestionAnswerDTO(questionAnswerDTO);
             questionAskerAnswerSTCDTOS.add(questionAskerAnswerSTCDTO);
         }
-
         return questionAskerAnswerSTCDTOS;
     }
+
+    /**
+     * 获取到“热门”提问
+     * 默认不能是自己提问的、或者自己回答的
+     *
+     * @param studentDTO
+     * @param technicTagEnum
+     * @param pageNo
+     * @return
+     * @throws Exception
+     */
+    public List<QuestionAnswerDTO> getPopularQuestionAnswerDTO(StudentDTO studentDTO, TechnicTagEnum technicTagEnum, Integer pageNo) throws Exception {
+        return getQuestionAnswerDAO.getPopularQuestionAnswerDTO(studentDTO, technicTagEnum, pageNo);
+    }
+
+
+    /**
+     * 是否有权限去查看某个问题
+     *
+     * @param onlookerDTO
+     * @param questionAnswerDTO
+     * @return
+     * @throws Exception
+     */
+    public boolean isHavePermissionToView(StudentDTO onlookerDTO, QuestionAnswerDTO questionAnswerDTO) throws Exception {
+        if (getOrderBuyAnswerDAO.getByOnlookerAndQuestion(onlookerDTO, questionAnswerDTO) != null)
+            return true;
+        return false;
+    }
+
+
 }

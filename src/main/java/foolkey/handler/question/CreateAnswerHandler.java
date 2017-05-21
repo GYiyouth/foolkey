@@ -87,7 +87,7 @@ public class CreateAnswerHandler extends AbstractBO {
         //      4.1获取到提问者DTO
         StudentDTO askerDTO = studentInfoBO.getStudentDTO(orderAskQuestionDTO.getUserId());
         //      4.2发送消息
-        messageBO.sendForAnsweredOfQuestion(askerDTO);
+        messageBO.sendToAskerOfAnswer(askerDTO);
 
 
         //返回result

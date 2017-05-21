@@ -9,8 +9,10 @@ import javax.persistence.Table;
 /**
  * Created by geyao on 2017/4/24.
  */
-@Component @Entity @Table(name = "t_order_buy_answer")
-public class OrderBuyAnswerDTO extends OrderAbstract{
+@Component
+@Entity
+@Table(name = "t_order_buy_answer")
+public class OrderBuyAnswerDTO extends OrderAbstract {
 
     @Column(name = "question_answer_id")
     private Long questionId;
@@ -25,9 +27,10 @@ public class OrderBuyAnswerDTO extends OrderAbstract{
 
     @Override
     public String toString() {
-        return "OrderButAnswerDTO{" +
+        return "OrderBuyAnswerDTO{" +
                 "questionId=" + questionId +
-                "} " + super.toString();
+                ", couponId=" + couponId +
+                '}';
     }
 
     public Long getQuestionId() {
@@ -36,5 +39,13 @@ public class OrderBuyAnswerDTO extends OrderAbstract{
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public Long getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(Long couponId) {
+        this.couponId = couponId;
     }
 }
