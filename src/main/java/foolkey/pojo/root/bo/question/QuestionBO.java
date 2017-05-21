@@ -65,7 +65,7 @@ public class QuestionBO {
     }
 
     /**
-     * 分页获取的我回答的问题（待回答、已回答）
+     * 根据问题状态，分页获取的我回答的问题（待回答、已回答）
      * @param answererDTO
      * @param questionStateEnum
      * @param pageNo
@@ -73,6 +73,17 @@ public class QuestionBO {
      */
     public List<QuestionAnswerDTO> getQuestionAsAnswer(StudentDTO answererDTO, QuestionStateEnum questionStateEnum, Integer pageNo){
         return getQuestionAnswerDAO.getQuestionAsAnswer(answererDTO, questionStateEnum, pageNo);
+    }
+
+    /**
+     * 根据问题状态，分页获取的我提出的问题（待回答、已回答）
+     * @param askerDTO
+     * @param questionStateEnum 问题状态（待回答、已回答）
+     * @param pageNo
+     * @return
+     */
+    public List<QuestionAnswerDTO> getQuestionAsAsker(StudentDTO askerDTO, QuestionStateEnum questionStateEnum, Integer pageNo){
+        return getQuestionAnswerDAO.getQuestionAsAsker(askerDTO, questionStateEnum, pageNo);
     }
 
 
