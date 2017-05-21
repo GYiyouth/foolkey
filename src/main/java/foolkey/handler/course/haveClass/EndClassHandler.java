@@ -63,7 +63,7 @@ public class EndClassHandler extends AbstractBO {
         String token = clearJSON.getString("token");
         Long orderId = clearJSON.getLong("orderId");
         Long studentId = clearJSON.getLong("studentId");
-        Float hourNum = Float.parseFloat( clearJSON.getString("hourNum") );
+//        Float hourNum = Float.parseFloat( clearJSON.getString("hourNum") );
 
         //获取DTO
             //老师
@@ -75,6 +75,8 @@ public class EndClassHandler extends AbstractBO {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
         CouponDTO couponDTO = couponInfoBO.getCouponDTO(orderDTO.getCouponId());
 
+        //积累小时，是以订单上的数量，而非实际的数目
+        Float hourNum = Float.parseFloat( orderDTO.getNumber() + "" );
 
         //修改订单状态
         orderDTO.setOrderStateEnum(OrderStateEnum.结束上课);

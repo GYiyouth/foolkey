@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/2.
  */
-@RequestMapping("/getStudentCourseOrder")
+@RequestMapping("/getOrderAsStudent")
 @Controller
 public class GetStudentOrderController extends AbstractController{
 

@@ -1,4 +1,4 @@
-package foolkey.controller.order_buy_course;
+package foolkey.controller.course.Reward;
 
 import foolkey.controller.AbstractController;
 import foolkey.handler.order.ApplyStudentCourseHandler;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/3.
  */
-@RequestMapping("/aes/placeOrderStudentCourse")
+@RequestMapping("/aes/applyReward")
 @Controller
-public class PlaceOrderStudentCourseController extends AbstractController{
+public class ApplyRewardController extends AbstractController{
     @Autowired
     private ApplyStudentCourseHandler handler;
 

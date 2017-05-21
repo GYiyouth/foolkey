@@ -23,6 +23,7 @@ import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
+import foolkey.tool.constant_values.RewardLimit;
 import foolkey.tool.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -234,7 +235,7 @@ public class OrderInfoBO {
             //如果使用了优惠券，则把这个价格去除
             CouponDTO couponDTO = couponInfoBO.getCouponDTO(couponId);
             price = price - couponDTO.getValue();
-            if (price < 0) {
+            if (price < 0){
                 throw new Exception("价格出错");
             }
             //删除优惠券

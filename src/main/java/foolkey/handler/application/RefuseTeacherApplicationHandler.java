@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 拒绝一个老师对于悬赏任务的申请
  * AES加密
- * 需要token，teacherId，courseId
+ * 需要token， applicationId
  * Created by geyao on 2017/5/4.
  */
 @Service
@@ -43,16 +43,10 @@ public class RefuseTeacherApplicationHandler extends AbstractBO{
 
 
         //获取信息
-        Long courseId = clearJSON.getLong("courseId");
-        Long studentId = clearJSON.getLong("teacherId"); // 实际上老师id就是老师的studentId
-
-        RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTO(courseId);
-        StudentDTO studentDTO = studentInfoBO.getStudentDTO(studentId);
+        Long applicationId = clearJSON.getLong("applicationId");
 
         //删除申请
-        applicationInfoBO.deleteRewardApplication(
-                courseStudentDTO.getCreatorId(), studentDTO.getId());
-
+        applicationInfoBO.deleteRewardApplication( applicationId );
         //返回消息
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);

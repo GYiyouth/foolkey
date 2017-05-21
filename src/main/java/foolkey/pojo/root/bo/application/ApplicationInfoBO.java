@@ -123,6 +123,14 @@ public class ApplicationInfoBO {
     }
 
     /**
+     * 根据Id删除某条申请
+     * @param applicationId
+     */
+    public void deleteRewardApplication(Long applicationId){
+        deleteApplicationStudentRewardDAO.deleteById( ApplicationStudentRewardDTO.class, applicationId);
+    }
+
+    /**
      * 删除对老师课程的申请
      * @param applicantId
      * @param orderId
