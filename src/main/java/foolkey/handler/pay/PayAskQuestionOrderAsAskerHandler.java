@@ -37,11 +37,10 @@ public class PayAskQuestionOrderAsAskerHandler extends AbstractBO {
     private CouponInfoBO couponInfoBO;
 
 
-
     public void execute(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        JSONObject jsonObject
+            HttpServletRequest request,
+            HttpServletResponse response,
+            JSONObject jsonObject
     ) throws Exception {
 
         //读取客户端传入参数
@@ -67,12 +66,12 @@ public class PayAskQuestionOrderAsAskerHandler extends AbstractBO {
 
 
         //付钱
-        PayResultEnum payResult = payBO.payForQuestionAsAsker(studentDTO,orderAskQuestionDTO,couponDTO);
+        PayResultEnum payResult = payBO.payForQuestionAsAsker(studentDTO, orderAskQuestionDTO, couponDTO);
 
-        if(payResult.equals(PayResultEnum.success)){
+        if (payResult.equals(PayResultEnum.success)) {
             //成功后，修改问题DTO的状态为待回答
             questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.待回答);
-//            questionBO.
+            questionBO.updateQuestionAnswerDTO(questionAnswerDTO);
             //成功后修改订单状态
             orderInfoBO.updateOrderSateAfterPayAsAsker(orderAskQuestionDTO);
             //成功后删除使用过的券
@@ -82,17 +81,17 @@ public class PayAskQuestionOrderAsAskerHandler extends AbstractBO {
             jsonObject.put("result", "success");
             jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
             jsonHandler.sendJSON(jsonObject, response);
-        }else if(payResult.equals(PayResultEnum.notEnoughBalance)){
+        } else if (payResult.equals(PayResultEnum.notEnoughBalance)) {
             //余额不足
             jsonObject.put("result", "notEnoughBalance");
             jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
             jsonHandler.sendJSON(jsonObject, response);
-        }else if(payResult.equals(PayResultEnum.notUseCoupon)){
+        } else if (payResult.equals(PayResultEnum.notUseCoupon)) {
             //券不可用
             jsonObject.put("result", "notUseCoupon");
             jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
             jsonHandler.sendJSON(jsonObject, response);
-        }else{
+        } else {
             jsonHandler.sendFailJSON(response);
         }
 

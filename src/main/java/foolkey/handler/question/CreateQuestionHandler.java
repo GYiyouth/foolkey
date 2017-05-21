@@ -5,6 +5,7 @@ import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.OrderAskQuestionDTO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -54,6 +55,10 @@ public class CreateQuestionHandler extends AbstractBO {
         String questionContent = clearJSON.getString("questionContent");
         Long couponId = clearJSON.getLong("couponId");
 
+        String technicTagEnumStr = clearJSON.getString("technicTagEnum");
+        TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagEnumStr);
+
+
         //创建一个问题DTO
         QuestionAnswerDTO questionAnswerDTO = new QuestionAnswerDTO();
         questionAnswerDTO.setAskerId(askerId);
@@ -65,7 +70,8 @@ public class CreateQuestionHandler extends AbstractBO {
         questionAnswerDTO.setPrice(price);
         questionAnswerDTO.setQuestionContent(questionContent);
         questionAnswerDTO.setTitle(title);
-        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.未回答);
+        questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.待付款);
+        questionAnswerDTO.setTechnicTagEnum(technicTagEnum);
         //  1. 存储问题DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
         //  2.存储订单DTO

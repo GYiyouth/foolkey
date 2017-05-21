@@ -48,7 +48,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     @Column(name = "invalid_time")
     private Date invalidTime;
 
-    //问题的状态 未回答, 待回答, 已回答, 已过期
+    //问题的状态 待付款, 待回答, 已回答, 已过期
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private QuestionStateEnum questionStateEnum;
@@ -69,6 +69,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
 
+    //提问属于什么类别的
     @Column(name = "technic_tag")
     private TechnicTagEnum technicTagEnum;
 
@@ -76,6 +77,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     public QuestionAnswerDTO() {
         super();
     }
+
 
     @Override
     public String toString() {
@@ -93,6 +95,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
                 ", answerTime=" + answerTime +
                 ", answerContent='" + answerContent + '\'' +
                 ", lastUpdateTime=" + lastUpdateTime +
+                ", technicTagEnum=" + technicTagEnum +
                 '}';
     }
 
@@ -198,5 +201,13 @@ public class QuestionAnswerDTO  extends AbstractDTO {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public TechnicTagEnum getTechnicTagEnum() {
+        return technicTagEnum;
+    }
+
+    public void setTechnicTagEnum(TechnicTagEnum technicTagEnum) {
+        this.technicTagEnum = technicTagEnum;
     }
 }
