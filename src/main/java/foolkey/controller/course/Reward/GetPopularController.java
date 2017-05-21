@@ -20,7 +20,7 @@ import java.util.Random;
 /**
  * Created by ustcg on 2017/5/6.
  */
-@Controller
+@Controller(value = "RewardGetPopular")
 @RequestMapping(value = "/reward/getPopular")
 public class GetPopularController extends AbstractController{
 

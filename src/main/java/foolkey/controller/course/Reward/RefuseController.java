@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * aes加密
  * Created by geyao on 2017/5/4.
  */
-@Controller
+@Controller(value = "RewardRefuse")
 @RequestMapping("/aes/reward/refuse")
 public class RefuseController extends AbstractController{
 

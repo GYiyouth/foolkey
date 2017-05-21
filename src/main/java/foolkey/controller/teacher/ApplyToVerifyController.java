@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/3.
  */
 @Controller
-@RequestMapping("/applyToVerifyTeacher")
+@RequestMapping("/aes/applyToVerifyTeacher")
 public class ApplyToVerifyController extends AbstractController {
 
     @Autowired

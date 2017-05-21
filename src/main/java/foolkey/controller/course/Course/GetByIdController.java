@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/5/1.
  */
-@Controller
+@Controller(value = "CourseGetById")
 @RequestMapping(value = "/course/getById")
 public class GetByIdController extends AbstractController {
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/3.
  */
 @RequestMapping("/aes/reward/apply")
-@Controller
+@Controller(value = "RewardApply")
 public class ApplyController extends AbstractController{
     @Autowired
     private ApplyStudentCourseHandler handler;

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * 获取我发布的所有悬赏
  * Created by ustcg on 2017/5/8.
  */
-@Controller
+@Controller(value = "RewardMine")
 @RequestMapping(value = "/aes/reward/getMine")
 public class MineController extends AbstractController{
 

@@ -46,7 +46,7 @@ public class ApplyToVerifyHandler extends AbstractBO {
             JSONObject jsonObject
     )throws Exception{
         // 获取信息，验证role
-        String clearText = request.getParameter("clearText");
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
         System.out.println(clearText);
         System.out.println(clearJSON);

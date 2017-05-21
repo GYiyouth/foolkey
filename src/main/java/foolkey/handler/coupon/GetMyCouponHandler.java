@@ -5,6 +5,7 @@ import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
+import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class GetMyCouponHandler extends AbstractBO{
 
         String token = clearJSON.getString("token");
         int pageNum = clearJSON.getInt("pageNo");
-        int pageSize = clearJSON.getInt("PAGE_SIZE");
+        int pageSize = StaticVariable.PAGE_SIZE;
 
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
 

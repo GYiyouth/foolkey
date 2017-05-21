@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * token courseId
  * Created by geyao on 2017/5/2.
  */
-@Controller
+@Controller(value = "CourseDelete")
 @RequestMapping(value = "/aes/course/delete")
 public class DeleteController extends AbstractController {
 

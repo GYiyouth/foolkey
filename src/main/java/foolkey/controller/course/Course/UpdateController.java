@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/5/1.
  */
-@Controller
+@Controller(value = "CourseUpdate")
 @RequestMapping(value = "/aes/courseTeacher/updateCourseTeacher")
 public class UpdateController extends AbstractController {
 

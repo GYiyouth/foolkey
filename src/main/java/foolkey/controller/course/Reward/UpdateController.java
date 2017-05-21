@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/5/6.
  */
-@Controller
+@Controller(value = "RewardUpdate")
 @RequestMapping(value = "/aes/reward/update")
 public class UpdateController extends AbstractController{
 

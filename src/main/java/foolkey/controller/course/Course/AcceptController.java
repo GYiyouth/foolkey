@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * 接受学生对老师课程的申请
  * Created by geyao on 2017/5/4.
  */
-@Controller
+@Controller(value = "CourseAccept")
 @RequestMapping("/aes/course/accept")
 public class AcceptController extends AbstractController{
 

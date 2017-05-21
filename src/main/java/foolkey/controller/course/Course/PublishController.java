@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/4/30.
  */
-@Controller
+@Controller(value = "CoursePublish")
 @RequestMapping(value = "/courseTeacher")
 public class PublishController extends AbstractController{
 

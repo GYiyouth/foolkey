@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by admin on 2017/4/28.
  */
-@Controller
+@Controller(value = "CourseGetPopular")
 @RequestMapping(value = "/course/popular")
 public class GetPopularController extends AbstractController{
 

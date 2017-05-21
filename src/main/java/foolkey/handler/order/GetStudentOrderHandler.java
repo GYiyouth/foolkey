@@ -47,7 +47,7 @@ public class GetStudentOrderHandler extends AbstractBO{
             HttpServletResponse response,
             JSONObject jsonObject
     ) throws Exception{
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         String token = clearJSON.getString("token");

@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 作为学生身份拥有的、特定状态的订单，包括悬赏
  * Created by geyao on 2017/5/2.
  */
-@RequestMapping("/getOrderAsStudent")
+@RequestMapping("/aes/getOrderAsStudent")
 @Controller
 public class GetStudentOrderController extends AbstractController{
 

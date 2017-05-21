@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * 返回order
  * Created by geyao on 2017/5/4.
  */
-@Controller
+@Controller(value = "RewardAccept")
 @RequestMapping("/aes/acceptRewardApplication")
 public class AcceptController extends AbstractController{
 

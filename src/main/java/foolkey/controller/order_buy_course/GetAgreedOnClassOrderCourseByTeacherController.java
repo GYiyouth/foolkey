@@ -26,7 +26,7 @@ import java.util.List;
  * Created by GR on 2017/5/12.
  */
 @Controller
-@RequestMapping(value = "/order/getAgreedOnClassOrderCourseByTeacher")
+@RequestMapping(value = "/aes/order/getAgreedOnClassOrderCourseByTeacher")
 public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractController{
 
 
@@ -44,7 +44,7 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
             HttpServletResponse response
     ) {
         //获取-解析明文JSON数据
-        String clearText = request.getParameter("clearText");
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         String token = clearJSON.getString("token");

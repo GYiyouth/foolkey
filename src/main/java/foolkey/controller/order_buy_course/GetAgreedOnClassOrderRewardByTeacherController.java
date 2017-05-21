@@ -27,7 +27,7 @@ import java.util.List;
  * Created by GR on 2017/5/12.
  */
 @Controller
-@RequestMapping(value = "/order/getAgreedOnClassOrderRewardByTeacher")
+@RequestMapping(value = "/aes/order/getAgreedOnClassOrderRewardByTeacher")
 public class GetAgreedOnClassOrderRewardByTeacherController extends AbstractController{
 
 
@@ -45,7 +45,7 @@ public class GetAgreedOnClassOrderRewardByTeacherController extends AbstractCont
             HttpServletResponse response
     ) {
         //获取-解析明文JSON数据
-        String clearText = request.getParameter("clearText");
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         String token = clearJSON.getString("token");

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ustcg on 2017/4/30.
  */
-@Controller
+@Controller(value = "RewardPublish")
 @RequestMapping(value = "/aes/reward/publish")
 public class PublishController extends AbstractController {
 
