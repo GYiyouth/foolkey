@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ustcg on 2017/4/30.
  */
 @Controller
-@RequestMapping(value = "/courseStudent/publishRewardCourse")
-public class PublishCourseStudentController extends AbstractController {
+@RequestMapping(value = "/aes/reward/publish")
+public class PublishController extends AbstractController {
 
     @Resource(name = "courseStudentBO")
     private RewardBO courseStudentBO;
@@ -49,7 +49,7 @@ public class PublishCourseStudentController extends AbstractController {
     ) throws Exception {
         try {
             // 获取-分析JSON传递的明文信息
-            String clearText = request.getParameter("clearText");
+            String clearText = request.getAttribute("clearText").toString();
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             String token = clearJSON.getString("token");

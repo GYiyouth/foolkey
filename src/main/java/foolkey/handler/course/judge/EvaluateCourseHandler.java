@@ -89,7 +89,7 @@ public class EvaluateCourseHandler extends AbstractBO {
         Double average = totalScore / courseDTO.getSales();
         courseDTO.setAverageScore( Float.parseFloat( average.toString() ) );
         //保存
-        courseTeacherBO.updateCourseTeacherDTO(courseDTO);
+        courseTeacherBO.update(courseDTO);
 
         //删除优惠券
         Long couponId = orderDTO.getCouponId();

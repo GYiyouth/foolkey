@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ustcg on 2017/5/6.
  */
 @Controller
-@RequestMapping(value = "/courseStudent")
-public class UpdateCourseStudentController extends AbstractController{
+@RequestMapping(value = "/aes/reward/update")
+public class UpdateController extends AbstractController{
 
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -28,7 +28,7 @@ public class UpdateCourseStudentController extends AbstractController{
     private RewardBO courseStudentBO;
 
 
-    @RequestMapping(value = "/updateRewardTeacher")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
 //            @RequestParam("id")Long id,
@@ -44,11 +44,11 @@ public class UpdateCourseStudentController extends AbstractController{
     ) throws Exception {
         try {
             //获取-解析JSON明文数据
-            String clearText = request.getParameter("clearText");
+            String clearText = request.getAttribute("clearText").toString();
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             String token =clearJSON.getString("token");
-            Long id = clearJSON.getLong("id");
+            Long id = clearJSON.getLong("rewardId");
             String technicTagStr = clearJSON.getString("technicTagEnum");
             TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagStr);
             String topic = clearJSON.getString("topic");
@@ -61,15 +61,13 @@ public class UpdateCourseStudentController extends AbstractController{
             String teacherRequirementStr = clearJSON.getString("teacherRequirementEnum");
             TeacherRequirementEnum teacherRequirementEnum = TeacherRequirementEnum.valueOf(teacherRequirementStr);
             String studentBaseStr = clearJSON.getString("studentBaseEnum");
-            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf("studentBaseStr");
+            StudentBaseEnum studentBaseEnum = StudentBaseEnum.valueOf(studentBaseStr);
 
 
             //根据id获取旧的悬赏信息
             RewardDTO courseStudentDTO = courseStudentBO.getCourseStudentDTOById(id);
 
             //对悬赏赋新值
-            System.out.println("修改课程信息");
-
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
             courseStudentDTO.setCreatorId(studentDTO.getId());
 //            courseStudentDTO.setCreatorId(20001L);

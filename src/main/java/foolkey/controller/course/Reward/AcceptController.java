@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/4.
  */
 @Controller
-@RequestMapping("/acceptRewardApplication")
-public class AcceptRewardApplicationController extends AbstractController{
+@RequestMapping("/aes/acceptRewardApplication")
+public class AcceptController extends AbstractController{
 
     @Autowired
     private AcceptRewardApplicationHandler handler;

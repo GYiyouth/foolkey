@@ -21,8 +21,8 @@ import java.util.Random;
  * Created by ustcg on 2017/5/6.
  */
 @Controller
-@RequestMapping(value = "/courseStudent/getRewardCoursePopular")
-public class GetCourseStudentPopularController extends AbstractController{
+@RequestMapping(value = "/reward/getPopular")
+public class GetPopularController extends AbstractController{
 
     @Autowired
     private RewardBO courseStudentBO;

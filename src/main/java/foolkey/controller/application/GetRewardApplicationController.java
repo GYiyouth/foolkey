@@ -4,6 +4,7 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
+import foolkey.pojo.root.vo.assistObject.CourseStudentStateEnum;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
 import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
@@ -20,11 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 获取我发布的待上课的悬赏
+ * 学生身份
  * Created by ustcg on 2017/5/9.
  */
 @Controller
-@RequestMapping(value = "/application")
-public class GetApplicationStudentRewardAsStudentController extends AbstractController{
+@RequestMapping(value = "/aes/reward/getWithApplication")
+public class GetRewardApplicationController extends AbstractController{
 
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
@@ -33,14 +36,14 @@ public class GetApplicationStudentRewardAsStudentController extends AbstractCont
     @Autowired
     private StudentInfoBO studentInfoBO;
 
-    @RequestMapping(value = "/getApplicationStudentRewardAsStudentController")
+    @RequestMapping
     public void execute(
         HttpServletRequest request,
         HttpServletResponse response
     ){
         try {
             //获取-解析JSON明文数据
-            String clearText = request.getParameter("clearText");
+            String clearText = request.getAttribute("clearText").toString();
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             //页码
@@ -51,9 +54,9 @@ public class GetApplicationStudentRewardAsStudentController extends AbstractCont
             Long studentId = studentInfoBO.getStudentDTO(token).getId();
 
             //首先获取到我发布的悬赏DTO
-            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.pageSize);
+            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.pageSize, CourseStudentStateEnum.待接单);
 
-            List<ApplicationStudentRewardAsStudentSTCDTO> applicationStudentRewardAsStudentSTCDTOS = new ArrayList<>();
+            List < ApplicationStudentRewardAsStudentSTCDTO > applicationStudentRewardAsStudentSTCDTOS = new ArrayList<>();
             //每一个悬赏对应一个DTO
             //里面有   悬赏DTO-老师申请DTOS
             for (RewardDTO rewardDTO:rewardDTOS){

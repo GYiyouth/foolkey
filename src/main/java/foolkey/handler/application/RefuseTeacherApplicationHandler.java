@@ -24,10 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @Transactional
 public class RefuseTeacherApplicationHandler extends AbstractBO{
 
-    @Autowired
-    private StudentInfoBO studentInfoBO;
-    @Autowired
-    private RewardBO courseStudentBO;
+
     @Autowired
     private ApplicationInfoBO applicationInfoBO;
 
@@ -38,7 +35,7 @@ public class RefuseTeacherApplicationHandler extends AbstractBO{
     ) throws Exception{
 
 
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
 

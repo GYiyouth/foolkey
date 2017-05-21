@@ -60,7 +60,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getParameter("clearText").toString();
+        String clearText = request.getAttribute("clearText").toString();
         JSONObject clearJSON = JSONObject.fromObject(clearText);
 
         //从json里获取原始数据
@@ -68,7 +68,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
 
         Long applicationId = clearJSON.getLong("applicationId");
 //        Long orderId = clearJSON.getLong("orderId");
-        Long rewardId = clearJSON.getLong("rewardId");
+//        Long rewardId = clearJSON.getLong("rewardId");
         String couponStr = clearJSON.get("couponId").toString();
         Long couponId = null;
         CouponDTO couponDTO = null;
@@ -83,6 +83,7 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         //获取各种DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
         ApplicationStudentRewardDTO applicationDTO = applicationInfoBO.getRewardApplicationDTO(applicationId);
+        Long rewardId = applicationDTO.getRewardId();
 
 //        Long orderId = applicantDTO.get
 //        OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(applicationDTO.getRewardId() + "");
@@ -101,7 +102,6 @@ public class AcceptRewardApplicationHandler extends AbstractBO {
         orderDTO.setCutOffPercent( 1.0 );
         orderDTO.setNumber( 1.0 );
         orderDTO.setTeachMethodEnum( rewardDTO.getTeachMethodEnum() );
-        System.out.println("申请DTO："+applicationDTO);
         orderDTO.setTeacherId( applicationDTO.getApplicantId() );
 
         orderInfoBO.save( orderDTO );

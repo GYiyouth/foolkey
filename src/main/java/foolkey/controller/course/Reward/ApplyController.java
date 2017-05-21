@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/3.
  */
-@RequestMapping("/aes/applyReward")
+@RequestMapping("/aes/reward/apply")
 @Controller
-public class ApplyRewardController extends AbstractController{
+public class ApplyController extends AbstractController{
     @Autowired
     private ApplyStudentCourseHandler handler;
 

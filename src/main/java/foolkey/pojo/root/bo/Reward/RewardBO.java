@@ -172,6 +172,20 @@ public class RewardBO {
     }
 
     /**
+     * 获取我发布的悬赏
+     * @param studentId
+     * @param pageNo
+     * @param pageSize
+     * @param state 特定状态
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<RewardDTO> getMyCourseStudentDTO(Long studentId, Integer pageNo, Integer pageSize, CourseStudentStateEnum state) throws Exception{
+        String hql = "select cs from RewardDTO cs where cs.creatorId = ? and cs.courseStudentStateEnum = ? order by cs.courseStudentStateEnum desc,createTime desc";
+        return getCourseStudentDAO.findByPage(hql,pageNo,pageSize,studentId, state);
+    }
+
+    /**
      * 把悬赏转变为悬赏-学生
      * @param courseStudentDTOS
      * @return

@@ -1,12 +1,14 @@
 package foolkey.pojo.root.bo.Course;
 
 import foolkey.pojo.root.CAO.Course.CourseCAO;
+import foolkey.pojo.root.DAO.course_teacher.DeleteCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.SaveCourseTeacherDAO;
 import foolkey.pojo.root.DAO.course_teacher.UpdateCourseTeacherDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
+import foolkey.pojo.root.vo.dto.CourseAbstract;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -41,6 +43,8 @@ public class CourseBO {
 
     @Autowired
     private UpdateCourseTeacherDAO updateCourseTeacherDAO;
+    @Autowired
+    private DeleteCourseTeacherDAO deleteCourseTeacherDAO;
 
     @Autowired
     private TeacherInfoBO teacherInfoBO;
@@ -201,7 +205,7 @@ public class CourseBO {
      * @return
      * @throws Exception
      */
-    public void updateCourseTeacherCache(CourseDTO courseDTO) throws Exception {
+    private void updateCourseTeacherCache(CourseDTO courseDTO) throws Exception {
         if(courseDTO == null){
             throw new NullPointerException("courseDTO is null");
         }else{
@@ -237,11 +241,21 @@ public class CourseBO {
     }
 
     /**
+     * 更新课程
+     * 先改数据库，再改缓存
+     * @param courseDTO
+     */
+    public void update(CourseDTO courseDTO)throws Exception{
+        updateCourseTeacherDTO( courseDTO );
+        updateCourseTeacherCache( courseDTO);
+    }
+
+    /**
      * 更新数据库的内容
      * @param courseDTO
      * @throws Exception
      */
-    public void updateCourseTeacherDTO(CourseDTO courseDTO) throws Exception{
+    private void updateCourseTeacherDTO(CourseDTO courseDTO) throws Exception{
         if(courseDTO == null){
             throw new NullPointerException("courseDTO is null");
         }else{
@@ -297,6 +311,14 @@ public class CourseBO {
             courseWithTeacherSTCDTOS.add(courseWithTeacherSTCDTO);
         }
         return courseWithTeacherSTCDTOS;
+    }
+
+    /**
+     * 删除课程
+     * @param courseDTO
+     */
+    public void delete(CourseDTO courseDTO){
+        deleteCourseTeacherDAO.delete(courseDTO);
     }
 
 }

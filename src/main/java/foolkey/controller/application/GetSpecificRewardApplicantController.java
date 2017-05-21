@@ -23,8 +23,8 @@ import java.util.List;
  * Created by ustcg on 2017/5/10.
  */
 @Controller
-@RequestMapping("/application/getApplicationStudentRewardByRewardIdAsStudent")
-public class GetApplicationStudentRewardByRewardIdAsStudentController extends AbstractController{
+@RequestMapping("/aes/reward/getApplicant")
+public class GetSpecificRewardApplicantController extends AbstractController{
 
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -38,7 +38,7 @@ public class GetApplicationStudentRewardByRewardIdAsStudentController extends Ab
     ) {
         try {
             //获取-解析JSON明文数据
-            String clearText = request.getParameter("clearText");
+            String clearText = request.getAttribute("clearText").toString();
             JSONObject clearJSON = JSONObject.fromObject(clearText);
 
             //页码
@@ -50,10 +50,10 @@ public class GetApplicationStudentRewardByRewardIdAsStudentController extends Ab
             Long rewardId = clearJSON.getLong("rewardId");
 
             //获取某个悬赏下所有申请
-            List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardId, pageNo, StaticVariable.pageSize);
+            List < ApplicationStudentRewardDTO > applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardId, pageNo, StaticVariable.pageSize);
 
             //封装成老师-申请DTO
-            List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = applicationInfoBO.convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(applicationStudentRewardDTOS);
+            List < ApplicationRewardWithTeacherSTCDTO > applicationRewardWithTeacherSTCDTOS = applicationInfoBO.convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(applicationStudentRewardDTOS);
 
 
             //封装-传送jsonObject
