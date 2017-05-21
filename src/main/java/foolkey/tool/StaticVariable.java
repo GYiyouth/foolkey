@@ -19,7 +19,7 @@ public class StaticVariable {
     //提问的有效期(这段时间可以回答)
     public static final Integer ASK_QUESTION_VALID_DAY = 7;
 
-    //围观价格
+    //围观问答的价格
     public static final Double ONLOOK_VIRTUAL_PRICE = 100.0;
 
 }
