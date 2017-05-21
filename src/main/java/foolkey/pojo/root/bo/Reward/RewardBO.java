@@ -94,11 +94,11 @@ public class RewardBO {
             return new ArrayList<>();
         }else{
             if (rewardCAO.isContainRewardWithStudentS(technicTagEnum, pageNo, pageSize)) {
-                System.out.println("缓存有！");
+                System.out.println(this.getClass() + "缓存有");
                 return rewardCAO.getRewardWithStudentPopularFromCache(technicTagEnum, pageNo, pageSize);
             }else {
                 //缓存没有则数据库彻底没了
-                System.out.println("缓存没有");
+                System.out.println(this.getClass() + "缓存没有");
                 return new ArrayList<>();
             }
         }
@@ -117,7 +117,7 @@ public class RewardBO {
         }else{
             RewardDTO courseStudentDTO = rewardCAO.getRewardDTOByRewardId(id);
             if(courseStudentDTO != null ){
-                System.out.println("缓存有！");
+                System.out.println(this.getClass() + "缓存有");
                 return courseStudentDTO;
             }else{
                 return getCourseStudentDAO.get(RewardDTO.class,id);

@@ -57,7 +57,7 @@ public class GetPopularController extends AbstractController{
                 Random random = new Random();
                 Integer temp = random.nextInt(technicSize);
                 technicTagEnum = TechnicTagEnum.values()[0];
-                System.out.println(temp + "   "  + technicTagEnum);
+                System.out.println( this.getClass() + "\n为了测试,现在取的是固定的标签 "  + technicTagEnum);
             }else{
                 technicTagEnum = studentDTO.getTechnicTagEnum();
             }

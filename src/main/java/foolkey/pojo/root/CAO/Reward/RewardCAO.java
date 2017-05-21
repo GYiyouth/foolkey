@@ -222,10 +222,10 @@ public class RewardCAO extends AbstractCAO {
         //缓存中有足够的结果
         if (isContainRewardWithStudentS(technicTagEnum, pageNo, pageSize)) {
             //根据悬赏类别搜索key，获取缓存中的对应值
-            String result = cache.getString(getRewardSearchKeyOfTechnicTagEnum(technicTagEnum));
+            String result = cache.getString( getRewardSearchKeyOfTechnicTagEnum(technicTagEnum));
             //去缓存中热门悬赏列表
             List<String> list = JSON.parseArray(result, String.class);
-            for (int i = (pageNo - 1) * pageSize; i < pageSize; i++) {
+            for (int i = 0; i < pageSize && i < list.size() ; i++) {
                 //首先根据悬赏列表的值，找到缓存中对应的value
                 String rewardWithStudentSTCDTOStr = cache.getString(list.get(i));
                 RewardWithStudentSTCDTO rewardWithStudentSTCDTO = JSON.parseObject(rewardWithStudentSTCDTOStr, RewardWithStudentSTCDTO.class);
