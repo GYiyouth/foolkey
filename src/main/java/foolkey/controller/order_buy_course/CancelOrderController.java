@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by geyao on 2017/5/1.
  */
-@RequestMapping ("/aes/cancelOrderTeacherCourse")
+@RequestMapping ("/aes/cancelOrder")
 @Controller
-public class CancelOrderTeacherCourseController extends AbstractController{
+public class CancelOrderController extends AbstractController{
 
     @Autowired
     private CancelOrderTeacherCourseHandler cancelOrderTeacherCourseHandler;

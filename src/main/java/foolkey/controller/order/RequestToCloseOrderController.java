@@ -19,6 +19,7 @@ public class RequestToCloseOrderController extends AbstractController {
     @Autowired
     private RequestToCloseOrderHandler handler;
 
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response

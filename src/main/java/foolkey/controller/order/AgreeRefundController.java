@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/7.
  */
 @Controller
-@RequestMapping("/agreeRefund")
+@RequestMapping("/aes/agreeRefund")
 public class AgreeRefundController extends AbstractController{
 
     @Autowired

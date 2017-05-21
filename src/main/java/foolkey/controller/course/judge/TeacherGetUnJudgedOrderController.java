@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by 葛尧 on 2017/5/13.
  */
 @Controller
-@RequestMapping("/getOrderToJudge/teacher")
+@RequestMapping("/aes/getOrderToJudge/teacher")
 public class TeacherGetUnJudgedOrderController extends AbstractController{
     @Autowired
     private TeacherGetUnJudgedOrderHandler handler;
