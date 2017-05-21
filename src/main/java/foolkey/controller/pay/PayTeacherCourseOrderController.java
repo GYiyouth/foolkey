@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/1.
  */
 @Controller
-@RequestMapping("aes/payOrder/teacherCourse")
+@RequestMapping("/aes/payOrder/teacherCourse")
 public class PayTeacherCourseOrderController extends AbstractController{
     @Autowired
     private PayTeacherCourseOrderHandler payTeacherCourseOrderHandler;
