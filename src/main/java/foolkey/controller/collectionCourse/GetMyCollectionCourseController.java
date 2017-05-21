@@ -44,7 +44,7 @@ public class GetMyCollectionCourseController extends AbstractController{
             Long studentId = clearJSON.getLong("studentId");
 
             //首先获取到收藏课程DTO
-            ArrayList<CollectionCourseDTO> collectionCourseDTOS = collectionBO.getMyCollectionCourseDTOS(studentId, pageNo, StaticVariable.pageSize);
+            ArrayList<CollectionCourseDTO> collectionCourseDTOS = collectionBO.getMyCollectionCourseDTOS(studentId, pageNo, StaticVariable.PAGE_SIZE);
 
             //遍历获取到课程-老师DTO
             ArrayList<CourseWithTeacherSTCDTO> courseWithTeacherSTCDTOS = new ArrayList<>();

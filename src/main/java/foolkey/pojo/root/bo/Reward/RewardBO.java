@@ -90,7 +90,7 @@ public class RewardBO {
     public List<foolkey.pojo.send_to_client.reward.RewardWithStudentSTCDTO> getCourseStudentPopularDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
         //请求的内容超过内存大小
         //暂时不允许超过内存大小
-        if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
+        if((pageNo-1)*pageSize >= StaticVariable.CACHE_SIZE) {
             return new ArrayList<>();
         }else{
             if (rewardCAO.isContainRewardWithStudentS(technicTagEnum, pageNo, pageSize)) {

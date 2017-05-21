@@ -8,11 +8,9 @@ import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.CourseDTO;
-import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
-import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +69,7 @@ public class GetOrderCourseByOrderStateAsTeacherHandler extends AbstractBO{
         try {
             //********** 课程 *****************
             //1. 获得该老师下面哪些课程订单处于规定状态
-            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo, StaticVariable.pageSize, orderStateEnum);
+            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo, StaticVariable.PAGE_SIZE, orderStateEnum);
             //2. 上面每个课程，获取下面的学生-订单信息
             for(Long courseId:courseIdS){
                 OrderBuyCourseAsTeacherSTCDTO orderBuyCourseAsTeacherSTCDTO = new OrderBuyCourseAsTeacherSTCDTO();
@@ -86,7 +84,7 @@ public class GetOrderCourseByOrderStateAsTeacherHandler extends AbstractBO{
 
 //            //********** 悬赏 *****************
 //            //1. 获得该老师下面哪些悬赏订单处于规定状态
-//            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.pageSize, orderStateEnum);
+//            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.PAGE_SIZE, orderStateEnum);
 //            //2. 上面每个悬赏，获取下面的学生-订单信息
 //            for(Long rewardId:rewardIdS){
 //                OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();

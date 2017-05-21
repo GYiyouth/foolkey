@@ -8,7 +8,6 @@ import foolkey.pojo.root.DAO.course_teacher.UpdateCourseTeacherDAO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
-import foolkey.pojo.root.vo.dto.CourseAbstract;
 import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
@@ -102,7 +101,7 @@ public class CourseBO {
     public List<CourseWithTeacherSTCDTO> getCourseWithTeacherSTCDTO(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) throws Exception{
         //请求的内容超过内存大小
         //暂时不允许超过内存大小
-        if((pageNo-1)*pageSize >= StaticVariable.cacheSize) {
+        if((pageNo-1)*pageSize >= StaticVariable.CACHE_SIZE) {
             return new ArrayList<>();
         }else{
             return courseCAO.getCourseWithTeacherPopularFromCache(technicTagEnum, pageNo, pageSize);

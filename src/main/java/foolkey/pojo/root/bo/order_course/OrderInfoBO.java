@@ -181,8 +181,8 @@ public class OrderInfoBO {
      * @param courseId 学生悬赏课程的Id
      * @return
      */
-    public OrderBuyCourseDTO getRewardOrder(String courseId, OrderStateEnum state) {
-        return getOrderCourseDAO.getRewardOrderByCourseId(Long.parseLong(courseId), state);
+    public OrderBuyCourseDTO getRewardOrder(String courseId, OrderStateEnum state, Integer pageNo) {
+        return getOrderCourseDAO.getRewardOrderByCourseId(Long.parseLong(courseId), state, pageNo);
     }
 
     /**
@@ -192,8 +192,8 @@ public class OrderInfoBO {
      * @return
      * @throws Exception
      */
-    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderStateEnum) throws Exception {
-        return getOrderCourseDAO.getCourseOrderAsStudent(studentId, orderStateEnum);
+    public List<OrderBuyCourseDTO> getCourseOrderAsStudent(Long studentId, OrderStateEnum orderStateEnum, Integer pageNo) throws Exception {
+        return getOrderCourseDAO.getCourseOrderAsStudent(studentId, orderStateEnum, pageNo);
     }
 
     /**

@@ -5,9 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static foolkey.tool.StaticVariable.askQuestionin_ValidDay;
-import static foolkey.tool.StaticVariable.orderAskQuestion_ExistDay;
-import static foolkey.tool.StaticVariable.permanentDate;
+import static foolkey.tool.StaticVariable.ASK_QUESTION_VALID_DAY;
+import static foolkey.tool.StaticVariable.ORDER_ASK_QUESTION_EXIST_DAY;
+import static foolkey.tool.StaticVariable.PERMANENT_DATE;
 
 /**
  * Created by GR on 2017/2/27.
@@ -44,7 +44,7 @@ public class Time {
         Calendar c = new GregorianCalendar();
         Date date = new Date();
         c.setTime(date);//设置参数时间
-        c.add(Calendar.DATE, orderAskQuestion_ExistDay);//把日期往后增加。负数往前移动
+        c.add(Calendar.DATE, ORDER_ASK_QUESTION_EXIST_DAY);//把日期往后增加。负数往前移动
         date=c.getTime();
         String str = sdf.format(date);
         return sdf.parse(str);
@@ -61,7 +61,7 @@ public class Time {
         Calendar c = new GregorianCalendar();
         Date date = new Date();
         c.setTime(date);//设置参数时间
-        c.add(Calendar.DATE, askQuestionin_ValidDay);//把日期往后增加1天。负数往前移动
+        c.add(Calendar.DATE, ASK_QUESTION_VALID_DAY);//把日期往后增加1天。负数往前移动
         date=c.getTime(); //这个时间就是日期往后推一天的结果
         String str = sdf.format(date);
         return sdf.parse(str);
@@ -75,7 +75,7 @@ public class Time {
      */
     public static Date getPermanentDate()throws Exception{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.parse(permanentDate);
+        return format.parse(PERMANENT_DATE);
     }
 
     public static String getYear(){

@@ -105,7 +105,7 @@ public class RewardCAO extends AbstractCAO {
             //插入id
             list.add(0, getRewardKey(rewardWithStudentSTCDTO.getRewardDTO().getId()));
             //删除超出缓存大小的节点
-            for (int i = StaticVariable.cacheSize; i < list.size(); i++) {
+            for (int i = StaticVariable.CACHE_SIZE; i < list.size(); i++) {
                 list.remove(i);
             }
             //存list入缓存
@@ -142,7 +142,7 @@ public class RewardCAO extends AbstractCAO {
             //缓存有了这个类别的悬赏
             List<String> list = JSON.parseArray(result, String.class);
             //判断缓存有没有满
-            if (list.size() < StaticVariable.cacheSize) {
+            if (list.size() < StaticVariable.CACHE_SIZE) {
                 //没有满
                 addRewardWithStudentToNotFullCache(list, technicTagEnum, rewardWithStudentSTCDTO, directionEnum);
             } else {
@@ -191,7 +191,7 @@ public class RewardCAO extends AbstractCAO {
      */
     public boolean isContainRewardWithStudentS(TechnicTagEnum technicTagEnum, Integer pageNo, Integer pageSize) {
         //如果请求的大于定义的缓存大小
-        if ((pageNo * pageSize) > StaticVariable.cacheSize) {
+        if ((pageNo * pageSize) > StaticVariable.CACHE_SIZE) {
             return false;
         }
         //缓存有这个类别悬赏

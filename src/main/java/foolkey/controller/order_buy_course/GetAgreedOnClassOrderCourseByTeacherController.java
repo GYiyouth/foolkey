@@ -68,7 +68,7 @@ public class GetAgreedOnClassOrderCourseByTeacherController extends AbstractCont
         try {
             //********** 课程 *****************
             //1. 获得该老师下面哪些课程订单处于规定状态
-            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo,StaticVariable.pageSize, OrderStateEnum.同意上课, OrderStateEnum.上课中);
+            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.老师课程,pageNo,StaticVariable.PAGE_SIZE, OrderStateEnum.同意上课, OrderStateEnum.上课中);
             //2. 上面每个课程，获取下面的学生-订单信息
             for(Long courseId:courseIdS){
                 OrderBuyCourseAsTeacherSTCDTO orderBuyCourseAsTeacherSTCDTO = new OrderBuyCourseAsTeacherSTCDTO();

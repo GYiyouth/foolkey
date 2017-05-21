@@ -44,7 +44,7 @@ public class MineController extends AbstractController{
             Long studentId = studentInfoBO.getStudentDTO(token).getId();
 
             //获取我的所有悬赏
-            ArrayList<RewardDTO> courseStudentDTOS = courseStudentBO.getMyCourseStudentDTO(studentId, pageNo, StaticVariable.pageSize);
+            ArrayList<RewardDTO> courseStudentDTOS = courseStudentBO.getMyCourseStudentDTO(studentId, pageNo, StaticVariable.PAGE_SIZE);
 
 
             //封装-传送json

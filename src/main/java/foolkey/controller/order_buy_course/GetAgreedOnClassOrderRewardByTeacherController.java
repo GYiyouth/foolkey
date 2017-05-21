@@ -69,7 +69,7 @@ public class GetAgreedOnClassOrderRewardByTeacherController extends AbstractCont
         try {
             //********** 悬赏 *****************
             //1. 获得该老师下面哪些 悬赏 订单处于规定状态
-            List<Long> rewardIds = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.pageSize, OrderStateEnum.同意上课, OrderStateEnum.上课中);
+            List<Long> rewardIds = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.PAGE_SIZE, OrderStateEnum.同意上课, OrderStateEnum.上课中);
             //2. 上面每个悬赏，获取下面的学生-订单信息
             for(Long rewardId:rewardIds){
                 OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();

@@ -37,4 +37,7 @@ public class QuestionBO {
     public QuestionAnswerDTO getQuestionAnswerDTOByQuestionAnswerId(Long questionAnswerId){
         return getQuestionAnswerDAO.get(QuestionAnswerDTO.class, questionAnswerId);
     }
+
+//    public
+
 }

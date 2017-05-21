@@ -7,6 +7,7 @@ import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.PayResultEnum;
+import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
 import foolkey.pojo.root.vo.dto.CouponDTO;
 import foolkey.pojo.root.vo.dto.OrderAskQuestionDTO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
@@ -69,6 +70,9 @@ public class PayAskQuestionOrderAsAskerHandler extends AbstractBO {
         PayResultEnum payResult = payBO.payForQuestionAsAsker(studentDTO,orderAskQuestionDTO,couponDTO);
 
         if(payResult.equals(PayResultEnum.success)){
+            //成功后，修改问题DTO的状态为待回答
+            questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.待回答);
+//            questionBO.
             //成功后修改订单状态
             orderInfoBO.updateOrderSateAfterPayAsAsker(orderAskQuestionDTO);
             //成功后删除使用过的券

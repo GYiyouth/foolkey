@@ -1,7 +1,6 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.Course.CourseBO;
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
@@ -66,7 +65,7 @@ public class GetOrderRewardByOrderStateAsTeacherHandler extends AbstractBO {
         try {
             //********** 悬赏 *****************
             //1. 获得该老师下面哪些悬赏订单处于规定状态
-            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.pageSize, orderStateEnum);
+            List<Long> rewardIdS = orderInfoBO.getOrderBuyCourseDTOAsTeacherByOrderStates(teacherId, CourseTypeEnum.学生悬赏,pageNo, StaticVariable.PAGE_SIZE, orderStateEnum);
             //2. 上面每个悬赏，获取下面的学生-订单信息
             for(Long rewardId:rewardIdS){
                 OrderBuyRewardAsTeacherSTCDTO orderBuyRewardAsTeacherSTCDTO = new OrderBuyRewardAsTeacherSTCDTO();

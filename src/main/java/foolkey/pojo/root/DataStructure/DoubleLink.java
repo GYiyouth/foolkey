@@ -32,7 +32,7 @@ public class DoubleLink {
             header = new Node(data, null, null);
             tail = header;
             length++;
-        } else if (length < StaticVariable.cacheSize) {
+        } else if (length < StaticVariable.CACHE_SIZE) {
             //非空，非满
             Node tempNode = new Node(data, tail, null);
             tail.setNext(tempNode);
@@ -52,7 +52,7 @@ public class DoubleLink {
             header = new Node(data, null, null);
             length++;
             tail = header;
-        } else if (length < StaticVariable.cacheSize) {
+        } else if (length < StaticVariable.CACHE_SIZE) {
             //非空，非满
 
             Node tempNode = new Node(data, null, header);

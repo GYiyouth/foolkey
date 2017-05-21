@@ -65,7 +65,7 @@ public class GetPopularController extends AbstractController{
 
 
             //获取热门的悬赏
-            List<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.pageSize);
+            List<RewardWithStudentSTCDTO> rewardWithStudentSTCDTOS = courseStudentBO.getCourseStudentPopularDTO(technicTagEnum, pageNo, StaticVariable.PAGE_SIZE);
             for (RewardWithStudentSTCDTO RewardWithStudentSTCDTO : rewardWithStudentSTCDTOS) {
                 System.out.println("热门悬赏：" + RewardWithStudentSTCDTO.getRewardDTO() + "--id:" + RewardWithStudentSTCDTO.getRewardDTO().getId());
                 System.out.println("所属学生："+RewardWithStudentSTCDTO.getStudentDTO()+"---id:"+RewardWithStudentSTCDTO.getStudentDTO().getId());

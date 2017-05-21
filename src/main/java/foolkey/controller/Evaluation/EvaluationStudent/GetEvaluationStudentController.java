@@ -40,7 +40,7 @@ public class GetEvaluationStudentController extends AbstractController{
 //            Long studentId = clearJSON.getLong("studentId");
 
             //获取这个学生的评论
-            ArrayList<EvaluationStudentDTO> evaluationStudentDTOS = evaluationInfoBO.getEvaluationStudentDTOByStudentId(teacherId,pageNo, StaticVariable.pageSize);
+            ArrayList<EvaluationStudentDTO> evaluationStudentDTOS = evaluationInfoBO.getEvaluationStudentDTOByStudentId(teacherId,pageNo, StaticVariable.PAGE_SIZE);
 
             //封装-传送jsonObject
             jsonObject.put("result","success");

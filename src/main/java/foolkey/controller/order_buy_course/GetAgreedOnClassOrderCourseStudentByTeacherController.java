@@ -45,7 +45,7 @@ public class GetAgreedOnClassOrderCourseStudentByTeacherController extends Abstr
             Long courseId = clearJSON.getLong("courseId");
 
             //根据课程id，获取到已付款、未上课的申请
-            List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(courseId, CourseTypeEnum.老师课程,pageNo, StaticVariable.pageSize, OrderStateEnum.同意上课, OrderStateEnum.上课中);
+            List<OrderBuyCourseWithStudentAsTeacherSTCDTO> orderBuyCourseWithStudentAsTeacherSTCDTOS = orderInfoBO.getOrderBuyCourseWithStudentAsTeacher(courseId, CourseTypeEnum.老师课程,pageNo, StaticVariable.PAGE_SIZE, OrderStateEnum.同意上课, OrderStateEnum.上课中);
 
             //封装、传送JSON
             jsonObject.put("result", "success");

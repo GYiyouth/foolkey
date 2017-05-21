@@ -54,7 +54,7 @@ public class GetRewardApplicationController extends AbstractController{
             Long studentId = studentInfoBO.getStudentDTO(token).getId();
 
             //首先获取到我发布的悬赏DTO
-            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.pageSize, CourseStudentStateEnum.待接单);
+            ArrayList<RewardDTO> rewardDTOS = rewardBO.getMyCourseStudentDTO(studentId,pageNo,StaticVariable.PAGE_SIZE, CourseStudentStateEnum.待接单);
 
             List < ApplicationStudentRewardAsStudentSTCDTO > applicationStudentRewardAsStudentSTCDTOS = new ArrayList<>();
             //每一个悬赏对应一个DTO

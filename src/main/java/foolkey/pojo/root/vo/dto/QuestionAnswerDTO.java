@@ -1,7 +1,9 @@
 package foolkey.pojo.root.vo.dto;
 
 import foolkey.pojo.root.vo.AbstractDTO;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
+import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -46,7 +48,7 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     @Column(name = "invalid_time")
     private Date invalidTime;
 
-    //问题的状态 未回答, 已回答, 已过期
+    //问题的状态 未回答, 待回答, 已回答, 已过期
     @Column(name = "state")
     @Enumerated(EnumType.ORDINAL)
     private QuestionStateEnum questionStateEnum;
@@ -66,6 +68,10 @@ public class QuestionAnswerDTO  extends AbstractDTO {
     //回答的最后更新时间
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
+
+    @Column(name = "technic_tag")
+    private TechnicTagEnum technicTagEnum;
+
 
     public QuestionAnswerDTO() {
         super();

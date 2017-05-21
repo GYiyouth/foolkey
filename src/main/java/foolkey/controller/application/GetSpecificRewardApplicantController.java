@@ -4,7 +4,6 @@ import foolkey.controller.AbstractController;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
-import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.send_to_client.ApplicationRewardWithTeacherSTCDTO;
 import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +48,7 @@ public class GetSpecificRewardApplicantController extends AbstractController{
             Long rewardId = clearJSON.getLong("rewardId");
 
             //获取某个悬赏下所有申请
-            List < ApplicationStudentRewardDTO > applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardId, pageNo, StaticVariable.pageSize);
+            List < ApplicationStudentRewardDTO > applicationStudentRewardDTOS = applicationInfoBO.getRewardApplicationDTOAsStudent(rewardId, pageNo, StaticVariable.PAGE_SIZE);
 
             //封装成老师-申请DTO
             List < ApplicationRewardWithTeacherSTCDTO > applicationRewardWithTeacherSTCDTOS = applicationInfoBO.convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(applicationStudentRewardDTOS);

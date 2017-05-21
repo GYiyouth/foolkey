@@ -69,7 +69,7 @@ public class GetOrderCourseByOrderStateAsStudentHandler extends AbstractBO {
         try {
             //********** 课程 *****************
             //1. 获得该学生下面哪些课程订单处于规定状态
-            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsStudentByOrderStates(studentId, CourseTypeEnum.老师课程, pageNo, StaticVariable.pageSize, orderStateEnum);
+            List<Long> courseIdS = orderInfoBO.getOrderBuyCourseDTOAsStudentByOrderStates(studentId, CourseTypeEnum.老师课程, pageNo, StaticVariable.PAGE_SIZE, orderStateEnum);
             //2. 上面每个课程，获取下面的老师-订单信息
             for (Long courseId : courseIdS) {
                 OrderBuyCourseAsStudentSTCDTO orderBuyCourseAsStudentSTCDTO = new OrderBuyCourseAsStudentSTCDTO();

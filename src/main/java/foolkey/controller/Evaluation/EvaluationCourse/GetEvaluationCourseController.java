@@ -41,7 +41,7 @@ public class GetEvaluationCourseController extends AbstractController{
 //            Long courseId = clearJSON.getLong("courseId");
 
             //获取评论
-            ArrayList<EvaluationCourseDTO> evaluationCourseDTOS = evaluationInfoBO.getEvaluationCourseDTOByCourseTeacherId(courseId,pageNo, StaticVariable.pageSize);
+            ArrayList<EvaluationCourseDTO> evaluationCourseDTOS = evaluationInfoBO.getEvaluationCourseDTOByCourseTeacherId(courseId,pageNo, StaticVariable.PAGE_SIZE);
 
             //封装成评价-评价人
             ArrayList<EvaluationCourseSTCDTO> evaluationCourseSTCDTOS = evaluationInfoBO.convertEvaluationCourseDTOIntoEvaluationCourseSTCDTO(evaluationCourseDTOS);
