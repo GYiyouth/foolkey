@@ -5,6 +5,7 @@ import foolkey.pojo.root.bo.evaluation.EvaluationInfoBO;
 import foolkey.pojo.root.vo.dto.EvaluationCourseDTO;
 import foolkey.pojo.send_to_client.EvaluationCourseSTCDTO;
 import foolkey.tool.StaticVariable;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,27 +19,27 @@ import java.util.ArrayList;
  * Created by ustcg on 2017/5/8.
  */
 @Controller
-@RequestMapping(value = "/evaluationCourse")
+@RequestMapping(value = "/evaluationCourse/getEvaluationCourse")
 public class GetEvaluationCourseController extends AbstractController{
 
     @Autowired
     private EvaluationInfoBO evaluationInfoBO;
 
-    @RequestMapping(value = "/getEvaluationCourse")
+    @RequestMapping
     public void execute(
             HttpServletRequest request,
-            @RequestParam("token") String token,
-            @RequestParam("pageNo")Integer pageNo,
-            @RequestParam("courseId")Long courseId,
+//            @RequestParam("token") String token,
+//            @RequestParam("pageNo")Integer pageNo,
+//            @RequestParam("courseId")Long courseId,
             HttpServletResponse response
     ){
         try{
             //获取-解析JSON明文数据
-//            String clearText = request.getParameter("clearText");
-//            JSONObject clearJSON = JSONObject.fromObject(clearText);
-//
-//            Integer pageNo = clearJSON.getInt("pageNo");
-//            Long courseId = clearJSON.getLong("courseId");
+            String clearText = request.getParameter("clearText");
+            JSONObject clearJSON = JSONObject.fromObject(clearText);
+
+            Integer pageNo = clearJSON.getInt("pageNo");
+            Long courseId = clearJSON.getLong("courseId");
 
             //获取评论
             ArrayList<EvaluationCourseDTO> evaluationCourseDTOS = evaluationInfoBO.getEvaluationCourseDTOByCourseTeacherId(courseId,pageNo, StaticVariable.PAGE_SIZE);

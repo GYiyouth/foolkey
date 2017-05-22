@@ -109,7 +109,7 @@ public class EvaluationInfoBO {
     }
 
     /**
-     * 分页显示某个学生的评论
+     * 分页显示对这个学生的评论
      * @param studentId
      * @param pageNo
      * @param pageSize
