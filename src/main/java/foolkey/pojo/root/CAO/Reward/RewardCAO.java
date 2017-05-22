@@ -295,6 +295,7 @@ public class RewardCAO extends AbstractCAO {
             List<String> list = JSON.parseArray(resultStr, String.class);
             //删除对应节点
             list.remove(list.indexOf(getRewardKey(newRewardWithStudentSTCDTO.getRewardDTO().getId())));
+            cache.set(listKey,JSON.toJSONString(list));
             //2. 添加到新类别的悬赏队列中
             addRewardWithStudentToCache(newRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum(), newRewardWithStudentSTCDTO, DirectionEnum.head);
         }
@@ -305,6 +306,21 @@ public class RewardCAO extends AbstractCAO {
      * @param aimRewardWithStudentSTCDTO
      */
     public void deleteRewardWithStudent(RewardWithStudentSTCDTO aimRewardWithStudentSTCDTO) {
+
+        //取得该类别的热门悬赏队列
+        TechnicTagEnum technicTagEnum = aimRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum();
+        String listKey = getRewardSearchKeyOfTechnicTagEnum(technicTagEnum);
+        String resultStr = cache.getString(listKey);
+        List<String> list = JSON.parseArray(resultStr, String.class);
+
+        //热门悬赏队列删除这门悬赏
+        list.remove(getRewardKey(aimRewardWithStudentSTCDTO.getRewardDTO().getId()));
+        //更新缓存
+        cache.set(listKey,JSON.toJSONString(list));
+
+        //缓存中删除这个热门
+        cache.remove(getRewardKey(aimRewardWithStudentSTCDTO.getRewardDTO().getId()));
+
     }
 
 

@@ -306,6 +306,20 @@ public class CourseCAO extends AbstractCAO {
      * @param aimCourseWithTeacherSTCDTO
      */
     public void deleteCourseWithTeacher(CourseWithTeacherSTCDTO aimCourseWithTeacherSTCDTO) {
+
+        //取得该类别的热门悬赏队列
+        TechnicTagEnum technicTagEnum = aimCourseWithTeacherSTCDTO.getCourseDTO().getTechnicTagEnum();
+        String listKey = getCourseSearchKeyOfTechnicTagEnum(technicTagEnum);
+        String resultStr = cache.getString(listKey);
+        List<String> list = JSON.parseArray(resultStr, String.class);
+
+        //热门悬赏队列删除这门悬赏
+        list.remove(getCourseKey(aimCourseWithTeacherSTCDTO.getCourseDTO().getId()));
+        //更新缓存
+        cache.set(listKey,JSON.toJSONString(list));
+
+        //缓存中删除这个热门
+        cache.remove(getCourseKey(aimCourseWithTeacherSTCDTO.getCourseDTO().getId()));
     }
 
 

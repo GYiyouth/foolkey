@@ -17,6 +17,7 @@ public class OrderAskQuestionDTO extends OrderAbstract{
     @Column(name = "receiver_id")
     private Long receiverId;
 
+    //问题id
     @Column(name = "question_answer_id")
     private Long questionId;
 
