@@ -78,9 +78,11 @@ public class EvaluateTeacherHandler extends AbstractBO{
 
 
         //teacherDTO修改
-        Float totalScore = teacherDTO.getTeacherAverageScore() * teacherDTO.getFollowerNumber();
+        Float totalScore = teacherDTO.getTeacherAverageScore() * teacherDTO.getTeachingNumber();
         totalScore += score;
-        teacherDTO.setTeachingNumber( teacherDTO.getTeachingNumber() + 1 );
+        //注意，目前的teachingNumber和授课时间有关系
+        Integer teachHour = (int) Math.ceil( orderDTO.getNumber() );
+        teacherDTO.setTeachingNumber( teacherDTO.getTeachingNumber() + teachHour );
         teacherDTO.setTeacherAverageScore( totalScore / teacherDTO.getTeachingNumber() );
 
         //给老师发钱，注意一定要先发钱再保存
