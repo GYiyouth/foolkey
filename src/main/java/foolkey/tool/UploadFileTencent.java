@@ -2,10 +2,12 @@ package foolkey.tool;
 
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
+import com.qcloud.cos.exception.AbstractCosException;
 import com.qcloud.cos.meta.InsertOnly;
 import com.qcloud.cos.request.GetFileLocalRequest;
 import com.qcloud.cos.request.UploadFileRequest;
 import com.qcloud.cos.sign.Credentials;
+import com.qcloud.cos.sign.Sign;
 
 /**
  * Created by geyao on 2017/4/25.
@@ -23,6 +25,28 @@ public class UploadFileTencent {
 
     }
 
+    /**
+     * 为一名用户生成一个上传的一次性签名
+     * @param userName
+     * @return
+     */
+    public static String getOneTimeSign(String userName) throws AbstractCosException {
+        Credentials cred = new Credentials(appId, secretId, secretKey);
+        String signStr = Sign.getOneEffectiveSign(bucketName, getOnlinePhoto(userName), cred);
+        return signStr;
+    }
+
+    /**
+     * 生成一名用户的头像链接
+     * @param userName
+     * @return
+     */
+    private static String getOnlinePhoto(String userName){
+        return  "/photo/user/head/"
+                + "photo/" + userName + ".png"
+                ;
+    }
+
     public static boolean upload(){
         // 初始化秘钥信息
         Credentials cred = new Credentials(appId, secretId, secretKey);
@@ -33,8 +57,8 @@ public class UploadFileTencent {
         // 初始化cosClient
         COSClient cosClient = new COSClient(clientConfig, cred);
 
-        UploadFileRequest fileRequest = new UploadFileRequest(bucketName, "/photo/test2.png",
-                "/Users/geyao/Downloads/最帅的人.jpg");
+        UploadFileRequest fileRequest = new UploadFileRequest(bucketName, "/photo/test3.png",
+                "/Users/geyao/Desktop/mmexport1446891929539.jpg");
         fileRequest.setInsertOnly(InsertOnly.OVER_WRITE);
 
         System.out.println(cosClient.uploadFile(fileRequest));

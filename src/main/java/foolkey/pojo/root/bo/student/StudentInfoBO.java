@@ -1,5 +1,6 @@
 package foolkey.pojo.root.bo.student;
 
+import com.qcloud.cos.exception.AbstractCosException;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.student.UpdateStudentDAO;
@@ -9,6 +10,7 @@ import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.tool.TokenCreator;
+import foolkey.tool.UploadFileTencent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,5 +145,13 @@ public class StudentInfoBO {
             //缓存存储token_id,id_token
             userCAO.saveIdToken(token,studentDTO.getId());
         }
+    }
+
+    /**
+     * 为一名用户生成签名
+     * @param userName
+     */
+    public String getOneTimeSign(String userName) throws AbstractCosException {
+        return UploadFileTencent.getOneTimeSign(userName);
     }
 }
