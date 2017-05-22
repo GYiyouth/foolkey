@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/aes/getMyCoupon")
-public class GetMyCouponController extends AbstractController{
+public class GetMyCouponController extends AbstractController {
 
     @Autowired
     private GetMyCouponHandler couponHandler;
@@ -25,7 +25,7 @@ public class GetMyCouponController extends AbstractController{
     public void execute(
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws Exception{
+    ) throws Exception {
         couponHandler.execute(request, response, jsonObject);
     }
 }

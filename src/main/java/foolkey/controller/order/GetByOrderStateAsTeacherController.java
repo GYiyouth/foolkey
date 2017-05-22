@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 老师身份、根据订单状态获取订单
  * Created by GR on 2017/5/14.
  */
 @Controller
