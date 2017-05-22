@@ -87,6 +87,11 @@ public class UserCAO extends AbstractCAO{
         return cache.isContainToken( key );
     }
 
+    public boolean containTeacherDTO(String token){
+        String key = getUserTeacherDTOAddress( token );
+        return cache.isContainToken( key );
+    }
+
     /**
      * 从缓存中获取用户 StudentDTO
      * @param token

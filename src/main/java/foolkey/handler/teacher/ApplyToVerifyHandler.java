@@ -67,7 +67,6 @@ public class ApplyToVerifyHandler extends AbstractBO {
             teacherDTO.setTeacherAverageScore(0.0F);
             teacherDTO.setTeachingTime(0.0F);
             teacherDTO.setTeachingNumber(0);
-            teacherInfoBO.save(teacherDTO);
             //verified置为processing
             teacherDTO.setVerifyState(VerifyStateEnum.processing);
             teacherInfoBO.save( teacherDTO );

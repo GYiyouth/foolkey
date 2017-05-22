@@ -41,14 +41,18 @@ public class TeacherInfoBO {
         return getTeacherDTO( Long.parseLong( id ) );
     }
     public TeacherDTO getTeacherDTO(Long id){
+
+        TeacherDTO teacherDTO;
+
         String token = userCAO.getUserToken( id );
-        TeacherDTO teacherDTO = userCAO.getTeacherDTO( token );
-        if (teacherDTO != null)
-            return teacherDTO;
+
+        if ( userCAO.containTeacherDTO(token))
+            teacherDTO = userCAO.getTeacherDTO( token );
         else {
             //缓存没有，从数据库取
-            return getTeacherDAO.getTeacherDTO( id );
+            teacherDTO = getTeacherDAO.getTeacherDTO( id );
         }
+        return teacherDTO;
     }
 
     /**

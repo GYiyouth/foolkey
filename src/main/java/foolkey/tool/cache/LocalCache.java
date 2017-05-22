@@ -44,18 +44,6 @@ public class LocalCache implements Cache{
 
         memcachedClient = new MemCachedClient();
 //        测试用，刷新整个缓存区
-        memcachedClient.flushAll();
-
-        for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()){
-            Map map = new HashedMap();
-            Map mapReserve = new HashMap();
-            memcachedClient.set(technicTagEnum.toString(), map);
-            memcachedClient.set(technicTagEnum.toString()+"Reserve",mapReserve);
-        }
-        String[] keys = {"key", "id_token", "token_id"};
-        for (String key : keys){
-            memcachedClient.set(key, new HashedMap());
-        }
 
     }
 
@@ -69,7 +57,8 @@ public class LocalCache implements Cache{
 
     @Override
     public String getString(String token) {
-        return memcachedClient.get(token).toString();
+        Object result = memcachedClient.get(token);
+        return result == null ? null : result.toString();
     }
 
 

@@ -39,7 +39,6 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
             courseStudentBO.initRewardCache();
 
             //1.    添加学生-老师信息到缓存
-            System.out.println("预热程序，学生-老师信息：");
             studentInfoBO.fillStudentDTOToCache();
             //2.    添加token_id,id_token
             studentInfoBO.fillTokenIdAndIdToken();
