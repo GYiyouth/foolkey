@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo.Course;
+package foolkey.pojo.root.bo.course;
 
 import foolkey.pojo.root.CAO.Course.CourseCAO;
 import foolkey.pojo.root.DAO.course_teacher.DeleteCourseTeacherDAO;

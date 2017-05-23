@@ -6,7 +6,7 @@ import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.message.MessageBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.RewardStateEnum;

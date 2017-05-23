@@ -162,8 +162,6 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
      * @return
      */
     public List<OrderBuyCourseDTO> getOrderBuyCourseDTO(Long courseId, CourseTypeEnum courseTypeEnum, Integer pageNo, Integer pageSize, Object... params) {
-        System.out.println("课程类型--：" + courseTypeEnum);
-        System.out.println("课程id:" + courseId);
         List<OrderBuyCourseDTO> list = hibernateTemplate.execute(new HibernateCallback<List<OrderBuyCourseDTO>>() {
             @Override
             public List<OrderBuyCourseDTO> doInHibernate(Session session) throws HibernateException {
@@ -179,10 +177,7 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
 
                 }
                 hql += ")";
-                //最后排序，把相同状态的放一起
-//                hql += " group by obc.courseId";
 
-                //执行Hibernate分页查询
                 Query query = session.createQuery(hql);
                 query.setParameter(0, courseId);
                 query.setParameter(1, courseTypeEnum);
@@ -205,13 +200,13 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
 
     }
 
-    /**
-     * 老师获取课程订单
-     *
-     * @param studentDTO
-     * @param orderDTO
-     * @return
-     */
+//    /**
+//     * 老师获取课程订单
+//     *
+//     * @param studentDTO
+//     * @param orderDTO
+//     * @return
+//     */
 //    public List getOrderToJudgeAsTeacher(StudentDTO studentDTO, OrderStateEnum orderState){
 //        StringBuffer hql = new StringBuffer("select new list (student, order, course ) from StudentDTO  student, OrderBuyCourseDTO  order," );
 //        switch (orderDTO.getCourseTypeEnum()){
@@ -238,5 +233,32 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
         return list;
     }
 
+    /**
+     * (分页)
+     * 老师，根据订单状态，以及课程类型（悬赏？课程？）获取到我的订单。
+     *
+     * @param teacherId
+     * @param pageNo
+     * @param params
+     * @return
+     */
+    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, Object... params) {
 
+        //拼接hql
+        String hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? ";
+        for (int i = 0, len = params.length; i < len; i++) {
+            if (i == 0) {
+                //第一个需要时and关键字
+                hql += "and (obc.orderStateEnum = ? ";
+            } else {
+                //后面的都是or关键字
+                hql += "or obc.orderStateEnum = ? ";
+            }
+        }
+        hql += ")";
+
+        return findByPage(hql, pageNo, PAGE_SIZE, teacherId, params);
+
+    }
 }
+

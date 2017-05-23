@@ -1,4 +1,4 @@
-package foolkey.pojo.root.bo.order_course;
+package foolkey.pojo.root.bo.order;
 
 import foolkey.pojo.root.DAO.order_ask_question.GetOrderAskQuestionDAO;
 import foolkey.pojo.root.DAO.order_ask_question.SaveOrderAskQuestionDAO;
@@ -11,7 +11,7 @@ import foolkey.pojo.root.DAO.order_course.SaveOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_course.UpdateOrderCourseDAO;
 import foolkey.pojo.root.DAO.order_refound.GetOrderRefoundDAO;
 import foolkey.pojo.root.bo.Reward.RewardBO;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
@@ -20,12 +20,9 @@ import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
-import foolkey.pojo.send_to_client.OrderBuyCourseAsTeacherSTCDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseWithStudentAsTeacherSTCDTO;
 import foolkey.pojo.root.vo.dto.*;
-import foolkey.pojo.send_to_client.OrderBuyRewardAsTeacherSTCDTO;
 import foolkey.tool.StaticVariable;
-import foolkey.tool.constant_values.RewardLimit;
 import foolkey.tool.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -501,6 +498,7 @@ public class OrderInfoBO {
 
     /**
      * 根据回答者、问题获取到订单
+     *
      * @param questionAnswerDTO
      * @param answererDTO
      * @return
@@ -508,5 +506,18 @@ public class OrderInfoBO {
      */
     public OrderAskQuestionDTO getByQuestionAndAnswer(QuestionAnswerDTO questionAnswerDTO, StudentDTO answererDTO) throws Exception {
         return getOrderAskQuestionDAO.getByQuestionAndAnswer(questionAnswerDTO, answererDTO);
+    }
+
+    /**
+     * (分页)
+     * 老师，根据订单状态，以及课程类型（悬赏？课程？）获取到我的订单。
+     *
+     * @param teacherId
+     * @param pageNo
+     * @param params
+     * @return
+     */
+    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, Object... params) {
+        return getOrderCourseDAO.getOrderBuyCourseAsTeacherByOrderStateAndCourseType(teacherId, pageNo, params);
     }
 }

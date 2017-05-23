@@ -1,7 +1,7 @@
 package foolkey.handler.order;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;

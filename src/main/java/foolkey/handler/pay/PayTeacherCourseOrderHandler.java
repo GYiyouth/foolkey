@@ -1,13 +1,13 @@
 package foolkey.handler.pay;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.application.ApplicationInfoBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
 import foolkey.pojo.root.bo.message.MessageBO;
 import foolkey.pojo.root.bo.message.MessageOrderBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;

@@ -1,9 +1,12 @@
 package foolkey.controller.GR_test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
 import com.schooner.MemCached.MemcachedItem;
+import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
+import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.Time;
@@ -11,6 +14,10 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
 import sun.applet.Main;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.Future;
@@ -28,7 +35,7 @@ public class TestG3 {
 //        studentDTO.setPassWord("1221");
 //        studentDTO.myClone(aimStudentDTO,studentDTO);
 //        System.out.println(aimStudentDTO.getPassWord()+"?");
-        //类别为空，则随机选取一个类别
+    //类别为空，则随机选取一个类别
 //        if(studentDTO.getTechnicTagEnum() == null){
 //            Random random = new Random();
 //            Integer technicSize = TechnicTagEnum.values().length;
@@ -42,7 +49,7 @@ public class TestG3 {
 //        TestG3 testG3 = new TestG3();
 //        testG3.show(4,5,6,7,8,9);
 
-        private static MemCachedClient memcachedClient = null;
+//        private static MemCachedClient memcachedClient = null;
 
 //        static {
 //            //管理中心，点击“NoSQL高速存储”，在NoSQL高速存储“管理视图”，可以看到系统分配的IP:Port
@@ -70,17 +77,43 @@ public class TestG3 {
 //            memcachedClient.flushAll();
 
 
-
 //        }
 
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+
+        OrderStateEnum[] orderStateEnums = {OrderStateEnum.上课中,OrderStateEnum.取消课程,OrderStateEnum.同意上课};
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("orderStateEnums",orderStateEnums);
+        System.out.println(jsonObject);
+
+
+        Object orderStateEnums1 = jsonObject.get("orderStateEnums");
+        System.out.println(orderStateEnums1);
+//        String os = JSONObject.par("orderStateEnums");
+
+
+
+//        File file = new File("D:\\A\\B\\e.txt");
+//        if (file.exists()) {
+//            System.out.println("文件存在");
+//        } else {
+//            file.createNewFile();
+//            FileOutputStream fop =  new FileOutputStream(file);
+//            PrintWriter pw = new PrintWriter(fop);
+//            pw.write("12212asdasdadsfasdfasd");
+//            pw.flush();
+//        }
+//        if (file.isDirectory()) {
+//            System.out.println("文件夹？");
+//        }
+
+//        List<String> list = new ArrayList<>();
 //        list.add("test1");
 //        list.add("test2");
 //        list.add("test3");
-        memcachedClient.set("test",JSON.toJSONString(list));
-        String result = memcachedClient.get("test").toString();
-        System.out.println(result);
+//        memcachedClient.set("test",JSON.toJSONString(list));
+//        String result = memcachedClient.get("test").toString();
+//        System.out.println(result);
     }
 
 }

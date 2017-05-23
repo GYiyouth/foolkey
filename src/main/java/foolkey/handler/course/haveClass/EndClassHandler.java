@@ -1,11 +1,11 @@
 package foolkey.handler.course.haveClass;
 
 import foolkey.pojo.root.bo.AbstractBO;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.Reward.RewardBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;

@@ -1,8 +1,8 @@
 package foolkey.controller.order_buy_course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.Course.CourseBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.course.CourseBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;

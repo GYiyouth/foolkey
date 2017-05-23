@@ -2,15 +2,13 @@ package foolkey.handler.question;
 
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.message.MessageBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.QuestionStateEnum;
 import foolkey.pojo.root.vo.dto.OrderAskQuestionDTO;
 import foolkey.pojo.root.vo.dto.QuestionAnswerDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
-import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
 import foolkey.tool.Time;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,26 +1,13 @@
 package foolkey.controller;
 
 import com.alibaba.fastjson.JSON;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
-import foolkey.pojo.send_to_client.TeacherAllInfoDTO;
-import foolkey.tool.ConverterB20X;
-import foolkey.tool.ConverterByteBase64;
-import foolkey.tool.JSONHandler;
-import net.sf.json.JSONObject;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletResponse;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by GR on 2017/5/13.

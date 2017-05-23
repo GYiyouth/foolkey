@@ -1,7 +1,7 @@
 package foolkey.initialize;
 
 import foolkey.pojo.root.bo.Reward.RewardBO;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.StaticVariable;

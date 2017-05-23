@@ -3,7 +3,7 @@ package foolkey.handler.question;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.message.MessageBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.pay_order.PayBO;
 import foolkey.pojo.root.bo.question.QuestionBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;

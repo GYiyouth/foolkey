@@ -2,13 +2,11 @@ package foolkey.pojo.root.bo.pay_order;
 
 import foolkey.pojo.root.bo.coupon.CouponInfoBO;
 import foolkey.pojo.root.bo.coupon.UseCouponBO;
-import foolkey.pojo.root.bo.order_course.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.PayResultEnum;
 import foolkey.pojo.root.vo.dto.*;
 import foolkey.tool.StaticVariable;
-import foolkey.tool.Time;
 import foolkey.tool.constant_values.MoneyRate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

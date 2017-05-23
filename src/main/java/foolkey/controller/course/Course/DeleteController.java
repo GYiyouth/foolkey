@@ -1,7 +1,7 @@
 package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.dto.CourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;

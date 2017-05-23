@@ -1,7 +1,7 @@
 package foolkey.pojo.root.bo.search;
 
 import foolkey.pojo.root.DAO.course_teacher.GetCourseTeacherDAO;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseDTO;

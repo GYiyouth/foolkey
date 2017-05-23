@@ -1,8 +1,7 @@
 package foolkey.controller.GR_test;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.Test;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.tool.cache.Cache;

@@ -1,19 +1,16 @@
 package foolkey.controller.course.Course;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.bo.Course.CourseBO;
+import foolkey.pojo.root.bo.course.CourseBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
-import foolkey.pojo.root.vo.assistObject.CourseTeacherStateEnum;
 import foolkey.pojo.root.vo.assistObject.CourseTimeDayEnum;
 import foolkey.pojo.root.vo.assistObject.TeachMethodEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.CourseDTO;
-import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
