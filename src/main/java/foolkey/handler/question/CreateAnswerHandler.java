@@ -33,7 +33,7 @@ import static foolkey.tool.constant_values.MoneyRate.VIRTUAL_REAL_RATE;
  * 返回：
  * questionAnswerDTO：问题的DTO：QuestionAnswerDTO
  * orderAskQuestionDTO：订单DTO：OrderAskQuestionDTO
- *
+ * <p>
  * Created by GR on 2017/5/21.
  */
 @Service
@@ -77,7 +77,7 @@ public class CreateAnswerHandler extends AbstractBO {
         questionAnswerDTO.setInvalidTime(Time.getPermanentDate());
         questionAnswerDTO.setQuestionStateEnum(QuestionStateEnum.已回答);
 
-        //  1. 存储问题-回答DTO
+        //  1. 存储回答之后的问题-回答DTO
         questionBO.createQuestionAnswer(questionAnswerDTO);
 
 
@@ -103,7 +103,7 @@ public class CreateAnswerHandler extends AbstractBO {
         //返回result
         jsonObject.put("result", "success");
         jsonObject.put("questionAnswerDTO", questionAnswerDTO);
-        jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
+//        jsonObject.put("orderAskQuestionDTO", orderAskQuestionDTO);
         jsonHandler.sendJSON(jsonObject, response);
     }
 

@@ -74,25 +74,35 @@ public class BuyAnswerHandler extends AbstractBO {
 
         //完成围观付钱订单
         PayResultEnum payResultEnum = payBO.payForAnswerAsOnlooker(onlookerDTO, askerDTO, answererDTO, couponDTO);
-        jsonObject.put("result", payResultEnum.toString());
+//        jsonObject.put("result", payResultEnum.toString());
 
-        if (payResultEnum.equals(PayResultEnum.success)) {
-            //付款成功，围观订单要添加到数据库
-            orderInfoBO.createOrderBuyAnswerDTO(onlookerDTO, couponDTO, questionAnswerDTO);
-            //修改课程的围观人数+1
-            questionAnswerDTO.setOnlookerNumber(questionAnswerDTO.getOnlookerNumber()+1);
-            questionBO.updateQuestionAnswerDTO(questionAnswerDTO);
+        if(payResultEnum.equals(PayResultEnum.other)){
 
-            jsonObject.put("questionAnswerDTO", questionAnswerDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-        } else {
-            //把答案抹掉
-            String answerContent = questionAnswerDTO.getAnswerContent();
-            questionAnswerDTO.setAnswerTime(null);
-            jsonObject.put("questionAnswerDTO", questionAnswerDTO);
-            jsonHandler.sendJSON(jsonObject, response);
-            questionAnswerDTO.setAnswerContent(answerContent);
+            jsonHandler.sendFailJSON(response);
+            throw new Exception("支付失败");
+        }else{
+            jsonObject.put("result","success");
+            jsonObject.put("payResultEnum",payResultEnum.toString());
+            if (payResultEnum.equals(PayResultEnum.success)) {
+                //付款成功，围观订单要添加到数据库
+                orderInfoBO.createOrderBuyAnswerDTO(onlookerDTO, couponDTO, questionAnswerDTO);
+                //修改课程的围观人数+1
+                questionAnswerDTO.setOnlookerNumber(questionAnswerDTO.getOnlookerNumber()+1);
+                questionBO.updateQuestionAnswerDTO(questionAnswerDTO);
+
+                jsonObject.put("questionAnswerDTO", questionAnswerDTO);
+                jsonHandler.sendJSON(jsonObject, response);
+            }else{
+                //把答案抹掉
+                String answerContent = questionAnswerDTO.getAnswerContent();
+                questionAnswerDTO.setAnswerTime(null);
+                jsonObject.put("questionAnswerDTO", questionAnswerDTO);
+                jsonHandler.sendJSON(jsonObject, response);
+                questionAnswerDTO.setAnswerContent(answerContent);
+                throw new Exception("支付失败");
+            }
         }
+
         //发消息给提问者有人围观了
         messageBO.sendToAskerOfOnlook(askerDTO);
         //发消息给回答者有人围观了

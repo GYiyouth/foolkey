@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by GR on 2017/5/21.
  */
 @Controller
-@RequestMapping("/question/buyAnswer")
+@RequestMapping("/aes/question/buyAnswer")
 public class BuyAnswerController extends AbstractController{
 
     @Autowired
