@@ -7,6 +7,7 @@ import com.danga.MemCached.SockIOPool;
 import com.schooner.MemCached.MemcachedItem;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.assistObject.SchoolEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.Time;
@@ -79,16 +80,29 @@ public class TestG3 {
 
 //        }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
-        OrderStateEnum[] orderStateEnums = {OrderStateEnum.上课中,OrderStateEnum.取消课程,OrderStateEnum.同意上课};
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("orderStateEnums",orderStateEnums);
-        System.out.println(jsonObject);
+        String school = "蓝翔技校";
+        SchoolEnum schoolEnum;
+        try{
+            schoolEnum = SchoolEnum.valueOf(school);
+        }catch(IllegalArgumentException e){
+            schoolEnum = SchoolEnum.其他;
+        }
+        System.out.println(schoolEnum);
 
 
-        Object orderStateEnums1 = jsonObject.get("orderStateEnums");
-        System.out.println(orderStateEnums1);
+//        String str = "1993-02-18 23:34:21";
+//        Date date = Time.fromStringToDate(str);
+//        System.out.println(date);
+//        OrderStateEnum[] orderStateEnums = {OrderStateEnum.上课中,OrderStateEnum.取消课程,OrderStateEnum.同意上课};
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("orderStateEnums",orderStateEnums);
+//        System.out.println(jsonObject);
+//
+//
+//        Object orderStateEnums1 = jsonObject.get("orderStateEnums");
+//        System.out.println(orderStateEnums1);
 //        String os = JSONObject.par("orderStateEnums");
 
 

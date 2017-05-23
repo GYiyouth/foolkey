@@ -1,5 +1,6 @@
 package foolkey.tool;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,10 +74,17 @@ public class Time {
      * @return
      * @throws Exception
      */
-    public static Date getPermanentDate()throws Exception{
+    public static Date getPermanentDate()throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.parse(PERMANENT_DATE);
     }
+
+    public static Date fromStringToDate(String str) throws ParseException {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.parse(str);
+    }
+
+
 
     public static String getYear(){
         Date date = new Date();
