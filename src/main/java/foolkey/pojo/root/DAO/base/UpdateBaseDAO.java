@@ -21,7 +21,7 @@ public class UpdateBaseDAO<T> {
      * @param entity
      */
     public T update(T entity) {
-        hibernateTemplate.saveOrUpdate(entity);
+        hibernateTemplate.update(entity);
         return entity;
     }
 }
