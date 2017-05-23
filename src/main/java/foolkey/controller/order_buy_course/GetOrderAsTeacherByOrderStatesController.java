@@ -16,18 +16,16 @@ import javax.servlet.http.HttpServletResponse;
  * pageNo
  * courseTypeEnum：CourseTypeEnum：请求的课程类别（课程？悬赏）
  * orderStateEnum：OrderStateEnum：订单状态
- *
+ * <p>
  * 返回：
  * result：success,fail
- * orderBuyCourseDTOS：List<OrderBuyCourseDTO>：订单DTOS
- * studentDTOS：List<StudentDTO>：学生DTOS
- * 如果为课程：courseDTOS：List<CourseDTO>：课程信息DTOS
- * 如果为悬赏：rewardDTOS：List<RewardDTO>：悬赏信息DTOS
+ * orderList：List<OrderBuyCourseAsStudentDTO>
+ * <p>
  * Created by GR on 2017/5/23.
  */
 @Controller
 @RequestMapping(value = "/aes/order/GetOrderAsTeacherByOrderStates")
-public class GetOrderAsTeacherByOrderStatesController   extends AbstractController {
+public class GetOrderAsTeacherByOrderStatesController extends AbstractController {
 
     @Autowired
     private GetOrderAsTeacherByOrderStatesHandler handler;
