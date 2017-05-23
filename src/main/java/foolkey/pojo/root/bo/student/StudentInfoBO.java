@@ -154,4 +154,14 @@ public class StudentInfoBO {
     public String getOneTimeSign(String userName) throws AbstractCosException {
         return UploadFileTencent.getOneTimeSign(userName);
     }
+
+    /**
+     * 生成多次签名
+     * @param userName
+     * @return
+     * @throws AbstractCosException
+     */
+    public String getManyTimeSign(String userName) throws AbstractCosException {
+        return UploadFileTencent.getManyTimeSign(userName);
+    }
 }

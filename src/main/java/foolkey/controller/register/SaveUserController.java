@@ -1,7 +1,6 @@
 package foolkey.controller.register;
 
 import foolkey.controller.AbstractController;
-import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.bo.register.UserRegisterBO;
 import foolkey.pojo.root.bo.security.AESKeyBO;
 import foolkey.pojo.root.bo.security.SHA1KeyBO;
@@ -11,7 +10,6 @@ import foolkey.pojo.root.vo.assistObject.SexTagEnum;
 import foolkey.pojo.root.vo.assistObject.UserStateEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.TokenCreator;
-import foolkey.tool.cache.Cache;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,7 +72,7 @@ public class SaveUserController extends AbstractController {
                 studentDTO.setLearningTime(0.0F);
                 studentDTO.setRoleEnum(RoleEnum.student);
                 studentDTO.setPrestige(0);
-                studentDTO.setSexTagEnum(SexTagEnum.Male);
+                studentDTO.setSexTagEnum(SexTagEnum.男);
                 studentDTO.setUserStateEnum(UserStateEnum.unverified);
 
                 userRegisterBO.saveStudent(studentDTO);

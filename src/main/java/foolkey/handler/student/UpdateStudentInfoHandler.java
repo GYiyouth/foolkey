@@ -1,5 +1,6 @@
 package foolkey.handler.student;
 
+import com.alibaba.fastjson.JSONException;
 import foolkey.pojo.root.bo.AbstractBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.SchoolEnum;
@@ -37,8 +38,14 @@ public class UpdateStudentInfoHandler extends AbstractBO {
         String sexTagEnumStr = clearJSON.getString("sexTagEnum");
         SexTagEnum sexTagEnum = SexTagEnum.valueOf(sexTagEnumStr);
         String organization = clearJSON.getString("organization");
-        String birthdayStr = clearJSON.getString("birthday");
-        Date birthday = Time.fromStringToDate(birthdayStr);
+        String birthdayStr;
+//        try {
+//             birthdayStr = clearJSON.getString("birthday");
+//        }catch (net.sf.json.JSONException e){
+//            birthdayStr = System.currentTimeMillis() + "";
+//        }
+//
+//        Date birthday = Date.parse(birthdayStr);
         String technicTagEnumStr = clearJSON.getString("technicTagEnum");
         TechnicTagEnum technicTagEnum = TechnicTagEnum.valueOf(technicTagEnumStr);
         String schoolEnumStr = clearJSON.getString("schoolEnum");
@@ -58,7 +65,7 @@ public class UpdateStudentInfoHandler extends AbstractBO {
         //赋新值
         studentDTO.setSexTagEnum(sexTagEnum);
         studentDTO.setOrganization(organization);
-        studentDTO.setBirthday(birthday);
+//        studentDTO.setBirthday(birthday);
         studentDTO.setTechnicTagEnum(technicTagEnum);
         studentDTO.setSchoolEnum(schoolEnum);
         studentDTO.setGithubUrl(githubUrl);

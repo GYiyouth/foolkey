@@ -19,6 +19,7 @@ public class UploadFileTencent {
     // 设置要操作的bucket
     private static final String bucketName = "foolkey";
 
+    private static SignUtils signUtils;
     static {
 
 
@@ -31,8 +32,17 @@ public class UploadFileTencent {
      * @return
      */
     public static String getOneTimeSign(String userName) throws AbstractCosException {
+//        Credentials cred = new Credentials(appId, secretId, secretKey);
+//        String signStr = Sign.getOneEffectiveSign(bucketName, getOnlinePhoto(userName), cred);
+//        return signStr;
+        signUtils = new SignUtils(getOnlinePhoto( userName ), System.currentTimeMillis() / 1000 + 600);
+        return signUtils.getSignForUser();
+    }
+
+    public static String getManyTimeSign(String userName) throws AbstractCosException {
         Credentials cred = new Credentials(appId, secretId, secretKey);
-        String signStr = Sign.getOneEffectiveSign(bucketName, getOnlinePhoto(userName), cred);
+        long expired = System.currentTimeMillis() / 1000 + 600;
+        String signStr = Sign.getPeriodEffectiveSign(bucketName, getOnlinePhoto(userName), cred, expired);
         return signStr;
     }
 
