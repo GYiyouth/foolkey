@@ -5,10 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
 import com.schooner.MemCached.MemcachedItem;
+import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
 import foolkey.pojo.root.vo.assistObject.SchoolEnum;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
+import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.Time;
 import org.apache.commons.collections.map.HashedMap;
@@ -35,13 +37,28 @@ import java.util.concurrent.Future;
 @Component
 public class TestG3 {
 
+    public static void main(String[] args) {
+        OrderInfoBO orderInfoBO = new OrderInfoBO();
+        try {
+            System.out.println(OrderStateEnum.结束上课);
+            List<OrderBuyCourseDTO> orderBuyCourseDTOS = orderInfoBO.getOrderBuyCourseAsTeacherByOrderStateAndCourseType(20001L, 1, OrderStateEnum.结束上课);
+            for (OrderBuyCourseDTO orderBuyCourseDTO : orderBuyCourseDTOS) {
+                System.out.println(orderBuyCourseDTO);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+//        OrderStateEnum
+    }
+}
+
 //        System.out.println(Time.getDate());
 //        StudentDTO studentDTO = new StudentDTO();
 //        StudentDTO aimStudentDTO = new StudentDTO();
 //        studentDTO.setPassWord("1221");
 //        studentDTO.myClone(aimStudentDTO,studentDTO);
 //        System.out.println(aimStudentDTO.getPassWord()+"?");
-    //类别为空，则随机选取一个类别
+//类别为空，则随机选取一个类别
 //        if(studentDTO.getTechnicTagEnum() == null){
 //            Random random = new Random();
 //            Integer technicSize = TechnicTagEnum.values().length;
@@ -84,15 +101,15 @@ public class TestG3 {
 
 
 //        }
-
-    public static void main(String[] args) throws Exception {
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setEmail("123@321.com");
-        Double s = 5.0;
-        int a = -3;
-        System.out.println(s);
-        System.out.println(s==5);
-        System.out.println(s+a);
+//
+//    public static void main(String[] args) throws Exception {
+//        StudentDTO studentDTO = new StudentDTO();
+//        studentDTO.setEmail("123@321.com");
+//        Double s = 5.0;
+//        int a = -3;
+//        System.out.println(s);
+//        System.out.println(s==5);
+//        System.out.println(s+a);
 
 //        int a = 3;
 //        int b = 5;
@@ -108,7 +125,7 @@ public class TestG3 {
 //            Method getMethod = descriptor.getReadMethod();
 //            System.out.println(getMethod.invoke(studentDTO));
 //            setMethod.invoke(target, getMethod.invoke(source));
-        }
+//        }
 
 //        PropertyDescriptor[] props = null;
 //        try {
@@ -178,4 +195,4 @@ public class TestG3 {
 //        System.out.println(result);
 //    }
 
-}
+//}

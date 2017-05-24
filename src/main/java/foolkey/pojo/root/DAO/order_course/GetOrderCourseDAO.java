@@ -3,11 +3,13 @@ package foolkey.pojo.root.DAO.order_course;
 import foolkey.pojo.root.DAO.base.GetBaseDAO;
 import foolkey.pojo.root.vo.assistObject.CourseTypeEnum;
 import foolkey.pojo.root.vo.assistObject.OrderStateEnum;
+import foolkey.pojo.root.vo.dto.EvaluationStudentDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyAnswerDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.stereotype.Repository;
@@ -239,25 +241,22 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
      *
      * @param teacherId
      * @param pageNo
-     * @param params
+     * @param orderStateEnum
      * @return
      */
-    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, Object... params) {
+    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, OrderStateEnum orderStateEnum) {
 
-        //拼接hql
-        String hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? ";
-        for (int i = 0, len = params.length; i < len; i++) {
-            if (i == 0) {
-                //第一个需要时and关键字
-                hql += "and (obc.orderStateEnum = ? ";
-            } else {
-                //后面的都是or关键字
-                hql += "or obc.orderStateEnum = ? ";
-            }
+        String hql = null;
+        if(orderStateEnum.equals(OrderStateEnum.结束上课)){
+            //拼接hql
+            hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ? where obc.id not in(select es.orderId from EvaluationStudentDTO es where es.creatorId = ?)";
+            return findByPage(hql, pageNo, PAGE_SIZE, teacherId, orderStateEnum, teacherId);
+        }else {
+            //拼接hql
+            hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ?";
+            return findByPage(hql, pageNo, PAGE_SIZE, teacherId, orderStateEnum);
         }
-        hql += ")";
 
-        return findByPage(hql, pageNo, PAGE_SIZE, teacherId, params[0]);
 
     }
 }
