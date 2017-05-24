@@ -1,0 +1,52 @@
+package foolkey.pojo.send_to_client.application;
+
+import foolkey.pojo.root.vo.dto.ApplicationStudentRewardDTO;
+import foolkey.pojo.root.vo.dto.RewardDTO;
+import foolkey.pojo.root.vo.dto.StudentDTO;
+
+/**
+ * 悬赏-学生信息
+ * Created by GR on 2017/5/24.
+ */
+public class ApplicationRewardWithStudentSTCDTO {
+
+    //申请信息
+    private ApplicationStudentRewardDTO applicationStudentRewardDTO;
+    //悬赏DTO
+    private RewardDTO rewardDTO;
+    //学生(悬赏发布者)信息DTO
+    private StudentDTO studentDTO;
+
+    @Override
+    public String toString() {
+        return "ApplicationRewardWithStudentSTCDTO{" +
+                "applicationStudentRewardDTO=" + applicationStudentRewardDTO +
+                ", rewardDTO=" + rewardDTO +
+                ", studentDTO=" + studentDTO +
+                '}';
+    }
+
+    public ApplicationStudentRewardDTO getApplicationStudentRewardDTO() {
+        return applicationStudentRewardDTO;
+    }
+
+    public void setApplicationStudentRewardDTO(ApplicationStudentRewardDTO applicationStudentRewardDTO) {
+        this.applicationStudentRewardDTO = applicationStudentRewardDTO;
+    }
+
+    public RewardDTO getRewardDTO() {
+        return rewardDTO;
+    }
+
+    public void setRewardDTO(RewardDTO rewardDTO) {
+        this.rewardDTO = rewardDTO;
+    }
+
+    public StudentDTO getStudentDTO() {
+        return studentDTO;
+    }
+
+    public void setStudentDTO(StudentDTO studentDTO) {
+        this.studentDTO = studentDTO;
+    }
+}

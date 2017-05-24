@@ -62,6 +62,7 @@ public class ApplicationInfoBO {
 
     /**
      * 生成对老师课程的申请消息，并存储
+     *
      * @return
      */
     public ApplicationTeacherCourseDTO createApplicationForTeacherCourse(
@@ -69,14 +70,14 @@ public class ApplicationInfoBO {
             Long orderId,
             Long messageId,
             Long teacherId
-    ){
+    ) {
         ApplicationTeacherCourseDTO application = new ApplicationTeacherCourseDTO();
         application.setApplicantId(applicantId);
         application.setOrderId(orderId);
         application.setMessageId(messageId);
         application.setTeacherId(teacherId);
         application.setApplyTime(new Date());
-        application.setState( ApplicationStateEnum.processing);
+        application.setState(ApplicationStateEnum.processing);
         return application;
     }
 
@@ -85,66 +86,70 @@ public class ApplicationInfoBO {
             Long courseId,
             Long messageId,
             Long studentId
-    ){
+    ) {
         ApplicationStudentRewardDTO application = new ApplicationStudentRewardDTO();
         application.setApplicantId(applicantId);
         application.setRewardId(courseId);
         application.setMessageId(messageId);
         application.setStudentId(studentId);
         application.setApplyTime(new Date());
-        application.setState( ApplicationStateEnum.processing);
+        application.setState(ApplicationStateEnum.processing);
         return application;
     }
 
 
-
     /**
      * 存储 到数据库
+     *
      * @param application
      * @return
      */
-    public ApplicationTeacherCourseDTO save(ApplicationTeacherCourseDTO application){
-                saveApplicationTeacherCourseDAO.save(application);
-                return application;
+    public ApplicationTeacherCourseDTO save(ApplicationTeacherCourseDTO application) {
+        saveApplicationTeacherCourseDAO.save(application);
+        return application;
     }
 
-    public ApplicationStudentRewardDTO save(ApplicationStudentRewardDTO applicaiton){
+    public ApplicationStudentRewardDTO save(ApplicationStudentRewardDTO applicaiton) {
         saveApplicationStudentRewardDAO.save(applicaiton);
         return applicaiton;
     }
 
     /**
      * 删除对学生悬赏的申请
+     *
      * @param studentId
      * @param teacherId
      */
-    public void deleteRewardApplication(Long studentId, Long teacherId){
+    public void deleteRewardApplication(Long studentId, Long teacherId) {
         deleteApplicationStudentRewardDAO.delete(teacherId, studentId);
     }
 
     /**
      * 根据Id删除某条申请
+     *
      * @param applicationId
      */
-    public void deleteRewardApplication(Long applicationId){
-        deleteApplicationStudentRewardDAO.deleteById( ApplicationStudentRewardDTO.class, applicationId);
+    public void deleteRewardApplication(Long applicationId) {
+        deleteApplicationStudentRewardDAO.deleteById(ApplicationStudentRewardDTO.class, applicationId);
     }
 
     /**
      * 删除对老师课程的申请
+     *
      * @param applicantId
      * @param orderId
      */
-    public void deleteTeacherCourseApplication(Long applicantId, Long orderId){
+    public void deleteTeacherCourseApplication(Long applicantId, Long orderId) {
         deleteApplicationTeacherCourseDAO.delete(applicantId, orderId);
     }
 
     /**
      * 根据orderId删除课程申请
+     *
      * @param orderId
      * @param courseType
      */
-    public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType) throws Exception{
+    public void deleteAllApplicationByOrderId(Long orderId, CourseTypeEnum courseType) throws Exception {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
         if (courseType.compareTo(CourseTypeEnum.学生悬赏) == 0) {
             RewardDTO courseStudentDTO = rewardBO.getCourseStudentDTO(orderDTO.getCourseId());
@@ -158,10 +163,11 @@ public class ApplicationInfoBO {
 
     /**
      * 根据id获取申请DTO，学生课程的申请
+     *
      * @param applicationId
      * @return
      */
-    public ApplicationStudentRewardDTO getRewardApplicationDTO(Long applicationId) throws Exception{
+    public ApplicationStudentRewardDTO getRewardApplicationDTO(Long applicationId) throws Exception {
         return getApplicationStudentRewardDAO.get(ApplicationStudentRewardDTO.class, applicationId);
     }
 
@@ -171,12 +177,13 @@ public class ApplicationInfoBO {
 
     /**
      * 获取 学生悬赏 的申请
+     *
      * @param teacherId 教师id
      * @param studentId 学生id
-     * @param courseId 悬赏id
+     * @param courseId  悬赏id
      * @return
      */
-    public List<ApplicationStudentRewardDTO> getRewardApplicationDTo(Long teacherId, Long studentId, Long courseId){
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTo(Long teacherId, Long studentId, Long courseId) {
         List<ApplicationStudentRewardDTO> list =
                 getApplicationStudentRewardDAO.findByPage(
                         "from ApplicationStudentRewardDTO asr where asr.applicantId = ? " +
@@ -188,12 +195,13 @@ public class ApplicationInfoBO {
 
     /**
      * 获取 老师课程 的申请
+     *
      * @param teacherId 教师id
      * @param studentId 学生id
-     * @param orderId 订单id
+     * @param orderId   订单id
      * @return
      */
-    public List<ApplicationTeacherCourseDTO> getTeacherCourseApplicationDTO(Long teacherId, Long studentId, Long orderId){
+    public List<ApplicationTeacherCourseDTO> getTeacherCourseApplicationDTO(Long teacherId, Long studentId, Long orderId) {
         List<ApplicationTeacherCourseDTO> list =
                 getApplicationTeacherCourseDAO.findByPage(
                         "from ApplicationTeacherCourseDTO atr where atr.applicantId = ? " +
@@ -205,20 +213,22 @@ public class ApplicationInfoBO {
 
     /**
      * 更新
+     *
      * @param applicationStudentRewardDTO
      * @return
      */
-    public ApplicationStudentRewardDTO update(ApplicationStudentRewardDTO applicationStudentRewardDTO){
+    public ApplicationStudentRewardDTO update(ApplicationStudentRewardDTO applicationStudentRewardDTO) {
         updateApplicationStudentRewardDAO.update(applicationStudentRewardDTO);
         return applicationStudentRewardDTO;
     }
 
     /**
      * 更新
+     *
      * @param applicationTeacherCourseDTO
      * @return
      */
-    public ApplicationTeacherCourseDTO update(ApplicationTeacherCourseDTO applicationTeacherCourseDTO){
+    public ApplicationTeacherCourseDTO update(ApplicationTeacherCourseDTO applicationTeacherCourseDTO) {
         updateApplicationTeacherCourseDAO.update(applicationTeacherCourseDTO);
         return applicationTeacherCourseDTO;
     }
@@ -226,26 +236,28 @@ public class ApplicationInfoBO {
     /**
      * LG
      * 分页显示学生某个悬赏下，所有的申请信息
+     *
      * @param rewardId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId, Integer pageNo, Integer pageSize){
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId, Integer pageNo, Integer pageSize) {
         String hql = "from  ApplicationStudentRewardDTO asr  where asr.rewardId = ? ";
-        return getApplicationStudentRewardDAO.findByPage(hql,pageNo,pageSize,rewardId);
+        return getApplicationStudentRewardDAO.findByPage(hql, pageNo, pageSize, rewardId);
     }
 
     /**
      * LG
      * 显示学生某个悬赏下，所有的申请信息，不分页
      * 一次性获取的数目，目前是16
+     *
      * @param rewardId
      * @return
      */
-    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId){
+    public List<ApplicationStudentRewardDTO> getRewardApplicationDTOAsStudent(Long rewardId) {
         String hql = "from  ApplicationStudentRewardDTO asr  where asr.rewardId = ? ";
-        return getApplicationStudentRewardDAO.findByPage(hql,1, RewardLimit.REWARD_APPLICATION_SHOW_NUMBER, rewardId);
+        return getApplicationStudentRewardDAO.findByPage(hql, 1, RewardLimit.REWARD_APPLICATION_SHOW_NUMBER, rewardId);
     }
 
 //    public List<ApplicationRewardWithTeacherSTCDTO> getApplicationRewardWithTeacherSTCDTO(Long rewardId) throws Exception{
@@ -283,13 +295,14 @@ public class ApplicationInfoBO {
 
     /**
      * 把悬赏的申请封装成悬赏-老师DTO
+     *
      * @param applicationStudentRewardDTOS
      * @return
      * @throws Exception
      */
-    public List<ApplicationRewardWithTeacherSTCDTO> convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception{
+    public List<ApplicationRewardWithTeacherSTCDTO> convertApplicationStudentRewardDTOInToApplicationRewardWithTeacherSTCDTO(List<ApplicationStudentRewardDTO> applicationStudentRewardDTOS) throws Exception {
         List<ApplicationRewardWithTeacherSTCDTO> applicationRewardWithTeacherSTCDTOS = new ArrayList<>();
-        for(ApplicationStudentRewardDTO applicationStudentRewardDTO:applicationStudentRewardDTOS){
+        for (ApplicationStudentRewardDTO applicationStudentRewardDTO : applicationStudentRewardDTOS) {
 
             ApplicationRewardWithTeacherSTCDTO applicationRewardWithTeacherSTCDTO = new ApplicationRewardWithTeacherSTCDTO();
             //      添加   申请信息
@@ -300,5 +313,16 @@ public class ApplicationInfoBO {
             applicationRewardWithTeacherSTCDTOS.add(applicationRewardWithTeacherSTCDTO);
         }
         return applicationRewardWithTeacherSTCDTOS;
+    }
+
+
+    /**
+     * 获取到该老师所有悬赏申请
+     *
+     * @param teacherId
+     * @return
+     */
+    public List<ApplicationStudentRewardDTO> getApplicationRewardAsTeacher(Long teacherId, Integer pageNo, ApplicationStateEnum applicationStateEnum) {
+        return getApplicationStudentRewardDAO.getApplicationRewardAsTeacher(teacherId, pageNo, applicationStateEnum);
     }
 }
