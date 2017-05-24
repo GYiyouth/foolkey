@@ -257,7 +257,7 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
         }
         hql += ")";
 
-        return findByPage(hql, pageNo, PAGE_SIZE, teacherId, params);
+        return findByPage(hql, pageNo, PAGE_SIZE, teacherId, params[0]);
 
     }
 }

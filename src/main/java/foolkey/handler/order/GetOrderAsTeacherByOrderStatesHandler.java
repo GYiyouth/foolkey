@@ -77,6 +77,7 @@ public class GetOrderAsTeacherByOrderStatesHandler extends AbstractBO {
 
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getUserId());
             orderBuyCourseAsStudentDTO.setStudentDTO(studentDTO);
+            orderBuyCourseAsStudentDTO.setOrderDTO( orderBuyCourseDTO );
 
             orderBuyCourseAsStudentDTO.setTeacherDTO(teacherInfoBO.getTeacherDTO(teacherDTO.getId()));
 
@@ -88,6 +89,7 @@ public class GetOrderAsTeacherByOrderStatesHandler extends AbstractBO {
                 RewardDTO rewardDTO = rewardBO.getCourseStudentDTOById(orderBuyCourseDTO.getCourseId());
                 orderBuyCourseAsStudentDTO.setCourse(rewardDTO);
             }
+            orderList.add(orderBuyCourseAsStudentDTO);
         }
 
 

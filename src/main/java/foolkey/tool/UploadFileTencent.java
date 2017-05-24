@@ -35,7 +35,7 @@ public class UploadFileTencent {
 //        Credentials cred = new Credentials(appId, secretId, secretKey);
 //        String signStr = Sign.getOneEffectiveSign(bucketName, getOnlinePhoto(userName), cred);
 //        return signStr;
-        signUtils = new SignUtils(getOnlinePhoto( userName ), System.currentTimeMillis() / 1000 + 600);
+        signUtils = new SignUtils(null, 2);
         return signUtils.getSignForUser();
     }
 
