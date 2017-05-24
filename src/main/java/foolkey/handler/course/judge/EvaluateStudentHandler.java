@@ -7,6 +7,7 @@ import foolkey.pojo.root.bo.order.OrderInfoBO;
 import foolkey.pojo.root.bo.student.StudentInfoBO;
 import foolkey.pojo.root.vo.assistObject.EvaluationStateEnum;
 import foolkey.pojo.root.vo.dto.EvaluationCourseDTO;
+import foolkey.pojo.root.vo.dto.EvaluationStudentDTO;
 import foolkey.pojo.root.vo.dto.OrderBuyCourseDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import net.sf.json.JSONObject;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  * 对学生进行评价
@@ -52,7 +54,11 @@ public class EvaluateStudentHandler extends AbstractBO {
         OrderBuyCourseDTO orderDTO = orderInfoBO.getCourseOrder(orderId + "");
 //        CourseTeacherDTO courseDTO = courseTeacherBO.getCourseTeacherDTOById(orderDTO.getRewardId());
         StudentDTO student = studentInfoBO.getStudentDTO( orderDTO.getUserId() );
-
+        ArrayList<EvaluationStudentDTO> evaluationStudentDTOS = evaluationInfoBO.getStudentEvaluationByOrderId(orderId);
+        if (evaluationStudentDTOS.size() > 0){//已经评价过了
+            jsonHandler.sendFailJSON( response );
+            return;
+        }
 
 
         //修改学生评价
