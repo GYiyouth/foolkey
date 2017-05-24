@@ -54,16 +54,16 @@ public class SaveUserController extends AbstractController {
             boolean flag = userRegisterBO.checkStudentByUserName(userName);
             boolean tokenFlag = userRegisterBO.checkStudentToken(token);
 
-            //测试明文长度
-            System.out.println("\n\n\n");
-            System.out.println(userName);
-            System.out.println(passWord);
-            System.out.println(aesKey);
 
 
             if (flag == false && tokenFlag == false){
                 //保存用户信息到数据库和缓存
                 StudentDTO studentDTO = new StudentDTO();
+                studentDTO.setSlogan("这个家伙很懒，什么都没有留下……");
+                studentDTO.setStudentAverageScore(0.0f);
+                studentDTO.setGithubUrl("github.com");
+                studentDTO.setBlogUrl("个人博客");
+                studentDTO.setOtherUrl("个人主页");
                 studentDTO.setUserName(userName);
                 studentDTO.setPassWord(passWord);
                 studentDTO.setCash(0.0);

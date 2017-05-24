@@ -56,7 +56,11 @@ public class EvaluateStudentHandler extends AbstractBO {
 
 
         //修改学生评价
-        Float totalScore = student.getStudentAverageScore() * student.getLearningTime();
+        Float totalScore;
+        if (student.getStudentAverageScore() != null)
+             totalScore= student.getStudentAverageScore() * student.getLearningTime();
+        else
+            totalScore = 0.0F;
         totalScore += score;
         student.setLearningNumber( student.getLearningNumber() + 1 );
         Float average = totalScore / student.getLearningNumber();
