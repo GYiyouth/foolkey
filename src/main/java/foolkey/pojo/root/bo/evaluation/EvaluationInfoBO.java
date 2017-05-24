@@ -140,4 +140,14 @@ public class EvaluationInfoBO {
         }
         return evaluationCourseSTCDTOS;
     }
+
+    /**
+     * 根据orderId获取评价
+     * @param orderId
+     * @return
+     */
+    public ArrayList<EvaluationStudentDTO> getStudentEvaluationByOrderId(Long orderId){
+        String hql = "select es from EvaluationStudentDTO es where es.orderId = ?";
+        return getEvaluationStudentDAO.find(hql, orderId);
+    }
 }
