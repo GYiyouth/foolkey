@@ -19,6 +19,7 @@ public abstract class AbstractCAO {
     protected static final String rsaKeyDTOToken = "rsaKeyDTO";
     protected static final String aesKeyToken = "aesKeyToken";
     protected static final String tokenToken = "token";
+    protected static final String completePersonalProfileFlag = "profileFlag";
 
     //以下缓存群，在各个技术标签下均有
     protected static final String coursePopularToken = "coursePopular";

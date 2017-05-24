@@ -12,13 +12,18 @@ import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.tool.Time;
 import org.apache.commons.collections.map.HashedMap;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import sun.applet.Main;
 
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.Future;
@@ -81,15 +86,59 @@ public class TestG3 {
 //        }
 
     public static void main(String[] args) throws Exception {
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setEmail("123@321.com");
+        Double s = 5.0;
+        int a = -3;
+        System.out.println(s);
+        System.out.println(s==5);
+        System.out.println(s+a);
 
-        String school = "蓝翔技校";
-        SchoolEnum schoolEnum;
-        try{
-            schoolEnum = SchoolEnum.valueOf(school);
-        }catch(IllegalArgumentException e){
-            schoolEnum = SchoolEnum.其他;
+//        int a = 3;
+//        int b = 5;
+//        double c = (double) a/b;
+//        System.out.println(c);
+
+
+//        Field[] fields = studentDTO.getClass().getDeclaredFields();
+//        System.out.println(fields.length);
+//        for (Field field : fields) {
+//            PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), studentDTO.getClass());
+//            Method setMethod = descriptor.getWriteMethod();
+//            Method getMethod = descriptor.getReadMethod();
+//            System.out.println(getMethod.invoke(studentDTO));
+//            setMethod.invoke(target, getMethod.invoke(source));
         }
-        System.out.println(schoolEnum);
+
+//        PropertyDescriptor[] props = null;
+//        try {
+//            props = Introspector.getBeanInfo(studentDTO.getClass(), Object.class).getPropertyDescriptors();
+//            if (props != null) {
+//                for (int i = 0; i < props.length; i++) {
+//                    String aa = props[i].getName();//获取bean中的属性
+////                    String bb = props[i].getValue()
+//                    System.out.println("属性" + aa);
+//                    Object object = props[i].getPropertyType();//获取属性的类型
+//                    System.out.println("类型:" + object);
+//                }
+//            }
+//        } catch (Exception e) {
+//
+//        }
+
+
+//
+//        StudentDTO studentDTO = new StudentDTO();
+//        System.out.println(studentDTO.getClass().getDeclaredFields().length);
+
+//        String school = "蓝翔技校";
+//        SchoolEnum schoolEnum;
+//        try{
+//            schoolEnum = SchoolEnum.valueOf(school);
+//        }catch(IllegalArgumentException e){
+//            schoolEnum = SchoolEnum.其他;
+//        }
+//        System.out.println(schoolEnum);
 
 
 //        String str = "1993-02-18 23:34:21";
@@ -104,7 +153,6 @@ public class TestG3 {
 //        Object orderStateEnums1 = jsonObject.get("orderStateEnums");
 //        System.out.println(orderStateEnums1);
 //        String os = JSONObject.par("orderStateEnums");
-
 
 
 //        File file = new File("D:\\A\\B\\e.txt");
@@ -128,6 +176,6 @@ public class TestG3 {
 //        memcachedClient.set("test",JSON.toJSONString(list));
 //        String result = memcachedClient.get("test").toString();
 //        System.out.println(result);
-    }
+//    }
 
 }
