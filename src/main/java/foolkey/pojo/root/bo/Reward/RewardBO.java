@@ -1,6 +1,7 @@
 package foolkey.pojo.root.bo.Reward;
 
 import foolkey.pojo.root.CAO.Reward.RewardCAO;
+import foolkey.pojo.root.DAO.course_student.DeleteCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.GetCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.SaveCourseStudentDAO;
 import foolkey.pojo.root.DAO.course_student.UpdateCourseStudentDAO;
@@ -41,6 +42,8 @@ public class RewardBO {
     private StudentInfoBO studentInfoBO;
     @Autowired
     private RewardCAO rewardCAO;
+    @Autowired
+    private DeleteCourseStudentDAO deleteCourseStudentDAO;
 
 
     /**
@@ -222,6 +225,15 @@ public class RewardBO {
 
         rewardCAO.deleteRewardWithStudent(rewardWithStudentSTCDTO);
 
+    }
+
+    /**
+     * 删除悬赏DTO(包括内存)
+     * @param rewardDTO
+     */
+    public void deleteRewardDTO(RewardDTO rewardDTO){
+        deleteCourseStudentDAO.delete(rewardDTO);
+        deleteRewardFromCache(rewardDTO);
     }
 
 }

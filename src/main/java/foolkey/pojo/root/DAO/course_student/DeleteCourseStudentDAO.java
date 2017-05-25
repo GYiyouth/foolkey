@@ -8,5 +8,11 @@ import org.springframework.stereotype.Repository;
  * Created by admin on 2017/4/25.
  */
 @Repository("deleteCourseStudentDAO")
-public class DeleteCourseStudentDAO extends DeleteBaseDAO<RewardDTO>{
+public class DeleteCourseStudentDAO extends DeleteBaseDAO<RewardDTO> {
+
+    @Override
+    public void delete(RewardDTO entity) {
+        super.delete(entity);
+    }
+
 }
