@@ -23,12 +23,12 @@ public class GetOneTimeSign_uploadHandler extends AbstractBO {
             HttpServletResponse response,
             JSONObject jsonObject
     )throws Exception{
-        String clearText = request.getAttribute("clearText").toString();
-        JSONObject clearJSON = JSONObject.fromObject( clearText );
+//        String clearText = request.getParameter("clearText").toString();
+//        JSONObject clearJSON = JSONObject.fromObject( clearText );
+//
+//        String token = clearJSON.getString("token");
 
-        String token = clearJSON.getString("token");
-
-        jsonObject.put("sign", studentInfoBO.getOneTimeSign(token));
+        jsonObject.put("sign", studentInfoBO.getManyTimeSign(null));
         jsonObject.put("result", "success");
 
         jsonHandler.sendJSON( jsonObject, response );

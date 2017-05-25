@@ -10,6 +10,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import static foolkey.tool.UploadFileTencent.download;
+import static foolkey.tool.UploadFileTencent.getDefaultPhotoCostPath;
+import static foolkey.tool.UploadFileTencent.getUserPhotoCosPath;
+
 
 /**
  * Created by GR on 2017/5/3.
@@ -25,6 +29,8 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private StudentInfoBO studentInfoBO;
 
+    //下载一些默认图片到本地
+    private static Integer defaultPicNums = 14;
 
     /**
      * 预热程序，填充缓存中的信息
@@ -52,6 +58,12 @@ public class CacheLoader implements ApplicationListener<ContextRefreshedEvent> {
                 System.out.println("预热程序，悬赏类别：" + technicTagEnum);
                 courseStudentBO.fillRewardWithStudentDTOToCache(technicTagEnum, StaticVariable.CACHE_SIZE);
             }
+        }
+
+        for (int i = 0; i <= defaultPicNums ; i++ ){
+            System.out.println(" UploadFileTencet " + " 30行 ");
+            System.out.println("下载第" + i + "张图片");
+            System.out.println( download( getDefaultPhotoCostPath( i ) ) ) ;
         }
     }
 }

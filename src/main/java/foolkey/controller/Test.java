@@ -28,28 +28,6 @@ public class Test {
 //    }
 
     public static void main(String[] args) throws Exception{
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setNickedName("昵称");
-        studentDTO.setRoleEnum(RoleEnum.student);
-        studentDTO.setBirthday(new Date());
-        String jsonString = JSON.toJSONString(studentDTO);
-        com.alibaba.fastjson.JSONObject jsonObject = new com.alibaba.fastjson.JSONObject();
-        jsonObject.put("student", studentDTO);
-        System.out.println(jsonObject);
-        System.out.println(jsonString);
-
-        StudentDTO studentDTO1 = JSON.parseObject( jsonString, StudentDTO.class);
-        System.out.println(studentDTO1);
-        studentDTO1.setBirthday(new Date() );
-        System.out.println(studentDTO1);
-        System.out.println();
-
-        OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
-        orderBuyCourseAsStudentDTO.setStudentDTO(studentDTO);
-        orderBuyCourseAsStudentDTO.setTeacherDTO(new TeacherDTO());
-        String orderStr = JSON.toJSONString(orderBuyCourseAsStudentDTO);
-        System.out.println(orderBuyCourseAsStudentDTO);
-        System.out.println(orderStr);
-        System.out.println( JSON.parseObject(orderStr, OrderBuyCourseAsStudentDTO.class));
+        System.out.println(System.getenv("HOME"));
     }
 }

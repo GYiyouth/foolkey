@@ -1,6 +1,7 @@
 package foolkey.pojo.root.bo.student;
 
 import com.qcloud.cos.exception.AbstractCosException;
+import com.sun.istack.internal.Nullable;
 import foolkey.pojo.root.CAO.userInfo.UserCAO;
 import foolkey.pojo.root.DAO.student.GetStudentDAO;
 import foolkey.pojo.root.DAO.student.UpdateStudentDAO;
@@ -151,7 +152,7 @@ public class StudentInfoBO {
      * 为一名用户生成签名
      * @param userName
      */
-    public String getOneTimeSign(String userName) throws AbstractCosException {
+    public String getOneTimeSign(@Nullable String userName) throws AbstractCosException {
         return UploadFileTencent.getOneTimeSign(userName);
     }
 
@@ -161,7 +162,19 @@ public class StudentInfoBO {
      * @return
      * @throws AbstractCosException
      */
-    public String getManyTimeSign(String userName) throws AbstractCosException {
+    public String getManyTimeSign(@Nullable String userName) throws AbstractCosException {
         return UploadFileTencent.getManyTimeSign(userName);
+    }
+
+    /**
+     * 为用户指定上传默认图片
+     * @param userName
+     * @param defaultPhotoNum
+     * @return
+     */
+    public void setPhoto(String userName, Integer defaultPhotoNum){
+        String cosPath = UploadFileTencent.getUserPhotoCosPath(userName);
+        String localpath = UploadFileTencent.getDefaultPhotoCostPath( defaultPhotoNum );
+        UploadFileTencent.upload(cosPath, localpath);
     }
 }

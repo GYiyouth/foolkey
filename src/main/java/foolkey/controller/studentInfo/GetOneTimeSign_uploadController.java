@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by geyao on 2017/5/22.
  */
 @Controller
-@RequestMapping("/aes/upload/getSign")
+@RequestMapping("/upload/getSign")
 public class GetOneTimeSign_uploadController extends AbstractController{
 
     @Autowired

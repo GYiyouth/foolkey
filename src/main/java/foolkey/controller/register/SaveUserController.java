@@ -56,7 +56,16 @@ public class SaveUserController extends AbstractController {
 
 
 
+
             if (flag == false && tokenFlag == false){
+
+                if ( request.getAttribute("photo") != null ){
+                    //用户没有上传头像，需要我来帮他上传
+                    String photoNum = request.getAttribute("photo").toString();
+                    studentInfoBO.setPhoto(userName, Integer.parseInt( photoNum ));
+                }
+
+
                 //保存用户信息到数据库和缓存
                 StudentDTO studentDTO = new StudentDTO();
                 studentDTO.setSlogan("这个家伙很懒，什么都没有留下……");
