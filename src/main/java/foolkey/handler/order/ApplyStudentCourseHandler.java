@@ -63,6 +63,12 @@ public class ApplyStudentCourseHandler extends AbstractBO {
         RewardDTO courseDTO = courseStudentBO.getCourseStudentDTO( courseId );
 
         //验证资格
+        //本人不能接
+        if (courseDTO.getCreatorId().equals(studentDTO.getId())){
+            jsonHandler.sendFailJSON(response);
+            return;
+        }
+
         //学生、认证失败的老师也不能接单
         if (studentDTO.getRoleEnum().compareTo(RoleEnum.student) == 0
                 || teacherDTO.getVerifyState().compareTo(VerifyStateEnum.refused) == 0                )
