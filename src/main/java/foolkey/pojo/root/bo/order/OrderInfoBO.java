@@ -514,10 +514,10 @@ public class OrderInfoBO {
      *
      * @param teacherId
      * @param pageNo
-     * @param params
+     * @param orderStateEnum
      * @return
      */
-    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, Object... params) {
-        return getOrderCourseDAO.getOrderBuyCourseAsTeacherByOrderStateAndCourseType(teacherId, pageNo, params[0]);
+    public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, OrderStateEnum orderStateEnum) {
+        return getOrderCourseDAO.getOrderBuyCourseAsTeacherByOrderStateAndCourseType(teacherId, pageNo, orderStateEnum);
     }
 }

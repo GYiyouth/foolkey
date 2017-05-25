@@ -14,6 +14,7 @@ import foolkey.pojo.root.vo.dto.RewardDTO;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.send_to_client.OrderBuyCourseAsStudentDTO;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,11 @@ public class GetOrderAsTeacherByOrderStatesHandler extends AbstractBO {
         List<OrderBuyCourseDTO> orderBuyCourseDTOS = orderInfoBO.getOrderBuyCourseAsTeacherByOrderStateAndCourseType(teacherDTO.getId(), pageNo, orderStateEnum);
 
         for (OrderBuyCourseDTO orderBuyCourseDTO : orderBuyCourseDTOS) {
+            //结束上课的时候，因为老师只能对学生评论，因此需要去查看是否已经对学生评价了
+//            if(orderStateEnum.equals(OrderStateEnum.结束上课))
+
+
+//            StringEscapeUtils.escapeHtml()
 
             OrderBuyCourseAsStudentDTO orderBuyCourseAsStudentDTO = new OrderBuyCourseAsStudentDTO();
 
