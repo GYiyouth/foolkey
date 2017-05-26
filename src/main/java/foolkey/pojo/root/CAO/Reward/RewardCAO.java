@@ -314,6 +314,11 @@ public class RewardCAO extends AbstractCAO {
         TechnicTagEnum technicTagEnum = aimRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum();
         String listKey = getRewardSearchKeyOfTechnicTagEnum(technicTagEnum);
         String resultStr = cache.getString(listKey);
+
+        if(resultStr == null){
+            return;
+        }
+
         List<String> list = JSON.parseArray(resultStr, String.class);
 
         //热门悬赏队列删除这门悬赏

@@ -167,7 +167,7 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
         List<OrderBuyCourseDTO> list = hibernateTemplate.execute(new HibernateCallback<List<OrderBuyCourseDTO>>() {
             @Override
             public List<OrderBuyCourseDTO> doInHibernate(Session session) throws HibernateException {
-                String hql = " from OrderBuyCourseDTO obc where obc.courseId = ? and obc.courseTypeEnum = ? ";
+                String hql = " from OrderBuyCourseDTO obc where obc.courseId = ? and obc.courseTypeEnum = ?  ";
                 for (int i = 0, len = params.length; i < len; i++) {
                     if (i == 0) {
                         //第一个需要时and关键字
@@ -247,12 +247,12 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
     public List<OrderBuyCourseDTO> getOrderBuyCourseAsTeacherByOrderStateAndCourseType(Long teacherId, Integer pageNo, OrderStateEnum orderStateEnum) {
 
         String hql = null;
-        if(orderStateEnum.equals(OrderStateEnum.结束上课)){
+        if (orderStateEnum.equals(OrderStateEnum.结束上课)) {
             //拼接hql
             hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ? " +
                     " and obc.id not in(select es.orderId from EvaluationStudentDTO es where es.creatorId = ?)";
             return findByPage(hql, pageNo, PAGE_SIZE, teacherId, orderStateEnum, teacherId);
-        }else {
+        } else {
             //拼接hql
             hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ?";
             return findByPage(hql, pageNo, PAGE_SIZE, teacherId, orderStateEnum);
