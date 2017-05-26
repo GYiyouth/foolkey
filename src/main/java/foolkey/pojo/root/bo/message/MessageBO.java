@@ -25,7 +25,7 @@ public class MessageBO {
     ) throws Exception{
         String messagePayLoad = "messagePayLoad";
         String title = "有人申请了你的悬赏课程 ！";
-        String description = "【" +
+        String description = applicantDTO.getNickedName() + "申请了你的悬赏【" +
                 courseDTO.getTopic() + "】请，尽快查看吧~";
 
         return
