@@ -81,6 +81,8 @@ public class UpdateController extends AbstractController{
             courseStudentDTO.setTeacherRequirementEnum(teacherRequirementEnum);
             courseStudentDTO.setStudentBaseEnum(studentBaseEnum);
 
+            courseStudentBO.update(courseStudentDTO);
+
             //封装-传送JSON
             jsonObject.put("result","success");
             jsonObject.put("courseStudentDTO",courseStudentDTO);
