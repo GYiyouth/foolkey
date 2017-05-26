@@ -78,7 +78,7 @@ public class PrestigeInfoBO {
         //老师信息
         StudentDTO teacherDTO = studentInfoBO.getStudentDTO(orderBuyCourseDTO.getTeacherId());
         //交易产生的声望值（默认=交易额）
-        Integer prestigeValue = Integer.valueOf(orderBuyCourseDTO.getAmount() + "");
+        Integer prestigeValue = (int) ( (double) ( orderBuyCourseDTO.getAmount() ) );
 
         //学生就直接增加等额声望
         studentDTO.setPrestige(studentDTO.getPrestige() + prestigeValue);
@@ -117,15 +117,7 @@ public class PrestigeInfoBO {
         //被评价学生的DTO
         StudentDTO studentDTO = studentInfoBO.getStudentDTO(evaluationStudentDTO.getAcceptor_id());
         Double score = evaluationStudentDTO.getScore();
-        if (score == 5) {
-            studentDTO.setPrestige(studentDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_EQUAL_5);
-        } else if (score >= 3 && score < 5) {
-            studentDTO.setPrestige(studentDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_3_5);
-        } else if (score > 1 && score < 3) {
-            studentDTO.setPrestige(studentDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_1_3);
-        } else {
-            studentDTO.setPrestige(studentDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_LESS_1);
-        }
+        studentInfoBO.updatePrestigeAfterJudgeTeacher(studentDTO, score);
         studentInfoBO.updateStudent(studentDTO);
     }
 
@@ -143,15 +135,8 @@ public class PrestigeInfoBO {
         //被评价学生的DTO
         StudentDTO teacherDTO = studentInfoBO.getStudentDTO(evaluationTeacherDTO.getAcceptor_id());
         Double score = evaluationTeacherDTO.getScore();
-        if (score == 5) {
-            teacherDTO.setPrestige(teacherDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_EQUAL_5);
-        } else if (score >= 3 && score < 5) {
-            teacherDTO.setPrestige(teacherDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_3_5);
-        } else if (score > 1 && score < 3) {
-            teacherDTO.setPrestige(teacherDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_1_3);
-        } else {
-            teacherDTO.setPrestige(teacherDTO.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_LESS_1);
-        }
+        studentInfoBO.updatePrestigeAfterJudgeTeacher(teacherDTO, score);
+
         studentInfoBO.updateStudent(teacherDTO);
     }
 

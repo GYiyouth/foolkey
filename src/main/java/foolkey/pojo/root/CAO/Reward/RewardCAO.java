@@ -281,6 +281,9 @@ public class RewardCAO extends AbstractCAO {
         //获取到旧的悬赏-学生DTO，目的是获取到修改前的类别，进而判断有没有修改类别
         String oldRewardWithStudentSTCDTOStr = cache.getString(aimRewardKey);
         RewardWithStudentSTCDTO oldRewardWithStudentSTCDTO = JSON.parseObject(oldRewardWithStudentSTCDTOStr, RewardWithStudentSTCDTO.class);
+        if (oldRewardWithStudentSTCDTO == null){
+            return;
+        }
         TechnicTagEnum oldTechnicTagEnum = oldRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum();
         //修改缓存中悬赏-学生DTO
         cache.set(aimRewardKey, JSON.toJSONString(newRewardWithStudentSTCDTO));

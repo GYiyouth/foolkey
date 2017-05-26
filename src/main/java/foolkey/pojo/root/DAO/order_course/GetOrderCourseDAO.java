@@ -249,7 +249,8 @@ public class GetOrderCourseDAO extends GetBaseDAO<OrderBuyCourseDTO> {
         String hql = null;
         if(orderStateEnum.equals(OrderStateEnum.结束上课)){
             //拼接hql
-            hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ? where obc.id not in(select es.orderId from EvaluationStudentDTO es where es.creatorId = ?)";
+            hql = "from OrderBuyCourseDTO obc where obc.teacherId = ? and obc.orderStateEnum = ? " +
+                    " and obc.id not in(select es.orderId from EvaluationStudentDTO es where es.creatorId = ?)";
             return findByPage(hql, pageNo, PAGE_SIZE, teacherId, orderStateEnum, teacherId);
         }else {
             //拼接hql

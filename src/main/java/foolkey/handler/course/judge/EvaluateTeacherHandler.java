@@ -12,6 +12,7 @@ import foolkey.pojo.root.bo.teacher.CheckEvaluationForVerifyBO;
 import foolkey.pojo.root.bo.teacher.TeacherInfoBO;
 import foolkey.pojo.root.vo.assistObject.*;
 import foolkey.pojo.root.vo.dto.*;
+import foolkey.tool.StaticVariable;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,8 @@ public class EvaluateTeacherHandler extends AbstractBO{
         totalScore += score * teachHour;
         teacherDTO.setTeachingNumber( teacherDTO.getTeachingNumber() + teachHour );
         teacherDTO.setTeacherAverageScore( totalScore / teacherDTO.getTeachingNumber() );
+
+        studentInfoBO.updatePrestigeAfterJudgeTeacher(teacher, score + 0.0);
 
         //给老师发钱，注意一定要先发钱再保存
         giveMoneyToTeacherBO.giveMoneyToTeacher(teacher, orderDTO);
