@@ -25,7 +25,7 @@ public class MessageBO {
     ) throws Exception{
         String messagePayLoad = "messagePayLoad";
         String title = "有人申请了你的悬赏课程 ！";
-        String description = applicantDTO.getName() + "申请了你的悬赏【" +
+        String description = applicantDTO.getNickedName() + "申请了你的悬赏【" +
                 courseDTO.getTopic() + "】请，尽快查看吧~";
 
         return
@@ -52,7 +52,7 @@ public class MessageBO {
     ) throws Exception{
         String messagePayLoad = "messagePayLoad";
         String title = "有人购买了你的课程 ！";
-        String description = applicantDTO.getName() + "购买了你的课程【" +
+        String description = applicantDTO.getNickedName() + "购买了你的课程【" +
                 courseDTO.getTopic() + "】请，尽快查看吧~";
 
         return
@@ -100,7 +100,29 @@ public class MessageBO {
     )throws Exception{
         String messagePayLoad = "sendForPayReWard";
         String title = "有人同意了你的悬赏申请！";
-        String description = studentDTO.getName() + " 的 " + courseDTO.getTopic();
+        String description = studentDTO.getNickedName() + " 的 " + courseDTO.getTopic();
+        return
+                MessagePusher.sendToUserAccount(
+                        teacher.getId() + "", messagePayLoad, title, description
+                );
+    }
+
+    /**
+     * 发送给老师，申请悬赏未通过
+     * @param studentDTO
+     * @param teacher
+     * @param rewardDTO
+     * @return
+     * @throws Exception
+     */
+    public Result sendForPayRewardRefuse(
+            StudentDTO studentDTO, //学生悬赏的拥有者
+            StudentDTO teacher, //老师，收件人
+            RewardDTO rewardDTO //课程
+    )throws Exception{
+        String messagePayLoad = "sendForPayRewardRefuse";
+        String title = "有人拒绝了你的悬赏申请！";
+        String description = studentDTO.getNickedName() + " 的 " + rewardDTO.getTopic();
         return
                 MessagePusher.sendToUserAccount(
                         teacher.getId() + "", messagePayLoad, title, description
