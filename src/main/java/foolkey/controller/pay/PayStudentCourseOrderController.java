@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 //@Controller
 //@RequestMapping("/aes/payStudentCourseOrder")
+@Deprecated
 public class PayStudentCourseOrderController extends AbstractController {
 
     @Autowired

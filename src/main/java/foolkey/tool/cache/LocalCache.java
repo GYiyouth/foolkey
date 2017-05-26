@@ -3,6 +3,9 @@ package foolkey.tool.cache;
 import com.alibaba.fastjson.JSON;
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
+import foolkey.pojo.root.CAO.key.KeyCAO;
+import foolkey.pojo.root.CAO.userInfo.UserCAO;
+import foolkey.pojo.root.vo.assistObject.RSAKeyDTO;
 import foolkey.pojo.root.vo.assistObject.TechnicTagEnum;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Component;
@@ -24,7 +27,7 @@ public class LocalCache implements Cache{
     static {
         //管理中心，点击“NoSQL高速存储”，在NoSQL高速存储“管理视图”，可以看到系统分配的IP:Port
         //需要在内网IP上访问, 不需要账号密码
-        final String ip = "10.66.238.185";
+        final String ip = "10.66.137.15";
         final String port = "9101";
 
         String[] servers = {ip + ":" + port};
@@ -43,7 +46,10 @@ public class LocalCache implements Cache{
         pool.initialize();
 
         memcachedClient = new MemCachedClient();
+        memcachedClient.delete("key_YY_RsaKeyDTO");
+//        System.out.println( "刷新整个缓存能成功吗 ? \n" + memcachedClient.flushAll() );
 //        测试用，刷新整个缓存区
+
 
     }
 

@@ -10,6 +10,7 @@ import foolkey.pojo.root.bo.security.SHA1KeyBO;
 import foolkey.pojo.root.vo.assistObject.RoleEnum;
 import foolkey.pojo.root.vo.dto.StudentDTO;
 import foolkey.pojo.root.vo.dto.TeacherDTO;
+import foolkey.tool.StaticVariable;
 import foolkey.tool.TokenCreator;
 import foolkey.tool.UploadFileTencent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -176,5 +177,22 @@ public class StudentInfoBO {
         String cosPath = UploadFileTencent.getUserPhotoCosPath(userName);
         String localpath = UploadFileTencent.getDefaultPhotoCostPath( defaultPhotoNum );
         UploadFileTencent.upload(cosPath, localpath);
+    }
+
+    /**
+     * 被评价后，对声望进行更新
+     * @param teacher
+     * @param score
+     */
+    public void updatePrestigeAfterJudgeTeacher(StudentDTO teacher, Double score){
+        if (score == 5) {
+            teacher.setPrestige(teacher.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_EQUAL_5);
+        } else if (score >= 3 && score < 5) {
+            teacher.setPrestige(teacher.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_3_5);
+        } else if (score > 1 && score < 3) {
+            teacher.setPrestige(teacher.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_BETWEEN_1_3);
+        } else {
+            teacher.setPrestige(teacher.getPrestige() + StaticVariable.PRESTIGE_RAISE_SCORE_LESS_1);
+        }
     }
 }

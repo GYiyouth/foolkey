@@ -24,7 +24,7 @@ public class SearchRewardBO {
 
     public List<RewardWithStudentSTCDTO> searchRewardDTO(ArrayList<String> keyList, ArrayList<TechnicTagEnum> techList, int pageNo) throws Exception {
         List<RewardDTO> courseStudentDTOS = new ArrayList<>();
-        courseStudentDTOS = getCourseStudentDAO.findByPage("from foolkey.pojo.root.vo.dto.CourseStudentDTO course " +
+        courseStudentDTOS = getCourseStudentDAO.findByPage("from foolkey.pojo.root.vo.dto.RewardDTO course " +
                         " where course.topic like ? "
                 , pageNo, 10
                 , keyList.size() > 0? "%" + keyList.get(0) + "%" : "");

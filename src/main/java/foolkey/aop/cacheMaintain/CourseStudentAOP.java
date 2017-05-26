@@ -40,7 +40,7 @@ public class CourseStudentAOP {
             rewardCAO.updateRewardWithStudent(rewardDTO.getTechnicTagEnum(), rewardWithStudentSTCDTO);
         }
 
-        System.out.println("更新悬赏之后，完成对缓存的更新");
+        System.out.println(this.getClass() + "更新悬赏之后,完成对缓存的更新");
     }
 
     /**
@@ -58,7 +58,7 @@ public class CourseStudentAOP {
             rewardWithStudentSTCDTO.setStudentDTO(studentDTO);
             rewardCAO.addRewardWithStudentToCache(rewardDTO.getTechnicTagEnum(), rewardWithStudentSTCDTO, DirectionEnum.head);
         }
-        System.out.println("添加悬赏之后，完成对缓存的更新");
+        System.out.println(this.getClass() + "添加悬赏之后,完成对缓存的更新");
     }
 
 

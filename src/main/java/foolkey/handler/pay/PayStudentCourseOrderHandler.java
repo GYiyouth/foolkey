@@ -33,6 +33,7 @@ import java.util.Date;
  */
 @Service
 @Transactional
+@Deprecated
 public class PayStudentCourseOrderHandler extends AbstractBO {
 
     @Autowired

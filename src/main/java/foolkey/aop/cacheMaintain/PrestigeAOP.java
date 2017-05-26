@@ -64,11 +64,12 @@ public class PrestigeAOP {
 
     /**
      * 评价老师之后，完成对学生声望得更新
+     * 会导致hibernate异常，放在handler里了
      *
      * @param evaluationTeacherDTO
      */
-    @AfterReturning(returning = "evaluationTeacherDTO",
-            pointcut = "execution(* foolkey.pojo.root.DAO.evaluation_teacher.*.save(..))")
+//    @AfterReturning(returning = "evaluationTeacherDTO",
+//            pointcut = "execution(* foolkey.pojo.root.DAO.evaluation_teacher.*.save(..))")
     public void saveEvaluationTeacherDTO(EvaluationTeacherDTO evaluationTeacherDTO) throws Exception {
         if (evaluationTeacherDTO != null) {
             prestigeInfoBO.completeEvaluateTeacher(evaluationTeacherDTO);
