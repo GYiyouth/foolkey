@@ -33,7 +33,7 @@ public class ArticleDTO extends AbstractDTO {
 
     //最后操作时间
     @Column(name = "last_opera_time")
-    private Date lastOperaTime;
+    private Date lastOperateTime;
 
     //点赞数
     @Column(name = "likes")
@@ -54,7 +54,7 @@ public class ArticleDTO extends AbstractDTO {
                 ", topic='" + topic + '\'' +
                 ", content='" + content + '\'' +
                 ", teacherId=" + teacherId +
-                ", lastOperaTime=" + lastOperaTime +
+                ", lastOperaTime=" + lastOperateTime +
                 ", likes=" + likes +
                 ", collections=" + collections +
                 ", dislikes=" + dislikes +
@@ -93,12 +93,12 @@ public class ArticleDTO extends AbstractDTO {
         this.teacherId = techerId;
     }
 
-    public Date getLastOperaTime() {
-        return lastOperaTime;
+    public Date getLastOperateTime() {
+        return lastOperateTime;
     }
 
-    public void setLastOperaTime(Date lastOperaTime) {
-        this.lastOperaTime = lastOperaTime;
+    public void setLastOperateTime(Date lastOperaTime) {
+        this.lastOperateTime = lastOperaTime;
     }
 
     public Integer getLikes() {

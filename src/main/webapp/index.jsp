@@ -1,6 +1,11 @@
 <html>
+<head>
+
+</head>
 <body>
-<h2>Hello World!</h2>
+<script type="text/javascript">
+    window.location.href="helloWorld.html";
+</script>
 
 </body>
 </html>

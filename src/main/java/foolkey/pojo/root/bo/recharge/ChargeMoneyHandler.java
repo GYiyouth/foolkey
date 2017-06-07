@@ -39,6 +39,7 @@ public class ChargeMoneyHandler extends AbstractBO{
         studentInfoBO.updateStudent(studentDTO);
 
         jsonObject.put("result", "success");
+        jsonObject.put("virtualCurrency", studentDTO.getVirtualCurrency());
         jsonHandler.sendJSON(jsonObject, response);
 
         messageBO.sendForRecharge(studentDTO, amount);

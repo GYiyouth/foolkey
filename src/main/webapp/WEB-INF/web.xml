@@ -41,6 +41,7 @@
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
+
     <!--SpringMVC 注册的 Servlet-->
     <servlet>
         <servlet-name>SpringMVC</servlet-name>
@@ -56,6 +57,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
+        <welcome-file>helloWorld.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
