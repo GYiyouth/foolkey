@@ -310,8 +310,8 @@
               <version>2.2</version>
               <configuration>
 
-                  <!--<url>http://115.159.5.195:8080/manager/text</url>-->
-                  <url>http://123.207.189.171:8080/manager/text</url>
+                  <url>http://115.159.5.195:8080/manager/text</url>
+                  <!--<url>http://123.207.189.171:8080/manager/text</url>-->
                   <server>tomcat7</server>
                   <!--下面这俩是根据你的tomcat配置决定的,仅当你需要远程部署时使用-->
                   <username>admin</username>

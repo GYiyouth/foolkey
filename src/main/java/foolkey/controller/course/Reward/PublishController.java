@@ -26,8 +26,6 @@ public class PublishController extends AbstractController {
     @Resource(name = "courseStudentBO")
     private RewardBO courseStudentBO;
 
-    @Resource(name = "rewardDTO")
-    private RewardDTO courseStudentDTO;
 
     @Autowired
     private StudentInfoBO studentInfoBO;
@@ -68,6 +66,7 @@ public class PublishController extends AbstractController {
 
             // 创建一个curseStudentDTO(悬赏)，并赋值
             StudentDTO studentDTO = studentInfoBO.getStudentDTO(token);
+            RewardDTO courseStudentDTO = new RewardDTO();
             courseStudentDTO.setCreatorId(studentDTO.getId());
 
 //            courseStudentDTO.setCreatorId(20001L);
