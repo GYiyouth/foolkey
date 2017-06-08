@@ -18,7 +18,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_student")
 @Component
-public class StudentDTO  extends AbstractDTO {
+public class
+StudentDTO  extends AbstractDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

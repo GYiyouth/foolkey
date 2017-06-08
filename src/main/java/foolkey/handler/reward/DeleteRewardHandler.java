@@ -8,6 +8,7 @@ import foolkey.pojo.root.vo.dto.RewardDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by GR on 2017/5/25.
  */
 @Service
+@Transactional
 public class DeleteRewardHandler extends AbstractBO {
 
     @Autowired
