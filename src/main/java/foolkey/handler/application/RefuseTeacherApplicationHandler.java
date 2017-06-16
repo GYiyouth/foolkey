@@ -55,7 +55,7 @@ public class RefuseTeacherApplicationHandler extends AbstractBO{
         ApplicationStudentRewardDTO applicationStudentRewardDTO = applicationInfoBO.getRewardApplicationDTO(applicationId);
 
         //删除申请
-        applicationInfoBO.deleteRewardApplication( applicationId );
+        applicationInfoBO.deleteRewardApplication( applicationStudentRewardDTO );
         //返回消息
         jsonObject.put("result", "success");
         jsonHandler.sendJSON(jsonObject, response);

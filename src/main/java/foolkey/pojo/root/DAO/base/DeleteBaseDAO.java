@@ -27,8 +27,19 @@ public class DeleteBaseDAO<T> {
     }
 
 
+    /**
+     *
+     * @description  deleteById 这个方法容易出错
+     * @author       geyao
+     * @date         2017/6/16
+     *
+     * @param entityClazz
+     * @param id
+     */
+    @Deprecated
     public void deleteById(Class<T> entityClazz, Serializable id) {
         GetBaseDAO<T> getBaseDAO = BeanFactory.getBean("getBaseDAO", GetBaseDAO.class);
         delete(getBaseDAO.get(entityClazz, id));
     }
+
 }

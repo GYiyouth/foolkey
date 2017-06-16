@@ -38,7 +38,8 @@ public class AcceptTeacherCourseApplicationHandler extends AbstractBO {
     private ApplicationInfoBO applicationInfoBO;
 
 
-    public void execute(
+    public void
+    execute(
             HttpServletRequest request,
             HttpServletResponse response,
             JSONObject jsonObject

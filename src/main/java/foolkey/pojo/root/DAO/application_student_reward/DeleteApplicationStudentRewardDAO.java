@@ -56,4 +56,17 @@ public class DeleteApplicationStudentRewardDAO extends DeleteBaseDAO<Application
         hibernateTemplate.deleteAll( list );
     }
 
+    /**
+     *
+     * @description  删除一条老师对学生悬赏的申请
+     * @author       geyao
+     * @date         2017/6/16
+     *
+     * @param applicationStudentRewardDTO
+     */
+    public void deleteRewardApplication(ApplicationStudentRewardDTO applicationStudentRewardDTO){
+        if (applicationStudentRewardDTO != null)
+            hibernateTemplate.delete(applicationStudentRewardDTO);
+    }
+
 }

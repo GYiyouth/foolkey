@@ -126,11 +126,24 @@ public class ApplicationInfoBO {
 
     /**
      * 根据Id删除某条申请
-     *
+     * 这个不可用
      * @param applicationId
      */
+    @Deprecated
     public void deleteRewardApplication(Long applicationId) {
         deleteApplicationStudentRewardDAO.deleteById(ApplicationStudentRewardDTO.class, applicationId);
+    }
+
+    /**
+     *
+     * @description  deleteRewardApplication删除老师对于学生的悬赏的申请
+     * @author       geyao
+     * @date         2017/6/16
+     *
+     * @param applicationStudentRewardDTO
+     */
+    public void deleteRewardApplication(ApplicationStudentRewardDTO applicationStudentRewardDTO){
+        deleteApplicationStudentRewardDAO.deleteRewardApplication(applicationStudentRewardDTO);
     }
 
     /**
