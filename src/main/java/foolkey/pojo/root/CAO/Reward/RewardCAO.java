@@ -23,7 +23,7 @@ public class RewardCAO extends AbstractCAO {
     /**
      * c初始化，缓存中创建每个类别悬赏的空间
      */
-    public void initRewardCache(){
+    public void initRewardCache() {
         for (TechnicTagEnum technicTagEnum : TechnicTagEnum.values()) {
             List<String> list = new ArrayList<>();
             cache.set(getRewardSearchKeyOfTechnicTagEnum(technicTagEnum), JSON.toJSONString(list));
@@ -136,7 +136,7 @@ public class RewardCAO extends AbstractCAO {
             //缓存中没有这个类别的悬赏
             createRewardCache(technicTagEnum, rewardWithStudentSTCDTO);
         } else {
-            if(result.equals("")){
+            if (result.equals("")) {
                 result += "[]";
             }
             //缓存有了这个类别的悬赏
@@ -222,10 +222,12 @@ public class RewardCAO extends AbstractCAO {
         //缓存中有足够的结果
         if (isContainRewardWithStudentS(technicTagEnum, pageNo, pageSize)) {
             //根据悬赏类别搜索key，获取缓存中的对应值
-            String result = cache.getString( getRewardSearchKeyOfTechnicTagEnum(technicTagEnum));
+            String result = cache.getString(getRewardSearchKeyOfTechnicTagEnum(technicTagEnum));
             //去缓存中热门悬赏列表
             List<String> list = JSON.parseArray(result, String.class);
-            for (int i = 0; i < pageSize && i < list.size() ; i++) {
+            //查找的起始位置
+            int i = (pageNo - 1) * pageSize;
+            for (int j = 0; j < pageSize && i < list.size(); i++, j++) {
                 //首先根据悬赏列表的值，找到缓存中对应的value
                 String rewardWithStudentSTCDTOStr = cache.getString(list.get(i));
                 RewardWithStudentSTCDTO rewardWithStudentSTCDTO = JSON.parseObject(rewardWithStudentSTCDTOStr, RewardWithStudentSTCDTO.class);
@@ -273,6 +275,7 @@ public class RewardCAO extends AbstractCAO {
 
     /**
      * 更新缓存中的悬赏-学生DTO
+     *
      * @param newTechnicTagEnum          修改后的类别
      * @param newRewardWithStudentSTCDTO
      */
@@ -281,7 +284,7 @@ public class RewardCAO extends AbstractCAO {
         //获取到旧的悬赏-学生DTO，目的是获取到修改前的类别，进而判断有没有修改类别
         String oldRewardWithStudentSTCDTOStr = cache.getString(aimRewardKey);
         RewardWithStudentSTCDTO oldRewardWithStudentSTCDTO = JSON.parseObject(oldRewardWithStudentSTCDTOStr, RewardWithStudentSTCDTO.class);
-        if (oldRewardWithStudentSTCDTO == null){
+        if (oldRewardWithStudentSTCDTO == null) {
             return;
         }
         TechnicTagEnum oldTechnicTagEnum = oldRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum();
@@ -298,7 +301,7 @@ public class RewardCAO extends AbstractCAO {
             List<String> list = JSON.parseArray(resultStr, String.class);
             //删除对应节点
             list.remove(list.indexOf(getRewardKey(newRewardWithStudentSTCDTO.getRewardDTO().getId())));
-            cache.set(listKey,JSON.toJSONString(list));
+            cache.set(listKey, JSON.toJSONString(list));
             //2. 添加到新类别的悬赏队列中
             addRewardWithStudentToCache(newRewardWithStudentSTCDTO.getRewardDTO().getTechnicTagEnum(), newRewardWithStudentSTCDTO, DirectionEnum.head);
         }
@@ -306,6 +309,7 @@ public class RewardCAO extends AbstractCAO {
 
     /**
      * 删除悬赏-学生DTO
+     *
      * @param aimRewardWithStudentSTCDTO
      */
     public void deleteRewardWithStudent(RewardWithStudentSTCDTO aimRewardWithStudentSTCDTO) {
@@ -315,7 +319,7 @@ public class RewardCAO extends AbstractCAO {
         String listKey = getRewardSearchKeyOfTechnicTagEnum(technicTagEnum);
         String resultStr = cache.getString(listKey);
 
-        if(resultStr == null){
+        if (resultStr == null) {
             return;
         }
 
@@ -324,7 +328,7 @@ public class RewardCAO extends AbstractCAO {
         //热门悬赏队列删除这门悬赏
         list.remove(getRewardKey(aimRewardWithStudentSTCDTO.getRewardDTO().getId()));
         //更新缓存
-        cache.set(listKey,JSON.toJSONString(list));
+        cache.set(listKey, JSON.toJSONString(list));
 
         //缓存中删除这个热门
         cache.remove(getRewardKey(aimRewardWithStudentSTCDTO.getRewardDTO().getId()));

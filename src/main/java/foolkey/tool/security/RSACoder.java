@@ -1,23 +1,15 @@
 package foolkey.tool.security;
 
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import org.springframework.stereotype.Component;
+
+import javax.crypto.Cipher;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
-import javax.crypto.Cipher;
-import javax.crypto.interfaces.DHPrivateKey;
-import javax.crypto.interfaces.DHPublicKey;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.collections.map.HashedMap;
-import org.springframework.stereotype.Component;
 
 /**
  * 非对称加密算法RSA算法组件
